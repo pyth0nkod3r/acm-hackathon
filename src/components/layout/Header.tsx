@@ -45,9 +45,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
       role="banner"
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent',
+        'bg-white/90 backdrop-blur-md shadow-sm',
         className
       )}
       initial={{ y: -100 }}
@@ -87,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 className={cn(
                   'font-bold transition-colors duration-300',
                   isMobile ? 'text-base' : isTablet ? 'text-lg' : 'text-xl',
-                  isScrolled ? 'text-gray-900' : 'text-white',
+                  'text-gray-900',
                   isMobile ? 'hidden sm:inline' : ''
                 )}
               >
@@ -98,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 
           {/* Desktop Navigation */}
           <nav
-            className="hidden lg:flex items-center space-x-6 xl:space-x-8"
+            className="hidden lg:flex items-center space-x-3 xl:space-x-4"
             role="navigation"
             aria-label="Main navigation"
           >
@@ -112,15 +110,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 <Link
                   to={item.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-all duration-300',
+                    'relative px-2 py-2 text-sm font-medium transition-all duration-300',
                     'touch-manipulation rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
                     isActiveRoute(item.href)
-                      ? isScrolled
-                        ? 'text-blue-600'
-                        : 'text-blue-300'
-                      : isScrolled
-                        ? 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                        : 'text-white hover:text-blue-300 hover:bg-white/10'
+                      ? 'text-blue-600'
+                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                   )}
                   aria-current={isActiveRoute(item.href) ? 'page' : undefined}
                 >

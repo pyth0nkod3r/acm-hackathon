@@ -14,7 +14,6 @@ interface MobileNavigationProps {
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   navigationItems,
-  isScrolled,
   className,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -86,11 +85,9 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       <motion.button
         className={cn(
           'lg:hidden p-3 rounded-lg transition-all duration-300',
-          'touch-manipulation', // Optimize for touch
-          isTouchDevice ? 'min-h-[44px] min-w-[44px]' : '', // Minimum touch target size
-          isScrolled
-            ? 'text-gray-700 hover:text-blue-600 hover:bg-gray-100 active:bg-gray-200'
-            : 'text-white hover:text-blue-300 hover:bg-white/10 active:bg-white/20'
+          'touch-manipulation',
+          isTouchDevice ? 'min-h-[44px] min-w-[44px]' : '',
+          'text-gray-700 hover:text-blue-600 hover:bg-gray-100 active:bg-gray-200'
         )}
         onClick={toggleMobileMenu}
         whileTap={{ scale: 0.95 }}
