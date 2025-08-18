@@ -135,7 +135,7 @@ export const createTestRegistrationData = (overrides = {}) => ({
     'This is a test problem solving description that is long enough to pass validation.',
   technology: 'React, TypeScript, Node.js',
   alignment:
-    'This project aligns with AfCFTA goals by improving digital trade infrastructure.',
+    'This project aligns with ACM goals by improving digital trade infrastructure.',
   hasPrototype: false,
   challengeAreas: ['Digital Trade Infrastructure'],
   declarations: ['I agree to the terms and conditions'],

@@ -6,7 +6,7 @@ import type { AppConfig } from '../types/config';
 
 // Environment variables with fallbacks
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://api.afcfta-hackathon.com';
+  import.meta.env.VITE_API_BASE_URL || 'https://api.hackathon.africacreativemarket-global.com';
 const API_USERNAME = import.meta.env.VITE_API_USERNAME || '';
 const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || '';
 

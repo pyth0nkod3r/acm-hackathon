@@ -61,9 +61,11 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-blue-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">hackathon@afcfta.org</p>
                     <p className="text-gray-600">
-                      support@afcfta-hackathon.org
+                      hackathon@africacreativemarket-global.org
+                    </p>
+                    <p className="text-gray-600">
+                      support@africacreativemarket-global.org
                     </p>
                   </div>
                 </div>
@@ -72,7 +74,7 @@ const Contact = () => {
                   <Phone className="w-6 h-6 text-blue-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+233 XX XXX XXXX</p>
+                    <p className="text-gray-600">+234 903 265 70911</p>
                   </div>
                 </div>
 
@@ -81,9 +83,9 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900">Location</h3>
                     <p className="text-gray-600">
-                      AfCFTA Secretariat
+                      Lagos
                       <br />
-                      Accra, Ghana
+                      Nigeria
                     </p>
                   </div>
                 </div>

@@ -55,11 +55,11 @@ describe('Footer', () => {
   it('renders logo and company name', () => {
     renderWithRouter(<Footer />);
 
-    const logoLink = screen.getByLabelText('AfCFTA Hackathon - Go to homepage');
+    const logoLink = screen.getByLabelText('ACM Hackathon - Go to homepage');
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
 
-    const logoImage = screen.getByAltText('AfCFTA Logo');
+    const logoImage = screen.getByAltText('ACM Logo');
     expect(logoImage).toBeInTheDocument();
     expect(logoImage).toHaveAttribute(
       'src',

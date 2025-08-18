@@ -71,11 +71,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 'flex items-center space-x-2 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md',
                 isTouchDevice ? 'min-h-[44px]' : ''
               )}
-              aria-label="AfCFTA Hackathon - Go to homepage"
+              aria-label="ACM Hackathon - Go to homepage"
             >
               <img
                 src="/assets/img/logo/afcfta-logo.jpg"
-                alt="AfCFTA Logo"
+                alt="ACM Logo"
                 className={cn(
                   'object-contain transition-all duration-300',
                   isMobile ? 'h-8 w-8' : isTablet ? 'h-10 w-10' : 'h-12 w-12'
@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                   isMobile ? 'hidden sm:inline' : ''
                 )}
               >
-                {isMobile ? 'AfCFTA' : 'AfCFTA Hackathon'}
+                {isMobile ? 'ACM' : 'ACM Hackathon'}
               </span>
             </Link>
           </motion.div>

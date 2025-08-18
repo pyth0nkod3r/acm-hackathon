@@ -40,7 +40,7 @@ interface Category {
 }
 
 const Gallery = () => {
-  useDocumentTitle('Gallery - AfCFTA Digital Trade Protocol Hackathon');
+  useDocumentTitle('Gallery - ACM Hackathon');
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -55,7 +55,7 @@ const Gallery = () => {
       title: 'Opening Ceremony',
       category: 'event',
       description: 'Participants gathering for the hackathon opening ceremony',
-      photographer: 'AfCFTA Team',
+      photographer: 'ACM Team',
       date: '2024-03-15',
     },
     {
@@ -85,7 +85,7 @@ const Gallery = () => {
       title: 'Mentorship Session',
       category: 'mentorship',
       description: 'Industry experts providing guidance to hackathon teams',
-      photographer: 'AfCFTA Team',
+      photographer: 'ACM Team',
       date: '2024-03-16',
     },
     {
@@ -115,7 +115,7 @@ const Gallery = () => {
       title: 'Networking Break',
       category: 'networking',
       description: 'Participants networking and sharing ideas during breaks',
-      photographer: 'AfCFTA Team',
+      photographer: 'ACM Team',
       date: '2024-03-16',
     },
     {
@@ -145,7 +145,7 @@ const Gallery = () => {
       title: 'Demo Day',
       category: 'presentations',
       description: 'Final day demonstrations of all developed solutions',
-      photographer: 'AfCFTA Team',
+      photographer: 'ACM Team',
       date: '2024-03-17',
     },
     {
@@ -321,7 +321,7 @@ const Gallery = () => {
                 Capturing Innovation in Action
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Explore moments from the AfCFTA Digital Trade Protocol Hackathon
+                Explore moments from the ACM Hackathon
                 - from intense coding sessions to breakthrough presentations,
                 witness the journey of innovation that's shaping Africa's
                 digital trade future.
@@ -566,7 +566,7 @@ const Gallery = () => {
                 Be Part of the Next Chapter
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join us for the next AfCFTA Digital Trade Protocol Hackathon and
+                Join us for the next ACM Hackathon and
                 create your own innovation story.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

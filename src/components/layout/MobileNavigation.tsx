@@ -277,7 +277,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 <div className="p-6 border-t border-gray-200">
                   <div className="text-center">
                     <p className="text-sm text-gray-500 mb-2">
-                      AfCFTA Hackathon 2025
+                      ACM Hackathon 2025
                     </p>
                     <p className="text-xs text-gray-400">
                       May 01 - May 03, 2025

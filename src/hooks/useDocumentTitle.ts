@@ -15,7 +15,7 @@ export const useDocumentTitle = (customTitle?: string) => {
     if (route?.title) {
       document.title = route.title;
     } else {
-      document.title = 'AfCFTA Digital Trade Protocol Hackathon';
+      document.title = 'ACM Hackathon';
     }
   }, [location.pathname, customTitle]);
 };
@@ -28,7 +28,7 @@ export const useDocumentMeta = (description?: string, keywords?: string) => {
     const metaDescription =
       description ||
       route?.description ||
-      'AfCFTA Digital Trade Protocol Hackathon - Join the future of digital trade in Africa';
+      'ACM Hackathon - Join the future of creativity in Africa';
 
     // Update meta description
     let descriptionMeta = document.querySelector('meta[name="description"]');

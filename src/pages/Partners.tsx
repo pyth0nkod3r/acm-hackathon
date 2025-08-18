@@ -131,7 +131,7 @@ const Partners = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Meet Our Distinguished Panel of Mentors and Judges for the
-                AFCFTA Digital Trade Protocol Hackathon
+                ACM Hackathon
               </h2>
             </div>
           </motion.div>

@@ -8,7 +8,7 @@ import { Button } from '../ui';
 export const PartnersSection = () => {
   const partners = [
     {
-      name: 'AfCFTA',
+      name: 'ACM Global',
       logo: '/assets/img/logo/afcfta-logo.jpg',
       tier: 'Title Sponsor',
     },

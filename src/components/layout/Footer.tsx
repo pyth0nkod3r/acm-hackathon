@@ -57,10 +57,10 @@ const quickLinks = [
 ];
 
 const contactInfo: ContactInfo = {
-  email: 'info@afcfta-hackathon.org',
+  email: 'info@africacreativemarket-global.org',
   phone: '+234 123 456 7890',
-  address: 'AfCFTA Secretariat, Accra, Ghana',
-  website: 'www.afcfta-hackathon.org',
+  address: 'LAGOS, Nigeria',
+  website: 'www.africacreativemarket-global.org',
 };
 
 const getSocialIcon = (iconName: string) => {
@@ -121,11 +121,11 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                     'flex items-center space-x-3 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
-                  aria-label="AfCFTA Hackathon - Go to homepage"
+                  aria-label="ACM Hackathon - Go to homepage"
                 >
                   <img
                     src="/assets/img/logo/afcfta-logo.jpg"
-                    alt="AfCFTA Logo"
+                    alt="ACM Logo"
                     className={cn(
                       'object-contain',
                       isMobile ? 'h-10 w-10' : 'h-12 w-12'
@@ -137,13 +137,13 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                       isMobile ? 'text-lg' : 'text-xl'
                     )}
                   >
-                    {isMobile ? 'AfCFTA' : 'AfCFTA Hackathon'}
+                    {isMobile ? 'ACM' : 'ACM Hackathon'}
                   </span>
                 </Link>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                Join the AfCFTA Digital Trade Protocol Hackathon and help shape
-                the future of digital trade in Africa. Compete for amazing
+                Join the ACM Hackathon and help shape
+                the future of creative content in Africa. Compete for amazing
                 prizes and connect with innovators across the continent.
               </p>
 
@@ -252,8 +252,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   isMobile ? 'text-sm' : 'text-sm'
                 )}
               >
-                Subscribe to receive updates about the AfCFTA Digital Trade
-                Protocol Hackathon and future innovation initiatives.
+                Subscribe to receive updates about the ACM Hackathon and future innovation initiatives.
               </p>
 
               <form
@@ -278,8 +277,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   )}
                 />
                 <div id="newsletter-description" className="sr-only">
-                  Subscribe to receive updates about the AfCFTA Digital Trade
-                  Protocol Hackathon
+                  Subscribe to receive updates about the ACM Hackathon
                 </div>
                 <motion.button
                   type="submit"
@@ -366,7 +364,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               )}
             >
               <p>
-                Copyright © {currentYear} AfCFTA Digital Trade Protocol
+                Copyright © {currentYear} Africa Creative Market
                 Hackathon. All rights reserved.
               </p>
             </div>

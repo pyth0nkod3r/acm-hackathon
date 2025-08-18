@@ -55,7 +55,7 @@ interface Highlight {
 }
 
 const Highlights = () => {
-  useDocumentTitle('Highlights - AfCFTA Digital Trade Protocol Hackathon');
+  useDocumentTitle('Highlights - ACM Hackathon');
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
@@ -68,7 +68,7 @@ const Highlights = () => {
       company: 'TradeFlow Solutions',
       image: '/assets/img/testimonials/participant-1.jpg',
       quote:
-        'The AfCFTA Hackathon was a transformative experience. The mentorship and resources provided helped us develop a solution that is now being piloted across three African countries.',
+        'The ACM Hackathon was a transformative experience. The mentorship and resources provided helped us develop a solution that is now being piloted across three African countries.',
       rating: 5,
     },
     {
@@ -247,9 +247,9 @@ const Highlights = () => {
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Discover the remarkable achievements, breakthrough solutions,
-                and inspiring stories from the AfCFTA Digital Trade Protocol
+                and inspiring stories from the ACM creative
                 Hackathon. Witness how innovation is transforming Africa's
-                digital trade landscape.
+                digital creative landscape.
               </p>
             </div>
           </ScrollAnimation>
@@ -519,11 +519,11 @@ const Highlights = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        Drive Innovation for AfCFTA Implementation
+                        Drive Innovation for ACM Implementation
                       </h3>
                       <p className="text-gray-600">
                         Successfully developed 15+ innovative solutions directly
-                        addressing AfCFTA digital trade protocol challenges.
+                        addressing ACM creative challenges.
                       </p>
                     </div>
                   </div>
@@ -611,7 +611,7 @@ const Highlights = () => {
                 Ready to Create Your Own Success Story?
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join the next AfCFTA Digital Trade Protocol Hackathon and be
+                Join the next ACM Hackathon and be
                 part of Africa's digital trade transformation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
