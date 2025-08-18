@@ -17,3 +17,5 @@ API_INTEGRATION_SUMMARY.md
 *.md
 **.md
 *.mjs
+.kiro/
+.kiro/*
