@@ -28,12 +28,14 @@ export const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 overflow-hidden">
+    <section
+      className={cn(
+        'relative min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 overflow-hidden',
+        isMobile ? '-mt-14' : isTablet ? '-mt-16' : '-mt-20' // ADDED
+      )}
+    >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 to-pink-800/20"></div>
-        <div className="absolute inset-0 bg-dot-pattern"></div>
-      </div>
+      <div className="absolute inset-0 opacity-20"></div>
 
       <Container
         className={cn(
@@ -225,12 +227,20 @@ export const HeroSection = () => {
             {/* Floating Elements */}
             <motion.div
               animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
               className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400/20 rounded-full blur-xl"
             />
             <motion.div
               animate={{ y: [10, -10, 10] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
               className="absolute -bottom-4 -left-4 w-20 h-20 bg-pink-400/20 rounded-full blur-xl"
             />
           </motion.div>
