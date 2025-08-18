@@ -40,7 +40,7 @@ export const PartnersSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-blue-600">
+    <section className="py-20  bg-gray-900 text-white">
       <Container>
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <ScrollAnimation animation="slideLeft">
