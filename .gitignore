@@ -219,3 +219,5 @@ docs/generated/
 CHANGELOG.auto.md
 *.md
 *.mjs
+.kiro/
+.kiro/*
