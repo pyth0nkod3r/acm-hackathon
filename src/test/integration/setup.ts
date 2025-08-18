@@ -2,8 +2,8 @@
  * Integration test setup utilities
  */
 
-import React, { ReactElement } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import React, { type ReactElement } from 'react';
+import { render, type RenderOptions } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationProvider } from '../../contexts';
 import { vi } from 'vitest';
