@@ -220,5 +220,5 @@ CHANGELOG.auto.md
 *.md
 *.mjs
 .kiro
-.kiro/**
 .kiro/*
+./src/test/*.md
