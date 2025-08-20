@@ -5,6 +5,7 @@ import { NotificationProvider } from './contexts';
 import { Toaster } from './components/ui/sonner';
 import { useImagePreloading } from './hooks/useImagePreloading';
 import { ErrorBoundary, SkipLinks } from './components/common';
+import { Analytics } from '@vercel/analytics/react';
 
 function AppContent() {
   // Initialize image preloading
@@ -40,19 +41,22 @@ function AppContent() {
 
 function App() {
   return (
-    <ErrorBoundary
-      onError={(error, errorInfo, errorId) => {
-        // Global error handling - could send to analytics, etc.
-        console.error('Global error caught:', { error, errorInfo, errorId });
-      }}
-    >
-      <NotificationProvider>
-        <Router>
-          <AppContent />
-          <Toaster />
-        </Router>
-      </NotificationProvider>
-    </ErrorBoundary>
+    <div>
+      <ErrorBoundary
+        onError={(error, errorInfo, errorId) => {
+          // Global error handling - could send to analytics, etc.
+          console.error('Global error caught:', { error, errorInfo, errorId });
+        }}
+      >
+        <NotificationProvider>
+          <Router>
+            <AppContent />
+            <Toaster />
+          </Router>
+        </NotificationProvider>
+      </ErrorBoundary>
+      <Analytics />
+    </div>
   );
 }
 
