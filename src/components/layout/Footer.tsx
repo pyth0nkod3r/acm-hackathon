@@ -14,6 +14,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
 import { cn } from '../../lib/utils';
+import Logo from "@/assets/img/logo/logo.png"
 
 interface FooterProps {
   className?: string;
@@ -124,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   aria-label="ACM Hackathon - Go to homepage"
                 >
                   <img
-                    src="/assets/img/logo/afcfta-logo.jpg"
+                    src={Logo}
                     alt="ACM Logo"
                     className={cn(
                       'object-contain',

@@ -26,24 +26,27 @@ export const AboutSection = () => {
 
         <ScrollAnimation animation="fadeIn" delay={0.2}>
           <div className="relative max-w-4xl mx-auto">
-            {/* Video/Image Placeholder */}
+            {/* YouTube Video iframe */}
             <div className="relative bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="aspect-video flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                  </div>
-                  <p className="text-lg font-medium">Watch Our Vision</p>
-                  <p className="text-sm text-white/80">
-                    Learn about the future of Africa's creative economy
-                  </p>
-                </div>
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/WkrOTKTGEEI?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=0&mute=1&enablejsapi=1&origin=https://www.youtube.com"
+                  title="Africa's Creative Economy Vision"
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  onLoad={e => {
+                    // Prevent thumbnail preloading by setting a custom poster
+                    const iframe = e.target as HTMLIFrameElement;
+                    if (iframe.contentWindow) {
+                      iframe.contentWindow.postMessage(
+                        '{"event":"command","func":"pauseVideo","args":""}',
+                        '*'
+                      );
+                    }
+                  }}
+                />
               </div>
 
               {/* Decorative Elements */}

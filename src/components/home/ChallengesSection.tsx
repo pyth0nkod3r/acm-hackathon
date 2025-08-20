@@ -35,24 +35,26 @@ export const ChallengesSection = () => {
         <div className="relative mb-16">
           <div className="overflow-hidden">
             <motion.div
-              animate={{ x: [0, -100 * challenges.length] }}
+              animate={{ x: [0, -50] }}
               transition={{
-                duration: 20,
+                duration: 8,
                 repeat: Infinity,
                 ease: 'linear',
               }}
               className="flex gap-8 whitespace-nowrap"
-              style={{ width: `${200 * challenges.length}%` }}
+              style={{ width: 'max-content' }}
             >
-              {[...challenges, ...challenges].map((challenge, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-4 min-w-max"
-                >
-                  <span className="text-lg font-semibold">{challenge}</span>
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                </div>
-              ))}
+              {[...challenges, ...challenges, ...challenges].map(
+                (challenge, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-4 min-w-max"
+                  >
+                    <span className="text-lg font-semibold">{challenge}</span>
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  </div>
+                )
+              )}
             </motion.div>
           </div>
         </div>
