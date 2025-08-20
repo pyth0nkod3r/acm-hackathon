@@ -4,37 +4,44 @@ import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
+import acmlogo from '../../assets/img/logo/logo.png';
+import nitdaLogo from '../../assets/img/brands/nitda2.jpeg';
+import awsLogo from '../../assets/img/brands/aws.png';
+import africanUnionLogo from '../../assets/img/brands/African union.png';
+import cherithCodeLogo from '../../assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png';
+import ascendLogo from '../../assets/img/brands/03.png';
+
 
 export const PartnersSection = () => {
   const partners = [
     {
       name: 'ACM Global',
-      logo: '/assets/img/logo/afcfta-logo.jpg',
-      tier: 'Title Sponsor',
+      logo: acmlogo,
+      tier: 'Sponsor',
     },
     {
       name: 'NITDA',
-      logo: '/assets/img/brands/nitda2.jpeg',
-      tier: 'Government Partner',
+      logo: nitdaLogo,
+      tier: 'Partner',
     },
     {
       name: 'AWS',
-      logo: '/assets/img/brands/aws.png',
+      logo: awsLogo,
       tier: 'Technology Partner',
     },
     {
       name: 'African Union',
-      logo: '/assets/img/brands/African union.png',
+      logo: africanUnionLogo,
       tier: 'Strategic Partner',
     },
     {
       name: 'Cherith-Code Concept Ltd',
-      logo: '/assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png',
+      logo: cherithCodeLogo,
       tier: 'Implementation Partner',
     },
     {
       name: 'Ascend Studio',
-      logo: '/assets/img/brands/03.png',
+      logo: ascendLogo,
       tier: 'Media Partner',
     },
   ];
@@ -88,12 +95,11 @@ export const PartnersSection = () => {
                 className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group"
               >
                 <div className="aspect-square flex items-center justify-center mb-4">
-                  {/* Placeholder for partner logo */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-                    <span className="text-blue-600 font-bold text-xs text-center">
-                      {partner.name}
-                    </span>
-                  </div>
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    className="w-20 h-20 object-contain rounded-lg"
+                  />
                 </div>
                 <div className="text-center">
                   <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors">

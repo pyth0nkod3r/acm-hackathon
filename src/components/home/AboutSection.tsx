@@ -29,7 +29,12 @@ export const AboutSection = () => {
             {/* Video/Image Placeholder */}
             <div className="relative bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl overflow-hidden shadow-2xl">
               <div className="aspect-video flex items-center justify-center">
-                <div className="text-center text-white">
+                <a
+                  href="https://www.youtube.com/watch?v=WkrOTKTGEEI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer"
+                >
                   <div className="w-20 h-20 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
                     <svg
                       className="w-8 h-8"
@@ -43,7 +48,7 @@ export const AboutSection = () => {
                   <p className="text-sm text-white/80">
                     Learn about the future of Africa's creative economy
                   </p>
-                </div>
+                </a>
               </div>
 
               {/* Decorative Elements */}

@@ -7,6 +7,7 @@ import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { MobileNavigation } from './MobileNavigation';
 import type { NavigationItem } from '../../types/navigation';
 import { cn } from '../../lib/utils';
+import logo from '@/assets/img/logo/logo.png';
 
 interface HeaderProps {
   className?: string;
@@ -74,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
               aria-label="ACM Hackathon - Go to homepage"
             >
               <img
-                src="/assets/img/logo/afcfta-logo.jpg"
+                src={logo}
                 alt="ACM Logo"
                 className={cn(
                   'object-contain transition-all duration-300',
