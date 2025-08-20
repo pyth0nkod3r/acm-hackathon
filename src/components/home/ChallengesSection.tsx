@@ -35,14 +35,18 @@ export const ChallengesSection = () => {
         <div className="relative mb-16">
           <div className="overflow-hidden">
             <motion.div
-              animate={{ x: [0, -50] }}
+              animate={{ x: [0, -1000] }}
               transition={{
-                duration: 8,
+                duration: 20,
                 repeat: Infinity,
                 ease: 'linear',
+                repeatDelay: 0,
               }}
               className="flex gap-8 whitespace-nowrap"
-              style={{ width: 'max-content' }}
+              style={{
+                width: 'max-content',
+                minWidth: '100%',
+              }}
             >
               {[...challenges, ...challenges, ...challenges].map(
                 (challenge, index) => (
@@ -89,7 +93,6 @@ export const ChallengesSection = () => {
             </ScrollAnimation>
           ))}
         </div>
-
         <ScrollAnimation animation="fadeIn">
           <div className="text-center">
             <Button
