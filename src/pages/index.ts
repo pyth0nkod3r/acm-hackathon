@@ -8,5 +8,6 @@ export { default as Awards } from './Awards';
 export { default as Gallery } from './Gallery';
 export { default as Highlights } from './Highlights';
 export { default as Partners } from './Partners';
+export { default as PartnerRegistration } from './PartnerRegistration';
 export { default as NotFound } from './NotFound';
 export { default as ScrollAnimationsExample } from './ScrollAnimationsExample';

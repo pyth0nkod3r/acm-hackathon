@@ -72,7 +72,7 @@ export const PartnersSection = () => {
                 size="lg"
                 className="border-white text-white hover:bg-white hover:text-blue-600"
               >
-                <Link to="/contact">
+                <Link to="/partner-registration">
                   Become a Partner
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

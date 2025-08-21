@@ -239,7 +239,7 @@ describe('Header', () => {
       { text: 'Awards & Judging', href: '/awards' },
       { text: 'Gallery', href: '/gallery' },
       { text: 'Highlights', href: '/highlights' },
-      { text: 'Mentors & Judges', href: '/partners' },
+      { text: 'Mentors & Judges', href: '/judges' },
       { text: 'Application', href: '/application' },
       { text: 'Contact', href: '/contact' },
     ];

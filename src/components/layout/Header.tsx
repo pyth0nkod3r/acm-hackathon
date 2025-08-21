@@ -22,7 +22,7 @@ const navigationItems: NavigationItem[] = [
   { label: 'Awards & Judging', href: '/awards', isActive: false },
   { label: 'Gallery', href: '/gallery', isActive: false },
   { label: 'Highlights', href: '/highlights', isActive: false },
-  { label: 'Mentors & Judges', href: '/partners', isActive: false },
+  { label: 'Mentors & Judges', href: '/judges', isActive: false },
   { label: 'Application', href: '/application', isActive: false },
   { label: 'Contact', href: '/contact', isActive: false },
 ];
