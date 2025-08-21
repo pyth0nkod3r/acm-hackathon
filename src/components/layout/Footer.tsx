@@ -85,16 +85,11 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
     <footer
       id="footer"
       role="contentinfo"
-      className={cn('bg-gray-900 text-white', className)}
+      className={cn('bg-[#1a1a1a] text-white', className)}
     >
       {/* Main Footer Content */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
-        <div
-          className={cn(
-            'container mx-auto px-4 sm:px-6 lg:px-8',
-            isMobile ? 'py-12' : isTablet ? 'py-14' : 'py-16'
-          )}
-        >
+      <div className="pt-16 pb-8">
+        <div className="max-w-[1280px] mx-auto px-8">
           <div
             className={cn(
               'grid gap-8',
@@ -119,7 +114,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 <Link
                   to="/"
                   className={cn(
-                    'flex items-center space-x-3 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md',
+                    'flex items-center space-x-3 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded-md',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                   aria-label="ACM Hackathon - Go to homepage"
@@ -151,11 +146,11 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
-                      'hover:text-blue-400 transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                      'hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                       isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                     )}
                     aria-label={`Send email to ${contactInfo.email}`}
@@ -164,11 +159,11 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(
-                      'hover:text-blue-400 transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                      'hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                       isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                     )}
                     aria-label={`Call ${contactInfo.phone}`}
@@ -177,7 +172,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   </a>
                 </div>
                 <div className="flex items-start space-x-3 text-sm text-gray-300">
-                  <MapPin className="h-4 w-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 text-[#c2d72f] mt-0.5 flex-shrink-0" />
                   <span className="break-words">{contactInfo.address}</span>
                 </div>
               </div>
@@ -217,7 +212,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                       <Link
                         to={link.href}
                         className={cn(
-                          'text-gray-300 hover:text-blue-400 transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                          'text-gray-300 hover:text-[#c2d72f] transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                           isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                         )}
                       >
@@ -271,8 +266,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   aria-required="true"
                   aria-describedby="newsletter-description"
                   className={cn(
-                    'px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400',
-                    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300',
+                    'px-4 py-2 bg-[#2a2a2a] text-gray-200 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:border-transparent transition-all duration-300',
                     'touch-manipulation',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
@@ -283,8 +277,8 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 <motion.button
                   type="submit"
                   className={cn(
-                    'px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300',
-                    'touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+                    'px-6 py-2 bg-[#c2d72f] hover:bg-[#c2d72f]/60 text-black font-medium rounded-md transition-colors duration-300',
+                    'touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                   whileHover={!isTouchDevice ? { scale: 1.05 } : {}}
@@ -319,7 +313,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                         href={social.url}
                         aria-label={social.label}
                         className={cn(
-                          'bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-300 touch-manipulation',
+                          'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                           isMobile ? 'w-12 h-12' : 'w-10 h-10',
                           isTouchDevice ? 'min-h-[44px] min-w-[44px]' : ''
                         )}
@@ -349,7 +343,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-8">
           <div
             className={cn(
               'flex justify-between items-center',
@@ -378,7 +372,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               <Link
                 to="/privacy"
                 className={cn(
-                  'text-gray-400 hover:text-blue-400 transition-colors duration-300 touch-manipulation',
+                  'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                 )}
               >
@@ -387,7 +381,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               <Link
                 to="/terms"
                 className={cn(
-                  'text-gray-400 hover:text-blue-400 transition-colors duration-300 touch-manipulation',
+                  'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                 )}
               >

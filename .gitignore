@@ -222,3 +222,5 @@ CHANGELOG.auto.md
 .kiro
 .kiro/*
 ./src/test/*.md
+parent_website/
+parent_website/*

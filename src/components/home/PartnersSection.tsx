@@ -11,7 +11,6 @@ import africanUnionLogo from '../../assets/img/brands/African union.png';
 import cherithCodeLogo from '../../assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png';
 import ascendLogo from '../../assets/img/brands/03.png';
 
-
 export const PartnersSection = () => {
   const partners = [
     {
@@ -35,7 +34,7 @@ export const PartnersSection = () => {
       tier: 'Strategic Partner',
     },
     {
-      name: 'Cherith-Code Concept Ltd',
+      name: 'Cherith-Code',
       logo: cherithCodeLogo,
       tier: 'Implementation Partner',
     },
@@ -105,7 +104,9 @@ export const PartnersSection = () => {
                   <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors">
                     {partner.name}
                   </h3>
-                  <p className="text-xs text-gray-500">{partner.tier}</p>
+                  <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
+                    {partner.tier}
+                  </p>
                 </div>
               </motion.div>
             </ScrollAnimation>

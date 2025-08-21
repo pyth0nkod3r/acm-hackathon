@@ -53,7 +53,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     >
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-blue-100 rounded-full p-2">
-          <Mail className="w-5 h-5 text-blue-600" />
+          <Mail className="w-5 h-5 text-[#c2d72f]" />
         </div>
         <h2
           className={cn(
