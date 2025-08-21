@@ -44,22 +44,14 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
     <motion.header
       id="navigation"
       role="banner"
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        'bg-white/90 backdrop-blur-md shadow-sm',
-        className
-      )}
+      className={cn('sticky top-0 z-50 flex bg-black', className)}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className={cn(
-            'flex items-center justify-between transition-all duration-300',
-            isMobile ? 'h-14' : isTablet ? 'h-16' : 'h-20'
-          )}
-        >
+      <div className="max-w-7xl flex h-full mx-auto w-full items-center py-4 px-6 md:py-6 md:px-10">
+        {/* Desktop Navigation */}
+        <div className="hidden w-full items-center justify-between md:flex">
           {/* Logo */}
           <motion.div
             className="flex-shrink-0"
@@ -69,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
             <Link
               to="/"
               className={cn(
-                'flex items-center space-x-2 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md',
+                'flex items-center space-x-2 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded-md',
                 isTouchDevice ? 'min-h-[44px]' : ''
               )}
               aria-label="ACM Hackathon - Go to homepage"
@@ -84,10 +76,8 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
               />
               <span
                 className={cn(
-                  'font-bold transition-colors duration-300',
-                  isMobile ? 'text-base' : isTablet ? 'text-lg' : 'text-xl',
-                  'text-gray-900',
-                  isMobile ? 'hidden sm:inline' : ''
+                  'font-bold transition-colors duration-300 text-white',
+                  isMobile ? 'text-base' : isTablet ? 'text-lg' : 'text-xl'
                 )}
               >
                 {isMobile ? 'ACM' : 'ACM Hackathon'}
@@ -97,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 
           {/* Desktop Navigation */}
           <nav
-            className="hidden lg:flex items-center space-x-3 xl:space-x-4"
+            className="flex items-center gap-4 lg:gap-6"
             role="navigation"
             aria-label="Main navigation"
           >
@@ -111,30 +101,40 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 <Link
                   to={item.href}
                   className={cn(
-                    'relative px-2 py-2 text-sm font-medium transition-all duration-300',
-                    'touch-manipulation rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+                    'text-white text-sm relative transition-colors duration-200',
+                    'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5',
+                    'after:bg-[#c2d72f] after:scale-x-0 after:origin-left',
+                    'after:transition-transform after:duration-300',
+                    'hover:text-purple-200 hover:after:scale-x-100',
                     isActiveRoute(item.href)
-                      ? 'text-blue-600'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                      ? 'text-[#c2d72f] font-semibold after:scale-x-100'
+                      : ''
                   )}
                   aria-current={isActiveRoute(item.href) ? 'page' : undefined}
                 >
                   {item.label}
-                  {isActiveRoute(item.href) && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
-                      layoutId="activeIndicator"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
                 </Link>
               </motion.div>
             ))}
           </nav>
+        </div>
 
-          {/* Mobile Navigation */}
+        {/* Mobile Navigation */}
+        <div className="md:hidden flex justify-between w-full z-50">
+          <Link to="/" className="flex items-center space-x-2">
+            <img
+              src={logo}
+              alt="ACM Logo"
+              className={cn(
+                'object-contain',
+                isMobile ? 'h-8 w-8' : 'h-10 w-10'
+              )}
+            />
+            <span className="text-white font-bold">
+              {isMobile ? 'ACM' : 'ACM Hackathon'}
+            </span>
+          </Link>
+
           <MobileNavigation
             navigationItems={navigationItems}
             isScrolled={isScrolled}

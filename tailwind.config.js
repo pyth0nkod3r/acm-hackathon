@@ -57,6 +57,16 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Parent website color scheme
+        acm: {
+          primary: '#c2d72f', // Lime green accent
+          dark: '#1a1a1a', // Footer background
+          'dark-secondary': '#2a2a2a', // Input background
+          'dull-lime': '#a8b82a', // Duller version of lime green
+          'dull-blue': '#4a5f8a', // Duller version of blue
+          'dull-lime-light': '#d4e05a', // Lighter dull lime
+          'dull-blue-light': '#6b7ba3', // Lighter dull blue
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

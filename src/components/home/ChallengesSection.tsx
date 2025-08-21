@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
@@ -6,6 +7,8 @@ import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
 
 export const ChallengesSection = () => {
+  const controls = useAnimation();
+
   const challenges = [
     'FilmTech',
     'MusicTech',
@@ -15,6 +18,22 @@ export const ChallengesSection = () => {
     'Cultural Heritage & Tourism',
     'Creative AI Applications',
   ];
+
+  useEffect(() => {
+    const startAnimation = async () => {
+      await controls.start({
+        x: -3000,
+        transition: {
+          duration: 120,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatDelay: 0,
+        },
+      });
+    };
+
+    startAnimation();
+  }, [controls]);
 
   return (
     <section className="py-20 bg-gray-900 text-white overflow-hidden">
@@ -35,13 +54,8 @@ export const ChallengesSection = () => {
         <div className="relative mb-16">
           <div className="overflow-hidden">
             <motion.div
-              animate={{ x: [0, -1000] }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: 'linear',
-                repeatDelay: 0,
-              }}
+              initial={{ x: 0 }}
+              animate={controls}
               className="flex gap-8 whitespace-nowrap"
               style={{
                 width: 'max-content',
@@ -52,7 +66,7 @@ export const ChallengesSection = () => {
                 (challenge, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-4 min-w-max"
+                    className="flex items-center gap-4 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a] rounded-full px-8 py-4 min-w-max"
                   >
                     <span className="text-lg font-semibold">{challenge}</span>
                     <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -76,7 +90,7 @@ export const ChallengesSection = () => {
                 className="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 border border-gray-600 hover:border-purple-500 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#a8b82a] to-[#4a5f8a] rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold text-lg">
                       {index + 1}
                     </span>
@@ -98,7 +112,7 @@ export const ChallengesSection = () => {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              className="bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a] hover:from-[#d4e05a] hover:to-[#6b7ba3]"
             >
               <Link to="/challenges">
                 Explore All Categories

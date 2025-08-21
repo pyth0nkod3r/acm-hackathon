@@ -43,7 +43,7 @@ export const PrizeSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-purple-50">
+    <section className="py-20 bg-gradient-to-b from-white to-[#d4e05a]/20">
       <Container>
         <ScrollAnimation animation="fadeIn">
           <div className="text-center mb-16">
@@ -53,7 +53,7 @@ export const PrizeSection = () => {
             <p className="text-xl text-gray-600 mb-4">
               Compete for over ₦10 Million in prizes and valuable opportunities
             </p>
-            <div className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+            <div className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
               ₦10,000,000+
             </div>
           </div>
@@ -69,7 +69,7 @@ export const PrizeSection = () => {
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -10 }}
-                className={`${prize.bgColor} rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-purple-200`}
+                className={`${prize.bgColor} rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#a8b82a]]/30`}
               >
                 <div
                   className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${prize.color} rounded-full flex items-center justify-center shadow-lg`}
@@ -103,9 +103,9 @@ export const PrizeSection = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg"
+                  className="flex items-center gap-3 p-4 bg-gradient-to-r from-[#6b7ba3]/30 to-[#6b7ba3]/30 rounded-lg"
                 >
-                  <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#a8b82a] to-[#4a5f8a] rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-bold text-sm">
                       {index + 1}
                     </span>
@@ -148,7 +148,7 @@ export const PrizeSection = () => {
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#a8b82a] to-[#4a5f8a] rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-xl">
                       {index + 1}
                     </span>
@@ -168,7 +168,7 @@ export const PrizeSection = () => {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              className="bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a] hover:from-[#d4e05a] hover:to-[#6b7ba3]"
             >
               <Link to="/awards-judging">
                 View Judging Criteria

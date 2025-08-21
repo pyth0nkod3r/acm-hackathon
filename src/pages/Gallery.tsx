@@ -321,10 +321,9 @@ const Gallery = () => {
                 Capturing Innovation in Action
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Explore moments from the ACM Hackathon
-                - from intense coding sessions to breakthrough presentations,
-                witness the journey of innovation that's shaping Africa's
-                digital trade future.
+                Explore moments from the ACM Hackathon - from intense coding
+                sessions to breakthrough presentations, witness the journey of
+                innovation that's shaping Africa's digital trade future.
               </p>
             </div>
           </ScrollAnimation>
@@ -347,7 +346,7 @@ const Gallery = () => {
                   size="sm"
                   className={`${
                     selectedCategory === category.id
-                      ? 'bg-blue-600 text-white border-blue-600'
+                      ? 'bg-[#c2d72f] text-white border-blue-600'
                       : 'border-gray-300 text-gray-700 hover:border-gray-400'
                   }`}
                 >
@@ -566,8 +565,8 @@ const Gallery = () => {
                 Be Part of the Next Chapter
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join us for the next ACM Hackathon and
-                create your own innovation story.
+                Join us for the next ACM Hackathon and create your own
+                innovation story.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

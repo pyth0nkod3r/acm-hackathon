@@ -29,10 +29,9 @@ const Home = () => {
       <PrizeSection />
       {/* Partners Section */}
       <PartnersSection />
-
       {/* Call to Action Section */}
       <ScrollAnimation animation="fadeIn">
-        <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
+        <section className="py-20 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
           <Container>
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -46,7 +45,7 @@ const Home = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-white text-purple-600 hover:bg-gray-100"
+                  className="bg-white text-[#4a5f8a] hover:bg-gray-100"
                 >
                   <Link to="/application">
                     Apply Now
@@ -57,7 +56,7 @@ const Home = () => {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-purple-600"
+                  className="border-white text-white hover:bg-white hover:text-acm-dull-blue"
                 >
                   <Link to="/about">
                     Learn More
