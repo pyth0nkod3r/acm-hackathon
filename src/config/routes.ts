@@ -12,6 +12,7 @@ const Awards = lazy(() => import('../pages/Awards'));
 const Gallery = lazy(() => import('../pages/Gallery'));
 const Highlights = lazy(() => import('../pages/Highlights'));
 const Partners = lazy(() => import('../pages/Partners'));
+const PartnerRegistration = lazy(() => import('../pages/PartnerRegistration'));
 
 export const routes: RouteConfig[] = [
   {
@@ -88,6 +89,13 @@ export const routes: RouteConfig[] = [
     title: 'Mentors & Judges -  ACM Hackathon',
     description:
       'Meet our distinguished panel of mentors and judges for the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/partner-registration',
+    component: PartnerRegistration,
+    title: 'Partner Registration - ACM Hackathon',
+    description: 'Register to become a partner for the ACM Hackathon 2025',
     isProtected: false,
   },
 ];

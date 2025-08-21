@@ -16,7 +16,7 @@ export function RouteLoading() {
         '/awards',
         '/about',
         '/highlights',
-        '/partners',
+        '/judges',
       ].includes(pathname)
     ) {
       return 'content';
