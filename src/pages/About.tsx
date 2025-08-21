@@ -407,7 +407,7 @@ const About = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
+      <section className="py-20 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
         <Container>
           <ScrollAnimation animation="fadeIn">
             <div className="text-center text-white">
