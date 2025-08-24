@@ -1,16 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import {
-  Users,
-  Presentation,
-  Code,
-  Trophy,
-  ArrowRight,
-  ChevronDown,
-  ChevronUp,
-  Palette,
-} from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { Container } from '../components/layout';
 import { ScrollAnimation } from '../components/animations';
 import { Button } from '../components/ui';
@@ -43,185 +34,99 @@ const Schedule = () => {
   const scheduleData: DaySchedule[] = [
     {
       day: 1,
-      date: 'March 15, 2025',
+      date: 'September 16, 2025',
       title: 'Kick-off & Ideation',
       theme:
-        "Understanding Africa's Creative Economy and Defining Innovation Challenges",
+        "Understanding Africa's Music & Film Distribution Challenges and Defining Innovation Solutions",
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Opening Ceremony',
+            timeSlot: '9:00 AM - 10:00 AM',
+            session: 'Opening Ceremony & Welcome',
             details:
-              'Presented by ACM Leadership and Creative Industry Partners',
-            icon: Users,
+              'Welcome address, hackathon overview, and team introductions',
           },
           {
-            timeSlot: '',
-            session: 'Keynote Speech 1',
-            details: "Africa's Creative Economy: Opportunities and Challenges",
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Keynote Speech 2',
+            timeSlot: '10:00 AM - 12:00 PM',
+            session: 'Distribution Challenges Workshop',
             details:
-              'Technology Innovation in Creative Industries: Global Trends and African Potential',
-            icon: Presentation,
+              "Deep dive into Africa's music and film distribution challenges",
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Theme Deep Dive',
+            timeSlot: '2:00 PM - 4:00 PM',
+            session: 'Solution Ideation',
             details:
-              'Industry experts outline problem statements for each creative category',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop 1',
-            details: 'Design Thinking for Creative Innovation',
-            icon: Code,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop 2',
-            details: 'Prototyping Tools and Creative Technology Stack',
-            icon: Code,
-          },
-        ],
-        evening: [
-          {
-            timeSlot: 'Evening',
-            session: 'Team Finalization',
-            details: 'Participants lock in teams (2-6 members)',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Design Thinking Sprint',
-            details:
-              'Guided by facilitators to refine problem statements and proposed solutions',
-            icon: Code,
-          },
-          {
-            timeSlot: '',
-            session: 'Mentor Pairing',
-            details:
-              'Each team assigned at least 1 technical and 1 industry mentor',
-            icon: Users,
+              'Team brainstorming and initial solution concept development',
           },
         ],
       },
     },
     {
       day: 2,
-      date: 'March 16, 2025',
+      date: 'September 17, 2025',
       title: 'Prototyping & Mentorship',
-      theme: 'Building MVPs and Receiving Expert Guidance',
+      theme:
+        'Building MVPs for Distribution Solutions and Receiving Expert Guidance',
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Development Marathon Begins',
-            details: 'Teams build MVPs (minimum viable products)',
-            icon: Code,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop: UI/UX for Creative Platforms',
-            details: 'Design principles for creative industry applications',
-            icon: Palette,
+            timeSlot: '9:00 AM - 12:00 PM',
+            session: 'MVP Development',
+            details:
+              'Building minimum viable products for distribution solutions',
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Mentor Check-ins',
-            details:
-              'Midday feedback sessions with technical and industry mentors',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop: Monetization Strategies',
-            details: 'Revenue models for creative economy solutions',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop: IP Protection & Funding',
-            details:
-              'Intellectual property strategies and funding opportunities',
-            icon: Presentation,
-          },
-        ],
-        evening: [
-          {
-            timeSlot: 'Evening',
-            session: 'Progress Showcase',
-            details: 'Teams show rough builds for early feedback',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Networking Session',
-            details:
-              'Connect with mentors, industry leaders, and fellow participants',
-            icon: Users,
+            timeSlot: '2:00 PM - 5:00 PM',
+            session: 'Expert Mentorship',
+            details: 'One-on-one guidance from industry experts',
           },
         ],
       },
     },
     {
       day: 3,
-      date: 'March 17, 2025',
-      title: 'Final Presentations & Awards',
-      theme: 'Showcasing Innovations and Celebrating Success',
+      date: 'September 18, 2025',
+      title: 'Development & Testing',
+      theme: 'Refining Solutions and Testing with Real-World Scenarios',
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Pitch Prep Coaching',
-            details:
-              'Morning coaching for pitch decks, live demo readiness, and storytelling',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Final Development Sprint',
-            details: 'Last-minute refinements and demo preparation',
-            icon: Code,
+            timeSlot: '9:00 AM - 12:00 PM',
+            session: 'Solution Refinement',
+            details: 'Iterating and improving distribution solutions',
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Judging Sessions',
-            details: '5-7 minutes per team (pitch + demo + Q&A)',
-            icon: Trophy,
-          },
-          {
-            timeSlot: '',
-            session: 'Category Awards',
-            details: 'Special recognition for each creative economy category',
-            icon: Trophy,
+            timeSlot: '2:00 PM - 5:00 PM',
+            session: 'Testing & Validation',
+            details: 'Real-world scenario testing and user feedback',
           },
         ],
-        evening: [
+      },
+    },
+    {
+      day: 4,
+      date: 'September 19, 2025',
+      title: 'Final Presentations & Awards',
+      theme: 'Showcasing Distribution Innovations and Celebrating Success',
+      sessions: {
+        morning: [
           {
-            timeSlot: 'Evening',
-            session: 'Closing Ceremony',
-            details: 'Awards, networking, and investment discussions',
-            icon: Trophy,
+            timeSlot: '9:00 AM - 12:00 PM',
+            session: 'Final Presentations',
+            details: 'Teams present their distribution solutions to judges',
           },
+        ],
+        afternoon: [
           {
-            timeSlot: '',
-            session: 'Demo Day Announcement',
-            details:
-              'Introduction to post-hackathon opportunities and next steps',
-            icon: Presentation,
+            timeSlot: '2:00 PM - 4:00 PM',
+            session: 'Awards Ceremony',
+            details: 'Celebration of winning solutions and closing remarks',
           },
         ],
       },
@@ -239,7 +144,7 @@ const Schedule = () => {
   const preHackathonEvents = [
     {
       phase: 'Call for Applications',
-      duration: '4-6 Weeks Before Event',
+      duration: 'August 25 - September 5, 2025',
       activities: [
         'Launch via ACM website, social media, press releases',
         'Partner platforms, universities, and tech hubs outreach',
@@ -250,27 +155,27 @@ const Schedule = () => {
       phase: 'Info Sessions/Webinars',
       duration: 'Ongoing',
       activities: [
-        'Live webinars explaining hackathon process',
+        'Live webinars explaining hackathon process and distribution challenges',
         'Tips for success and Q&A sessions',
-        'Industry expert insights and best practices',
+        'Industry expert insights on music and film distribution',
       ],
     },
     {
       phase: 'Registration & Idea Submission',
-      duration: '2-3 Weeks Before Event',
+      duration: 'August 25 - September 5, 2025',
       activities: [
         'Team/individual profile submission',
         'Initial solution concept presentation',
-        'Challenge area selection and team formation',
+        'Distribution challenge area selection and team formation',
       ],
     },
     {
       phase: 'Pre-event Bootcamp',
-      duration: '1 Week Before Event',
+      duration: 'September 8-15, 2025',
       activities: [
-        'Online training on design thinking',
+        'Online training on design thinking for distribution',
         'Pitch skills development',
-        'Prototyping tools training (Figma, Flutter, Unity, Adobe CC)',
+        'Prototyping tools training for distribution platforms',
       ],
     },
   ];

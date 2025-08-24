@@ -13,6 +13,7 @@ import {
   useDocumentTitle,
   useDocumentMeta,
 } from '../../hooks/useDocumentTitle';
+import HackathonGuide from '../../pages/HackathonGuide';
 
 const AppRouter = () => {
   const location = useLocation();
@@ -52,6 +53,8 @@ const AppRouter = () => {
               );
             })}
 
+            {/* Add new route */}
+            <Route path="/hackathon-guide" element={<HackathonGuide />} />
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,45 +1,28 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Trophy, Award, Medal, ArrowRight } from 'lucide-react';
+import { Trophy, ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
 
 export const PrizeSection = () => {
-  const prizes = [
-    {
-      position: '1st Place',
-      amount: '₦5,000,000',
-      icon: Trophy,
-      color: 'from-yellow-400 to-yellow-600',
-      bgColor: 'bg-yellow-50',
-      textColor: 'text-yellow-800',
-    },
-    {
-      position: '2nd Place',
-      amount: '₦3,000,000',
-      icon: Award,
-      color: 'from-gray-400 to-gray-600',
-      bgColor: 'bg-gray-50',
-      textColor: 'text-gray-800',
-    },
-    {
-      position: '3rd Place',
-      amount: '₦2,000,000',
-      icon: Medal,
-      color: 'from-orange-400 to-orange-600',
-      bgColor: 'bg-orange-50',
-      textColor: 'text-orange-800',
-    },
-  ];
+  // Remove the split prizes array and update to single grand prize
+  const grandPrize = {
+    position: 'Grand Prize',
+    amount: '₦10,000,000',
+    icon: Trophy,
+    color: 'from-yellow-400 to-yellow-600',
+    bgColor: 'bg-yellow-50',
+    textColor: 'text-yellow-800',
+  };
 
   const additionalPrizes = [
-    'Incubation/Acceleration Program Access',
-    'Office/Co-working Space (6-12 months)',
-    'Cloud Credits (AWS, Google Cloud, Azure)',
-    'Free Creative Software Licenses',
-    'Investor Introduction Sessions',
-    'Media Publicity & ACM Exhibition Slots',
+    'AWS Credits for Cloud Infrastructure',
+    'Mentorship from Industry Experts',
+    'Incubation Program Access (ASF + CcHub)',
+    'Funding Opportunities & Investor Connections',
+    'ACM Platform Exposure & Marketing Support',
+    'Legal & IP Guidance for Startups',
   ];
 
   return (
@@ -50,44 +33,34 @@ export const PrizeSection = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Prize Pool & Incentives
             </h2>
-            <p className="text-xl text-gray-600 mb-4">
-              Compete for over ₦10 Million in prizes and valuable opportunities
-            </p>
-            <div className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
-              ₦10,000,000+
-            </div>
           </div>
         </ScrollAnimation>
 
         {/* Main Prizes */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {prizes.map((prize, index) => (
-            <ScrollAnimation
-              key={prize.position}
-              animation="slideUp"
-              delay={index * 0.2}
+        <div className="grid md:grid-cols-1 gap-8 mb-16">
+          <ScrollAnimation animation="slideUp">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -10 }}
+              className={`${grandPrize.bgColor} rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#a8b82a]/30`}
             >
-              <motion.div
-                whileHover={{ scale: 1.05, y: -10 }}
-                className={`${prize.bgColor} rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#a8b82a]]/30`}
+              <div
+                className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${grandPrize.color} rounded-full flex items-center justify-center shadow-lg`}
               >
-                <div
-                  className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${prize.color} rounded-full flex items-center justify-center shadow-lg`}
-                >
-                  <prize.icon className="h-10 w-10 text-white" />
-                </div>
-                <h3 className={`text-2xl font-bold ${prize.textColor} mb-2`}>
-                  {prize.position}
-                </h3>
-                <div className={`text-3xl font-bold ${prize.textColor} mb-4`}>
-                  {prize.amount}
-                </div>
-                <p className="text-gray-600">
-                  Plus mentorship and incubation opportunities
-                </p>
-              </motion.div>
-            </ScrollAnimation>
-          ))}
+                <grandPrize.icon className="h-10 w-10 text-white" />
+              </div>
+              <h3 className={`text-2xl font-bold ${grandPrize.textColor} mb-2`}>
+                {grandPrize.position}
+              </h3>
+              <div
+                className={`text-3xl font-bold ${grandPrize.textColor} mb-4`}
+              >
+                {grandPrize.amount}
+              </div>
+              <p className="text-gray-600">
+                Plus mentorship and incubation opportunities
+              </p>
+            </motion.div>
+          </ScrollAnimation>
         </div>
 
         {/* Additional Prizes */}

@@ -5,9 +5,7 @@ import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
 import acmlogo from '../../assets/img/logo/logo.png';
-import nitdaLogo from '../../assets/img/brands/nitda2.jpeg';
 import awsLogo from '../../assets/img/brands/aws.png';
-import africanUnionLogo from '../../assets/img/brands/African union.png';
 import cherithCodeLogo from '../../assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png';
 import ascendLogo from '../../assets/img/brands/03.png';
 
@@ -16,12 +14,12 @@ export const PartnersSection = () => {
     {
       name: 'ACM Global',
       logo: acmlogo,
-      tier: 'Sponsor',
+      tier: 'Organizer',
     },
     {
-      name: 'NITDA',
-      logo: nitdaLogo,
-      tier: 'Partner',
+      name: 'Ascend Studios Foundation',
+      logo: ascendLogo,
+      tier: 'Strategic Partner',
     },
     {
       name: 'AWS',
@@ -29,19 +27,9 @@ export const PartnersSection = () => {
       tier: 'Technology Partner',
     },
     {
-      name: 'African Union',
-      logo: africanUnionLogo,
-      tier: 'Strategic Partner',
-    },
-    {
-      name: 'Cherith-Code',
-      logo: cherithCodeLogo,
-      tier: 'Implementation Partner',
-    },
-    {
-      name: 'Ascend Studio',
-      logo: ascendLogo,
-      tier: 'Media Partner',
+      name: 'CcHub',
+      logo: cherithCodeLogo, // Update with actual CcHub logo
+      tier: 'Incubation Partner',
     },
   ];
 
