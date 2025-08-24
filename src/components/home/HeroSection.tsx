@@ -34,9 +34,29 @@ export const HeroSection = () => {
         isMobile ? '-mt-14' : isTablet ? '-mt-16' : '-mt-20'
       )}
     >
-      {/* Background */}
+      {/* Background - Updated with video support */}
       <div className="absolute inset-0">
-        <div className="w-full h-full bg-gradient-to-r from-black/70 to-black/70"></div>
+        {/* Video Background */}
+        <div className="w-full h-full">
+          {/* Video background with fallback */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/src/assets/video/videobg.mp4"
+          >
+            <source src="/src/assets/video/videobg.mp4" type="video/mp4" />
+            {/* Fallback for browsers that don't support video */}
+            <div className="w-full h-full bg-gradient-to-r from-black/40 to-black/40 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4a5f8a]/80 to-[#a8b82a]/80 opacity-60"></div>
+            </div>
+          </video>
+
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/75"></div>
+        </div>
       </div>
 
       {/* Content */}
@@ -67,7 +87,9 @@ export const HeroSection = () => {
                 className="flex items-center gap-2 text-gray-300 mb-4"
               >
                 <Calendar className="h-5 w-5" />
-                <span className="text-lg">March 15 - March 17, 2025</span>
+                <span className="text-lg">
+                  September 16 - September 19, 2025
+                </span>
               </motion.div>
 
               <motion.h1
@@ -83,8 +105,8 @@ export const HeroSection = () => {
                       : 'text-4xl md:text-6xl'
                 )}
               >
-                Africa Creative Market{' '}
-                <span className="text-[#c2d72f]">Hackathon</span> 2025
+                Distribute Africa: Hacking the Future of{' '}
+                <span className="text-[#c2d72f]">Music & Film Access</span>
               </motion.h1>
 
               <motion.h2
@@ -96,7 +118,8 @@ export const HeroSection = () => {
                   isMobile ? 'text-lg' : 'text-xl md:text-2xl'
                 )}
               >
-                – Innovating for Africa's Creative Economy
+                Join innovators, creators, and technologists to solve Africa's
+                distribution challenges
               </motion.h2>
 
               <motion.div
@@ -111,14 +134,14 @@ export const HeroSection = () => {
                 </span>
               </motion.div>
 
-              {/* Countdown Timer */}
+              {/* Countdown Timer - Update target date */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="mb-8"
               >
-                <CountdownTimer targetDate="2025-03-15T00:00:00" />
+                <CountdownTimer targetDate="2025-09-16T00:00:00" />
               </motion.div>
 
               <motion.p
@@ -128,11 +151,11 @@ export const HeroSection = () => {
                 className="text-lg text-gray-200 mb-8 max-w-lg"
               >
                 Harness Africa's creative and technological talent to develop
-                innovative solutions for the creative economy. Compete.
+                innovative solutions for music and film distribution. Compete.
                 Innovate. Create!
               </motion.p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Update CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -161,8 +184,8 @@ export const HeroSection = () => {
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                 >
-                  <Link to="/about">
-                    Learn More
+                  <Link to="/hackathon-guide">
+                    Download Hackathon Guide
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -186,7 +209,7 @@ export const HeroSection = () => {
                 >
                   Follow Us On:
                 </span>
-                <div className="flex gap-4">
+                <div className="flex gap-4 mt-6">
                   {socialLinks.map(social => (
                     <a
                       key={social.label}
@@ -206,7 +229,7 @@ export const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-            {/* Hero Image/Illustration */}
+            {/* Hero Image/Illustration - Update content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -219,7 +242,7 @@ export const HeroSection = () => {
                     <span className="text-4xl font-bold text-black">ACM</span>
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    Creative Economy Innovation
+                    Music & Film Distribution Innovation
                   </h3>
                   <p className="text-gray-300">
                     Transforming Africa's creative industries through technology

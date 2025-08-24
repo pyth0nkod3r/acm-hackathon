@@ -9,66 +9,25 @@ import { AboutSection } from '../components/home/AboutSection';
 import { ChallengesSection } from '../components/home/ChallengesSection';
 import { PartnersSection } from '../components/home/PartnersSection';
 import { PrizeSection } from '../components/home/PrizeSection';
+import { ProblemStatementSection } from '../components/home/ProblemStatementSection';
+import { SolutionVisionSection } from '../components/home/SolutionVisionSection';
 
 const Home = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="min-h-screen"
-    >
+    <div>
       {/* Hero Section */}
       <HeroSection />
       {/* About Section */}
       <AboutSection />
+      <ProblemStatementSection /> {/* New section */}
+      <SolutionVisionSection /> {/* New section */}
       {/* Key Challenges Section */}
-      <ChallengesSection />
+      {/* <ChallengesSection /> */}
       {/* Prize Information Section */}
       <PrizeSection />
       {/* Partners Section */}
       <PartnersSection />
-      {/* Call to Action Section */}
-      <ScrollAnimation animation="fadeIn">
-        <section className="py-20 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
-          <Container>
-            <div className="text-center text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Innovate Africa's Creative Economy?
-              </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Join a continental movement to create innovative solutions for
-                Africa's creative industries. Compete. Innovate. Create!
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-white text-[#4a5f8a] hover:bg-gray-100"
-                >
-                  <Link to="/application">
-                    Apply Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-acm-dull-blue"
-                >
-                  <Link to="/about">
-                    Learn More
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </Container>
-        </section>
-      </ScrollAnimation>
-    </motion.div>
+    </div>
   );
 };
 

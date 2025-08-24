@@ -9,19 +9,37 @@ export const AboutSection = () => {
           <ScrollAnimation animation="fadeIn">
             <div className="text-center mb-16">
               <span className="text-[#4a5f8a] font-semibold text-lg mb-4 block">
-                Welcome to Africa Creative Market Hackathon 2025
+                Welcome to ACM Hackathon 2025
               </span>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  A 3-day innovation challenge dedicated to harnessing Africa's
-                  creative and technological talent to develop innovative
-                  solutions that solve challenges in the creative economy. This
-                  exciting event brings together developers, designers,
-                  storytellers, artists, business minds, and industry leaders to
-                  create market-ready solutions that can evolve into sustainable
-                  startups.
+                  A 4-day innovation challenge dedicated to solving Africa's
+                  music and film distribution challenges. This exciting event
+                  brings together developers, designers, storytellers, artists,
+                  business minds and industry leaders to create market-ready
+                  solutions that can evolve into sustainable startups.
                 </p>
               </div>
+            </div>
+          </ScrollAnimation>
+
+          {/* Key Stats - New 4-column layout */}
+          <ScrollAnimation animation="fadeIn" delay={0.2}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              {[
+                { stat: '4 Days', label: 'of innovation', icon: '📅' },
+                { stat: '₦10M', label: 'Prize', icon: '🏆' },
+                { stat: 'Top Partners', label: 'ACM, ASF, AWS', icon: '🤝' },
+                { stat: 'Tech + Creatives', label: 'united', icon: '💡' },
+              ].map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-4xl mb-2">{item.icon}</div>
+                  <div className="text-2xl font-bold text-[#4a5f8a] mb-1">
+                    {item.stat}
+                  </div>
+                  <div className="text-gray-600 text-sm">{item.label}</div>
+                </div>
+              ))}
             </div>
           </ScrollAnimation>
 
@@ -58,68 +76,60 @@ export const AboutSection = () => {
             </div>
           </ScrollAnimation>
 
-          {/* Purpose and Key Goals Grid */}
-          <div className="grid lg:grid-cols-2 gap-12 mt-20">
-            {/* Purpose Section */}
+          {/* Vision & Mission - New section */}
+          <div className="grid lg:grid-cols-2 gap-12 mt-20 mx-50">
+            {/* Vision Section */}
             <ScrollAnimation animation="slideLeft">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Purpose of the Event
+                  Our Vision
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  The Africa Creative Market Hackathon is designed to spark
-                  creativity and collaboration in addressing critical challenges
-                  in Africa's creative economy. By bringing together diverse
-                  talents from across the continent, the hackathon seeks to
-                  solve pressing issues in film, fashion, music, arts, gaming,
-                  design, and related industries.
+                  Catalyze Africa-led innovation for scalable distribution of
+                  music and film content across the continent and beyond.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  The solutions created during this event will help pave the way
-                  for a more vibrant, sustainable, and globally competitive
-                  creative economy in Africa.
-                </p>
+                <div className="bg-gradient-to-r from-[#a8b82a]/20 to-[#4a5f8a]/20 p-6 rounded-xl">
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Key Focus Areas:
+                  </h4>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li>• Scalable distribution infrastructure</li>
+                    <li>• Cross-border content access</li>
+                    <li>• Revenue optimization</li>
+                    <li>• Talent discovery and promotion</li>
+                  </ul>
+                </div>
               </div>
             </ScrollAnimation>
-
-            {/* Key Goals Section */}
+            {/* Mission Section */}
             <ScrollAnimation animation="slideRight">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                  Key Goals
+                  Our Mission
                 </h3>
                 <div className="space-y-4">
                   {[
                     {
-                      title: 'Innovation',
+                      title: 'Empower Innovators',
                       description:
-                        'Build solutions that push boundaries in tech + creativity.',
+                        'Provide tools, resources, and mentorship to creative entrepreneurs',
                     },
                     {
-                      title: 'Collaboration',
+                      title: 'Build Collaborative Platforms',
                       description:
-                        'Bring together developers, designers, storytellers, artists, business minds, and industry leaders.',
+                        'Create ecosystems that connect creators, distributors, and consumers',
                     },
                     {
-                      title: 'Market-Ready Solutions',
+                      title: 'Drive Real-World Implementation',
                       description:
-                        'Encourage prototypes that can evolve into sustainable startups.',
-                    },
-                    {
-                      title: 'Capacity Building',
-                      description:
-                        'Upskill participants through workshops, mentoring, and networking.',
-                    },
-                    {
-                      title: 'Investment Opportunities',
-                      description:
-                        'Connect winners with investors, accelerators, and grants.',
+                        'Ensure solutions are practical and market-ready',
                     },
                   ].map((goal, index) => (
                     <div
                       key={index}
                       className="border-l-4 border-[#4a5f8a] pl-4"
                     >
+                      {' '}
                       <h4 className="font-semibold text-gray-900">
                         {goal.title}
                       </h4>
