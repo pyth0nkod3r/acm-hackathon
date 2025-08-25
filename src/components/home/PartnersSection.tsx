@@ -27,8 +27,8 @@ export const PartnersSection = () => {
       tier: 'Technology Partner',
     },
     {
-      name: 'CcHub',
-      logo: cherithCodeLogo, // Update with actual CcHub logo
+      name: 'CCHub',
+      logo: cherithCodeLogo,
       tier: 'Incubation Partner',
     },
   ];

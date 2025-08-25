@@ -143,7 +143,7 @@ const Schedule = () => {
 
   const preHackathonEvents = [
     {
-      phase: 'Call for Applications',
+      phase: 'Application Open',
       duration: 'August 25 - September 5, 2025',
       activities: [
         'Launch via ACM website, social media, press releases',
@@ -189,9 +189,9 @@ const Schedule = () => {
       className="min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-[#4a5f8a] via-[#6b7a9a] to-[#a8b82a] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 to-pink-800/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#4a5f8a]/20 to-[#a8b82a]/20"></div>
         </div>
 
         <Container className="relative z-10">
@@ -202,7 +202,7 @@ const Schedule = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-purple-200 text-lg">Hackathon</span>
+              <span className="text-blue-200 text-lg">Hackathon</span>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -216,22 +216,22 @@ const Schedule = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl text-purple-200 max-w-3xl mx-auto mb-8"
+              className="text-xl text-blue-200 max-w-3xl mx-auto mb-8"
             >
-              A comprehensive 3-day journey from ideation to innovation, with
+              A comprehensive 4-day journey from ideation to innovation, with
               extensive pre-hackathon preparation
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-2 text-purple-200"
+              className="flex items-center justify-center gap-2 text-blue-200"
             >
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>Schedule</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Schedule</span>
             </motion.div>
           </div>
         </Container>
@@ -261,10 +261,10 @@ const Schedule = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.02, y: -5 }}
-                  className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-8 border border-purple-200"
+                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
                       <span className="text-white font-bold text-lg">
                         {index + 1}
                       </span>
@@ -273,7 +273,7 @@ const Schedule = () => {
                       <h3 className="text-xl font-semibold text-gray-900">
                         {phase.phase}
                       </h3>
-                      <p className="text-purple-600 font-medium">
+                      <p className="text-[#4a5f8a] font-medium">
                         {phase.duration}
                       </p>
                     </div>
@@ -284,7 +284,7 @@ const Schedule = () => {
                         key={activityIndex}
                         className="flex items-start gap-2 text-gray-700"
                       >
-                        <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#4a5f8a] rounded-full mt-2 flex-shrink-0"></div>
                         <span className="text-sm">{activity}</span>
                       </li>
                     ))}
@@ -305,7 +305,7 @@ const Schedule = () => {
                 Main Event Schedule
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                3 days of intensive innovation, collaboration, and creative
+                4 days of intensive innovation, collaboration, and creative
                 problem-solving
               </p>
             </div>
@@ -319,8 +319,8 @@ const Schedule = () => {
                 onClick={() => setActiveDay(day.day)}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                   activeDay === day.day
-                    ? 'bg-purple-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-purple-50 border border-gray-200'
+                    ? 'bg-[#4a5f8a] text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-blue-50 border border-gray-200'
                 }`}
               >
                 Day {day.day}
@@ -344,7 +344,7 @@ const Schedule = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   {day.title}
                 </h3>
-                <p className="text-purple-600 font-medium mb-4">{day.date}</p>
+                <p className="text-[#4a5f8a] font-medium mb-4">{day.date}</p>
                 <p className="text-gray-600 max-w-2xl mx-auto">{day.theme}</p>
               </div>
 
@@ -363,21 +363,23 @@ const Schedule = () => {
                         className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
                       >
                         <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            {session.icon && (
-                              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                <session.icon className="h-5 w-5 text-white" />
-                              </div>
-                            )}
-                            <div>
-                              <h5 className="font-semibold text-gray-900">
-                                {session.session}
-                              </h5>
-                              {session.timeSlot && (
-                                <p className="text-sm text-purple-600 font-medium">
-                                  {session.timeSlot}
-                                </p>
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                              {session.icon && (
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
+                                  <session.icon className="h-5 w-5 text-white" />
+                                </div>
                               )}
+                              <div>
+                                <h5 className="font-semibold text-gray-900">
+                                  {session.session}
+                                </h5>
+                                {session.timeSlot && (
+                                  <p className="text-sm text-[#4a5f8a] font-medium">
+                                    {session.timeSlot}
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           </div>
                           <button
@@ -435,16 +437,16 @@ const Schedule = () => {
                 Ready to Join the Innovation Journey?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Be part of this transformative 3-day experience that will shape
+                Be part of this transformative 4-day experience that will shape
                 the future of Africa's creative economy.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-white text-purple-600 hover:bg-gray-100"
+                  className="bg-white text-[#4a5f8a] hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -453,7 +455,7 @@ const Schedule = () => {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-purple-600"
+                  className="border-white text-white hover:bg-white hover:text-[#4a5f8a]"
                 >
                   <Link to="/challenges">
                     View Categories
