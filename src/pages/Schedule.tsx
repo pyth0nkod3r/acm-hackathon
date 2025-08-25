@@ -218,7 +218,7 @@ const Schedule = () => {
               transition={{ delay: 0.4 }}
               className="text-xl text-blue-200 max-w-3xl mx-auto mb-8"
             >
-              A comprehensive 3-day journey from ideation to innovation, with
+              A comprehensive 4-day journey from ideation to innovation, with
               extensive pre-hackathon preparation
             </motion.p>
             <motion.div
@@ -230,8 +230,8 @@ const Schedule = () => {
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>Schedule</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Schedule</span>
             </motion.div>
           </div>
         </Container>
@@ -437,7 +437,7 @@ const Schedule = () => {
                 Ready to Join the Innovation Journey?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Be part of this transformative 3-day experience that will shape
+                Be part of this transformative 4-day experience that will shape
                 the future of Africa's creative economy.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -446,7 +446,7 @@ const Schedule = () => {
                   size="lg"
                   className="bg-white text-[#4a5f8a] hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

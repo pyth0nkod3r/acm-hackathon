@@ -29,6 +29,7 @@ interface Problem {
 
 const ProblemStatement = () => {
   useDocumentTitle('Problem Statement - Africa Creative Market Hackathon');
+  useDocumentTitle('Problem Statement - Africa Creative Market Hackathon');
   const navigate = useNavigate();
   const [selectedProblems, setSelectedProblems] = useState<string[]>([]);
 
@@ -129,6 +130,14 @@ const ProblemStatement = () => {
     'Monetization',
     'Talent Development',
   ];
+  // Create a mapping of categories to problem titles
+  const categoryToProblems = {
+    Infrastructure: ['Fragmented Infrastructure'],
+    Accessibility: ['Last-Mile Access & Affordability'],
+    'Rights Management': ['Piracy & Rights Management'],
+    Monetization: ['Revenue Leakage'],
+    'Talent Development': ['Limited Visibility for Talent'],
+  };
 
   const handleProblemToggle = (problemTitle: string) => {
     setSelectedProblems(prev =>
@@ -138,6 +147,32 @@ const ProblemStatement = () => {
     );
   };
 
+  // Add a function to handle category selection
+  const handleCategoryToggle = (category: string) => {
+    const problemsInCategory =
+      categoryToProblems[category as keyof typeof categoryToProblems] || [];
+    const allSelected = problemsInCategory.every(problem =>
+      selectedProblems.includes(problem)
+    );
+
+    if (allSelected) {
+      // If all problems in category are selected, deselect them all
+      setSelectedProblems(prev =>
+        prev.filter(problem => !problemsInCategory.includes(problem))
+      );
+    } else {
+      // If not all are selected, select all problems in the category
+      setSelectedProblems(prev => {
+        const newSelection = [...prev];
+        problemsInCategory.forEach(problem => {
+          if (!newSelection.includes(problem)) {
+            newSelection.push(problem);
+          }
+        });
+        return newSelection;
+      });
+    }
+  };
   const handleApplyWithProblems = () => {
     // Navigate to application page with selected problems as URL params
     const params = new URLSearchParams();
@@ -150,6 +185,14 @@ const ProblemStatement = () => {
   const isProblemSelected = (problemTitle: string) => {
     return selectedProblems.includes(problemTitle);
   };
+  // Add a function to check if a category is fully selected
+  const isCategoryFullySelected = (category: string) => {
+    const problemsInCategory =
+      categoryToProblems[category as keyof typeof categoryToProblems] || [];
+    return problemsInCategory.every(problem =>
+      selectedProblems.includes(problem)
+    );
+  };
 
   return (
     <motion.div
@@ -160,9 +203,9 @@ const ProblemStatement = () => {
       className="min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-red-900 via-orange-900 to-yellow-900 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-[#c2d72f] via-[#4a5f8a] to-[#4a5f8a] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-800/20 to-orange-800/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#c2d72f]/20 to-[#4a5f8a]/20"></div>
         </div>
 
         <Container className="relative z-10">
@@ -173,7 +216,7 @@ const ProblemStatement = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-orange-200 text-lg">Hackathon Focus</span>
+              <span className="text-white-400 text-lg">Hackathon Focus</span>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -187,7 +230,7 @@ const ProblemStatement = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl text-orange-200 max-w-3xl mx-auto mb-8"
+              className="text-xl text-white-400 max-w-3xl mx-auto mb-8"
             >
               Five critical pain points in Africa's music and film distribution
               ecosystem that need innovative solutions
@@ -196,13 +239,13 @@ const ProblemStatement = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-2 text-orange-200"
+              className="flex items-center justify-center gap-2 text-white-400"
             >
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>Problem Statement</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Problem Statement</span>
             </motion.div>
           </div>
         </Container>
@@ -233,13 +276,9 @@ const ProblemStatement = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleProblemToggle(category)}
+                  onClick={() => handleCategoryToggle(category)}
                   className={`p-6 rounded-xl border-2 transition-all duration-300 text-left ${
-                    selectedProblems.some(_problem =>
-                      problems.find(p =>
-                        p.title.toLowerCase().includes(category.toLowerCase())
-                      )
-                    )
+                    isCategoryFullySelected(category)
                       ? 'border-orange-500 bg-orange-50 shadow-lg'
                       : 'border-gray-200 bg-white hover:border-orange-300 hover:shadow-md'
                   }`}
@@ -247,22 +286,12 @@ const ProblemStatement = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div
                       className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        selectedProblems.some(_problem =>
-                          problems.find(p =>
-                            p.title
-                              .toLowerCase()
-                              .includes(category.toLowerCase())
-                          )
-                        )
+                        isCategoryFullySelected(category)
                           ? 'bg-orange-500 text-white'
                           : 'bg-gray-100 text-gray-600'
                       }`}
                     >
-                      {selectedProblems.some(_problem =>
-                        problems.find(p =>
-                          p.title.toLowerCase().includes(category.toLowerCase())
-                        )
-                      ) ? (
+                      {isCategoryFullySelected(category) ? (
                         <Check className="h-6 w-6" />
                       ) : (
                         <Plus className="h-6 w-6" />
@@ -289,7 +318,7 @@ const ProblemStatement = () => {
                 onClick={handleApplyWithProblems}
                 size="lg"
                 disabled={selectedProblems.length === 0}
-                className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 disabled:opacity-50"
+                className="bg-gradient-to-r from-[#c2d72f] to-[#4a5f8a] hover:from-[#c2d72f]/80 hover:to-[#4a5f8a]/80 disabled:opacity-50"
               >
                 Apply with Selected Problems
                 <ArrowRight className="ml-2 h-5 w-5" />

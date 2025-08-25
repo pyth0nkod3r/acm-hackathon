@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
-import { Users, FileText, Trophy, Calendar } from 'lucide-react';
+import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
 import { RegistrationForm } from '../components/forms';
 import { formSubmissionService } from '../services';
 import { useNotification } from '../hooks';
@@ -130,9 +130,11 @@ const Application = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="flex items-center justify-center space-x-2 text-lg"
             >
-              <span>Home</span>
-              <span>/</span>
-              <span>registration</span>
+              <Link to="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Registration</span>
             </motion.div>
           </div>
         </div>
@@ -153,7 +155,7 @@ const Application = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl mb-4"
+              className="text-xl md:text-2xl mb-6 font-semibold text-center bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
             >
               "Distribute Africa: Hacking the Future of Music & Film Access"
             </motion.p>
@@ -161,17 +163,42 @@ const Application = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg mb-6"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl mb-8"
             >
-              <p className="mb-2">September 16-19, 2025</p>
-              <p className="mb-4">Finale & Demo Day: September 19, 2025</p>
-              <p className="text-2xl font-bold text-yellow-300 mb-2">
-                Prize: ₦10,000,000 + AWS Credits + Mentorship + Investment
-                Opportunities
-              </p>
-              <p className="text-sm opacity-90">
-                Partners: ACM | Ascend Studios Foundation | AWS
-              </p>
+              <div className="space-y-4 text-center">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <p className="font-medium">September 16-19, 2025</p>
+                  </div>
+                  <div className="hidden md:block w-px h-6 bg-white/30"></div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                    <p className="font-medium">
+                      Finale & Demo Day: September 19, 2025
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
+                  <p className="text-2xl font-bold text-white-400 mb-2">
+                    Prize: ₦10,000,000 + AWS Credits + Mentorship + Investment
+                    Opportunities
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center gap-3 text-md opacity-90">
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    ACM
+                  </span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    Ascend Studios Foundation
+                  </span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    AWS
+                  </span>
+                </div>
+              </div>
             </motion.div>
             {/* Application Process Overview */}
             <div className="bg-white rounded-lg shadow-sm p-8 mb-8">

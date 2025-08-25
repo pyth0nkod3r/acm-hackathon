@@ -132,8 +132,8 @@ const About = () => {
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>About ACM Hackathon</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">About ACM Hackathon</span>
             </motion.div>
           </div>
         </Container>
