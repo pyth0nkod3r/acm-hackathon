@@ -190,12 +190,12 @@ export class APIService {
   /**
    * Type guard to check if an error is an API error
    */
-  private isAPIError(error: any): error is APIErrorType {
-    return (
+  private isAPIError(error: unknown): error is APIErrorType {
+    return Boolean(
       error &&
-      typeof error === 'object' &&
-      'type' in error &&
-      'message' in error
+        typeof error === 'object' &&
+        'type' in error &&
+        'message' in error
     );
   }
 
@@ -211,7 +211,7 @@ export class APIService {
    */
   protected async post<T>(
     endpoint: string,
-    data?: any
+    data?: unknown
   ): Promise<APIResponse<T>> {
     const requestOptions: RequestInit = {
       method: 'POST',

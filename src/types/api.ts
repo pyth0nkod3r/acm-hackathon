@@ -7,7 +7,7 @@ export interface APICredentials {
   password: string;
 }
 
-export interface APIResponse<T = any> {
+export interface APIResponse<T = unknown> {
   success: boolean;
   data?: T;
   message?: string;
@@ -23,7 +23,7 @@ export interface FormSubmissionResponse {
 export interface APIError {
   code: string;
   message: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 export interface NetworkError {

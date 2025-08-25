@@ -49,7 +49,7 @@ export interface ErrorReportData {
   timestamp: string;
   userId?: string;
   sessionId?: string;
-  additionalContext?: Record<string, any>;
+  additionalContext?: Record<string, unknown>;
 }
 
 export interface ErrorLoggerConfig {

@@ -39,7 +39,7 @@ export class ContactService extends APIService {
         apiConfig.formEndpoints.contact,
         formattedData
       );
-    } catch (error) {
+    } catch {
       return {
         success: false,
         message: 'Failed to submit contact form',
