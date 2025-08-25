@@ -15,6 +15,8 @@ import { CountdownTimer } from '../common/CountdownTimer';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
+import videoBg from '@/assets/video/videobg.mp4';
+
 
 export const HeroSection = () => {
   const { isMobile, isTablet } = useResponsive();
@@ -45,9 +47,9 @@ export const HeroSection = () => {
             muted
             playsInline
             className="w-full h-full object-cover"
-            poster="/src/assets/video/videobg.mp4"
+            poster={videoBg}
           >
-            <source src="/src/assets/video/videobg.mp4" type="video/mp4" />
+            <source src={videoBg} type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
             <div className="w-full h-full bg-gradient-to-r from-black/40 to-black/40 relative">
               <div className="absolute inset-0 bg-gradient-to-br from-[#4a5f8a]/80 to-[#a8b82a]/80 opacity-60"></div>

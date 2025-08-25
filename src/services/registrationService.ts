@@ -47,7 +47,7 @@ export class RegistrationService extends APIService {
         apiConfig.formEndpoints.registration,
         formattedData
       );
-    } catch (error) {
+    } catch {
       return {
         success: false,
         message: 'Failed to submit registration form',
@@ -118,18 +118,46 @@ export class RegistrationService extends APIService {
   /**
    * Formats team member data
    */
-  private formatTeamMember(member: any) {
-    return {
+  private formatTeamMember(member: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    role?: string;
+    linkedin?: string;
+    country?: string;
+    nationality?: string;
+    age?: number | string;
+    gender?: string;
+  }) {
+    const formatted: {
+      name: string;
+      email: string;
+      phone: string;
+      role: string;
+      country: string;
+      nationality: string;
+      age: number;
+      linkedin?: string;
+      gender?: string;
+    } = {
       name: member.name?.trim() || '',
       email: member.email?.trim().toLowerCase() || '',
       phone: member.phone?.trim() || '',
       role: member.role?.trim() || '',
-      linkedin: member.linkedin?.trim() || undefined,
       country: member.country?.trim() || '',
       nationality: member.nationality?.trim() || '',
       age: parseInt(member.age?.toString() || '0', 10),
-      gender: member.gender?.trim() || undefined,
     };
+
+    if (member.linkedin?.trim()) {
+      formatted.linkedin = member.linkedin.trim();
+    }
+
+    if (member.gender?.trim()) {
+      formatted.gender = member.gender.trim();
+    }
+
+    return formatted;
   }
 
   /**
@@ -257,7 +285,15 @@ export class RegistrationService extends APIService {
   /**
    * Validates team member data
    */
-  private isValidTeamMember(member: any): boolean {
+  private isValidTeamMember(member: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    role?: string;
+    country?: string;
+    nationality?: string;
+    age?: number | string;
+  }): boolean {
     return !!(
       member.name &&
       member.email &&
@@ -267,8 +303,8 @@ export class RegistrationService extends APIService {
       member.country &&
       member.nationality &&
       member.age &&
-      member.age >= 16 &&
-      member.age <= 100
+      Number(member.age) >= 16 &&
+      Number(member.age) <= 100
     );
   }
 

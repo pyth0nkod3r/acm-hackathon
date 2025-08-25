@@ -27,7 +27,7 @@ export function generateOptimizedImageUrls(
   originalSrc: string,
   options: ImageOptimizationOptions = {}
 ): OptimizedImageSource {
-  const { quality = 75, width, height } = options;
+  const { width, height } = options;
 
   // For now, return the original source
   // In production, you would generate optimized URLs here
@@ -41,8 +41,8 @@ export function generateOptimizedImageUrls(
     src: optimizedSrc,
     webp: webpSrc,
     avif: avifSrc,
-    width,
-    height,
+    ...(width !== undefined && { width }),
+    ...(height !== undefined && { height }),
   };
 }
 

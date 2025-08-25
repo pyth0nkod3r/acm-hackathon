@@ -171,7 +171,7 @@ export const MinimalErrorFallback: React.FC<ErrorFallbackProps> = ({
  */
 export const PageErrorFallback: React.FC<
   ErrorFallbackProps & { pageName?: string }
-> = ({ error, errorInfo, retry, errorId, pageName = 'page' }) => {
+> = ({ retry, errorId, pageName = 'page' }) => {
   const handleGoHome = () => {
     window.location.href = '/';
   };

@@ -2,7 +2,10 @@
  * Form validation utilities
  */
 
-import { FormError, FormValidationResult } from '../types/forms';
+/**
+ * Form validation utilities
+ */
+import type { FormError, FormValidationResult } from '../types/forms';
 
 /**
  * Email validation regex
@@ -12,13 +15,13 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 /**
  * Phone number validation regex (international format)
  */
-const PHONE_REGEX = /^[\+]?[1-9][\d]{0,15}$/;
+const PHONE_REGEX = /^[\\+]?[1-9][\d]{0,15}$/;
 
 /**
  * URL validation regex
  */
 const URL_REGEX =
-  /^https?:\/\/(?:[-\w.])+(?:\:[0-9]+)?(?:\/(?:[\w\/_.])*(?:\?(?:[\w&=%.])*)?(?:\#(?:[\w.])*)?)?$/;
+  /^https?:\/\/(?:[-\w.])+(?:\\:[0-9]+)?(?:\/(?:[\w\\/_.])*(?:\?(?:[\w&=%.])*)?(?:\\#(?:[\w.])*)?)?$/;
 
 /**
  * Validates email format
@@ -31,7 +34,7 @@ export const isValidEmail = (email: string): boolean => {
  * Validates phone number format
  */
 export const isValidPhone = (phone: string): boolean => {
-  const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+  const cleanPhone = phone.replace(/[\s\-\\(\\)]/g, '');
   return PHONE_REGEX.test(cleanPhone);
 };
 
@@ -50,7 +53,7 @@ export const isValidUrl = (url: string): boolean => {
 /**
  * Validates required field
  */
-export const isRequired = (value: any): boolean => {
+export const isRequired = (value: unknown): boolean => {
   if (typeof value === 'string') {
     return value.trim().length > 0;
   }
@@ -114,7 +117,7 @@ export const sanitizeEmail = (email: string): string => {
  * Sanitizes phone input
  */
 export const sanitizePhone = (phone: string): string => {
-  return phone.replace(/[\s\-\(\)]/g, '');
+  return phone.replace(/[\s\-\\(\\)]/g, '');
 };
 
 /**
@@ -144,46 +147,53 @@ export const createValidationResult = (
  * Validates a team member object
  */
 export const validateTeamMember = (
-  member: any,
+  member: unknown,
   fieldPrefix = ''
 ): FormError[] => {
   const errors: FormError[] = [];
   const prefix = fieldPrefix ? `${fieldPrefix}.` : '';
 
-  if (!isRequired(member.name)) {
+  // Type guard to check if member is an object with expected properties
+  if (typeof member !== 'object' || member === null) {
+    return [createFormError('member', 'Invalid member data')];
+  }
+
+  const memberObj = member as Record<string, unknown>;
+
+  if (!isRequired(memberObj.name)) {
     errors.push(createFormError(`${prefix}name`, 'Name is required'));
-  } else if (!hasMinLength(member.name, 2)) {
+  } else if (!hasMinLength(memberObj.name as string, 2)) {
     errors.push(
       createFormError(
         `${prefix}name`,
         'Name must be at least 2 characters long'
       )
     );
-  } else if (!hasMaxLength(member.name, 100)) {
+  } else if (!hasMaxLength(memberObj.name as string, 100)) {
     errors.push(
       createFormError(`${prefix}name`, 'Name must be less than 100 characters')
     );
   }
 
-  if (!isRequired(member.email)) {
+  if (!isRequired(memberObj.email)) {
     errors.push(createFormError(`${prefix}email`, 'Email is required'));
-  } else if (!isValidEmail(member.email)) {
+  } else if (!isValidEmail(memberObj.email as string)) {
     errors.push(
       createFormError(`${prefix}email`, 'Please enter a valid email address')
     );
   }
 
-  if (!isRequired(member.phone)) {
+  if (!isRequired(memberObj.phone)) {
     errors.push(createFormError(`${prefix}phone`, 'Phone number is required'));
-  } else if (!isValidPhone(member.phone)) {
+  } else if (!isValidPhone(memberObj.phone as string)) {
     errors.push(
       createFormError(`${prefix}phone`, 'Please enter a valid phone number')
     );
   }
 
-  if (!isRequired(member.role)) {
+  if (!isRequired(memberObj.role)) {
     errors.push(createFormError(`${prefix}role`, 'Role is required'));
-  } else if (!hasMinLength(member.role, 2)) {
+  } else if (!hasMinLength(memberObj.role as string, 2)) {
     errors.push(
       createFormError(
         `${prefix}role`,
@@ -192,25 +202,25 @@ export const validateTeamMember = (
     );
   }
 
-  if (!isRequired(member.country)) {
+  if (!isRequired(memberObj.country)) {
     errors.push(createFormError(`${prefix}country`, 'Country is required'));
   }
 
-  if (!isRequired(member.nationality)) {
+  if (!isRequired(memberObj.nationality)) {
     errors.push(
       createFormError(`${prefix}nationality`, 'Nationality is required')
     );
   }
 
-  if (!isRequired(member.age)) {
+  if (!isRequired(memberObj.age)) {
     errors.push(createFormError(`${prefix}age`, 'Age is required'));
-  } else if (!isValidAge(member.age)) {
+  } else if (!isValidAge(memberObj.age as number)) {
     errors.push(
       createFormError(`${prefix}age`, 'Age must be between 16 and 100')
     );
   }
 
-  if (member.linkedin && !isValidUrl(member.linkedin)) {
+  if (memberObj.linkedin && !isValidUrl(memberObj.linkedin as string)) {
     errors.push(
       createFormError(`${prefix}linkedin`, 'Please enter a valid LinkedIn URL')
     );
@@ -258,7 +268,7 @@ export const validateFileUpload = (file: File): FormError[] => {
 /**
  * Debounce function for validation
  */
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {

@@ -14,7 +14,7 @@ export interface FormValidationState {
   touched: Record<string, boolean>;
 }
 
-export function useFormValidation<T extends Record<string, any>>({
+export function useFormValidation<T extends Record<string, unknown>>({
   schema,
   initialValues = {},
   onSubmit,
@@ -25,7 +25,7 @@ export function useFormValidation<T extends Record<string, any>>({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateField = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: unknown) => {
       try {
         // For simple field validation, we'll validate the current form state
         const testValues = { ...values, [name]: value };
@@ -73,7 +73,7 @@ export function useFormValidation<T extends Record<string, any>>({
   }, [schema, values]);
 
   const setValue = useCallback(
-    (name: string, value: any, shouldValidate = true) => {
+    (name: string, value: unknown, shouldValidate = true) => {
       setValues(prev => ({ ...prev, [name]: value }));
 
       if (shouldValidate && touched[name]) {
@@ -98,7 +98,7 @@ export function useFormValidation<T extends Record<string, any>>({
   );
 
   const handleChange = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: unknown) => {
       setValue(name, value, touched[name]);
     },
     [setValue, touched]

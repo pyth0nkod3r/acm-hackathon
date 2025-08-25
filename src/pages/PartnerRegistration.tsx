@@ -73,7 +73,7 @@ const PartnerRegistration = () => {
       setTimeout(() => {
         setSubmitResult({});
       }, 5000);
-    } catch (error) {
+    } catch {
       setSubmitResult({
         success: false,
         message: 'An unexpected error occurred. Please try again later.',

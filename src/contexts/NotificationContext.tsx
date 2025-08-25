@@ -1,18 +1,10 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { toast } from 'sonner';
 import type { NotificationError } from '../types';
-
-interface NotificationContextType {
-  showNotification: (notification: NotificationError) => void;
-  showSuccess: (message: string, duration?: number) => void;
-  showError: (message: string, duration?: number) => void;
-  showWarning: (message: string, duration?: number) => void;
-  showInfo: (message: string, duration?: number) => void;
-}
-
-const NotificationContext = createContext<NotificationContextType | undefined>(
-  undefined
-);
+import {
+  NotificationContext,
+  type NotificationContextType,
+} from './NotificationContextDef';
 
 interface NotificationProviderProps {
   children: ReactNode;
@@ -58,8 +50,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     toast.info(message, { duration });
   };
 
-  const value: NotificationContextType = {
-    showNotification,
+  const value = {
+    showNotification: showNotification as (notification: unknown) => void,
     showSuccess,
     showError,
     showWarning,
@@ -72,13 +64,5 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
     </NotificationContext.Provider>
   );
 };
-
-export const useNotification = (): NotificationContextType => {
-  const context = useContext(NotificationContext);
-  if (context === undefined) {
-    throw new Error(
-      'useNotification must be used within a NotificationProvider'
-    );
-  }
-  return context;
-};
+export { NotificationContext };
+export type { NotificationContextType };
