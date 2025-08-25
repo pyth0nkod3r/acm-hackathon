@@ -19,11 +19,8 @@ const navigationItems: NavigationItem[] = [
   { label: 'About', href: '/about', isActive: false },
   { label: 'Challenges', href: '/challenges', isActive: false },
   { label: 'Schedule', href: '/schedule', isActive: false },
-  { label: 'Awards & Judging', href: '/awards', isActive: false },
-  { label: 'Gallery', href: '/gallery', isActive: false },
-  { label: 'Highlights', href: '/highlights', isActive: false },
-  { label: 'Mentors & Judges', href: '/judges', isActive: false },
-  { label: 'Application', href: '/application', isActive: false },
+  { label: 'Registration', href: '/registration', isActive: false },
+  { label: 'Partnership', href: '/partner-registration', isActive: false },
   { label: 'Contact', href: '/contact', isActive: false },
 ];
 

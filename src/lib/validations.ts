@@ -52,6 +52,13 @@ export const teamMemberSchema = z.object({
   nationality: requiredTextSchema,
   age: ageSchema,
   gender: optionalTextSchema,
+  dateOfBirth: z.string().optional(),
+  stateCity: requiredTextSchema,
+  educationLevel: requiredTextSchema,
+  fieldOfStudy: requiredTextSchema,
+  occupation: requiredTextSchema,
+  organization: optionalTextSchema,
+  portfolio: urlSchema,
 });
 
 // Contact form validation schema
@@ -76,6 +83,12 @@ export const registrationFormSchema = z.object({
   teamMembers: z
     .array(teamMemberSchema)
     .max(4, 'Maximum 4 additional team members'),
+  applicationType: z.enum(['Individual', 'Team Representative', 'Team Member']),
+  teamRoles: z.array(z.string()).optional(),
+  teamIntroduction: z
+    .string()
+    .min(10, 'Team introduction must be at least 10 characters')
+    .max(150, 'Team introduction must be less than 150 characters'),
   projectTitle: requiredTextSchema.min(
     5,
     'Project title must be at least 5 characters'
@@ -105,6 +118,20 @@ export const registrationFormSchema = z.object({
   declarations: z
     .array(z.string())
     .min(1, 'Please accept the required declarations'),
+  travelSupport: z.boolean(),
+  accommodationSupport: z.boolean(),
+  dietaryPreferences: optionalTextSchema,
+  accessibilityNeeds: optionalTextSchema,
+  hackathonExperience: z.enum(['yes', 'no']),
+  hackathonExperienceDetails: optionalTextSchema,
+  motivation: z
+    .string()
+    .min(10, 'Motivation must be at least 10 characters')
+    .max(300, 'Motivation must be less than 300 characters'),
+  technicalSkills: z.array(z.string()).optional(),
+  creativeSkills: z.array(z.string()).optional(),
+
+  digitalSignature: requiredTextSchema,
 });
 
 // Validation helper functions
@@ -117,7 +144,11 @@ export const validateField = <T>(
     return { isValid: true };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { isValid: false, error: error.issues[0]?.message };
+      const errorMessage = error.issues[0]?.message;
+      return {
+        isValid: false,
+        error: errorMessage || 'Validation failed',
+      };
     }
     return { isValid: false, error: 'Validation failed' };
   }

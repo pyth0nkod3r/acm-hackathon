@@ -6,19 +6,9 @@ export function RouteLoading() {
 
   // Determine loading variant based on route
   const getLoadingVariant = (pathname: string) => {
-    if (pathname === '/application') return 'form';
+    if (pathname === '/registration') return 'form';
     if (pathname === '/contact') return 'form';
-    if (pathname === '/gallery') return 'gallery';
-    if (
-      [
-        '/challenges',
-        '/schedule',
-        '/awards',
-        '/about',
-        '/highlights',
-        '/judges',
-      ].includes(pathname)
-    ) {
+    if (['/challenges', '/schedule', '/about'].includes(pathname)) {
       return 'content';
     }
     return 'default';

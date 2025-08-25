@@ -50,10 +50,9 @@ const socialLinks: SocialLink[] = [
 const quickLinks = [
   { label: 'About', href: '/about' },
   { label: 'Challenges', href: '/challenges' },
-  { label: 'Application', href: '/application' },
+  { label: 'Registration', href: '/registration' },
+  { label: 'Parntership', href: '/partner-registration' },
   { label: 'Schedule', href: '/schedule' },
-  { label: 'Awards & Judging', href: '/awards-judging' },
-  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -76,7 +75,7 @@ const getSocialIcon = (iconName: string) => {
   return IconComponent || MessageCircle;
 };
 
-export const Footer: React.FC<FooterProps> = ({ className }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const currentYear = new Date().getFullYear();
   const { isMobile, isTablet } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
@@ -85,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
     <footer
       id="footer"
       role="contentinfo"
-      className={cn('bg-[#1a1a1a] text-white', className)}
+      className={cn('bg-[#1a1a1a] text-white')}
     >
       {/* Main Footer Content */}
       <div className="pt-16 pb-8">
@@ -138,9 +137,9 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                Join the ACM Hackathon and help shape
-                the future of creative content in Africa. Compete for amazing
-                prizes and connect with innovators across the continent.
+                Join the ACM Hackathon and help shape the future of creative
+                content in Africa. Compete for amazing prizes and connect with
+                innovators across the continent.
               </p>
 
               {/* Contact Info */}
@@ -248,7 +247,8 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   isMobile ? 'text-sm' : 'text-sm'
                 )}
               >
-                Subscribe to receive updates about the ACM Hackathon and future innovation initiatives.
+                Subscribe to receive updates about the ACM Hackathon and future
+                innovation initiatives.
               </p>
 
               <form
@@ -359,8 +359,9 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               )}
             >
               <p>
-                Copyright © {currentYear} Africa Creative Market
-                Hackathon. All rights reserved.
+                Powered by Africa Creative Market  {' -  '}
+                {'  '}    Copyright © {currentYear}. All rights
+                reserved.
               </p>
             </div>
             <div

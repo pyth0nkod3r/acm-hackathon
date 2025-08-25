@@ -173,7 +173,7 @@ export const HeroSection = () => {
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                 >
-                  <Link to="/application">Apply Now</Link>
+                  <Link to="/registration">Apply Now</Link>
                 </Button>
                 <Button
                   asChild

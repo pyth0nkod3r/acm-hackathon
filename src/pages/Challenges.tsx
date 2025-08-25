@@ -3,18 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
   ArrowRight,
-  Target,
   Lightbulb,
-  Code,
   Plus,
   Check,
   AlertTriangle,
   TrendingUp,
   Users,
-  Globe,
-  Shield,
-  DollarSign,
-  Star,
 } from 'lucide-react';
 import { Container } from '../components/layout';
 import { ScrollAnimation } from '../components/animations';
@@ -150,7 +144,7 @@ const ProblemStatement = () => {
     if (selectedProblems.length > 0) {
       params.set('problems', selectedProblems.join(','));
     }
-    navigate(`/application?${params.toString()}`);
+    navigate(`/registration?${params.toString()}`);
   };
 
   const isProblemSelected = (problemTitle: string) => {
@@ -241,7 +235,7 @@ const ProblemStatement = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleProblemToggle(category)}
                   className={`p-6 rounded-xl border-2 transition-all duration-300 text-left ${
-                    selectedProblems.some(problem =>
+                    selectedProblems.some(_problem =>
                       problems.find(p =>
                         p.title.toLowerCase().includes(category.toLowerCase())
                       )
@@ -253,7 +247,7 @@ const ProblemStatement = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div
                       className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                        selectedProblems.some(problem =>
+                        selectedProblems.some(_problem =>
                           problems.find(p =>
                             p.title
                               .toLowerCase()
@@ -264,7 +258,7 @@ const ProblemStatement = () => {
                           : 'bg-gray-100 text-gray-600'
                       }`}
                     >
-                      {selectedProblems.some(problem =>
+                      {selectedProblems.some(_problem =>
                         problems.find(p =>
                           p.title.toLowerCase().includes(category.toLowerCase())
                         )

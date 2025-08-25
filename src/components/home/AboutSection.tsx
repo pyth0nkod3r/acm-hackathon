@@ -23,7 +23,7 @@ export const AboutSection = () => {
             </div>
           </ScrollAnimation>
 
-          {/* Key Stats - New 4-column layout */}
+          {/* Key Stats - Updated 4-column layout */}
           <ScrollAnimation animation="fadeIn" delay={0.2}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {[
@@ -76,8 +76,8 @@ export const AboutSection = () => {
             </div>
           </ScrollAnimation>
 
-          {/* Vision & Mission - New section */}
-          <div className="grid lg:grid-cols-2 gap-12 mt-20 mx-50">
+          {/* Vision & Mission - Updated section */}
+          <div className="grid lg:grid-cols-2 gap-12 mt-20">
             {/* Vision Section */}
             <ScrollAnimation animation="slideLeft">
               <div>
@@ -129,7 +129,6 @@ export const AboutSection = () => {
                       key={index}
                       className="border-l-4 border-[#4a5f8a] pl-4"
                     >
-                      {' '}
                       <h4 className="font-semibold text-gray-900">
                         {goal.title}
                       </h4>

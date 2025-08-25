@@ -8,10 +8,10 @@ const Contact = lazy(() => import('../pages/Contact'));
 const Application = lazy(() => import('../pages/Application'));
 const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
-const Awards = lazy(() => import('../pages/Awards'));
-const Gallery = lazy(() => import('../pages/Gallery'));
-const Highlights = lazy(() => import('../pages/Highlights'));
-const Partners = lazy(() => import('../pages/Partners'));
+// const Awards = lazy(() => import('../pages/Awards'));
+// const Gallery = lazy(() => import('../pages/Gallery'));
+// const Highlights = lazy(() => import('../pages/Highlights'));
+// const Partners = lazy(() => import('../pages/Partners'));
 const PartnerRegistration = lazy(() => import('../pages/PartnerRegistration'));
 
 export const routes: RouteConfig[] = [
@@ -39,7 +39,7 @@ export const routes: RouteConfig[] = [
     isProtected: false,
   },
   {
-    path: '/application',
+    path: '/registration',
     component: Application,
     title: 'Apply - ACM Hackathon',
     description: 'Apply for the ACM Hackathon 2025',
@@ -60,37 +60,37 @@ export const routes: RouteConfig[] = [
     description: 'View the complete event schedule for the ACM Hackathon 2025',
     isProtected: false,
   },
-  {
-    path: '/awards',
-    component: Awards,
-    title: 'Awards & Judging - ACM Hackathon',
-    description:
-      'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
-    isProtected: false,
-  },
-  {
-    path: '/gallery',
-    component: Gallery,
-    title: 'Gallery - ACM Hackathon',
-    description: 'Explore photos and moments from the ACM Hackathon events',
-    isProtected: false,
-  },
-  {
-    path: '/highlights',
-    component: Highlights,
-    title: 'Highlights - ACM Hackathon',
-    description:
-      'Discover success stories, testimonials, and achievements from the ACM Hackathon',
-    isProtected: false,
-  },
-  {
-    path: '/judges',
-    component: Partners,
-    title: 'Mentors & Judges -  ACM Hackathon',
-    description:
-      'Meet our distinguished panel of mentors and judges for the ACM Hackathon 2025',
-    isProtected: false,
-  },
+  // {
+  //   path: '/awards',
+  //   component: Awards,
+  //   title: 'Awards & Judging - ACM Hackathon',
+  //   description:
+  //     'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
+  //   isProtected: false,
+  // },
+  // {
+  //   path: '/gallery',
+  //   component: Gallery,
+  //   title: 'Gallery - ACM Hackathon',
+  //   description: 'Explore photos and moments from the ACM Hackathon events',
+  //   isProtected: false,
+  // },
+  // {
+  //   path: '/highlights',
+  //   component: Highlights,
+  //   title: 'Highlights - ACM Hackathon',
+  //   description:
+  //     'Discover success stories, testimonials, and achievements from the ACM Hackathon',
+  //   isProtected: false,
+  // },
+  // {
+  //   path: '/judges',
+  //   component: Partners,
+  //   title: 'Mentors & Judges -  ACM Hackathon',
+  //   description:
+  //     'Meet our distinguished panel of mentors and judges for the ACM Hackathon 2025',
+  //   isProtected: false,
+  // },
   {
     path: '/partner-registration',
     component: PartnerRegistration,

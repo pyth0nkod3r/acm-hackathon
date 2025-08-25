@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Trophy, ArrowRight } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
-import { Button } from '../ui';
 
 export const PrizeSection = () => {
   // Remove the split prizes array and update to single grand prize
@@ -23,6 +21,39 @@ export const PrizeSection = () => {
     'Funding Opportunities & Investor Connections',
     'ACM Platform Exposure & Marketing Support',
     'Legal & IP Guidance for Startups',
+  ];
+
+  const postHackathonSupport = [
+    {
+      title: 'Investor-ready exposure',
+      description: 'Connect with potential investors and partners',
+      icon: '💼',
+    },
+    {
+      title: 'Technical & business incubation',
+      description: 'ASF + CCHub incubation programs',
+      icon: '🚀',
+    },
+    {
+      title: 'AWS cloud infrastructure',
+      description: 'Cloud credits and technical support',
+      icon: '☁️',
+    },
+    {
+      title: 'ACM platform exposure',
+      description: 'Showcase on Africa Creative Market platform',
+      icon: '🌟',
+    },
+    {
+      title: 'Legal & IP guidance',
+      description: 'Professional legal support for startups',
+      icon: '⚖️',
+    },
+    {
+      title: 'Road to market acceleration',
+      description: 'Market entry and scaling support',
+      icon: '📈',
+    },
   ];
 
   return (
@@ -90,64 +121,31 @@ export const PrizeSection = () => {
           </div>
         </ScrollAnimation>
 
-        {/* Benefits Section */}
+        {/* Post-Hackathon Support - New section */}
         <ScrollAnimation animation="fadeIn" delay={0.3}>
           <div className="mt-16 text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">
               Post-Hackathon Support
             </h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: 'Demo Day @ ACM Annual Event',
-                  description:
-                    'Showcase your solution to a wider audience of industry leaders and investors',
-                },
-                {
-                  title: 'Mentorship Program',
-                  description:
-                    '3-6 months guidance from industry experts and successful entrepreneurs',
-                },
-                {
-                  title: 'Startup Support Package',
-                  description:
-                    'Legal, branding, and market entry assistance to launch your business',
-                },
-              ].map((benefit, index) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {postHackathonSupport.map((support, index) => (
                 <motion.div
-                  key={benefit.title}
+                  key={support.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   className="text-center"
                 >
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#a8b82a] to-[#4a5f8a] rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">
-                      {index + 1}
-                    </span>
+                    <span className="text-white text-2xl">{support.icon}</span>
                   </div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                    {benefit.title}
+                    {support.title}
                   </h4>
-                  <p className="text-gray-600">{benefit.description}</p>
+                  <p className="text-gray-600">{support.description}</p>
                 </motion.div>
               ))}
             </div>
-          </div>
-        </ScrollAnimation>
-
-        <ScrollAnimation animation="fadeIn" delay={0.4}>
-          <div className="text-center mt-12">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a] hover:from-[#d4e05a] hover:to-[#6b7ba3]"
-            >
-              <Link to="/awards-judging">
-                View Judging Criteria
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
           </div>
         </ScrollAnimation>
       </Container>

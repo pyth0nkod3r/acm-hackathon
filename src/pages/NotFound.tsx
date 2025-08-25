@@ -53,7 +53,7 @@ const NotFound = () => {
                 <Link to="/about" className="block hover:underline">
                   • About - Learn about the hackathon
                 </Link>
-                <Link to="/application" className="block hover:underline">
+                <Link to="/registration" className="block hover:underline">
                   • Application - Register for the event
                 </Link>
                 <Link to="/contact" className="block hover:underline">

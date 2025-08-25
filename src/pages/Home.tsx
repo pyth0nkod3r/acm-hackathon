@@ -1,16 +1,10 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { Container } from '../components/layout';
-import { ScrollAnimation } from '../components/animations';
-import { Button } from '../components/ui';
 import { HeroSection } from '../components/home/HeroSection';
 import { AboutSection } from '../components/home/AboutSection';
-import { ChallengesSection } from '../components/home/ChallengesSection';
 import { PartnersSection } from '../components/home/PartnersSection';
 import { PrizeSection } from '../components/home/PrizeSection';
 import { ProblemStatementSection } from '../components/home/ProblemStatementSection';
 import { SolutionVisionSection } from '../components/home/SolutionVisionSection';
+import { TeamRolesSection } from '../components/home/TeamRolesSection';
 
 const Home = () => {
   return (
@@ -21,8 +15,8 @@ const Home = () => {
       <AboutSection />
       <ProblemStatementSection /> {/* New section */}
       <SolutionVisionSection /> {/* New section */}
-      {/* Key Challenges Section */}
-      {/* <ChallengesSection /> */}
+      {/* Team Roles Section */}
+      <TeamRolesSection />
       {/* Prize Information Section */}
       <PrizeSection />
       {/* Partners Section */}

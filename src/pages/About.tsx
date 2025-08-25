@@ -424,7 +424,7 @@ const About = () => {
                   size="lg"
                   className="bg-white text-purple-600 hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

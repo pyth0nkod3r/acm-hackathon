@@ -29,9 +29,8 @@ const Application = () => {
       console.log('Registration form submitted:', data);
 
       // Clean the data to ensure all optional fields are strings
-      // Clean the data to ensure all optional fields are strings
       const cleanData = {
-        teamName: data.teamName,
+        teamName: data.teamName || '',
         teamSize: data.teamSize,
         teamLeader: {
           name: data.teamLeader.name,
@@ -43,12 +42,22 @@ const Application = () => {
           age: data.teamLeader.age,
           linkedin: data.teamLeader.linkedin ?? '',
           gender: data.teamLeader.gender ?? '',
+          dateOfBirth: data.teamLeader.dateOfBirth,
+          stateCity: data.teamLeader.stateCity,
+          educationLevel: data.teamLeader.educationLevel,
+          fieldOfStudy: data.teamLeader.fieldOfStudy,
+          occupation: data.teamLeader.occupation,
+          organization: data.teamLeader.organization,
+          portfolio: data.teamLeader.portfolio,
         },
         teamMembers: data.teamMembers.map(member => ({
           ...member,
           linkedin: member.linkedin ?? '',
           gender: member.gender ?? '',
         })),
+        applicationType: data.applicationType,
+        teamRoles: data.teamRoles,
+        teamIntroduction: data.teamIntroduction,
         projectTitle: data.projectTitle,
         ideaSummary: data.ideaSummary,
         problemSolving: data.problemSolving,
@@ -59,6 +68,15 @@ const Application = () => {
         projectRepo: data.projectRepo ?? '',
         challengeAreas: data.challengeAreas,
         declarations: data.declarations,
+        travelSupport: data.travelSupport,
+        accommodationSupport: data.accommodationSupport,
+        dietaryPreferences: data.dietaryPreferences ?? '',
+        accessibilityNeeds: data.accessibilityNeeds ?? '',
+        hackathonExperience: data.hackathonExperience,
+        hackathonExperienceDetails: data.hackathonExperienceDetails ?? '',
+        motivation: data.motivation,
+        technicalSkills: data.technicalSkills,
+        creativeSkills: data.creativeSkills,
       };
 
       // Submit form using the API service
@@ -103,21 +121,23 @@ const Application = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl font-bold mb-4"
             >
-              Hackathon Registration
+              Registration for ACM Hackathon 2025
             </motion.h1>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
               className="flex items-center justify-center space-x-2 text-lg"
             >
               <span>Home</span>
               <span>/</span>
-              <span>application</span>
+              <span>registration</span>
             </motion.div>
           </div>
         </div>
       </motion.section>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,9 +147,32 @@ const Application = () => {
         <Container className="py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-              Apply for the Hackathon
+              Apply for the ACM Hackathon 2025
             </h1>
-
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl md:text-2xl mb-4"
+            >
+              "Distribute Africa: Hacking the Future of Music & Film Access"
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg mb-6"
+            >
+              <p className="mb-2">September 16-19, 2025</p>
+              <p className="mb-4">Finale & Demo Day: September 19, 2025</p>
+              <p className="text-2xl font-bold text-yellow-300 mb-2">
+                Prize: ₦10,000,000 + AWS Credits + Mentorship + Investment
+                Opportunities
+              </p>
+              <p className="text-sm opacity-90">
+                Partners: ACM | Ascend Studios Foundation | AWS
+              </p>
+            </motion.div>
             {/* Application Process Overview */}
             <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -145,7 +188,7 @@ const Application = () => {
                     Form Team
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Assemble your team of 2-5 members
+                    Assemble your team of 3-5 members
                   </p>
                 </div>
 
@@ -196,9 +239,10 @@ const Application = () => {
                 <ul className="text-blue-700 space-y-2">
                   <li>• African citizens or residents</li>
                   <li>• Age 18 or above</li>
-                  <li>• Technical background preferred</li>
-                  <li>• Team size: 2-5 members</li>
+                  <li>• Technical or creative background preferred</li>
+                  <li>• Team size: 3-5 members</li>
                   <li>• Commitment to full event participation</li>
+                  <li>• Interest in music & film distribution</li>
                 </ul>
               </div>
 
@@ -212,6 +256,7 @@ const Application = () => {
                   <li>• Technical approach outline</li>
                   <li>• Prototype or portfolio (optional)</li>
                   <li>• Motivation statement</li>
+                  <li>• Skills and experience details</li>
                 </ul>
               </div>
             </div>
@@ -251,7 +296,7 @@ const Application = () => {
               />
             </div>
 
-            {/* Important Dates */}
+            {/* Important Dates - Updated with correct dates */}
             <div className="bg-yellow-50 rounded-lg p-6 mt-8">
               <h3 className="text-xl font-semibold text-yellow-900 mb-4">
                 Important Dates
@@ -261,19 +306,19 @@ const Application = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">January 15, 2025</p>
+                  <p className="text-yellow-700">August 25, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Application Deadline
                   </h4>
-                  <p className="text-yellow-700">February 28, 2025</p>
+                  <p className="text-yellow-700">September 5, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Hackathon Event
                   </h4>
-                  <p className="text-yellow-700">March 15-17, 2025</p>
+                  <p className="text-yellow-700">September 16-19, 2025</p>
                 </div>
               </div>
             </div>
