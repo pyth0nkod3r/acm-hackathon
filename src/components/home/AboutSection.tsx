@@ -77,7 +77,7 @@ export const AboutSection = () => {
           </ScrollAnimation>
 
           {/* Vision & Mission - Updated section */}
-          <div className="grid lg:grid-cols-2 gap-12 mt-20">
+          <div className="grid lg:grid-cols-2 gap-15 mt-20 lg:mx-[60px] justify-center">
             {/* Vision Section */}
             <ScrollAnimation animation="slideLeft">
               <div>
@@ -85,8 +85,9 @@ export const AboutSection = () => {
                   Our Vision
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Catalyze Africa-led innovation for scalable profitable distribution of
-                  music and film content across the continent and beyond.
+                  Catalyze Africa-led innovation for scalable profitable
+                  distribution of music and film content across the continent
+                  and beyond.
                 </p>
                 <div className="bg-gradient-to-r from-[#a8b82a]/20 to-[#4a5f8a]/20 p-6 rounded-xl">
                   <h4 className="font-semibold text-gray-900 mb-2">
@@ -104,7 +105,7 @@ export const AboutSection = () => {
             {/* Mission Section */}
             <ScrollAnimation animation="slideRight">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 ">
                   Our Mission
                 </h3>
                 <div className="space-y-4">

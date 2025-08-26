@@ -45,19 +45,19 @@ export interface ServerError {
 }
 
 export interface PartnerRegistrationRequest {
-  // Personal Information
+  // Personal Information (Team Leader)
   firstName: string;
   lastName: string;
   phoneNumber: string;
   emailAddress: string;
   altPhoneNumber?: string;
   altEmailAddress?: string;
-  company?: string;
+  company?: string; // Team name
   gender?: string;
   industry?: string;
   attendingDays?: string[];
 
-  // Additional fields for hackathon registration
+  // Additional personal fields
   dateOfBirth?: string;
   nationality?: string;
   stateCity?: string;
@@ -100,6 +100,10 @@ export interface PartnerRegistrationRequest {
   accommodationSupport?: boolean;
   dietaryPreferences?: string;
   accessibilityNeeds?: string;
+
+  // Additional hackathon-specific fields
+  countryOfResidence?: string;
+  availabilityDetails?: string;
 
   // Consent
   declarations?: string[];

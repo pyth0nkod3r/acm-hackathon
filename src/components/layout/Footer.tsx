@@ -145,7 +145,7 @@ export const Footer: React.FC<FooterProps> = () => {
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(

@@ -265,11 +265,11 @@ const Application = () => {
             <div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
                 Registration Form
-              </h2>            
+              </h2>
 
               <RegistrationForm
                 onSubmit={handleRegistrationSubmit}
-                initialChallenges={preSelectedChallenges}
+                _initialChallenges={preSelectedChallenges}
               />
             </div>
 

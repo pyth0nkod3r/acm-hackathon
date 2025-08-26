@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Users,
-  Target,
-  MapPin,
-  GraduationCap,
-  CheckCircle,
-} from 'lucide-react';
+import { Users, Target, MapPin, CheckCircle, Plus, Trash2 } from 'lucide-react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { Button } from '../ui/button';
@@ -27,17 +21,18 @@ import {
 } from '../../lib/validations';
 import { cn } from '../../lib/utils';
 
-// Updated challenge areas based on the new form
-const challengeAreas = [
-  'Multi-layered Distribution Ecosystem',
-  'Mobile-first & Low-bandwidth Optimized',
-  'Secure Content Protection + Smart Contracts',
-  'Built-in Monetization Tools',
-  'AI-Powered Discovery Engine',
-  'Integrated Community & Market Insights',
+// Updated roles based on the new form
+const roles = [
+  'Developer',
+  'Designer',
+  'Creative Lead',
+  'Business Lead',
+  'Legal/Policy',
+  'Data Scientist',
+  'Other',
 ];
 
-// Updated countries list (keeping existing African countries)
+// Countries list (keeping existing African countries)
 const countries = [
   'Algeria',
   'Angola',
@@ -95,130 +90,45 @@ const countries = [
   'Zimbabwe',
 ];
 
-// Updated roles based on the new form
-const roles = [
-  'Software Developer',
-  'UI/UX Designer',
-  'Creative Strategist',
-  'Business/Legal Analyst',
-  'Data Scientist',
-  'Other',
-];
-
-// Education levels
-const educationLevels = [
-  'High School',
-  'Diploma',
-  'Undergraduate',
-  'Graduate',
-  'Postgraduate',
-  'Other',
-];
-
-// Occupations
-const occupations = [
-  'Student',
-  'Developer',
-  'Designer',
-  'Entrepreneur',
-  'Creative Professional',
-  'Researcher',
-  'Other',
-];
-
-// Technical skills
-const technicalSkills = [
-  'Frontend',
-  'Backend',
-  'Blockchain',
-  'AI/ML',
-  'Cloud',
-  'Database',
-  'Cybersecurity',
-  'Mobile Dev',
-  'Other',
-];
-
-// Creative/Industry skills
-const creativeSkills = [
-  'Film Production',
-  'Music Production',
-  'Digital Marketing',
-  'Distribution',
-  'Content Strategy',
-  'Other',
-];
-
-// Dietary preferences
-const dietaryPreferences = ['None', 'Vegetarian', 'Vegan', 'Halal', 'Other'];
-
 interface RegistrationFormProps {
   onSubmit?: (data: RegistrationFormData) => Promise<void>;
   isLoading?: boolean;
-  initialChallenges?: string[];
+  _initialChallenges?: string[];
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSubmit,
   isLoading = false,
-  initialChallenges = [],
 }) => {
-  const [selectedChallengeAreas, setSelectedChallengeAreas] =
-    useState<string[]>(initialChallenges);
   const [selectedDeclarations, setSelectedDeclarations] = useState<string[]>(
     []
   );
-  const [selectedTechnicalSkills, setSelectedTechnicalSkills] = useState<
-    string[]
-  >([]);
-  const [selectedCreativeSkills, setSelectedCreativeSkills] = useState<
-    string[]
-  >([]);
   const { isMobile } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
 
   const initialValues: Partial<RegistrationFormData> = {
     teamName: '',
     teamSize: 3,
+    countryOfResidence: '',
+    hackathonExperience: 'no',
+    hackathonExperienceDetails: '',
     teamLeader: {
       name: '',
       email: '',
       phone: '',
-      role: 'Software Developer',
+      role: 'Developer',
       linkedin: '',
-      country: '',
-      nationality: '',
-      age: 18,
-      gender: '',
-      dateOfBirth: '',
-      stateCity: '',
-      educationLevel: '',
-      fieldOfStudy: '',
-      occupation: '',
-      organization: '',
-      portfolio: '',
     },
     teamMembers: [],
-    applicationType: 'Individual',
-    teamRoles: [],
-    teamIntroduction: '',
-    projectTitle: '',
-    ideaSummary: '',
-    problemSolving: '',
-    technology: '',
-    alignment: '',
-    hasPrototype: false,
-    prototypeURL: '',
-    projectRepo: '',
-    challengeAreas: [],
+    creativeIndustryChallenge: '',
+    distributionChallenge: '',
+    solutionVision: '',
+    teamPositioning: '',
+    allMembersAvailable: true,
+    availabilityExplanation: '',
+    hasDietaryRestrictions: false,
+    dietaryNeeds: '',
     declarations: [],
-    travelSupport: false,
-    accommodationSupport: false,
-    dietaryPreferences: '',
-    accessibilityNeeds: '',
-    hackathonExperience: 'no',
-    hackathonExperienceDetails: '',
-    motivation: '',
     digitalSignature: '',
   };
 
@@ -236,24 +146,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     onSubmit: async data => {
       const formData = {
         ...data,
-        challengeAreas: selectedChallengeAreas,
         declarations: selectedDeclarations,
-        technicalSkills: selectedTechnicalSkills,
-        creativeSkills: selectedCreativeSkills,
       };
       if (onSubmit) {
         await onSubmit(formData);
       }
     },
   });
-
-  const handleChallengeAreaToggle = (area: string) => {
-    const updated = selectedChallengeAreas.includes(area)
-      ? selectedChallengeAreas.filter(a => a !== area)
-      : [...selectedChallengeAreas, area];
-    setSelectedChallengeAreas(updated);
-    setValue('challengeAreas', updated);
-  };
 
   const handleDeclarationToggle = (declaration: string) => {
     const updated = selectedDeclarations.includes(declaration)
@@ -263,18 +162,41 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     setValue('declarations', updated);
   };
 
-  const handleTechnicalSkillToggle = (skill: string) => {
-    const updated = selectedTechnicalSkills.includes(skill)
-      ? selectedTechnicalSkills.filter(s => s !== skill)
-      : [...selectedTechnicalSkills, skill];
-    setSelectedTechnicalSkills(updated);
+  const addTeamMember = () => {
+    if (
+      values.teamMembers &&
+      values.teamMembers.length < (values.teamSize || 3) - 1
+    ) {
+      const newMember = {
+        name: '',
+        email: '',
+        phone: '',
+        role: 'Developer',
+        linkedin: '',
+      };
+      setValue('teamMembers', [...(values.teamMembers || []), newMember]);
+    }
   };
 
-  const handleCreativeSkillToggle = (skill: string) => {
-    const updated = selectedCreativeSkills.includes(skill)
-      ? selectedCreativeSkills.filter(s => s !== skill)
-      : [...selectedCreativeSkills, skill];
-    setSelectedCreativeSkills(updated);
+  const removeTeamMember = (index: number) => {
+    if (values.teamMembers) {
+      const updated = values.teamMembers.filter((_, i) => i !== index);
+      setValue('teamMembers', updated);
+    }
+  };
+
+  const updateTeamMember = (index: number, field: string, value: string) => {
+    if (values.teamMembers) {
+      const updated = [...values.teamMembers];
+      updated[index] = { ...updated[index], [field]: value } as {
+        name: string;
+        email: string;
+        phone: string;
+        role: string;
+        linkedin: string;
+      };
+      setValue('teamMembers', updated);
+    }
   };
 
   return (
@@ -285,20 +207,124 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       onSubmit={handleSubmit}
       className="space-y-8"
     >
-      {/* Section 1: Personal Information */}
+      {/* Section 1: Team Information */}
       <div className="bg-white rounded-lg shadow-sm p-6 border">
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-blue-100 rounded-full p-2">
             <Users className="w-5 h-5 text-blue-600" />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Personal Information
+            Section 1: Team Information
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <FormField
-            label="Full Name"
+            label="Team Name"
+            required
+            error={touched.teamName ? errors.teamName : undefined}
+            htmlFor="teamName"
+          >
+            <Input
+              id="teamName"
+              placeholder="Enter your team name"
+              value={values.teamName || ''}
+              onChange={e => setValue('teamName', e.target.value)}
+              onBlur={() => handleBlur('teamName')}
+            />
+          </FormField>
+
+          <FormField label="Team Size" required htmlFor="teamSize">
+            <Select
+              value={values.teamSize?.toString() || '3'}
+              onValueChange={value => setValue('teamSize', parseInt(value))}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="3">3 members</SelectItem>
+                <SelectItem value="4">4 members</SelectItem>
+                <SelectItem value="5">5 members</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          <FormField
+            label="Country of Residence"
+            required
+            htmlFor="countryOfResidence"
+          >
+            <Select
+              value={values.countryOfResidence || ''}
+              onValueChange={value => setValue('countryOfResidence', value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select country" />
+              </SelectTrigger>
+              <SelectContent>
+                {countries.map(country => (
+                  <SelectItem key={country} value={country}>
+                    {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          <FormField
+            label="Have any team members participated in a hackathon before?"
+            required
+            htmlFor="hackathonExperience"
+          >
+            <Select
+              value={values.hackathonExperience || 'no'}
+              onValueChange={value => setValue('hackathonExperience', value)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+        </div>
+
+        {values.hackathonExperience === 'yes' && (
+          <FormField
+            label="If yes, describe one project your team (or team members) previously worked on:"
+            htmlFor="hackathonExperienceDetails"
+            className="mt-6"
+          >
+            <Textarea
+              id="hackathonExperienceDetails"
+              placeholder="Describe the project briefly..."
+              rows={3}
+              value={values.hackathonExperienceDetails || ''}
+              onChange={e =>
+                setValue('hackathonExperienceDetails', e.target.value)
+              }
+            />
+          </FormField>
+        )}
+      </div>
+
+      {/* Section 2: Team Lead Information */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-green-100 rounded-full p-2">
+            <Users className="w-5 h-5 text-green-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 2: Team Lead Information
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <FormField
+            label="Full Name (First, Middle, Last)"
             required
             error={
               touched['teamLeader.name'] ? errors['teamLeader.name'] : undefined
@@ -319,92 +345,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             />
           </FormField>
 
-          <FormField label="Gender" required htmlFor="teamLeader.gender">
-            <Select
-              value={values.teamLeader?.gender || ''}
-              onValueChange={value =>
-                setValue('teamLeader', { ...values.teamLeader, gender: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select gender" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Male">Male</SelectItem>
-                <SelectItem value="Female">Female</SelectItem>
-                <SelectItem value="Non-Binary">Non-Binary</SelectItem>
-                <SelectItem value="Prefer not to say">
-                  Prefer not to say
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </FormField>
-
           <FormField
-            label="Date of Birth"
-            required
-            htmlFor="teamLeader.dateOfBirth"
-          >
-            <Input
-              id="teamLeader.dateOfBirth"
-              type="date"
-              value={values.teamLeader?.dateOfBirth || ''}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  dateOfBirth: e.target.value,
-                })
-              }
-            />
-          </FormField>
-
-          <FormField
-            label="Nationality"
-            required
-            htmlFor="teamLeader.nationality"
-          >
-            <Select
-              value={values.teamLeader?.nationality || ''}
-              onValueChange={value =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  nationality: value,
-                })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select nationality" />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map(country => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="State/City of Residence"
-            required
-            htmlFor="teamLeader.stateCity"
-          >
-            <Input
-              id="teamLeader.stateCity"
-              placeholder="Enter your state or city"
-              value={values.teamLeader?.stateCity || ''}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  stateCity: e.target.value,
-                })
-              }
-            />
-          </FormField>
-
-          <FormField
-            label="Phone Number (with country code)"
+            label="Phone Number (include country code)"
             required
             error={
               touched['teamLeader.phone']
@@ -451,250 +393,30 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
               onBlur={() => handleBlur('teamLeader.email')}
             />
           </FormField>
-        </div>
-      </div>
 
-      {/* Section 2: Academic & Professional Background */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-green-100 rounded-full p-2">
-            <GraduationCap className="w-5 h-5 text-green-600" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900">
-            Academic & Professional Background
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <FormField
-            label="Highest Education Level"
-            required
-            htmlFor="teamLeader.educationLevel"
-          >
-            <Select
-              value={values.teamLeader?.educationLevel || ''}
-              onValueChange={value =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  educationLevel: value,
-                })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select education level" />
-              </SelectTrigger>
-              <SelectContent>
-                {educationLevels.map(level => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="Field of Study / Specialization"
-            required
-            htmlFor="teamLeader.fieldOfStudy"
-          >
+          <FormField label="LinkedIn Profile" htmlFor="teamLeader.linkedin">
             <Input
-              id="teamLeader.fieldOfStudy"
-              placeholder="e.g., Computer Science, Business, Arts"
-              value={values.teamLeader?.fieldOfStudy || ''}
+              id="teamLeader.linkedin"
+              placeholder="https://linkedin.com/in/username (Optional)"
+              value={values.teamLeader?.linkedin || ''}
               onChange={e =>
                 setValue('teamLeader', {
                   ...values.teamLeader,
-                  fieldOfStudy: e.target.value,
+                  linkedin: e.target.value,
                 })
               }
             />
           </FormField>
 
-          <FormField
-            label="Current Occupation"
-            required
-            htmlFor="teamLeader.occupation"
-          >
+          <FormField label="Role in Team" required htmlFor="teamLeader.role">
             <Select
-              value={values.teamLeader?.occupation || ''}
-              onValueChange={value =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  occupation: value,
-                })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select occupation" />
-              </SelectTrigger>
-              <SelectContent>
-                {occupations.map(occupation => (
-                  <SelectItem key={occupation} value={occupation}>
-                    {occupation}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="Organization/Institution (Optional)"
-            htmlFor="teamLeader.organization"
-          >
-            <Input
-              id="teamLeader.organization"
-              placeholder="Enter organization or institution"
-              value={values.teamLeader?.organization || ''}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  organization: e.target.value,
-                })
-              }
-            />
-          </FormField>
-
-          <FormField
-            label="Portfolio/LinkedIn/GitHub URL (Optional)"
-            htmlFor="teamLeader.portfolio"
-          >
-            <Input
-              id="teamLeader.portfolio"
-              placeholder="https://linkedin.com/in/username"
-              value={values.teamLeader?.portfolio || ''}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  portfolio: e.target.value,
-                })
-              }
-            />
-          </FormField>
-        </div>
-      </div>
-
-      {/* Section 3: Team Details */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-purple-100 rounded-full p-2">
-            <Users className="w-5 h-5 text-purple-600" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900">Team Details</h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <FormField
-            label="Are you applying as"
-            required
-            htmlFor="applicationType"
-          >
-            <Select
-              value={values.applicationType || 'Individual'}
-              onValueChange={value => setValue('applicationType', value)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Individual">Individual</SelectItem>
-                <SelectItem value="Team Representative">
-                  Team Representative
-                </SelectItem>
-                <SelectItem value="Team Member">Team Member</SelectItem>
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField label="Team Name (if applicable)" htmlFor="teamName">
-            <Input
-              id="teamName"
-              placeholder="Enter team name"
-              value={values.teamName || ''}
-              onChange={e => setValue('teamName', e.target.value)}
-            />
-          </FormField>
-
-          <FormField label="Number of Team Members" required htmlFor="teamSize">
-            <Input
-              id="teamSize"
-              type="number"
-              min="3"
-              max="5"
-              value={values.teamSize || 3}
-              onChange={e =>
-                setValue('teamSize', parseInt(e.target.value) || 3)
-              }
-            />
-          </FormField>
-
-          <FormField label="Team Roles" required htmlFor="teamRoles">
-            <div className="space-y-2">
-              {roles.map(role => (
-                <label key={role} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={values.teamRoles?.includes(role) || false}
-                    onChange={e => {
-                      const currentRoles = values.teamRoles || [];
-                      if (e.target.checked) {
-                        setValue('teamRoles', [...currentRoles, role]);
-                      } else {
-                        setValue(
-                          'teamRoles',
-                          currentRoles.filter(r => r !== role)
-                        );
-                      }
-                    }}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-gray-700">{role}</span>
-                </label>
-              ))}
-            </div>
-          </FormField>
-        </div>
-
-        <FormField
-          label="Brief Team Introduction (150 words max)"
-          required
-          htmlFor="teamIntroduction"
-        >
-          <Textarea
-            id="teamIntroduction"
-            placeholder="Describe your team's background, skills, and why you're participating..."
-            rows={4}
-            maxLength={150}
-            value={values.teamIntroduction || ''}
-            onChange={e => setValue('teamIntroduction', e.target.value)}
-          />
-          <p className="text-sm text-gray-500 mt-1">
-            {values.teamIntroduction?.length || 0}/150 words
-          </p>
-        </FormField>
-      </div>
-
-      {/* Section 4: Skills & Interest Areas */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-yellow-100 rounded-full p-2">
-            <Target className="w-5 h-5 text-yellow-600" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900">
-            Skills & Interest Areas
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <FormField label="Primary Role" required htmlFor="teamLeader.role">
-            <Select
-              value={values.teamLeader?.role || ''}
+              value={values.teamLeader?.role || 'Developer'}
               onValueChange={value =>
                 setValue('teamLeader', { ...values.teamLeader, role: value })
               }
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select primary role" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {roles.map(role => (
@@ -705,155 +427,291 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
               </SelectContent>
             </Select>
           </FormField>
+        </div>
+      </div>
 
-          <div className="space-y-4">
-            <FormField label="Technical Skills">
-              <div className="grid grid-cols-2 gap-2">
-                {technicalSkills.map(skill => (
-                  <label key={skill} className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedTechnicalSkills.includes(skill)}
-                      onChange={() => handleTechnicalSkillToggle(skill)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-700">{skill}</span>
-                  </label>
-                ))}
-              </div>
-            </FormField>
+      {/* Section 3: Team Members Information */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-purple-100 rounded-full p-2">
+            <Users className="w-5 h-5 text-purple-600" />
           </div>
-
-          <div className="space-y-4">
-            <FormField label="Creative/Industry Skills">
-              <div className="grid grid-cols-2 gap-2">
-                {creativeSkills.map(skill => (
-                  <label key={skill} className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedCreativeSkills.includes(skill)}
-                      onChange={() => handleCreativeSkillToggle(skill)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="text-sm text-gray-700">{skill}</span>
-                  </label>
-                ))}
-              </div>
-            </FormField>
-          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 3: Team Members Information
+          </h2>
         </div>
 
-        <div className="space-y-6 mt-6">
-          <FormField
-            label="Hackathon Problem Area of Interest"
-            required
-            htmlFor="challengeAreas"
-          >
-            <div className="grid md:grid-cols-2 gap-3">
-              {challengeAreas.map(area => (
-                <label
-                  key={area}
-                  className="flex items-center space-x-3 cursor-pointer"
+        <p className="text-gray-600 mb-4">
+          Add team members (repeat this section for each member)
+        </p>
+
+        {values.teamMembers &&
+          values.teamMembers.map((member, index) => (
+            <div
+              key={index}
+              className="border border-gray-200 rounded-lg p-4 mb-4"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="font-medium text-gray-900">
+                  Team Member {index + 1}
+                </h4>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => removeTeamMember(index)}
+                  className="text-red-600 hover:text-red-700"
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedChallengeAreas.includes(area)}
-                    onChange={() => handleChallengeAreaToggle(area)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Remove
+                </Button>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <FormField
+                  label="Full Name"
+                  required
+                  htmlFor={`member-${index}-name`}
+                >
+                  <Input
+                    id={`member-${index}-name`}
+                    placeholder="Enter full name"
+                    value={member.name}
+                    onChange={e =>
+                      updateTeamMember(index, 'name', e.target.value)
+                    }
                   />
-                  <span className="text-sm text-gray-700">{area}</span>
-                </label>
-              ))}
-            </div>
-          </FormField>
+                </FormField>
 
-          <FormField
-            label="Have you participated in a hackathon before?"
-            required
-            htmlFor="hackathonExperience"
+                <FormField
+                  label="Email Address"
+                  required
+                  htmlFor={`member-${index}-email`}
+                >
+                  <Input
+                    id={`member-${index}-email`}
+                    type="email"
+                    placeholder="Enter email address"
+                    value={member.email}
+                    onChange={e =>
+                      updateTeamMember(index, 'email', e.target.value)
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  label="Phone Number"
+                  required
+                  htmlFor={`member-${index}-phone`}
+                >
+                  <Input
+                    id={`member-${index}-phone`}
+                    placeholder="Enter phone number"
+                    value={member.phone}
+                    onChange={e =>
+                      updateTeamMember(index, 'phone', e.target.value)
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  label="Role in Team"
+                  required
+                  htmlFor={`member-${index}-role`}
+                >
+                  <Select
+                    value={member.role}
+                    onValueChange={value =>
+                      updateTeamMember(index, 'role', value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roles.map(role => (
+                        <SelectItem key={role} value={role}>
+                          {role}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormField>
+
+                <FormField
+                  label="LinkedIn Profile or Portfolio (Optional)"
+                  htmlFor={`member-${index}-linkedin`}
+                  className="md:col-span-2"
+                >
+                  <Input
+                    id={`member-${index}-linkedin`}
+                    placeholder="https://linkedin.com/in/username or portfolio URL"
+                    value={member.linkedin}
+                    onChange={e =>
+                      updateTeamMember(index, 'linkedin', e.target.value)
+                    }
+                  />
+                </FormField>
+              </div>
+            </div>
+          ))}
+
+        {(!values.teamMembers ||
+          values.teamMembers.length < (values.teamSize || 3) - 1) && (
+          <Button
+            type="button"
+            variant="outline"
+            onClick={addTeamMember}
+            className="w-full"
           >
-            <div className="space-y-2">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="hackathonExperience"
-                  value="yes"
-                  checked={values.hackathonExperience === 'yes'}
-                  onChange={e =>
-                    setValue('hackathonExperience', e.target.value)
-                  }
-                  className="text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">Yes</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="hackathonExperience"
-                  value="no"
-                  checked={values.hackathonExperience === 'no'}
-                  onChange={e =>
-                    setValue('hackathonExperience', e.target.value)
-                  }
-                  className="text-blue-600 focus:ring-blue-500"
-                />
-                <span className="text-sm text-gray-700">No</span>
-              </label>
-            </div>
-            {values.hackathonExperience === 'yes' && (
-              <Textarea
-                placeholder="Describe your hackathon experience briefly..."
-                rows={3}
-                className="mt-3"
-                value={values.hackathonExperienceDetails || ''}
-                onChange={e =>
-                  setValue('hackathonExperienceDetails', e.target.value)
-                }
-              />
-            )}
+            <Plus className="w-4 h-4 mr-2" />
+            Add Team Member
+          </Button>
+        )}
+      </div>
+
+      {/* Section 4: Idea Summary */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-yellow-100 rounded-full p-2">
+            <Target className="w-5 h-5 text-yellow-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 4: Idea Summary
+          </h2>
+        </div>
+
+        <div className="space-y-6">
+          <FormField
+            label="What creative industry challenge are you most passionate about solving?"
+            required
+            htmlFor="creativeIndustryChallenge"
+          >
+            <Input
+              id="creativeIndustryChallenge"
+              placeholder="Briefly describe the challenge..."
+              value={values.creativeIndustryChallenge || ''}
+              onChange={e =>
+                setValue('creativeIndustryChallenge', e.target.value)
+              }
+            />
           </FormField>
 
           <FormField
-            label="Why do you want to join ACM Hackathon 2025? (300 words max)"
+            label="Describe the distribution challenge you aim to tackle during the hackathon"
             required
-            htmlFor="motivation"
+            htmlFor="distributionChallenge"
           >
             <Textarea
-              id="motivation"
-              placeholder="Explain your motivation for participating..."
+              id="distributionChallenge"
+              placeholder="Describe the challenge in detail... (Max 250 words)"
               rows={4}
-              maxLength={300}
-              value={values.motivation || ''}
-              onChange={e => setValue('motivation', e.target.value)}
+              maxLength={250}
+              value={values.distributionChallenge || ''}
+              onChange={e => setValue('distributionChallenge', e.target.value)}
             />
             <p className="text-sm text-gray-500 mt-1">
-              {values.motivation?.length || 0}/300 words
+              {values.distributionChallenge?.length || 0}/250 words
+            </p>
+          </FormField>
+
+          <FormField
+            label="What solution do you envision your team building (even if it's an early idea)?"
+            required
+            htmlFor="solutionVision"
+          >
+            <Textarea
+              id="solutionVision"
+              placeholder="Describe your envisioned solution... (Max 250 words)"
+              rows={4}
+              maxLength={250}
+              value={values.solutionVision || ''}
+              onChange={e => setValue('solutionVision', e.target.value)}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              {values.solutionVision?.length || 0}/250 words
+            </p>
+          </FormField>
+
+          <FormField
+            label="What makes your team uniquely positioned to solve this?"
+            required
+            htmlFor="teamPositioning"
+          >
+            <Textarea
+              id="teamPositioning"
+              placeholder="Explain your team's unique position... (Max 150 words)"
+              rows={3}
+              maxLength={150}
+              value={values.teamPositioning || ''}
+              onChange={e => setValue('teamPositioning', e.target.value)}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              {values.teamPositioning?.length || 0}/150 words
             </p>
           </FormField>
         </div>
       </div>
 
-      {/* Section 5: Logistics & Support Needs */}
+      {/* Section 5: Logistics */}
       <div className="bg-white rounded-lg shadow-sm p-6 border">
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-indigo-100 rounded-full p-2">
             <MapPin className="w-5 h-5 text-indigo-600" />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Logistics & Support Needs
+            Section 5: Logistics
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <FormField
-            label="Do you require travel support?"
+            label="Will all team members be available to participate in-person in Lagos from Sept 16–19?"
             required
-            htmlFor="travelSupport"
+            htmlFor="allMembersAvailable"
           >
             <Select
-              value={values.travelSupport ? 'yes' : 'no'}
+              value={values.allMembersAvailable ? 'yes' : 'no'}
               onValueChange={value =>
-                setValue('travelSupport', value === 'yes')
+                setValue('allMembersAvailable', value === 'yes')
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          {!values.allMembersAvailable && (
+            <FormField
+              label="If No, explain:"
+              required
+              htmlFor="availabilityExplanation"
+            >
+              <Input
+                id="availabilityExplanation"
+                placeholder="Explain why some members cannot attend..."
+                value={values.availabilityExplanation || ''}
+                onChange={e =>
+                  setValue('availabilityExplanation', e.target.value)
+                }
+              />
+            </FormField>
+          )}
+
+          <FormField
+            label="Do any of your team members have dietary restrictions?"
+            required
+            htmlFor="hasDietaryRestrictions"
+          >
+            <Select
+              value={values.hasDietaryRestrictions ? 'yes' : 'no'}
+              onValueChange={value =>
+                setValue('hasDietaryRestrictions', value === 'yes')
               }
             >
               <SelectTrigger>
@@ -866,76 +724,43 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             </Select>
           </FormField>
 
-          <FormField
-            label="Do you require accommodation support?"
-            required
-            htmlFor="accommodationSupport"
-          >
-            <Select
-              value={values.accommodationSupport ? 'yes' : 'no'}
-              onValueChange={value =>
-                setValue('accommodationSupport', value === 'yes')
-              }
+          {values.hasDietaryRestrictions && (
+            <FormField
+              label="If Yes, list dietary needs:"
+              required
+              htmlFor="dietaryNeeds"
             >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="no">No</SelectItem>
-                <SelectItem value="yes">Yes</SelectItem>
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField label="Dietary Preferences" htmlFor="dietaryPreferences">
-            <Select
-              value={values.dietaryPreferences || ''}
-              onValueChange={value => setValue('dietaryPreferences', value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select preference" />
-              </SelectTrigger>
-              <SelectContent>
-                {dietaryPreferences.map(pref => (
-                  <SelectItem key={pref} value={pref}>
-                    {pref}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="Accessibility Needs (Optional)"
-            htmlFor="accessibilityNeeds"
-          >
-            <Textarea
-              id="accessibilityNeeds"
-              placeholder="Describe any accessibility requirements..."
-              rows={3}
-              value={values.accessibilityNeeds || ''}
-              onChange={e => setValue('accessibilityNeeds', e.target.value)}
-            />
-          </FormField>
+              <Input
+                id="dietaryNeeds"
+                placeholder="List dietary restrictions..."
+                value={values.dietaryNeeds || ''}
+                onChange={e => setValue('dietaryNeeds', e.target.value)}
+              />
+            </FormField>
+          )}
         </div>
       </div>
 
-      {/* Section 6: Agreement & Consent */}
+      {/* Section 6: Declaration & Consent */}
       <div className="bg-white rounded-lg shadow-sm p-6 border">
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-green-100 rounded-full p-2">
             <CheckCircle className="w-5 h-5 text-green-600" />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Agreement & Consent
+            Section 6: Declaration & Consent
           </h2>
         </div>
 
         <div className="space-y-4">
+          <p className="text-gray-700 mb-4">
+            By submitting this application, I confirm that:
+          </p>
+
           {[
-            'I confirm that the information provided is accurate.',
-            'I agree to abide by the ACM Hackathon 2025 Code of Conduct.',
-            'I consent to the use of my photos, videos, and project materials for ACM communications.',
+            'All information provided is accurate',
+            'All team members are aged 18+',
+            'Our team will abide by the rules of the ACM Hackathon 2025',
           ].map(declaration => (
             <label
               key={declaration}
@@ -953,7 +778,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         </div>
 
         <FormField
-          label="Digital Signature (Full Name)"
+          label="Signature of Team Lead (Typed Full Name)"
           required
           htmlFor="digitalSignature"
           className="mt-6"

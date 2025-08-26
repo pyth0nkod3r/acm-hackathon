@@ -19,12 +19,6 @@ export const nameSchema = z
   .min(2, 'Name must be at least 2 characters')
   .max(50, 'Name must be less than 50 characters');
 
-// Age validation schema
-export const ageSchema = z
-  .number()
-  .min(16, 'Must be at least 16 years old')
-  .max(100, 'Age must be less than 100');
-
 // URL validation schema
 export const urlSchema = z
   .string()
@@ -35,6 +29,7 @@ export const urlSchema = z
   .refine(val => val === '' || val.match(/^https?:\/\/.+/), {
     message: 'Please enter a valid URL or leave empty',
   });
+
 // Required text field validation
 export const requiredTextSchema = z
   .string()
@@ -44,24 +39,13 @@ export const requiredTextSchema = z
 // Optional text field validation
 export const optionalTextSchema = z.string().optional();
 
-// Team member validation schema
+// Team member validation schema (simplified for new form)
 export const teamMemberSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   phone: phoneSchema,
   role: requiredTextSchema,
   linkedin: urlSchema,
-  country: requiredTextSchema,
-  nationality: requiredTextSchema,
-  age: ageSchema,
-  gender: requiredTextSchema,
-  dateOfBirth: z.string().optional(),
-  stateCity: requiredTextSchema,
-  educationLevel: requiredTextSchema,
-  fieldOfStudy: requiredTextSchema,
-  occupation: requiredTextSchema,
-  organization: optionalTextSchema,
-  portfolio: urlSchema,
 });
 
 // Contact form validation schema
@@ -72,65 +56,56 @@ export const contactFormSchema = z.object({
   message: requiredTextSchema.min(10, 'Message must be at least 10 characters'),
 });
 
-// Registration form validation schema
+// Registration form validation schema (updated for new form structure)
 export const registrationFormSchema = z.object({
+  // Section 1: Team Information
   teamName: requiredTextSchema.min(
     3,
     'Team name must be at least 3 characters'
   ),
   teamSize: z
     .number()
-    .min(1, 'Team must have at least 1 member')
+    .min(3, 'Team must have at least 3 members')
     .max(5, 'Team cannot exceed 5 members'),
+  countryOfResidence: requiredTextSchema,
+  hackathonExperience: z.enum(['yes', 'no']),
+  hackathonExperienceDetails: z.string().optional(),
+
+  // Section 2: Team Lead Information
   teamLeader: teamMemberSchema,
-  teamMembers: z
-    .array(teamMemberSchema)
-    .max(4, 'Maximum 4 additional team members'),
-  applicationType: z.enum(['Individual', 'Team Representative', 'Team Member']),
-  teamRoles: z
-    .array(z.string())
-    .min(1, 'At least one team role must be selected'),
-  teamIntroduction: z
-    .string()
-    .min(10, 'Team introduction must be at least 10 characters')
-    .max(150, 'Team introduction must be less than 150 characters'),
-  projectTitle: z
-    .string()
-    .min(5, 'Project title must be at least 5 characters'),
-  ideaSummary: z
-    .string()
-    .min(50, 'Idea summary must be at least 50 characters'),
-  problemSolving: z
-    .string()
-    .min(50, 'Problem solving description must be at least 50 characters'),
-  technology: z
-    .string()
-    .min(10, 'Technology description must be at least 10 characters'),
-  alignment: z
-    .string()
-    .min(50, 'Alignment description must be at least 50 characters'),
-  hasPrototype: z.boolean(),
-  prototypeURL: z.string().url().optional().or(z.literal('')),
-  projectRepo: z.string().url().optional().or(z.literal('')),
-  challengeAreas: z
-    .array(z.string())
-    .min(1, 'At least one challenge area must be selected'),
+
+  // Section 3: Team Members Information
+  teamMembers: z.array(teamMemberSchema).optional(),
+
+  // Section 4: Idea Summary
+  creativeIndustryChallenge: requiredTextSchema.min(
+    10,
+    'Challenge description must be at least 10 characters'
+  ),
+  distributionChallenge: requiredTextSchema
+    .min(50, 'Distribution challenge must be at least 50 characters')
+    .max(250, 'Distribution challenge must be less than 250 characters'),
+  solutionVision: requiredTextSchema
+    .min(50, 'Solution vision must be at least 50 characters')
+    .max(250, 'Solution vision must be less than 250 characters'),
+  teamPositioning: requiredTextSchema
+    .min(50, 'Team positioning must be at least 50 characters')
+    .max(150, 'Team positioning must be less than 150 characters'),
+
+  // Section 5: Logistics
+  allMembersAvailable: z.boolean(),
+  availabilityExplanation: z.string().optional(),
+  hasDietaryRestrictions: z.boolean(),
+  dietaryNeeds: z.string().optional(),
+
+  // Section 6: Declaration & Consent
   declarations: z
     .array(z.string())
     .min(3, 'All required declarations must be accepted'),
-  travelSupport: z.boolean(),
-  accommodationSupport: z.boolean(),
-  dietaryPreferences: z.string().optional(),
-  accessibilityNeeds: z.string().optional(),
-  hackathonExperience: z.enum(['yes', 'no']),
-  hackathonExperienceDetails: z.string().optional(),
-  motivation: z
-    .string()
-    .min(100, 'Motivation must be at least 100 characters')
-    .max(300, 'Motivation must be less than 300 characters'),
-  technicalSkills: z.array(z.string()).optional(),
-  creativeSkills: z.array(z.string()).optional(),
-  digitalSignature: z.string().min(1, 'Digital signature is required'),
+  digitalSignature: requiredTextSchema.min(
+    2,
+    'Digital signature must be at least 2 characters'
+  ),
 });
 
 // Validation helper functions

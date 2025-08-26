@@ -13,31 +13,70 @@ import { apiConfig } from '../config/api';
 
 export class RegistrationService extends APIService {
   /**
-   * Submits registration form data to the new API
+   * Submits registration form data to the API
    */
   async submitRegistration(
     formData: RegistrationFormData
   ): Promise<APIResponse<PartnerRegistrationResponse>> {
     try {
-      // Transform the form data to match the new API format
+      // Validate required fields before submission
+      this.validateFormData(formData);
+
+      // Transform the form data to match the API format
       const apiData = this.transformToAPIFormat(formData);
 
-      // Submit to the new API endpoint
-      return this.post<PartnerRegistrationResponse>(
+      console.log('Submitting registration data:', apiData);
+
+      // Submit to the API endpoint
+      const response = await this.post<PartnerRegistrationResponse>(
         apiConfig.formEndpoints.registration,
         apiData
       );
+
+      if (response.success) {
+        console.log('Registration submitted successfully:', response);
+      }
+
+      return response;
     } catch (error) {
       console.error('Registration submission error:', error);
       return {
         success: false,
-        message: 'Failed to submit registration form',
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to submit registration form. Please try again.',
       };
     }
   }
 
   /**
+   * Validates required form data before submission
+   */
+  private validateFormData(data: RegistrationFormData): void {
+    if (!data.teamLeader?.name?.trim()) {
+      throw new Error('Team leader name is required');
+    }
+    if (!data.teamLeader?.email?.trim()) {
+      throw new Error('Team leader email is required');
+    }
+    if (!data.teamLeader?.phone?.trim()) {
+      throw new Error('Team leader phone is required');
+    }
+    if (!data.teamName?.trim()) {
+      throw new Error('Team name is required');
+    }
+    if (!data.digitalSignature?.trim()) {
+      throw new Error('Digital signature is required');
+    }
+    if (!data.declarations?.length || data.declarations.length < 3) {
+      throw new Error('All required declarations must be accepted');
+    }
+  }
+
+  /**
    * Transforms RegistrationFormData to PartnerRegistrationRequest format
+   * Maps the hackathon registration form fields to the API format
    */
   private transformToAPIFormat(
     data: RegistrationFormData
@@ -47,77 +86,77 @@ export class RegistrationService extends APIService {
     const firstName = nameParts[0] || '';
     const lastName = nameParts.slice(1).join(' ') || '';
 
+    // Prepare team member information
+    const allTeamMembers = [data.teamLeader, ...(data.teamMembers || [])];
+    const teamRoles = allTeamMembers.map(member => member.role);
+
+    // Prepare attending days (hackathon days)
+    const attendingDays = data.allMembersAvailable
+      ? ['September 16', 'September 17', 'September 18', 'September 19']
+      : ['TBD - Some members unavailable'];
+
     return {
-      // Personal Information
+      // Personal Information (Team Leader)
       firstName,
       lastName,
       phoneNumber: data.teamLeader.phone,
       emailAddress: data.teamLeader.email,
-      gender: data.teamLeader.gender || '',
-      // Optional fields - only include if they exist
-      ...(data.teamLeader.dateOfBirth && {
-        dateOfBirth: data.teamLeader.dateOfBirth,
+      company: data.teamName, // Using team name as company
+      gender: '', // Not collected in current form
+      industry: 'Creative Technology', // Default for hackathon
+      attendingDays,
+
+      // Optional personal fields
+      ...(data.teamLeader.linkedin && {
+        linkedin: data.teamLeader.linkedin,
       }),
-      ...(data.teamLeader.nationality && {
-        nationality: data.teamLeader.nationality,
-      }),
-      ...(data.teamLeader.stateCity && {
-        stateCity: data.teamLeader.stateCity,
-      }),
-      ...(data.teamLeader.educationLevel && {
-        educationLevel: data.teamLeader.educationLevel,
-      }),
-      ...(data.teamLeader.fieldOfStudy && {
-        fieldOfStudy: data.teamLeader.fieldOfStudy,
-      }),
-      ...(data.teamLeader.occupation && {
-        occupation: data.teamLeader.occupation,
-      }),
-      ...(data.teamLeader.organization && {
-        organization: data.teamLeader.organization,
-      }),
-      ...(data.teamLeader.portfolio && {
-        portfolio: data.teamLeader.portfolio,
-      }),
-      ...(data.teamLeader.linkedin && { linkedin: data.teamLeader.linkedin }),
 
       // Team Information
       teamName: data.teamName,
       teamSize: data.teamSize,
-      // Optional team fields - provide defaults or omit if not available
       applicationType: 'hackathon',
-      teamRoles: data.teamMembers.map(member => member.role),
-      teamIntroduction: `Team ${data.teamName} with ${data.teamSize} members`,
+      teamRoles,
+      teamIntroduction: `${data.teamName} - ${data.creativeIndustryChallenge}`,
 
-      // Project Information
-      projectTitle: data.projectTitle,
-      ideaSummary: data.ideaSummary,
-      problemSolving: data.problemSolving,
-      technology: data.technology,
-      alignment: data.alignment,
-      hasPrototype: data.hasPrototype,
-      ...(data.prototypeURL && { prototypeURL: data.prototypeURL }),
-      ...(data.projectRepo && { projectRepo: data.projectRepo }),
+      // Project Information (mapped from idea summary fields)
+      projectTitle: `${data.teamName} Solution`,
+      ideaSummary: data.solutionVision,
+      problemSolving: data.distributionChallenge,
+      technology: 'To be determined during hackathon',
+      alignment: data.teamPositioning,
+      hasPrototype: false, // Hackathon teams haven't built yet
 
-      // Skills and Interests - provide defaults since these don't exist in RegistrationFormData
-      technicalSkills: ['To be specified'],
-      creativeSkills: ['To be specified'],
-      challengeAreas: data.challengeAreas,
+      // Skills and Interests
+      technicalSkills: teamRoles.filter(role =>
+        ['Developer', 'Data Scientist'].includes(role)
+      ),
+      creativeSkills: teamRoles.filter(role =>
+        ['Designer', 'Creative Lead'].includes(role)
+      ),
+      challengeAreas: [data.creativeIndustryChallenge],
 
-      // Experience - provide defaults since these don't exist in RegistrationFormData
-      hackathonExperience: 'To be specified',
-      hackathonExperienceDetails: 'To be specified',
-      motivation: 'To be specified',
+      // Experience
+      hackathonExperience: data.hackathonExperience,
+      hackathonExperienceDetails:
+        data.hackathonExperienceDetails || 'No previous experience',
+      motivation: `Passionate about solving: ${data.creativeIndustryChallenge}`,
 
-      // Logistics - provide defaults since these don't exist in RegistrationFormData
-      travelSupport: false,
-      accommodationSupport: false,
-      dietaryPreferences: 'No specific preferences',
+      // Logistics
+      travelSupport: !data.allMembersAvailable, // May need support if not all available
+      accommodationSupport: false, // Not specified in form
+      dietaryPreferences: data.hasDietaryRestrictions
+        ? data.dietaryNeeds || 'Special dietary requirements'
+        : 'No special requirements',
       accessibilityNeeds: 'None specified',
+
+      // Additional context
+      countryOfResidence: data.countryOfResidence,
+      availabilityDetails:
+        data.availabilityExplanation || 'All members available',
 
       // Consent
       declarations: data.declarations,
-      digitalSignature: 'Digital signature provided',
+      digitalSignature: data.digitalSignature,
     };
   }
 }

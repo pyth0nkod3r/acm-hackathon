@@ -140,7 +140,7 @@ export const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="mb-8"
+                className="mb-8 lg:ml-[-190px]"
               >
                 <CountdownTimer targetDate="2025-09-16T00:00:00" />
               </motion.div>
