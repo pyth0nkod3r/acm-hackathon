@@ -12,24 +12,14 @@ export interface TeamMember {
   nationality: string;
   age: number;
   gender?: string;
-}
-
-export interface RegistrationFormData {
-  teamName: string;
-  teamSize: number;
-  teamLeader: TeamMember;
-  teamMembers: TeamMember[];
-  projectTitle: string;
-  ideaSummary: string;
-  problemSolving: string;
-  technology: string;
-  alignment: string;
-  hasPrototype: boolean;
-  prototypeURL?: string;
-  projectRepo?: string;
-  challengeAreas: string[];
-  declarations: string[];
-  fileUpload?: File;
+  // Optional fields used by registration service and validation schema
+  dateOfBirth?: string;
+  stateCity?: string;
+  educationLevel?: string;
+  fieldOfStudy?: string;
+  occupation?: string;
+  organization?: string;
+  portfolio?: string;
 }
 
 export interface ContactFormData {

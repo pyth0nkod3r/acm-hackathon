@@ -124,7 +124,7 @@ const Schedule = () => {
         ],
         afternoon: [
           {
-            timeSlot: '2:00 PM - 4:00 PM',
+            timeSlot: '1:00 PM - 4:00 PM',
             session: 'Awards Ceremony',
             details: 'Celebration of winning solutions and closing remarks',
           },
@@ -152,15 +152,6 @@ const Schedule = () => {
       ],
     },
     {
-      phase: 'Info Sessions/Webinars',
-      duration: 'Ongoing',
-      activities: [
-        'Live webinars explaining hackathon process and distribution challenges',
-        'Tips for success and Q&A sessions',
-        'Industry expert insights on music and film distribution',
-      ],
-    },
-    {
       phase: 'Registration & Idea Submission',
       duration: 'August 25 - September 5, 2025',
       activities: [
@@ -170,12 +161,12 @@ const Schedule = () => {
       ],
     },
     {
-      phase: 'Pre-event Bootcamp',
-      duration: 'September 8-15, 2025',
+      phase: 'Selected Participants Notified',
+      duration: 'September 8, 2025',
       activities: [
-        'Online training on design thinking for distribution',
-        'Pitch skills development',
-        'Prototyping tools training for distribution platforms',
+        'Notifications sent via e-mail and ACM platform',
+        'Public update across ACM website and social media',
+        'Confirmation of participation deadline shared with selected teams',
       ],
     },
   ];
@@ -202,7 +193,7 @@ const Schedule = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-blue-200 text-lg">Hackathon</span>
+              {/* <span className="text-blue-200 text-lg">Hackathon</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -212,7 +203,7 @@ const Schedule = () => {
             >
               Event Schedule
             </motion.h1>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -220,7 +211,7 @@ const Schedule = () => {
             >
               A comprehensive 4-day journey from ideation to innovation, with
               extensive pre-hackathon preparation
-            </motion.p>
+            </motion.p> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -245,15 +236,11 @@ const Schedule = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Pre-Hackathon Phase
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                4-6 weeks of preparation, training, and team formation before
-                the main event
-              </p>
             </div>
           </ScrollAnimation>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {preHackathonEvents.map((phase, index) => (
+            {preHackathonEvents.slice(0, 2).map((phase, index) => (
               <ScrollAnimation
                 key={phase.phase}
                 animation="slideUp"
@@ -293,6 +280,45 @@ const Schedule = () => {
               </ScrollAnimation>
             ))}
           </div>
+
+          {/* Third event spanning full width */}
+          {preHackathonEvents[2] && (
+            <div className="mt-8">
+              <ScrollAnimation animation="slideUp" delay={0.2}>
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200 max-w-4xl mx-auto"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">3</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900">
+                        {preHackathonEvents[2].phase}
+                      </h3>
+                      <p className="text-[#4a5f8a] font-medium">
+                        {preHackathonEvents[2].duration}
+                      </p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    {preHackathonEvents[2].activities.map(
+                      (activity, activityIndex) => (
+                        <li
+                          key={activityIndex}
+                          className="flex items-start gap-2 text-gray-700"
+                        >
+                          <div className="w-2 h-2 bg-[#4a5f8a] rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm">{activity}</span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </motion.div>
+              </ScrollAnimation>
+            </div>
+          )}
         </Container>
       </section>
 

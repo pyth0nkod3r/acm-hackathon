@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { Container } from '../components/layout';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { ContactForm } from '../components/forms';
 import { formSubmissionService } from '../services';
 import { useNotification } from '../hooks';
 import type { ContactFormData } from '../lib/validations';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const { showSuccess, showError } = useNotification();
@@ -43,6 +44,45 @@ const Contact = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-br from-[#c2d72f] via-[#4a5f8a] to-[#4a5f8a] text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#c2d72f]/20 to-[#4a5f8a]/20"></div>
+        </div>
+
+        <Container className="relative z-10">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mb-6"
+            >
+              {/* <span className="text-white-400 text-lg">Hackathon Focus</span> */}
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-4xl md:text-6xl font-bold mb-6"
+            >
+              Contact Us
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex items-center justify-center gap-2 text-white-400"
+            >
+              <Link to="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Contact Us</span>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
       <Container className="py-16">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
@@ -74,7 +114,7 @@ const Contact = () => {
                   <Phone className="w-6 h-6 text-blue-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+234 903 265 70911</p>
+                    <p className="text-gray-600">+234 9167667376</p>
                   </div>
                 </div>
 
@@ -83,8 +123,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900">Location</h3>
                     <p className="text-gray-600">
-                      Lagos
-                      <br />
+                      Landmark Events Center, Victoria Island, Lagos, <br />
                       Nigeria
                     </p>
                   </div>

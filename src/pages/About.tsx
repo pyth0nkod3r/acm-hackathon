@@ -66,13 +66,13 @@ const About = () => {
 
   const acmTimeline = [
     {
-      year: '2020',
+      year: '2022',
       title: 'Africa Creative Market Foundation',
       description:
         "Establishment of ACM to support and promote Africa's creative industries and cultural heritage.",
     },
     {
-      year: '2022',
+      year: '2023',
       title: 'Creative Economy Initiative',
       description:
         "Launch of programs to foster innovation and entrepreneurship in Africa's creative sectors.",
@@ -113,7 +113,7 @@ const About = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-purple-200 text-lg">About</span>
+              {/* <span className="text-purple-200 text-lg">About</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

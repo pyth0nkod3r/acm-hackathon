@@ -235,7 +235,7 @@ describe('Header', () => {
       { text: 'Home', href: '/' },
       { text: 'About', href: '/about' },
       { text: 'Challenges', href: '/challenges' },
-      { text: 'Schedule', href: '/schedule' },      
+      { text: 'Schedule', href: '/schedule' },
       { text: 'Application', href: '/application' },
       { text: 'Contact', href: '/contact' },
     ];

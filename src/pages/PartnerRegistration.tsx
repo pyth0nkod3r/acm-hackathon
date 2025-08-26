@@ -38,7 +38,7 @@ const PartnerRegistration = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -53,12 +53,13 @@ const PartnerRegistration = () => {
       // TODO: Implement actual API call to submit partner registration
       // For now, simulate a successful submission
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setSubmitResult({
         success: true,
-        message: 'Your partner registration has been submitted successfully! We will get back to you soon.',
+        message:
+          'Your partner registration has been submitted successfully! We will get back to you soon.',
       });
-      
+
       setFormData({
         fullName: '',
         phoneNumber: '',
@@ -68,7 +69,7 @@ const PartnerRegistration = () => {
         company: '',
         message: '',
       });
-      
+
       // Clear the success message after 5 seconds
       setTimeout(() => {
         setSubmitResult({});
@@ -78,7 +79,7 @@ const PartnerRegistration = () => {
         success: false,
         message: 'An unexpected error occurred. Please try again later.',
       });
-      
+
       // Clear the error message after 5 seconds
       setTimeout(() => {
         setSubmitResult({});
@@ -138,14 +139,19 @@ const PartnerRegistration = () => {
                   Partner Registration Form
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Join us in transforming Africa's digital trade landscape. Fill out the form below to become a partner and be part of this groundbreaking initiative.
+                  Join us in transforming Africa's digital trade landscape. Fill
+                  out the form below to become a partner and be part of this
+                  groundbreaking initiative.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
-                  <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
+                  <Label
+                    htmlFor="fullName"
+                    className="text-sm font-medium text-gray-700"
+                  >
                     Full Name <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -163,7 +169,10 @@ const PartnerRegistration = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Phone Number */}
                   <div>
-                    <Label htmlFor="phoneNumber" className="text-sm font-medium text-gray-700">
+                    <Label
+                      htmlFor="phoneNumber"
+                      className="text-sm font-medium text-gray-700"
+                    >
                       Phone Number <span className="text-red-500">*</span>
                     </Label>
                     <Input
@@ -180,7 +189,10 @@ const PartnerRegistration = () => {
 
                   {/* Alternate Phone Number */}
                   <div>
-                    <Label htmlFor="altPhoneNumber" className="text-sm font-medium text-gray-700">
+                    <Label
+                      htmlFor="altPhoneNumber"
+                      className="text-sm font-medium text-gray-700"
+                    >
                       Alternate Phone Number
                     </Label>
                     <Input
@@ -196,7 +208,10 @@ const PartnerRegistration = () => {
 
                   {/* Email */}
                   <div>
-                    <Label htmlFor="emailAddress" className="text-sm font-medium text-gray-700">
+                    <Label
+                      htmlFor="emailAddress"
+                      className="text-sm font-medium text-gray-700"
+                    >
                       Email Address <span className="text-red-500">*</span>
                     </Label>
                     <Input
@@ -213,7 +228,10 @@ const PartnerRegistration = () => {
 
                   {/* Alternate Email */}
                   <div>
-                    <Label htmlFor="altEmailAddress" className="text-sm font-medium text-gray-700">
+                    <Label
+                      htmlFor="altEmailAddress"
+                      className="text-sm font-medium text-gray-700"
+                    >
                       Alternate Email Address
                     </Label>
                     <Input
@@ -230,7 +248,10 @@ const PartnerRegistration = () => {
 
                 {/* Company */}
                 <div>
-                  <Label htmlFor="company" className="text-sm font-medium text-gray-700">
+                  <Label
+                    htmlFor="company"
+                    className="text-sm font-medium text-gray-700"
+                  >
                     Name of Company <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -247,7 +268,10 @@ const PartnerRegistration = () => {
 
                 {/* Message */}
                 <div>
-                  <Label htmlFor="message" className="text-sm font-medium text-gray-700">
+                  <Label
+                    htmlFor="message"
+                    className="text-sm font-medium text-gray-700"
+                  >
                     Message
                   </Label>
                   <Textarea
@@ -302,19 +326,22 @@ const PartnerRegistration = () => {
                   {[
                     {
                       title: 'Strategic Collaboration',
-                      description: 'Work directly with leading organizations in Africa\'s digital trade ecosystem',
-                      icon: '🤝'
+                      description:
+                        "Work directly with leading organizations in Africa's digital trade ecosystem",
+                      icon: '🤝',
                     },
                     {
                       title: 'Network Access',
-                      description: 'Connect with industry leaders, innovators, and potential clients across Africa',
-                      icon: '🌍'
+                      description:
+                        'Connect with industry leaders, innovators, and potential clients across Africa',
+                      icon: '🌍',
                     },
                     {
                       title: 'Innovation Impact',
-                      description: 'Contribute to shaping the future of digital trade in Africa',
-                      icon: '💡'
-                    }
+                      description:
+                        'Contribute to shaping the future of digital trade in Africa',
+                      icon: '💡',
+                    },
                   ].map((benefit, index) => (
                     <div key={index} className="text-center">
                       <div className="text-4xl mb-3">{benefit.icon}</div>

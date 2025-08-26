@@ -164,10 +164,10 @@
   }
 
   /* Focus visible styles */
- .focus-visible:focus-visible {
-  outline: 2px solid oklch(var(--ring));
-  outline-offset: 2px;
-}
+  .focus-visible:focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+  }
 
   /* Ensure interactive elements have minimum touch target size */
   button,

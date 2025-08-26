@@ -14,7 +14,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
 import { cn } from '../../lib/utils';
-import Logo from "@/assets/img/logo/logo.png"
+import Logo from '@/assets/img/logo/logo.png';
 
 interface FooterProps {
   className?: string;
@@ -51,15 +51,15 @@ const quickLinks = [
   { label: 'About', href: '/about' },
   { label: 'Challenges', href: '/challenges' },
   { label: 'Registration', href: '/registration' },
-  { label: 'Parntership', href: '/partner-registration' },
+  { label: 'Partnership', href: '/partner-registration' },
   { label: 'Schedule', href: '/schedule' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const contactInfo: ContactInfo = {
   email: 'info@africacreativemarket-global.org',
-  phone: '+234 123 456 7890',
-  address: 'LAGOS, Nigeria',
+  phone: '+234 9167667376',
+  address: 'Landmark Events Center, Victoria Island, Lagos, Nigeria',
   website: 'www.africacreativemarket-global.org',
 };
 
@@ -145,7 +145,7 @@ export const Footer: React.FC<FooterProps> = () => {
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(
@@ -359,9 +359,8 @@ export const Footer: React.FC<FooterProps> = () => {
               )}
             >
               <p>
-                Powered by Africa Creative Market  {' -  '}
-                {'  '}    Copyright © {currentYear}. All rights
-                reserved.
+                Powered by Africa Creative Market {' -  '}
+                {'  '} Copyright © {currentYear}. All rights reserved.
               </p>
             </div>
             <div
