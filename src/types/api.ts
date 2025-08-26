@@ -44,4 +44,73 @@ export interface ServerError {
   code?: string;
 }
 
+export interface PartnerRegistrationRequest {
+  // Personal Information
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  altPhoneNumber?: string;
+  altEmailAddress?: string;
+  company?: string;
+  gender?: string;
+  industry?: string;
+  attendingDays?: string[];
+
+  // Additional fields for hackathon registration
+  dateOfBirth?: string;
+  nationality?: string;
+  stateCity?: string;
+  educationLevel?: string;
+  fieldOfStudy?: string;
+  occupation?: string;
+  organization?: string;
+  portfolio?: string;
+  linkedin?: string;
+
+  // Team Information
+  teamName?: string;
+  teamSize?: number;
+  applicationType?: string;
+  teamRoles?: string[];
+  teamIntroduction?: string;
+
+  // Project Information
+  projectTitle?: string;
+  ideaSummary?: string;
+  problemSolving?: string;
+  technology?: string;
+  alignment?: string;
+  hasPrototype?: boolean;
+  prototypeURL?: string;
+  projectRepo?: string;
+
+  // Skills and Interests
+  technicalSkills?: string[];
+  creativeSkills?: string[];
+  challengeAreas?: string[];
+
+  // Experience
+  hackathonExperience?: string;
+  hackathonExperienceDetails?: string;
+  motivation?: string;
+
+  // Logistics
+  travelSupport?: boolean;
+  accommodationSupport?: boolean;
+  dietaryPreferences?: string;
+  accessibilityNeeds?: string;
+
+  // Consent
+  declarations?: string[];
+  digitalSignature?: string;
+}
+
+export interface PartnerRegistrationResponse {
+  id: string;
+  status: 'submitted' | 'pending' | 'approved' | 'rejected';
+  submittedAt: string;
+  message?: string;
+}
+
 export type APIErrorType = NetworkError | ValidationError | ServerError;

@@ -8,7 +8,7 @@ import {
 } from './registrationService';
 import { contactService, ContactService } from './contactService';
 import { mockAPIService, MockAPIService } from './mockService';
-import type { ContactFormData, RegistrationFormData } from '../types/forms';
+import type { ContactFormData, RegistrationFormData } from '../lib/validations';
 import type { APIResponse, FormSubmissionResponse } from '../types/api';
 
 // Environment configuration

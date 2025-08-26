@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
 import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
-import { RegistrationForm } from '../components/forms';
 import { formSubmissionService } from '../services';
 import { useNotification } from '../hooks';
 import type { RegistrationFormData } from '../lib/validations';
+import { RegistrationForm } from '@/components/forms';
 
 const Application = () => {
   const { showSuccess, showError } = useNotification();
@@ -28,60 +28,9 @@ const Application = () => {
     try {
       console.log('Registration form submitted:', data);
 
-      // Clean the data to ensure all optional fields are strings
-      const cleanData = {
-        teamName: data.teamName || '',
-        teamSize: data.teamSize,
-        teamLeader: {
-          name: data.teamLeader.name,
-          email: data.teamLeader.email,
-          phone: data.teamLeader.phone,
-          role: data.teamLeader.role,
-          country: data.teamLeader.country,
-          nationality: data.teamLeader.nationality,
-          age: data.teamLeader.age,
-          linkedin: data.teamLeader.linkedin ?? '',
-          gender: data.teamLeader.gender ?? '',
-          dateOfBirth: data.teamLeader.dateOfBirth,
-          stateCity: data.teamLeader.stateCity,
-          educationLevel: data.teamLeader.educationLevel,
-          fieldOfStudy: data.teamLeader.fieldOfStudy,
-          occupation: data.teamLeader.occupation,
-          organization: data.teamLeader.organization,
-          portfolio: data.teamLeader.portfolio,
-        },
-        teamMembers: data.teamMembers.map(member => ({
-          ...member,
-          linkedin: member.linkedin ?? '',
-          gender: member.gender ?? '',
-        })),
-        applicationType: data.applicationType,
-        teamRoles: data.teamRoles,
-        teamIntroduction: data.teamIntroduction,
-        projectTitle: data.projectTitle,
-        ideaSummary: data.ideaSummary,
-        problemSolving: data.problemSolving,
-        technology: data.technology,
-        alignment: data.alignment,
-        hasPrototype: data.hasPrototype,
-        prototypeURL: data.prototypeURL ?? '',
-        projectRepo: data.projectRepo ?? '',
-        challengeAreas: data.challengeAreas,
-        declarations: data.declarations,
-        travelSupport: data.travelSupport,
-        accommodationSupport: data.accommodationSupport,
-        dietaryPreferences: data.dietaryPreferences ?? '',
-        accessibilityNeeds: data.accessibilityNeeds ?? '',
-        hackathonExperience: data.hackathonExperience,
-        hackathonExperienceDetails: data.hackathonExperienceDetails ?? '',
-        motivation: data.motivation,
-        technicalSkills: data.technicalSkills,
-        creativeSkills: data.creativeSkills,
-      };
+      // Submit form using the updated API service
+      const response = await formSubmissionService.submitRegistration(data);
 
-      // Submit form using the API service
-      const response =
-        await formSubmissionService.submitRegistration(cleanData);
       if (response.success) {
         // Show success notification
         showSuccess(
@@ -316,7 +265,8 @@ const Application = () => {
             <div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
                 Registration Form
-              </h2>
+              </h2>            
+
               <RegistrationForm
                 onSubmit={handleRegistrationSubmit}
                 initialChallenges={preSelectedChallenges}

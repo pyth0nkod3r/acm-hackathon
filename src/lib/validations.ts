@@ -30,8 +30,11 @@ export const urlSchema = z
   .string()
   .url('Please enter a valid URL')
   .optional()
-  .or(z.literal(''));
-
+  .or(z.literal(''))
+  .transform(val => val || '') // Transform undefined to empty string
+  .refine(val => val === '' || val.match(/^https?:\/\/.+/), {
+    message: 'Please enter a valid URL or leave empty',
+  });
 // Required text field validation
 export const requiredTextSchema = z
   .string()
@@ -51,7 +54,7 @@ export const teamMemberSchema = z.object({
   country: requiredTextSchema,
   nationality: requiredTextSchema,
   age: ageSchema,
-  gender: optionalTextSchema,
+  gender: requiredTextSchema,
   dateOfBirth: z.string().optional(),
   stateCity: requiredTextSchema,
   educationLevel: requiredTextSchema,
@@ -84,54 +87,50 @@ export const registrationFormSchema = z.object({
     .array(teamMemberSchema)
     .max(4, 'Maximum 4 additional team members'),
   applicationType: z.enum(['Individual', 'Team Representative', 'Team Member']),
-  teamRoles: z.array(z.string()).optional(),
+  teamRoles: z
+    .array(z.string())
+    .min(1, 'At least one team role must be selected'),
   teamIntroduction: z
     .string()
     .min(10, 'Team introduction must be at least 10 characters')
     .max(150, 'Team introduction must be less than 150 characters'),
-  projectTitle: requiredTextSchema.min(
-    5,
-    'Project title must be at least 5 characters'
-  ),
-  ideaSummary: requiredTextSchema.min(
-    50,
-    'Idea summary must be at least 50 characters'
-  ),
-  problemSolving: requiredTextSchema.min(
-    50,
-    'Problem solving description must be at least 50 characters'
-  ),
-  technology: requiredTextSchema.min(
-    20,
-    'Technology description must be at least 20 characters'
-  ),
-  alignment: requiredTextSchema.min(
-    30,
-    'Alignment description must be at least 30 characters'
-  ),
+  projectTitle: z
+    .string()
+    .min(5, 'Project title must be at least 5 characters'),
+  ideaSummary: z
+    .string()
+    .min(50, 'Idea summary must be at least 50 characters'),
+  problemSolving: z
+    .string()
+    .min(50, 'Problem solving description must be at least 50 characters'),
+  technology: z
+    .string()
+    .min(10, 'Technology description must be at least 10 characters'),
+  alignment: z
+    .string()
+    .min(50, 'Alignment description must be at least 50 characters'),
   hasPrototype: z.boolean(),
-  prototypeURL: urlSchema,
-  projectRepo: urlSchema,
+  prototypeURL: z.string().url().optional().or(z.literal('')),
+  projectRepo: z.string().url().optional().or(z.literal('')),
   challengeAreas: z
     .array(z.string())
-    .min(1, 'Please select at least one challenge area'),
+    .min(1, 'At least one challenge area must be selected'),
   declarations: z
     .array(z.string())
-    .min(1, 'Please accept the required declarations'),
+    .min(3, 'All required declarations must be accepted'),
   travelSupport: z.boolean(),
   accommodationSupport: z.boolean(),
-  dietaryPreferences: optionalTextSchema,
-  accessibilityNeeds: optionalTextSchema,
+  dietaryPreferences: z.string().optional(),
+  accessibilityNeeds: z.string().optional(),
   hackathonExperience: z.enum(['yes', 'no']),
-  hackathonExperienceDetails: optionalTextSchema,
+  hackathonExperienceDetails: z.string().optional(),
   motivation: z
     .string()
-    .min(10, 'Motivation must be at least 10 characters')
+    .min(100, 'Motivation must be at least 100 characters')
     .max(300, 'Motivation must be less than 300 characters'),
   technicalSkills: z.array(z.string()).optional(),
   creativeSkills: z.array(z.string()).optional(),
-
-  digitalSignature: requiredTextSchema,
+  digitalSignature: z.string().min(1, 'Digital signature is required'),
 });
 
 // Validation helper functions

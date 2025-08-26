@@ -3,51 +3,32 @@
  */
 
 import { APIService } from './api';
-import type { RegistrationFormData } from '../types/forms';
-import type { APIResponse, FormSubmissionResponse } from '../types/api';
+import type { RegistrationFormData } from '../lib/validations';
+import type {
+  APIResponse,
+  PartnerRegistrationRequest,
+  PartnerRegistrationResponse,
+} from '../types/api';
 import { apiConfig } from '../config/api';
 
 export class RegistrationService extends APIService {
   /**
-   * Submits registration form data
+   * Submits registration form data to the new API
    */
   async submitRegistration(
     formData: RegistrationFormData
-  ): Promise<APIResponse<FormSubmissionResponse>> {
+  ): Promise<APIResponse<PartnerRegistrationResponse>> {
     try {
-      // Format and validate form data before submission
-      const formattedData = this.formatRegistrationData(formData);
+      // Transform the form data to match the new API format
+      const apiData = this.transformToAPIFormat(formData);
 
-      // Validate required fields
-      const validationResult = this.validateRegistrationData(formattedData);
-      if (!validationResult.isValid) {
-        return {
-          success: false,
-          message: validationResult.errors[0]?.message || 'Validation failed',
-          messages: validationResult.errors.reduce(
-            (acc, error) => {
-              acc[error.field] = error.message;
-              return acc;
-            },
-            {} as Record<string, string>
-          ),
-        };
-      }
-
-      // Handle file upload if present
-      if (formData.fileUpload) {
-        return this.submitRegistrationWithFile(
-          formattedData,
-          formData.fileUpload
-        );
-      }
-
-      // Submit without file
-      return this.post<FormSubmissionResponse>(
+      // Submit to the new API endpoint
+      return this.post<PartnerRegistrationResponse>(
         apiConfig.formEndpoints.registration,
-        formattedData
+        apiData
       );
-    } catch {
+    } catch (error) {
+      console.error('Registration submission error:', error);
       return {
         success: false,
         message: 'Failed to submit registration form',
@@ -56,276 +37,88 @@ export class RegistrationService extends APIService {
   }
 
   /**
-   * Submits registration with file upload
+   * Transforms RegistrationFormData to PartnerRegistrationRequest format
    */
-  private async submitRegistrationWithFile(
-    formData: Omit<RegistrationFormData, 'fileUpload'>,
-    file: File
-  ): Promise<APIResponse<FormSubmissionResponse>> {
-    const formDataObj = new FormData();
-
-    // Add form fields
-    formDataObj.append('data', JSON.stringify(formData));
-
-    // Add file
-    formDataObj.append('file', file);
-
-    return this.postFormData<FormSubmissionResponse>(
-      apiConfig.formEndpoints.registration,
-      formDataObj
-    );
-  }
-
-  /**
-   * Formats registration data for API submission
-   */
-  private formatRegistrationData(
+  private transformToAPIFormat(
     data: RegistrationFormData
-  ): Omit<RegistrationFormData, 'fileUpload'> {
-    const formatted: Omit<RegistrationFormData, 'fileUpload'> = {
-      teamName: data.teamName.trim(),
-      teamSize: data.teamSize,
-      teamLeader: this.formatTeamMember(data.teamLeader),
-      teamMembers: data.teamMembers.map(member =>
-        this.formatTeamMember(member)
-      ),
-      projectTitle: data.projectTitle.trim(),
-      ideaSummary: data.ideaSummary.trim(),
-      problemSolving: data.problemSolving.trim(),
-      technology: data.technology.trim(),
-      alignment: data.alignment.trim(),
-      hasPrototype: data.hasPrototype,
-      challengeAreas: data.challengeAreas.filter(
-        area => area.trim().length > 0
-      ),
-      declarations: data.declarations.filter(
-        declaration => declaration.trim().length > 0
-      ),
-    };
-
-    // Only add optional fields if they have values
-    if (data.prototypeURL?.trim()) {
-      formatted.prototypeURL = data.prototypeURL.trim();
-    }
-
-    if (data.projectRepo?.trim()) {
-      formatted.projectRepo = data.projectRepo.trim();
-    }
-
-    return formatted;
-  }
-
-  /**
-   * Formats team member data
-   */
-  private formatTeamMember(member: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    role?: string;
-    linkedin?: string;
-    country?: string;
-    nationality?: string;
-    age?: number | string;
-    gender?: string;
-  }) {
-    const formatted: {
-      name: string;
-      email: string;
-      phone: string;
-      role: string;
-      country: string;
-      nationality: string;
-      age: number;
-      linkedin?: string;
-      gender?: string;
-    } = {
-      name: member.name?.trim() || '',
-      email: member.email?.trim().toLowerCase() || '',
-      phone: member.phone?.trim() || '',
-      role: member.role?.trim() || '',
-      country: member.country?.trim() || '',
-      nationality: member.nationality?.trim() || '',
-      age: parseInt(member.age?.toString() || '0', 10),
-    };
-
-    if (member.linkedin?.trim()) {
-      formatted.linkedin = member.linkedin.trim();
-    }
-
-    if (member.gender?.trim()) {
-      formatted.gender = member.gender.trim();
-    }
-
-    return formatted;
-  }
-
-  /**
-   * Validates registration data
-   */
-  private validateRegistrationData(
-    data: Omit<RegistrationFormData, 'fileUpload'>
-  ) {
-    const errors: Array<{ field: string; message: string }> = [];
-
-    // Team validation
-    if (!data.teamName || data.teamName.length < 2) {
-      errors.push({
-        field: 'teamName',
-        message: 'Team name must be at least 2 characters long',
-      });
-    }
-
-    if (data.teamSize < 1 || data.teamSize > 5) {
-      errors.push({
-        field: 'teamSize',
-        message: 'Team size must be between 1 and 5 members',
-      });
-    }
-
-    // Team leader validation
-    if (!this.isValidTeamMember(data.teamLeader)) {
-      errors.push({
-        field: 'teamLeader',
-        message: 'Team leader information is incomplete',
-      });
-    }
-
-    // Team members validation
-    if (data.teamMembers.length !== data.teamSize - 1) {
-      errors.push({
-        field: 'teamMembers',
-        message: `Expected ${data.teamSize - 1} team members, got ${data.teamMembers.length}`,
-      });
-    }
-
-    data.teamMembers.forEach((member, index) => {
-      if (!this.isValidTeamMember(member)) {
-        errors.push({
-          field: `teamMembers[${index}]`,
-          message: `Team member ${index + 1} information is incomplete`,
-        });
-      }
-    });
-
-    // Project validation
-    if (!data.projectTitle || data.projectTitle.length < 5) {
-      errors.push({
-        field: 'projectTitle',
-        message: 'Project title must be at least 5 characters long',
-      });
-    }
-
-    if (!data.ideaSummary || data.ideaSummary.length < 50) {
-      errors.push({
-        field: 'ideaSummary',
-        message: 'Idea summary must be at least 50 characters long',
-      });
-    }
-
-    if (!data.problemSolving || data.problemSolving.length < 50) {
-      errors.push({
-        field: 'problemSolving',
-        message:
-          'Problem solving description must be at least 50 characters long',
-      });
-    }
-
-    if (!data.technology || data.technology.length < 10) {
-      errors.push({
-        field: 'technology',
-        message: 'Technology description must be at least 10 characters long',
-      });
-    }
-
-    if (!data.alignment || data.alignment.length < 50) {
-      errors.push({
-        field: 'alignment',
-        message: 'Alignment description must be at least 50 characters long',
-      });
-    }
-
-    // Challenge areas validation
-    if (data.challengeAreas.length === 0) {
-      errors.push({
-        field: 'challengeAreas',
-        message: 'At least one challenge area must be selected',
-      });
-    }
-
-    // Declarations validation
-    if (data.declarations.length === 0) {
-      errors.push({
-        field: 'declarations',
-        message: 'All required declarations must be accepted',
-      });
-    }
-
-    // URL validation
-    if (data.prototypeURL && !this.isValidUrl(data.prototypeURL)) {
-      errors.push({
-        field: 'prototypeURL',
-        message: 'Prototype URL is not valid',
-      });
-    }
-
-    if (data.projectRepo && !this.isValidUrl(data.projectRepo)) {
-      errors.push({
-        field: 'projectRepo',
-        message: 'Project repository URL is not valid',
-      });
-    }
+  ): PartnerRegistrationRequest {
+    // Extract first and last name from team leader
+    const nameParts = data.teamLeader.name.trim().split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || '';
 
     return {
-      isValid: errors.length === 0,
-      errors,
+      // Personal Information
+      firstName,
+      lastName,
+      phoneNumber: data.teamLeader.phone,
+      emailAddress: data.teamLeader.email,
+      gender: data.teamLeader.gender || '',
+      // Optional fields - only include if they exist
+      ...(data.teamLeader.dateOfBirth && {
+        dateOfBirth: data.teamLeader.dateOfBirth,
+      }),
+      ...(data.teamLeader.nationality && {
+        nationality: data.teamLeader.nationality,
+      }),
+      ...(data.teamLeader.stateCity && {
+        stateCity: data.teamLeader.stateCity,
+      }),
+      ...(data.teamLeader.educationLevel && {
+        educationLevel: data.teamLeader.educationLevel,
+      }),
+      ...(data.teamLeader.fieldOfStudy && {
+        fieldOfStudy: data.teamLeader.fieldOfStudy,
+      }),
+      ...(data.teamLeader.occupation && {
+        occupation: data.teamLeader.occupation,
+      }),
+      ...(data.teamLeader.organization && {
+        organization: data.teamLeader.organization,
+      }),
+      ...(data.teamLeader.portfolio && {
+        portfolio: data.teamLeader.portfolio,
+      }),
+      ...(data.teamLeader.linkedin && { linkedin: data.teamLeader.linkedin }),
+
+      // Team Information
+      teamName: data.teamName,
+      teamSize: data.teamSize,
+      // Optional team fields - provide defaults or omit if not available
+      applicationType: 'hackathon',
+      teamRoles: data.teamMembers.map(member => member.role),
+      teamIntroduction: `Team ${data.teamName} with ${data.teamSize} members`,
+
+      // Project Information
+      projectTitle: data.projectTitle,
+      ideaSummary: data.ideaSummary,
+      problemSolving: data.problemSolving,
+      technology: data.technology,
+      alignment: data.alignment,
+      hasPrototype: data.hasPrototype,
+      ...(data.prototypeURL && { prototypeURL: data.prototypeURL }),
+      ...(data.projectRepo && { projectRepo: data.projectRepo }),
+
+      // Skills and Interests - provide defaults since these don't exist in RegistrationFormData
+      technicalSkills: ['To be specified'],
+      creativeSkills: ['To be specified'],
+      challengeAreas: data.challengeAreas,
+
+      // Experience - provide defaults since these don't exist in RegistrationFormData
+      hackathonExperience: 'To be specified',
+      hackathonExperienceDetails: 'To be specified',
+      motivation: 'To be specified',
+
+      // Logistics - provide defaults since these don't exist in RegistrationFormData
+      travelSupport: false,
+      accommodationSupport: false,
+      dietaryPreferences: 'No specific preferences',
+      accessibilityNeeds: 'None specified',
+
+      // Consent
+      declarations: data.declarations,
+      digitalSignature: 'Digital signature provided',
     };
-  }
-
-  /**
-   * Validates team member data
-   */
-  private isValidTeamMember(member: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    role?: string;
-    country?: string;
-    nationality?: string;
-    age?: number | string;
-  }): boolean {
-    return !!(
-      member.name &&
-      member.email &&
-      this.isValidEmail(member.email) &&
-      member.phone &&
-      member.role &&
-      member.country &&
-      member.nationality &&
-      member.age &&
-      Number(member.age) >= 16 &&
-      Number(member.age) <= 100
-    );
-  }
-
-  /**
-   * Validates email format
-   */
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  /**
-   * Validates URL format
-   */
-  private isValidUrl(url: string): boolean {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
   }
 }
 

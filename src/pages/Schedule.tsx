@@ -202,7 +202,7 @@ const Schedule = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-blue-200 text-lg">Hackathon</span>
+              {/* <span className="text-blue-200 text-lg">Hackathon</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ const Schedule = () => {
             >
               Event Schedule
             </motion.h1>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -220,7 +220,7 @@ const Schedule = () => {
             >
               A comprehensive 4-day journey from ideation to innovation, with
               extensive pre-hackathon preparation
-            </motion.p>
+            </motion.p> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -245,10 +245,6 @@ const Schedule = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Pre-Hackathon Phase
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                4-6 weeks of preparation, training, and team formation before
-                the main event
-              </p>
             </div>
           </ScrollAnimation>
 

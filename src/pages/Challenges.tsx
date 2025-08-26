@@ -216,7 +216,7 @@ const ProblemStatement = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-white-400 text-lg">Hackathon Focus</span>
+              {/* <span className="text-white-400 text-lg">Hackathon Focus</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -226,7 +226,7 @@ const ProblemStatement = () => {
             >
               Critical Problems to Solve
             </motion.h1>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -234,7 +234,7 @@ const ProblemStatement = () => {
             >
               Five critical pain points in Africa's music and film distribution
               ecosystem that need innovative solutions
-            </motion.p>
+            </motion.p> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

@@ -113,7 +113,7 @@ const About = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-purple-200 text-lg">About</span>
+              {/* <span className="text-purple-200 text-lg">About</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}

@@ -975,6 +975,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       <div className="flex justify-center pt-6">
         <Button
           type="submit"
+          variant="outline"
           size="lg"
           disabled={isSubmitting || isLoading}
           className={cn(

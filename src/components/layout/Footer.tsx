@@ -14,7 +14,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
 import { cn } from '../../lib/utils';
-import Logo from "@/assets/img/logo/logo.png"
+import Logo from '@/assets/img/logo/logo.png';
 
 interface FooterProps {
   className?: string;
@@ -51,15 +51,15 @@ const quickLinks = [
   { label: 'About', href: '/about' },
   { label: 'Challenges', href: '/challenges' },
   { label: 'Registration', href: '/registration' },
-  { label: 'Parntership', href: '/partner-registration' },
+  { label: 'Partnership', href: '/partner-registration' },
   { label: 'Schedule', href: '/schedule' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const contactInfo: ContactInfo = {
   email: 'info@africacreativemarket-global.org',
-  phone: '+234 123 456 7890',
-  address: 'LAGOS, Nigeria',
+  phone: '+234 9167667376',
+  address: 'Landmark Events Center, Victoria Island, Lagos, Nigeria',
   website: 'www.africacreativemarket-global.org',
 };
 
@@ -359,9 +359,8 @@ export const Footer: React.FC<FooterProps> = () => {
               )}
             >
               <p>
-                Powered by Africa Creative Market  {' -  '}
-                {'  '}    Copyright © {currentYear}. All rights
-                reserved.
+                Powered by Africa Creative Market {' -  '}
+                {'  '} Copyright © {currentYear}. All rights reserved.
               </p>
             </div>
             <div

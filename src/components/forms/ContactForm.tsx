@@ -130,6 +130,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         <div className="flex justify-center pt-4">
           <Button
             type="submit"
+            variant="outline"
             size="lg"
             disabled={isSubmitting || isLoading}
             className={cn(
@@ -145,7 +146,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
               </>
             ) : (
               <>
-                <Send className="w-4 h-4 mr-2" />
+                <Send className="w-4 h-4 mr-2 " />
                 Send Message
               </>
             )}

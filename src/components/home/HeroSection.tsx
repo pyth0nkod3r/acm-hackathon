@@ -17,7 +17,6 @@ import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
 import videoBg from '@/assets/video/videobg.mp4';
 
-
 export const HeroSection = () => {
   const { isMobile, isTablet } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
@@ -132,7 +131,7 @@ export const HeroSection = () => {
               >
                 <MapPin className="h-5 w-5" />
                 <span className="text-lg">
-                  Lagos Creative Hub, Victoria Island, Lagos, Nigeria
+                  Landmark Events Center, Victoria Island, Lagos, Nigeria
                 </span>
               </motion.div>
 

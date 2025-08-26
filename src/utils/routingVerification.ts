@@ -18,7 +18,13 @@ export const verifyRoutingImplementation = () => {
 
   // Test route lookup
   console.log('🔍 Route Lookup Tests:');
-  const testPaths = ['/', '/about', '/contact', '/registration', '/nonexistent'];
+  const testPaths = [
+    '/',
+    '/about',
+    '/contact',
+    '/registration',
+    '/nonexistent',
+  ];
 
   testPaths.forEach(path => {
     const route = getRouteByPath(path);
