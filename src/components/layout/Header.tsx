@@ -21,6 +21,7 @@ const navigationItems: NavigationItem[] = [
   { label: 'Schedule', href: '/schedule', isActive: false },
   { label: 'Registration', href: '/registration', isActive: false },
   { label: 'Partnership', href: '/partner-registration', isActive: false },
+  { label: 'FAQ', href: '/faq', isActive: false },
   { label: 'Contact', href: '/contact', isActive: false },
 ];
 
@@ -46,12 +47,12 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <div className="max-w-7xl flex h-full mx-auto w-full items-center py-4 px-6 md:py-6 md:px-10">
+      <div className="max-w-7xl flex h-16 md:h-20 mx-auto w-full items-center py-2 px-6 md:py-3 md:px-10">
         {/* Desktop Navigation */}
         <div className="hidden w-full items-center justify-between md:flex">
           {/* Logo */}
           <motion.div
-            className="flex-shrink-0"
+            className="flex-shrink-0 flex items-center"
             whileHover={!isTouchDevice ? { scale: 1.05 } : {}}
             transition={{ duration: 0.2 }}
           >
@@ -67,8 +68,8 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
                 src={acmHackathonLogoWhite}
                 alt="ACM Logo"
                 className={cn(
-                  'object-contain transition-all duration-300',
-                  isMobile ? 'h-8 w-8' : isTablet ? 'h-10 w-10' : 'h-12 w-12'
+                  'object-contain transition-all duration-300 max-h-full',
+                  isMobile ? 'h-8 w-8' : isTablet ? 'h-16 w-16' : 'h-20 w-20'
                 )}
               />
               {/* <span
@@ -117,13 +118,13 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex justify-between w-full z-50">
+        <div className="md:hidden flex justify-between w-full z-50 items-center">
           <Link to="/" className="flex items-center space-x-2">
             <img
               src={acmHackathonLogoWhite}
               alt="ACM Logo"
               className={cn(
-                'object-contain',
+                'object-contain max-h-full',
                 isMobile ? 'h-8 w-8' : 'h-10 w-10'
               )}
             />

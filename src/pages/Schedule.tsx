@@ -283,11 +283,11 @@ const Schedule = () => {
 
           {/* Third event spanning full width */}
           {preHackathonEvents[2] && (
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center">
               <ScrollAnimation animation="slideUp" delay={0.2}>
                 <motion.div
                   whileHover={{ scale: 1.02, y: -5 }}
-                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200 max-w-4xl mx-auto"
+                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200 max-w-2xl w-full"
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
@@ -323,7 +323,7 @@ const Schedule = () => {
       </section>
 
       {/* Main Event Schedule */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <Container>
           <ScrollAnimation animation="fadeIn">
             <div className="text-center mb-16">

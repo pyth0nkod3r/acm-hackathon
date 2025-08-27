@@ -85,7 +85,7 @@ export const AboutSection = () => {
                   Our Vision
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Catalyze Africa-led innovation for scalable profitable
+                  Catalyze Africa-led innovation for scalable and profitable
                   distribution of music and film content across the continent
                   and beyond.
                 </p>

@@ -8,6 +8,7 @@ const Contact = lazy(() => import('../pages/Contact'));
 const Application = lazy(() => import('../pages/Application'));
 const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
+const FAQ = lazy(() => import('../pages/FAQ'));
 // const Awards = lazy(() => import('../pages/Awards'));
 // const Gallery = lazy(() => import('../pages/Gallery'));
 // const Highlights = lazy(() => import('../pages/Highlights'));
@@ -58,6 +59,14 @@ export const routes: RouteConfig[] = [
     component: Schedule,
     title: 'Schedule - ACM Hackathon',
     description: 'View the complete event schedule for the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/faq',
+    component: FAQ,
+    title: 'FAQ - ACM Hackathon',
+    description:
+      'Find answers to frequently asked questions about the ACM Hackathon 2025',
     isProtected: false,
   },
   // {

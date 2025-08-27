@@ -105,12 +105,7 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-blue-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">
-                      hackathon@africacreativemarket-global.org
-                    </p>
-                    <p className="text-gray-600">
-                      support@africacreativemarket-global.org
-                    </p>
+                    <p className="text-gray-600">info@acmhackathon.com</p>
                   </div>
                 </div>
 
@@ -157,12 +152,17 @@ const Contact = () => {
                 <h3 className="font-semibold text-blue-900 mb-2">
                   Frequently Asked Questions
                 </h3>
-                <ul className="text-blue-700 text-sm space-y-1">
-                  <li>• Registration deadline and process</li>
-                  <li>• Team formation guidelines</li>
-                  <li>• Technical requirements</li>
-                  <li>• Prize information</li>
-                </ul>
+                <p className="text-blue-700 text-sm mb-3">
+                  Find answers to common questions about registration, team
+                  formation, technical requirements, and more.
+                </p>
+                <Link
+                  to="/faq"
+                  className="inline-flex items-center text-blue-700 hover:text-blue-900 text-sm font-medium transition-colors"
+                >
+                  View FAQ Page
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
               </div>
             </div>
           </div>
