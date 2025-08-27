@@ -31,7 +31,7 @@ export const PrizeSection = () => {
     },
     {
       title: 'Technical & business incubation',
-      description: 'ASF + CCHub incubation programs',
+      description: 'ASF + CcHub incubation programs',
       icon: '🚀',
     },
     {

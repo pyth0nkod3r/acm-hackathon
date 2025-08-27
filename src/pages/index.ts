@@ -4,6 +4,7 @@ export { default as Contact } from './Contact';
 export { default as Application } from './Application';
 export { default as Challenges } from './Challenges';
 export { default as Schedule } from './Schedule';
+export { default as FAQ } from './FAQ';
 // export { default as Awards } from './Awards';
 // export { default as Gallery } from './Gallery';
 // export { default as Highlights } from './Highlights';

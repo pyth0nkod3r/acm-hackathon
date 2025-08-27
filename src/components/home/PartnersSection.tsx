@@ -4,21 +4,18 @@ import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
-import acmlogo from '../../assets/img/logo/logo.png';
-import awsLogo from '../../assets/img/brands/aws.png';
-import cherithCodeLogo from '../../assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png';
-import ascendLogo from '../../assets/img/brands/03.png';
+import { acmLogo, asfLogo, awsLogo, CcHUBLogo } from '@/assets/img/partners';
 
 export const PartnersSection = () => {
   const partners = [
     {
       name: 'ACM Global',
-      logo: acmlogo,
+      logo: acmLogo,
       tier: 'Organizer',
     },
     {
       name: 'Ascend Studios Foundation',
-      logo: ascendLogo,
+      logo: asfLogo,
       tier: 'Strategic Partner',
     },
     {
@@ -27,8 +24,8 @@ export const PartnersSection = () => {
       tier: 'Technology Partner',
     },
     {
-      name: 'CCHub',
-      logo: cherithCodeLogo,
+      name: 'CcHub',
+      logo: CcHUBLogo,
       tier: 'Incubation Partner',
     },
   ];

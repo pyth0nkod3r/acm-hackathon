@@ -57,7 +57,7 @@ const quickLinks = [
 ];
 
 const contactInfo: ContactInfo = {
-  email: 'info@africacreativemarket-global.org',
+  email: 'info@acmhackathon.com',
   phone: '+234 9167667376',
   address: 'Landmark Events Center, Victoria Island, Lagos, Nigeria',
   website: 'www.africacreativemarket-global.org',
@@ -87,15 +87,15 @@ export const Footer: React.FC<FooterProps> = () => {
       className={cn('bg-[#1a1a1a] text-white')}
     >
       {/* Main Footer Content */}
-      <div className="pt-16 pb-8">
-        <div className="max-w-[1280px] mx-auto px-8">
+      <div className="pt-12 pb-6">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-8">
           <div
             className={cn(
-              'grid gap-8',
+              'grid gap-6 md:gap-8',
               isMobile
-                ? 'grid-cols-1 gap-8'
+                ? 'grid-cols-1 gap-6'
                 : isTablet
-                  ? 'grid-cols-2 gap-8'
+                  ? 'grid-cols-2 gap-6'
                   : 'grid-cols-4 gap-8'
             )}
           >
@@ -109,7 +109,7 @@ export const Footer: React.FC<FooterProps> = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <Link
                   to="/"
                   className={cn(
@@ -122,8 +122,8 @@ export const Footer: React.FC<FooterProps> = () => {
                     src={acmHackathonLogoWhite}
                     alt="ACM Logo"
                     className={cn(
-                      'object-contain',
-                      isMobile ? 'h-10 w-10' : 'h-12 w-12'
+                      'object-contain max-h-full',
+                      isMobile ? 'h-10 w-10' : 'h-25 md:h-20 w-20'
                     )}
                   />
                   {/* <span
@@ -136,16 +136,16 @@ export const Footer: React.FC<FooterProps> = () => {
                   </span> */}
                 </Link>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed mb-6">
+              <p className="text-gray-300 text-sm leading-relaxed mb-4 md:mb-6">
                 Join the ACM Hackathon and help shape the future of creative
                 content in Africa. Compete for amazing prizes and connect with
                 innovators across the continent.
               </p>
 
               {/* Contact Info */}
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(
@@ -187,7 +187,7 @@ export const Footer: React.FC<FooterProps> = () => {
             >
               <h3
                 className={cn(
-                  'font-bold mb-6 text-white',
+                  'font-bold mb-4 md:mb-6 text-white',
                   isMobile ? 'text-base' : 'text-lg'
                 )}
               >
@@ -197,7 +197,9 @@ export const Footer: React.FC<FooterProps> = () => {
                 <ul
                   className={cn(
                     'space-y-2',
-                    isMobile ? 'grid grid-cols-2 gap-2 space-y-0' : 'space-y-3'
+                    isMobile
+                      ? 'grid grid-cols-2 gap-2 space-y-0'
+                      : 'space-y-2 md:space-y-3'
                   )}
                 >
                   {quickLinks.map((link, index) => (
@@ -235,7 +237,7 @@ export const Footer: React.FC<FooterProps> = () => {
             >
               <h3
                 className={cn(
-                  'font-bold mb-6 text-white',
+                  'font-bold mb-4 md:mb-6 text-white',
                   isMobile ? 'text-base' : 'text-lg'
                 )}
               >
@@ -243,7 +245,7 @@ export const Footer: React.FC<FooterProps> = () => {
               </h3>
               <p
                 className={cn(
-                  'text-gray-300 mb-6 leading-relaxed',
+                  'text-gray-300 mb-4 md:mb-6 leading-relaxed',
                   isMobile ? 'text-sm' : 'text-sm'
                 )}
               >
@@ -252,7 +254,7 @@ export const Footer: React.FC<FooterProps> = () => {
               </p>
 
               <form
-                className="flex flex-col gap-3 mb-8"
+                className="flex flex-col gap-3 mb-6 md:mb-8"
                 aria-label="Newsletter subscription"
               >
                 <label htmlFor="newsletter-email" className="sr-only">
@@ -293,7 +295,7 @@ export const Footer: React.FC<FooterProps> = () => {
               <div>
                 <h4
                   className={cn(
-                    'font-semibold text-white mb-4',
+                    'font-semibold text-white mb-3 md:mb-4',
                     isMobile ? 'text-sm' : 'text-base'
                   )}
                 >
@@ -301,7 +303,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 </h4>
                 <div
                   className={cn(
-                    'flex gap-4',
+                    'flex gap-3 md:gap-4',
                     isMobile ? 'justify-center' : 'justify-start'
                   )}
                 >
@@ -337,13 +339,16 @@ export const Footer: React.FC<FooterProps> = () => {
 
       {/* Footer Bottom */}
       <motion.div
-        className={cn('bg-gray-950', isMobile ? 'py-4' : 'py-6')}
+        className={cn(
+          'bg-gray-950',
+          isMobile ? 'py-3 md:py-4' : 'py-4 md:py-6'
+        )}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="max-w-[1280px] mx-auto px-8">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-8">
           <div
             className={cn(
               'flex justify-between items-center',

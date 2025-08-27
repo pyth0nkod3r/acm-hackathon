@@ -176,7 +176,7 @@ export const HeroSection = () => {
                 >
                   <Link to="/registration">Apply Now</Link>
                 </Button>
-                <Button
+                {/* <Button
                   asChild
                   variant="outline"
                   size="lg"
@@ -189,7 +189,7 @@ export const HeroSection = () => {
                     Download Hackathon Guide
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
-                </Button>
+                </Button> */}
               </motion.div>
 
               {/* Social Links */}
