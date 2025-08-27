@@ -5,6 +5,8 @@ export interface UseFormValidationOptions<T> {
   schema: z.ZodSchema<T>;
   initialValues?: Partial<T>;
   onSubmit?: (data: T) => void | Promise<void>;
+  /** Optional: fired when validateForm() fails so the UI can show a toast, etc. */
+  onValidationError?: (errors: Record<string, string>) => void;
 }
 
 export interface FormValidationState {
@@ -18,6 +20,7 @@ export function useFormValidation<T extends Record<string, unknown>>({
   schema,
   initialValues = {},
   onSubmit,
+  onValidationError,
 }: UseFormValidationOptions<T>) {
   const [values, setValues] = useState<Partial<T>>(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -62,11 +65,14 @@ export function useFormValidation<T extends Record<string, unknown>>({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
+        const newTouched: Record<string, boolean> = {};
         error.issues.forEach(err => {
           const path = err.path.join('.');
           newErrors[path] = err.message;
+          newTouched[path] = true;
         });
         setErrors(newErrors);
+        setTouched(prev => ({ ...prev, ...newTouched }));
       }
       return false;
     }
@@ -117,6 +123,8 @@ export function useFormValidation<T extends Record<string, unknown>>({
       setTouched(touchedState);
 
       if (!validateForm()) {
+        /* Notify caller that the form is invalid */
+        onValidationError?.(errors);
         return;
       }
 
@@ -131,7 +139,7 @@ export function useFormValidation<T extends Record<string, unknown>>({
         }
       }
     },
-    [values, validateForm, onSubmit]
+    [values, validateForm, onSubmit, onValidationError, errors]
   );
 
   const reset = useCallback(() => {
@@ -157,7 +165,8 @@ export function useFormValidation<T extends Record<string, unknown>>({
     [values, errors, touched, handleChange, handleBlur]
   );
 
-  const isValid = Object.keys(errors).length === 0;
+  // Reliable validity: run Zod on the *current* form values
+  const isValid = schema.safeParse(values).success;
 
   return {
     values,

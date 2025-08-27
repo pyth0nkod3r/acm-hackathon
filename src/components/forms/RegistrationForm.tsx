@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNotification } from '../../hooks';
 import { motion } from 'framer-motion';
 import { Users, Target, MapPin, CheckCircle, Plus, Trash2 } from 'lucide-react';
 import { useResponsive } from '../../hooks/useResponsive';
@@ -100,6 +101,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSubmit,
   isLoading = false,
 }) => {
+  const { showError } = useNotification();
   const [selectedDeclarations, setSelectedDeclarations] = useState<string[]>(
     []
   );
@@ -137,6 +139,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     errors,
     touched,
     isSubmitting,
+    isValid,
     handleBlur,
     handleSubmit,
     setValue,
@@ -150,6 +153,17 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       };
       if (onSubmit) {
         await onSubmit(formData);
+      }
+    },
+    onValidationError: errs => {
+      showError('Please fix the highlighted errors before submitting.');
+      // Scroll to the first field that has an error
+      const firstKey = Object.keys(errs)[0];
+      if (firstKey) {
+        // IDs are the same strings used in validation paths (e.g. "teamName")
+        const el = document.getElementById(firstKey);
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        (el as HTMLElement | null)?.focus?.(); // optional: set keyboard focus
       }
     },
   });
@@ -813,6 +827,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             ? 'Submitting...'
             : 'Complete Registration'}
         </Button>
+        {/* brief inline error summary */}
+        {!isValid && Object.keys(errors).length > 0 && (
+          <ul className="mt-4 text-sm text-red-600 space-y-1">
+            {Object.values(errors).map((msg, i) => (
+              <li key={i}>• {msg}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </motion.form>
   );
