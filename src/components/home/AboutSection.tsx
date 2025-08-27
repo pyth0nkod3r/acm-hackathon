@@ -32,7 +32,10 @@ export const AboutSection = () => {
                 { stat: 'Top Partners', label: 'ACM, ASF, AWS', icon: '🤝' },
                 { stat: 'Tech + Creatives', label: 'united', icon: '💡' },
               ].map((item, index) => (
-                <div key={index} className="text-center">
+                <div
+                  key={index}
+                  className="text-center bg-white rounded-lg shadow-sm p-6 h-full flex flex-col justify-center"
+                >
                   <div className="text-4xl mb-2">{item.icon}</div>
                   <div className="text-2xl font-bold text-[#4a5f8a] mb-1">
                     {item.stat}
