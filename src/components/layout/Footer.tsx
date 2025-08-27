@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Linkedin,
-  Instagram,
-  Twitter,
-  MessageCircle,
-  Mail,
-  Phone,
-  MapPin,
-} from 'lucide-react';
+  FaLinkedinIn as Linkedin,
+  FaInstagram as Instagram,
+  FaXTwitter as Twitter,
+  FaFacebookF as Facebook,
+  FaWhatsapp as MessageCircle,
+} from 'react-icons/fa6';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
@@ -22,20 +21,26 @@ interface FooterProps {
 
 const socialLinks: SocialLink[] = [
   {
+    platform: 'Facebook',
+    icon: 'Facebook',
+    url: 'https://www.facebook.com/share/1AaY2WVCUc/',
+    label: 'Facebook',
+  },
+  {
     platform: 'LinkedIn',
-    url: '#',
+    url: 'https://www.linkedin.com/company/africacmglobal/',
     icon: 'Linkedin',
     label: 'Follow us on LinkedIn',
   },
   {
     platform: 'Instagram',
-    url: '#',
+    url: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==',
     icon: 'Instagram',
     label: 'Follow us on Instagram',
   },
   {
     platform: 'Twitter',
-    url: '#',
+    url: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09',
     icon: 'Twitter',
     label: 'Follow us on Twitter',
   },
@@ -69,6 +74,7 @@ const getSocialIcon = (iconName: string) => {
     Instagram: Instagram,
     Twitter: Twitter,
     MessageCircle: MessageCircle,
+    Facebook: Facebook,
   };
 
   const IconComponent = iconMap[iconName as keyof typeof iconMap];
@@ -145,7 +151,7 @@ export const Footer: React.FC<FooterProps> = () => {
               {/* Contact Info */}
               <div className="space-y-2 md:space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
@@ -158,7 +164,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(
