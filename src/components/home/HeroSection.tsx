@@ -1,14 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import {
-  Calendar,
-  MapPin,
-  ArrowRight,
-  Facebook,
-  Linkedin,
-  Instagram,
-  Twitter,
-} from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
 import { Container } from '../layout';
 import { Button } from '../ui';
 import { CountdownTimer } from '../common/CountdownTimer';
@@ -16,17 +8,55 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
 import videoBg from '@/assets/video/videobg.mp4';
+import { flierImages } from '@/assets/img/flier';
+import type { SocialLink } from '../../types/navigation';
+import {
+  FaLinkedinIn as Linkedin,
+  FaInstagram as Instagram,
+  FaXTwitter as Twitter,
+  FaFacebookF as Facebook,
+} from 'react-icons/fa6';
 
 export const HeroSection = () => {
   const { isMobile, isTablet } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
 
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
+  const socialLinks: SocialLink[] = [
+    {
+      platform: 'Facebook',
+      icon: 'Facebook',
+      url: 'https://www.facebook.com/share/1AaY2WVCUc/',
+      label: 'Facebook',
+    },
+    {
+      platform: 'LinkedIn',
+      url: 'https://www.linkedin.com/company/africacmglobal/',
+      icon: 'Linkedin',
+      label: 'Follow us on LinkedIn',
+    },
+    {
+      platform: 'Instagram',
+      url: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==',
+      icon: 'Instagram',
+      label: 'Follow us on Instagram',
+    },
+    {
+      platform: 'Twitter',
+      url: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09',
+      icon: 'Twitter',
+      label: 'Follow us on Twitter',
+    },
   ];
+  const getSocialIcon = (iconName: string) => {
+    const iconMap = {
+      Linkedin: Linkedin,
+      Instagram: Instagram,
+      Twitter: Twitter,
+      Facebook: Facebook,
+    };
+    const IconComponent = iconMap[iconName as keyof typeof iconMap];
+    return IconComponent;
+  };
 
   return (
     <section
@@ -211,21 +241,24 @@ export const HeroSection = () => {
                   Follow Us On:
                 </span>
                 <div className="flex gap-4 mt-6">
-                  {socialLinks.map(social => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className={cn(
-                        'text-gray-400 hover:text-[#c2d72f] transition-colors touch-manipulation',
-                        isTouchDevice
-                          ? 'p-2 min-h-[44px] min-w-[44px] flex items-center justify-center'
-                          : ''
-                      )}
-                      aria-label={social.label}
-                    >
-                      <social.icon className="h-5 w-5" />
-                    </a>
-                  ))}
+                  {socialLinks.map(social => {
+                    const IconComponent = getSocialIcon(social.icon);
+                    return (
+                      <a
+                        key={social.label}
+                        href={social.url}
+                        className={cn(
+                          'text-gray-400 hover:text-[#c2d72f] transition-colors touch-manipulation',
+                          isTouchDevice
+                            ? 'p-2 min-h-[44px] min-w-[44px] flex items-center justify-center'
+                            : ''
+                        )}
+                        aria-label={social.label}
+                      >
+                        <IconComponent className="h-5 w-5" />
+                      </a>
+                    );
+                  })}
                 </div>
               </motion.div>
             </motion.div>
@@ -237,18 +270,13 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <div className="relative z-10  rounded-2xl p-8  ">
                 <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-6 bg-[#c2d72f] rounded-full flex items-center justify-center">
-                    <span className="text-4xl font-bold text-black">ACM</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Music & Film Distribution Innovation
-                  </h3>
-                  <p className="text-gray-300">
-                    Transforming Africa's creative industries through technology
-                    and innovation
-                  </p>
+                  <img
+                    src={flierImages.acmHackathon2025}
+                    alt="ACM Hackathon 2025 - Music & Film Distribution Innovation"
+                    className="w-full h-auto rounded-lg mb-4"
+                  />
                 </div>
               </div>
 

@@ -60,9 +60,9 @@ export const TeamRolesSection = () => {
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -10 }}
-                className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300"
+                className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 h-full flex flex-col"
               >
-                <div className="text-center mb-4">
+                <div className="text-center mb-4 flex-1">
                   <div className="text-6xl mb-4">{role.emoji}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {role.role}
@@ -72,7 +72,7 @@ export const TeamRolesSection = () => {
                   </p>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 mt-auto">
                   <h4 className="font-medium text-gray-900 text-sm">
                     Key Skills:
                   </h4>
