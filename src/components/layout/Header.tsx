@@ -7,7 +7,7 @@ import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { MobileNavigation } from './MobileNavigation';
 import type { NavigationItem } from '../../types/navigation';
 import { cn } from '../../lib/utils';
-import logo from '@/assets/img/logo/logo.png';
+import { acmHackathonLogoWhite } from '@/assets/img/logo';
 
 interface HeaderProps {
   className?: string;
@@ -64,21 +64,21 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
               aria-label="ACM Hackathon - Go to homepage"
             >
               <img
-                src={logo}
+                src={acmHackathonLogoWhite}
                 alt="ACM Logo"
                 className={cn(
                   'object-contain transition-all duration-300',
                   isMobile ? 'h-8 w-8' : isTablet ? 'h-10 w-10' : 'h-12 w-12'
                 )}
               />
-              <span
+              {/* <span
                 className={cn(
                   'font-bold transition-colors duration-300 text-white',
                   isMobile ? 'text-base' : isTablet ? 'text-lg' : 'text-xl'
                 )}
               >
                 {isMobile ? 'ACM' : 'ACM Hackathon'}
-              </span>
+              </span> */}
             </Link>
           </motion.div>
 
@@ -120,16 +120,16 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
         <div className="md:hidden flex justify-between w-full z-50">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src={logo}
+              src={acmHackathonLogoWhite}
               alt="ACM Logo"
               className={cn(
                 'object-contain',
                 isMobile ? 'h-8 w-8' : 'h-10 w-10'
               )}
             />
-            <span className="text-white font-bold">
+            {/* <span className="text-white font-bold">
               {isMobile ? 'ACM' : 'ACM Hackathon'}
-            </span>
+            </span> */}
           </Link>
 
           <MobileNavigation

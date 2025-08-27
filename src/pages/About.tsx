@@ -242,7 +242,7 @@ const About = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col"
                 >
                   <div
                     className={`w-16 h-16 bg-gradient-to-br ${objective.color} rounded-lg flex items-center justify-center mb-6`}
@@ -252,7 +252,7 @@ const About = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     {objective.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed flex-grow">
                     {objective.description}
                   </p>
                 </motion.div>

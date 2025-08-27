@@ -38,17 +38,11 @@ const Application = () => {
           8000
         );
       } else {
-        // Handle API errors
-        const errorMessage =
-          response.message || 'Failed to submit registration';
-        console.error('Registration submission failed:', response);
-        showError(`Error: ${errorMessage}`);
+        showError(response.message ?? 'Failed to submit registration');
       }
-    } catch (error) {
-      console.error('Registration submission error:', error);
-      showError(
-        'There was an unexpected error submitting your registration. Please try again.'
-      );
+    } catch (err) {
+      console.error(err);
+      showError('Unexpected error. Please try again.');
     }
   };
 

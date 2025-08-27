@@ -118,50 +118,74 @@ export class APIService {
   }
 
   /**
-   * Handles HTTP error responses
+   * Handles HTTP error responses and extracts a helpful message
    */
   private async handleHttpError(response: Response): Promise<APIErrorType> {
     const status = response.status;
 
+    // Try to parse the JSON body (it might be empty or not JSON at all)
+    let errorData: unknown = {};
     try {
-      const errorData = await response.json();
-
-      if (status >= 400 && status < 500) {
-        // Client errors (validation, authentication, etc.)
-        if (status === 422 && errorData.messages) {
-          // Validation errors
-          const firstField = Object.keys(errorData.messages)[0];
-          if (firstField) {
-            const validationError: ValidationError = {
-              type: 'validation',
-              field: firstField,
-              message: errorData.messages[firstField],
-            };
-            return validationError;
-          }
-        }
-
-        const serverError: ServerError = {
-          type: 'server',
-          message: errorData.message || `Client error: ${status}`,
-          code: status.toString(),
-        };
-        return serverError;
-      }
-
-      if (status >= 500) {
-        // Server errors
-        const serverError: ServerError = {
-          type: 'server',
-          message: errorData.message || `Server error: ${status}`,
-          code: status.toString(),
-        };
-        return serverError;
-      }
+      errorData = await response.json();
     } catch {
-      // Failed to parse error response
+      /* ignore – leave errorData as empty object */
     }
 
+    // Extract the most useful message string we can find
+    const pickMessage = (data: unknown, fallback: string): string => {
+      if (!data) return fallback;
+      if (typeof data === 'string') return data;
+      if (typeof (data as any).message === 'string')
+        return (data as any).message;
+      if (typeof (data as any).error === 'string') return (data as any).error;
+      if (typeof (data as any).detail === 'string') return (data as any).detail;
+
+      // Otherwise look for the first string value in the object
+      const firstString = Object.values(data as Record<string, unknown>).find(
+        v => typeof v === 'string'
+      );
+      return (firstString as string) ?? fallback;
+    };
+
+    // 4xx – client errors (validation, authentication, etc.)
+    if (status >= 400 && status < 500) {
+      // 422 – validation errors with field messages
+      if (
+        status === 422 &&
+        typeof errorData === 'object' &&
+        errorData !== null &&
+        'messages' in errorData
+      ) {
+        const firstField = Object.keys((errorData as any).messages)[0];
+        if (firstField) {
+          const validationError: ValidationError = {
+            type: 'validation',
+            field: firstField,
+            message: (errorData as any).messages[firstField],
+          };
+          return validationError;
+        }
+      }
+
+      const serverError: ServerError = {
+        type: 'server',
+        message: pickMessage(errorData, `Client error: ${status}`),
+        code: status.toString(),
+      };
+      return serverError;
+    }
+
+    // 5xx – server errors
+    if (status >= 500) {
+      const serverError: ServerError = {
+        type: 'server',
+        message: pickMessage(errorData, `Server error: ${status}`),
+        code: status.toString(),
+      };
+      return serverError;
+    }
+
+    // Fallback – should rarely be reached
     const serverError: ServerError = {
       type: 'server',
       message: `HTTP error: ${status}`,

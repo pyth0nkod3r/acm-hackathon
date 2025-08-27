@@ -36,107 +36,136 @@ const ProblemStatement = () => {
   const problems: Problem[] = [
     {
       id: 1,
-      title: 'Fragmented Infrastructure',
+      title: 'Fragmented Distribution Networks',
       description:
-        'Disconnected systems preventing seamless content distribution across Africa',
-      icon: '🏗️',
+        'Lack of unified distribution ecosystem connecting creators, distributors, and consumers across multiple channels',
+      icon: '🌐',
       color: 'from-red-500 to-red-600',
-      impact: 'High',
-      currentState: 'Multiple isolated platforms with no interoperability',
+      impact: 'Critical',
+      currentState:
+        'Multiple isolated platforms with no interoperability or unified content aggregation',
       solutionOpportunities:
-        'Unified distribution networks, API standardization, cross-platform integration',
+        'Multi-layered distribution ecosystem, content aggregation platforms, cross-platform integration, unified analytics',
       stakeholders: [
         'Content Creators',
         'Platform Providers',
+        'Distributors',
         'Consumers',
-        'Regulators',
       ],
     },
     {
       id: 2,
-      title: 'Last-Mile Access & Affordability',
-      description: 'Limited reach to rural areas and high costs for consumers',
-      icon: '🌍',
+      title: 'Mobile Accessibility & Bandwidth Limitations',
+      description:
+        'Poor mobile experience and high data costs preventing access in varying internet conditions',
+      icon: '📱',
       color: 'from-blue-500 to-blue-600',
       impact: 'Critical',
-      currentState: 'Urban-focused services with expensive data costs',
+      currentState:
+        'Desktop-focused solutions with no offline capabilities or data optimization',
       solutionOpportunities:
-        'Offline-first solutions, data compression, community networks, micro-payments',
+        'Mobile-first design, offline capabilities, data compression, progressive loading, low-bandwidth optimization',
       stakeholders: [
+        'Mobile Users',
         'Rural Communities',
+        'Content Creators',
         'Telecom Providers',
-        'Content Distributors',
-        'Government',
       ],
     },
     {
       id: 3,
-      title: 'Piracy & Rights Management',
+      title: 'Content Piracy & Rights Management',
       description:
-        'Unauthorized distribution and complex copyright enforcement',
-      icon: '🛡️',
+        'Unauthorized distribution and complex copyright enforcement without transparent tracking',
+      icon: '🔒',
       color: 'from-purple-500 to-purple-600',
       impact: 'High',
-      currentState: 'Widespread piracy with limited enforcement capabilities',
+      currentState:
+        'Widespread piracy with limited enforcement and no automated royalty distribution',
       solutionOpportunities:
-        'Blockchain verification, AI-powered detection, simplified licensing, education campaigns',
+        'Blockchain-based rights management, smart contracts, automated payments, transparent tracking, digital rights protection',
       stakeholders: [
         'Artists',
         'Rights Holders',
-        'Law Enforcement',
+        'Content Creators',
         'Platforms',
       ],
     },
     {
       id: 4,
-      title: 'Revenue Leakage',
-      description: 'Lost income due to inefficient monetization systems',
-      icon: '💰',
+      title: 'Limited Monetization Options',
+      description:
+        'Lack of diverse revenue streams and efficient payment systems for creators and distributors',
+      icon: '💎',
       color: 'from-green-500 to-green-600',
       impact: 'Critical',
-      currentState: 'Multiple payment gateways with high transaction fees',
+      currentState:
+        'Single revenue models with high transaction fees and no unified payment systems',
       solutionOpportunities:
-        'Unified payment systems, micro-transactions, subscription models, revenue analytics',
+        'Subscription models, pay-per-view, advertising integration, micro-transactions, unified payment systems',
       stakeholders: [
         'Content Creators',
+        'Distributors',
         'Payment Processors',
         'Platforms',
-        'Financial Institutions',
       ],
     },
     {
       id: 5,
-      title: 'Limited Visibility for Talent',
-      description: 'Emerging artists struggle to reach wider audiences',
-      icon: '⭐',
+      title: 'Poor Content Discovery & Talent Visibility',
+      description:
+        'Ineffective discovery algorithms and limited opportunities for emerging talent',
+      icon: '🤖',
       color: 'from-yellow-500 to-yellow-600',
-      impact: 'Medium',
-      currentState: 'Discovery algorithms favor established artists',
+      impact: 'High',
+      currentState:
+        'Discovery algorithms favor established artists with no AI-powered matching or trend analysis',
       solutionOpportunities:
-        'AI-powered discovery, community curation, mentorship programs, showcase platforms',
+        'AI-powered discovery engine, content matching algorithms, trend analysis, audience insights, talent discovery',
       stakeholders: [
         'Emerging Artists',
+        'Content Creators',
         'Fans',
         'Industry Professionals',
-        'Platforms',
+      ],
+    },
+    {
+      id: 6,
+      title: 'Lack of Community & Data Insights',
+      description:
+        'No social features or data-driven decision making for creators and distributors',
+      icon: '👥',
+      color: 'from-indigo-500 to-indigo-600',
+      impact: 'Medium',
+      currentState:
+        'Isolated creators with no community features or performance analytics',
+      solutionOpportunities:
+        'Integrated community features, performance metrics, market trends analysis, creator communities, social networking',
+      stakeholders: [
+        'Content Creators',
+        'Distributors',
+        'Fans',
+        'Industry Analysts',
       ],
     },
   ];
 
   const problemCategories = [
-    'Infrastructure',
+    'Distribution',
     'Accessibility',
-    'Rights Management',
+    'Security',
     'Monetization',
-    'Talent Development',
+    'Discovery',
+    'Community',
   ];
   // Create a mapping of categories to problem titles
   const categoryToProblems = {
-    Infrastructure: ['Fragmented Infrastructure'],
-    Accessibility: ['Last-Mile Access & Affordability'],
-    'Rights Management': ['Piracy & Rights Management'],
-    Monetization: ['Revenue Leakage'],
-    'Talent Development': ['Limited Visibility for Talent'],
+    Distribution: ['Fragmented Distribution Networks'],
+    Accessibility: ['Mobile Accessibility & Bandwidth Limitations'],
+    Security: ['Content Piracy & Rights Management'],
+    Monetization: ['Limited Monetization Options'],
+    Discovery: ['Poor Content Discovery & Talent Visibility'],
+    Community: ['Lack of Community & Data Insights'],
   };
 
   const handleProblemToggle = (problemTitle: string) => {
@@ -298,7 +327,7 @@ const ProblemStatement = () => {
                       )}
                     </div>
                     <span className="text-sm font-medium text-gray-500">
-                      {selectedProblems.length}/5
+                      {selectedProblems.length}/6
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">

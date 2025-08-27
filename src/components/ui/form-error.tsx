@@ -9,15 +9,13 @@ export interface FormErrorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const FormError = React.forwardRef<HTMLDivElement, FormErrorProps>(
   ({ className, message, show = true, ...props }, ref) => {
-    if (!message || !show) {
-      return null;
-    }
+    if (!message || !show) return null;
 
     return (
       <div
         ref={ref}
         className={cn(
-          'flex items-center gap-2 text-sm text-destructive mt-1',
+          'form-error flex items-center gap-2 text-sm text-destructive mt-1',
           className
         )}
         {...props}

@@ -14,7 +14,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
 import { cn } from '../../lib/utils';
-import Logo from '@/assets/img/logo/logo.png';
+import { acmHackathonLogoWhite } from '@/assets/img/logo';
 
 interface FooterProps {
   className?: string;
@@ -119,21 +119,21 @@ export const Footer: React.FC<FooterProps> = () => {
                   aria-label="ACM Hackathon - Go to homepage"
                 >
                   <img
-                    src={Logo}
+                    src={acmHackathonLogoWhite}
                     alt="ACM Logo"
                     className={cn(
                       'object-contain',
                       isMobile ? 'h-10 w-10' : 'h-12 w-12'
                     )}
                   />
-                  <span
+                  {/* <span
                     className={cn(
                       'font-bold',
                       isMobile ? 'text-lg' : 'text-xl'
                     )}
                   >
                     {isMobile ? 'ACM' : 'ACM Hackathon'}
-                  </span>
+                  </span> */}
                 </Link>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">

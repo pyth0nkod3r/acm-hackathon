@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const { showSuccess, showError } = useNotification();
-
   const handleContactSubmit = async (data: ContactFormData) => {
     try {
       console.log('Contact form submitted:', data);
@@ -24,8 +23,13 @@ const Contact = () => {
           6000
         );
       } else {
+        // If the API returns field-level messages, surface them to the user
+        // via notifications (or aggregate them into one message if you prefer)
+        if (response.messages) {
+          Object.values(response.messages).forEach(msg => showError(msg));
+        }
         // Handle API errors
-        const errorMessage = response.message || 'Failed to send message';
+        const errorMessage = response.message ?? 'Failed to send message';
         console.error('Contact form submission failed:', response);
         showError(`Error: ${errorMessage}`);
       }

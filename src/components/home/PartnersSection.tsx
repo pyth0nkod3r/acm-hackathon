@@ -79,17 +79,17 @@ export const PartnersSection = () => {
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
               >
-                <div className="aspect-square flex items-center justify-center mb-4">
+                <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
                   <img
                     src={partner.logo}
                     alt={`${partner.name} logo`}
                     className="w-20 h-20 object-contain rounded-lg"
                   />
                 </div>
-                <div className="text-center">
-                  <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors">
+                <div className="text-center flex-1 flex flex-col justify-center">
+                  <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors leading-tight">
                     {partner.name}
                   </h3>
                   <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
