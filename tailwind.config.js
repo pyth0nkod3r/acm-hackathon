@@ -81,6 +81,7 @@ export default {
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-in-left': 'slideInLeft 0.5s ease-out',
         'slide-in-right': 'slideInRight 0.5s ease-out',
+        'flash-error': 'flash 1.6s ease-in-out',
       },
       keyframes: {
         fadeIn: {
@@ -98,6 +99,10 @@ export default {
         slideInRight: {
           '0%': { transform: 'translateX(20px)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        flash: {
+          '0%': { backgroundColor: 'rgba(252, 165, 165, .3)' },
+          '100%': { backgroundColor: 'transparent' },
         },
       },
     },

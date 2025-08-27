@@ -164,6 +164,23 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         const el = document.getElementById(firstKey);
         el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         (el as HTMLElement | null)?.focus?.(); // optional: set keyboard focus
+        const errorNode = el?.parentElement?.querySelector('.form-error'); // <FormError/>
+        if (errorNode) {
+          errorNode.classList.add(
+            'ring-2',
+            'ring-red-500',
+            'animate-pulse',
+            'highlight-error'
+          );
+          setTimeout(() => {
+            errorNode.classList.remove(
+              'ring-2',
+              'ring-red-500',
+              'animate-pulse',
+              'highlight-error'
+            );
+          }, 1800);
+        }
       }
     },
   });
@@ -811,7 +828,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </div>
 
       {/* Submit Button */}
-      <div className="flex justify-center pt-6">
+      <div className="flex justify-center items-start gap-4 pt-6">
         <Button
           type="submit"
           variant="outline"
@@ -827,13 +844,32 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             ? 'Submitting...'
             : 'Complete Registration'}
         </Button>
-        {/* brief inline error summary */}
+        {/* inline “toast” – appears beside the button */}
         {!isValid && Object.keys(errors).length > 0 && (
-          <ul className="mt-4 text-sm text-red-600 space-y-1">
-            {Object.values(errors).map((msg, i) => (
-              <li key={i}>• {msg}</li>
-            ))}
-          </ul>
+          <div
+            role="alert"
+            className="bg-red-100 text-red-700 text-sm rounded px-3 py-2 shadow-sm"
+          >
+            <ul className="space-y-0.5">
+              {Object.entries(errors).map(([field, msg]) => {
+                // Convert camelCase / dot.path to Title Case for readability
+                const label = field
+                  .split('.')
+                  .map(
+                    part =>
+                      part
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, c => c.toUpperCase()) // capitalise first
+                  )
+                  .join(' › ');
+                return (
+                  <li key={field}>
+                    • <span className="font-medium">{label}</span>: {msg}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         )}
       </div>
     </motion.form>

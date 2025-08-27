@@ -183,5 +183,9 @@ export function useFormValidation<T extends Record<string, unknown>>({
     validateForm,
     reset,
     getFieldProps,
+    getExternalTools: () => ({
+      setFieldError: (name: string, message: string) =>
+        setErrors(prev => ({ ...prev, [name]: message })),
+    }),
   };
 }
