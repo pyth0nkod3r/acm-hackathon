@@ -96,7 +96,17 @@ const NewRegistrationForm: React.FC<NewRegistrationFormProps> = ({
   });
 
   const updateFormData = (field: keyof HackathonForm, value: unknown) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+
+      // Auto-sync teamLeadSignature with teamLeaderFullName
+      if (field === 'teamLeaderFullName') {
+        newData.teamLeadSignature = value as string;
+      }
+
+      return newData;
+    });
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
@@ -1033,6 +1043,7 @@ const NewRegistrationForm: React.FC<NewRegistrationFormProps> = ({
                 errors.teamLeadSignature && 'border-red-500'
               )}
               placeholder="Type your full name as digital signature"
+              readOnly
             />
             {errors.teamLeadSignature && (
               <p className="mt-1 text-sm text-red-600">
