@@ -7,6 +7,7 @@ export interface AppConfig {
   formEndpoints: {
     registration: string;
     contact: string;
+    partner: string;
   };
   features: {
     enableAnimations: boolean;

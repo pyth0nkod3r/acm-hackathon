@@ -6,6 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { apiConfig, apiCredentials } from '../config/api';
 
 interface PartnerRegistrationData {
   fullName: string;
@@ -52,13 +53,33 @@ const PartnerRegistration = () => {
     setSubmitResult({});
 
     try {
-      // TODO: Implement actual API call to submit partner registration
-      // For now, simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Hit the live Partner-Registration API
+      const response = await fetch(
+        `${apiConfig.apiBaseUrl}${apiConfig.formEndpoints.partner}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Basic-Auth header =>  "Basic base64(username:password)"
+            Authorization: `Basic ${btoa(
+              `${apiCredentials.username}:${apiCredentials.password}`
+            )}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        // Let the catch-block handle non-2xx responses
+        throw new Error(`Server returned ${response.status}`);
+      }
+
+      const resJson = await response.json().catch(() => ({}));
 
       setSubmitResult({
         success: true,
         message:
+          resJson.message ??
           'Your partner registration has been submitted successfully! We will get back to you soon.',
       });
 
@@ -72,20 +93,19 @@ const PartnerRegistration = () => {
         message: '',
       });
 
-      // Clear the success message after 5 seconds
-      setTimeout(() => {
-        setSubmitResult({});
-      }, 5000);
-    } catch {
+      // Clear the success message after 5 s
+      setTimeout(() => setSubmitResult({}), 5000);
+    } catch (err) {
+      console.error(err);
       setSubmitResult({
         success: false,
-        message: 'An unexpected error occurred. Please try again later.',
+        message:
+          (err as Error).message ||
+          'An unexpected error occurred. Please try again later.',
       });
 
-      // Clear the error message after 5 seconds
-      setTimeout(() => {
-        setSubmitResult({});
-      }, 5000);
+      // Clear the error message after 5 s
+      setTimeout(() => setSubmitResult({}), 5000);
     } finally {
       setIsSubmitting(false);
     }
