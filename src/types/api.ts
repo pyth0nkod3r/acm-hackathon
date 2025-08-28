@@ -107,7 +107,7 @@ export interface PartnerRegistrationRequest {
 
   // Consent
   declarations?: string[];
-  digitalSignature?: string;
+  teamLeadSignature?: string;
 }
 
 export interface PartnerRegistrationResponse {

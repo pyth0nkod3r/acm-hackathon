@@ -14,7 +14,7 @@ const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || 'admin';       // ← 
 export const apiConfig: AppConfig = {
   apiBaseUrl: API_BASE_URL,
   formEndpoints: {
-    registration: '/api/partner/registration', // Updated endpoint
+    registration: '/api/hackathon/', // Updated endpoint
     contact: '/api/hackathon/contact',
   },
   features: {
