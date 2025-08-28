@@ -118,18 +118,18 @@ export const SolutionVisionSection = () => {
             >
               <div className="text-center mb-6">
                 <div className="text-6xl mb-4">
-                  {solutions[currentSlide].icon}
+                  {solutions[currentSlide]?.icon ?? null}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                  {solutions[currentSlide].title}
+                  {solutions[currentSlide]?.title ?? null}
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  {solutions[currentSlide].description}
+                  {solutions[currentSlide]?.description ?? null}
                 </p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
-                {solutions[currentSlide].features.map((feature, index) => (
+                {solutions[currentSlide]?.features?.map?.((feature, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}

@@ -19,6 +19,7 @@ const navigationItems: NavigationItem[] = [
   { label: 'About', href: '/about', isActive: false },
   { label: 'Challenges', href: '/challenges', isActive: false },
   { label: 'Schedule', href: '/schedule', isActive: false },
+  { label: 'Awards', href: '/awards', isActive: false },
   { label: 'Registration', href: '/registration', isActive: false },
   { label: 'Partnership', href: '/partner-registration', isActive: false },
   { label: 'FAQ', href: '/faq', isActive: false },

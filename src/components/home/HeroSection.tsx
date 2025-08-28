@@ -8,7 +8,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
 import videoBg from '@/assets/video/videobg.mp4';
-import { flierImages } from '@/assets/img/flier';
+// import { flierImages } from '@/assets/img/flier';
 import type { SocialLink } from '../../types/navigation';
 import {
   FaLinkedinIn as Linkedin,
@@ -270,13 +270,26 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative z-10  rounded-2xl p-8  ">
+              {/* <div className="relative z-10  rounded-2xl p-8  "> */}
+              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-center">
-                  <img
+                  {/* <img
                     src={flierImages.acmHackathon2025}
                     alt="ACM Hackathon 2025 - Music & Film Distribution Innovation"
                     className="w-full h-auto rounded-lg mb-4"
-                  />
+                  /> */}
+                  {/* <div className="hidden"> */}
+                  <div className="w-32 h-32 mx-auto mb-6 bg-[#c2d72f] rounded-full flex items-center justify-center">
+                    <span className="text-4xl font-bold text-black">ACM</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    Music & Film Distribution Innovation
+                  </h3>
+                  <p className="text-gray-300">
+                    Transforming Africa's creative industries through technology
+                    and innovation
+                  </p>
+                  {/* </div> */}
                 </div>
               </div>
 
