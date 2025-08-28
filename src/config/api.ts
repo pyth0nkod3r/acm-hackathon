@@ -8,8 +8,8 @@ import type { AppConfig } from '../types/config';
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
   'https://api.africacreativemarketglobal.com';
-const API_USERNAME = import.meta.env.VITE_API_USERNAME || 'secret';      // ← default
-const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || 'admin';       // ← default
+const API_USERNAME = import.meta.env.VITE_API_USERNAME || 'admin'; // ← default
+const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || 'secret'; // ← default
 
 export const apiConfig: AppConfig = {
   apiBaseUrl: API_BASE_URL,
