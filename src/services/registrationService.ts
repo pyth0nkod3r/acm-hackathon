@@ -66,7 +66,7 @@ export class RegistrationService extends APIService {
     if (!data.teamName?.trim()) {
       throw new Error('Team name is required');
     }
-    if (!data.digitalSignature?.trim()) {
+    if (!data.teamLeadSignature?.trim()) {
       throw new Error('Digital signature is required');
     }
     if (!data.declarations?.length || data.declarations.length < 3) {
@@ -156,7 +156,7 @@ export class RegistrationService extends APIService {
 
       // Consent
       declarations: data.declarations,
-      digitalSignature: data.digitalSignature,
+      teamLeadSignature: data.teamLeadSignature,
     };
   }
 }

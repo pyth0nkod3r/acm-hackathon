@@ -39,77 +39,70 @@ export const requiredTextSchema = z
 // Optional text field validation
 export const optionalTextSchema = z.string().optional();
 
-// Team member validation schema (simplified for new form)
-export const teamMemberSchema = z.object({
-  name: nameSchema,
-  email: emailSchema,
-  phone: phoneSchema,
-  role: requiredTextSchema,
-  linkedin: urlSchema,
+// Team member validation schema for new structure
+export const newTeamMemberSchema = z.object({
+  teamMemberFullName: nameSchema,
+  teamMemberEmail: emailSchema,
+  teamMemberPhone: phoneSchema,
+  teamMemberRole: requiredTextSchema,
+  teamMemberLinkedIn: urlSchema,
 });
 
-// Contact form validation schema
-export const contactFormSchema = z.object({
-  name: nameSchema,
-  email: emailSchema,
-  subject: requiredTextSchema.min(5, 'Subject must be at least 5 characters'),
-  message: requiredTextSchema.min(10, 'Message must be at least 10 characters'),
-});
-
-// Registration form validation schema (updated for new form structure)
-export const registrationFormSchema = z.object({
-  // Section 1: Team Information
+// New hackathon form validation schema matching HackathonForm interface
+export const newHackathonFormSchema = z.object({
+  // Team Information
   teamName: requiredTextSchema.min(
     3,
     'Team name must be at least 3 characters'
   ),
-  teamSize: z
-    .number()
-    .min(3, 'Team must have at least 3 members')
-    .max(5, 'Team cannot exceed 5 members'),
+  teamSize: z.string().min(1, 'Team size is required'),
   countryOfResidence: requiredTextSchema,
-  hackathonExperience: z.enum(['yes', 'no']),
-  hackathonExperienceDetails: z.string().optional(),
+  hackathonExperience: z.enum(['Yes', 'No']),
+  hackathonExperienceDesc: z.string().optional(),
 
-  // Section 2: Team Lead Information
-  teamLeader: teamMemberSchema,
+  // Team Leader Information
+  teamLeaderFullName: nameSchema,
+  teamLeaderPhone: phoneSchema,
+  teamLeaderEmail: emailSchema,
+  teamLeaderLinkedIn: urlSchema,
+  teamLeaderRole: requiredTextSchema,
 
-  // Section 3: Team Members Information
-  teamMembers: z.array(teamMemberSchema).optional(),
+  // Team Members Information
+  teamMembers: z.array(newTeamMemberSchema).optional(),
 
-  // Section 4: Idea Summary
-  creativeIndustryChallenge: requiredTextSchema.min(
+  // Challenge and Solution Information
+  challengeSolving: requiredTextSchema.min(
     10,
     'Challenge description must be at least 10 characters'
   ),
-  distributionChallenge: requiredTextSchema
-    .min(50, 'Distribution challenge must be at least 50 characters')
-    .max(250, 'Distribution challenge must be less than 250 characters'),
-  solutionVision: requiredTextSchema
+  challengeAims: requiredTextSchema
+    .min(50, 'Challenge aims must be at least 50 characters')
+    .max(250, 'Challenge aims must be less than 250 characters'),
+  solutionEnvision: requiredTextSchema
     .min(50, 'Solution vision must be at least 50 characters')
     .max(250, 'Solution vision must be less than 250 characters'),
-  teamPositioning: requiredTextSchema
+  uniquelyPositioned: requiredTextSchema
     .min(50, 'Team positioning must be at least 50 characters')
     .max(150, 'Team positioning must be less than 150 characters'),
 
-  // Section 5: Logistics
-  allMembersAvailable: z.boolean(),
-  availabilityExplanation: z.string().optional(),
-  hasDietaryRestrictions: z.boolean(),
-  dietaryNeeds: z.string().optional(),
+  // Availability and Logistics
+  teamAvailability: z.enum(['Yes', 'No']),
+  teamAvailabilityDesc: z.string().optional(),
+  dietaryRestrictions: z.enum(['Yes', 'No']),
+  dietaryRestrictionsDesc: z.string().optional(),
 
-  // Section 6: Declaration & Consent
+  // Declaration & Consent
   declarations: z
     .array(z.string())
     .min(3, 'All required declarations must be accepted'),
   teamLeadSignature: requiredTextSchema.min(
     2,
-    'Digital signature must be at least 2 characters'
+    'Team lead signature must be at least 2 characters'
   ),
 });
 
 // Validation helper functions
-export const validateField = <T>(
+export const validateNewField = <T>(
   schema: z.ZodSchema<T>,
   value: unknown
 ): { isValid: boolean; error?: string } => {
@@ -128,7 +121,7 @@ export const validateField = <T>(
   }
 };
 
-export const validateForm = <T>(
+export const validateNewForm = <T>(
   schema: z.ZodSchema<T>,
   data: unknown
 ): { isValid: boolean; errors: Record<string, string> } => {
@@ -148,6 +141,5 @@ export const validateForm = <T>(
   }
 };
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
-export type RegistrationFormData = z.infer<typeof registrationFormSchema>;
-export type TeamMemberData = z.infer<typeof teamMemberSchema>;
+export type NewHackathonFormData = z.infer<typeof newHackathonFormSchema>;
+export type NewTeamMemberData = z.infer<typeof newTeamMemberSchema>;

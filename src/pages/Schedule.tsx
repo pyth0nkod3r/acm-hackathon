@@ -221,6 +221,8 @@ const Schedule = () => {
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
+
+              
               <ArrowRight className="h-4 w-4 mb-4" />
               <span className="mb-4">Schedule</span>
             </motion.div>

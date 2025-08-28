@@ -2,6 +2,7 @@ export { default as Home } from './Home';
 export { default as About } from './About';
 export { default as Contact } from './Contact';
 export { default as Application } from './Application';
+export { default as NewApplication } from './NewApplication';
 export { default as Challenges } from './Challenges';
 export { default as Schedule } from './Schedule';
 // export { default as Awards } from './Awards';

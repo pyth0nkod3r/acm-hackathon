@@ -131,7 +131,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     hasDietaryRestrictions: false,
     dietaryNeeds: '',
     declarations: [],
-    digitalSignature: '',
+    teamLeadSignature: '',
   };
 
   const {
@@ -811,14 +811,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         <FormField
           label="Signature of Team Lead (Typed Full Name)"
           required
-          htmlFor="digitalSignature"
+          htmlFor="teamLeadSignature"
           className="mt-6"
         >
           <Input
-            id="digitalSignature"
+            id="teamLeadSignature"
             placeholder="Type your full name to confirm"
-            value={values.digitalSignature || ''}
-            onChange={e => setValue('digitalSignature', e.target.value)}
+            value={values.teamLeadSignature || ''}
+            onChange={e => setValue('teamLeadSignature', e.target.value)}
           />
         </FormField>
 
