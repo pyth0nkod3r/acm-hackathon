@@ -4,6 +4,8 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 interface PartnerRegistrationData {
   fullName: string;
@@ -115,9 +117,11 @@ const PartnerRegistration = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex items-center justify-center space-x-2 text-lg"
             >
-              <span>Home</span>
-              <span>/</span>
-              <span>Partner Registration</span>
+              <Link to="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <ArrowRight className="h-4 w-4 mb-3" />
+              <span className="mb-4">Partner Registration</span>
             </motion.div>
           </div>
         </div>

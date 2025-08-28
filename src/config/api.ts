@@ -8,14 +8,14 @@ import type { AppConfig } from '../types/config';
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
   'https://api.africacreativemarketglobal.com';
-const API_USERNAME = import.meta.env.VITE_API_USERNAME || '';
-const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || '';
+const API_USERNAME = import.meta.env.VITE_API_USERNAME || 'secret';      // ← default
+const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || 'admin';       // ← default
 
 export const apiConfig: AppConfig = {
   apiBaseUrl: API_BASE_URL,
   formEndpoints: {
-    registration: '/api/partner/registration', // Updated endpoint
-    contact: '/api/contact',
+    registration: '/api/hackathon/', // Updated endpoint
+    contact: '/api/hackathon/contact',
   },
   features: {
     enableAnimations: true,

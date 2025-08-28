@@ -12,3 +12,4 @@ export { default as Awards } from './Awards';
 export { default as PartnerRegistration } from './PartnerRegistration';
 export { default as NotFound } from './NotFound';
 export { default as ScrollAnimationsExample } from './ScrollAnimationsExample';
+export { default as NewApplication } from './NewApplication';

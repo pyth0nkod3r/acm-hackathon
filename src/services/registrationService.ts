@@ -4,11 +4,7 @@
 
 import { APIService } from './api';
 import type { RegistrationFormData } from '../lib/validations';
-import type {
-  APIResponse,
-  PartnerRegistrationRequest,
-  PartnerRegistrationResponse,
-} from '../types/api';
+import type { APIResponse, PartnerRegistrationResponse } from '../types/api';
 import { apiConfig } from '../config/api';
 
 export class RegistrationService extends APIService {
@@ -22,15 +18,15 @@ export class RegistrationService extends APIService {
       // Validate required fields before submission
       this.validateFormData(formData);
 
-      // Transform the form data to match the API format
-      const apiData = this.transformToAPIFormat(formData);
+      // Convert to FormData required by the ACM Hackathon API
+      const fd = this.transformToFormData(formData);
 
-      console.log('Submitting registration data:', apiData);
+      console.log('Submitting registration data:', Object.fromEntries(fd));
 
-      // Submit to the API endpoint
-      const response = await this.post<PartnerRegistrationResponse>(
+      // POST multipart/formdata to the endpoint
+      const response = await this.postFormData<PartnerRegistrationResponse>(
         apiConfig.formEndpoints.registration,
-        apiData
+        fd
       );
 
       if (response.success) {
@@ -66,98 +62,87 @@ export class RegistrationService extends APIService {
     if (!data.teamName?.trim()) {
       throw new Error('Team name is required');
     }
-    if (!data.digitalSignature?.trim()) {
+    if (!data.teamLeadSignature?.trim()) {
       throw new Error('Digital signature is required');
     }
     if (!data.declarations?.length || data.declarations.length < 3) {
       throw new Error('All required declarations must be accepted');
     }
   }
-
   /**
-   * Transforms RegistrationFormData to PartnerRegistrationRequest format
-   * Maps the hackathon registration form fields to the API format
+   * Transforms RegistrationFormData into the exact FormData structure
+   * expected by the ACM Hackathon endpoint.
    */
-  private transformToAPIFormat(
-    data: RegistrationFormData
-  ): PartnerRegistrationRequest {
-    // Extract first and last name from team leader
-    const nameParts = data.teamLeader.name.trim().split(' ');
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
+  private transformToFormData(data: RegistrationFormData): FormData {
+    const fd = new FormData();
 
-    // Prepare team member information
-    const allTeamMembers = [data.teamLeader, ...(data.teamMembers || [])];
-    const teamRoles = allTeamMembers.map(member => member.role);
+    /* ───────────────────────── Section 1 – Team information ───────────────────────── */
+    fd.append('teamName', data.teamName);
+    fd.append('teamSize', String(data.teamSize));
+    fd.append('countryOfResidence', data.countryOfResidence);
 
-    // Prepare attending days (hackathon days)
-    const attendingDays = data.allMembersAvailable
-      ? ['September 16', 'September 17', 'September 18', 'September 19']
-      : ['TBD - Some members unavailable'];
+    // Yes/No stored as "Yes" / "No" for API
+    const yesNo = (b: boolean | 'yes' | 'no') =>
+      b === true || b === 'yes' ? 'Yes' : 'No';
 
-    return {
-      // Personal Information (Team Leader)
-      firstName,
-      lastName,
-      phoneNumber: data.teamLeader.phone,
-      emailAddress: data.teamLeader.email,
-      company: data.teamName, // Using team name as company
-      gender: '', // Not collected in current form
-      industry: 'Creative Technology', // Default for hackathon
-      attendingDays,
+    fd.append('hackathonExperience', yesNo(data.hackathonExperience));
+    // ALWAYS include the “…Desc” key – empty string when not applicable
+    fd.append(
+      'hackathonExperienceDesc',
+      data.hackathonExperience === 'yes'
+        ? (data.hackathonExperienceDetails ?? '')
+        : ''
+    );
 
-      // Optional personal fields
-      ...(data.teamLeader.linkedin && {
-        linkedin: data.teamLeader.linkedin,
-      }),
+    /* ───────────────────────── Section 2 – Team lead ───────────────────────── */
+    fd.append('teamLeaderFullName', data.teamLeader.name);
+    fd.append('teamLeaderPhone', data.teamLeader.phone);
+    fd.append('teamLeaderEmail', data.teamLeader.email);
+    fd.append('teamLeaderRole', data.teamLeader.role);
+    fd.append('teamLeaderLinkedIn', data.teamLeader.linkedin ?? '');
 
-      // Team Information
-      teamName: data.teamName,
-      teamSize: data.teamSize,
-      applicationType: 'hackathon',
-      teamRoles,
-      teamIntroduction: `${data.teamName} - ${data.creativeIndustryChallenge}`,
+    /* ───────────────────────── Section 3 – Team members ───────────────────────── */
+    // Backend expects indexes 0…teamSize-2
+    const expectedMembers = Math.max(0, data.teamSize - 1);
+    for (let i = 0; i < expectedMembers; i++) {
+      const m = data.teamMembers?.[i] ?? {
+        name: '',
+        email: '',
+        phone: '',
+        role: '',
+        linkedin: '',
+      };
+      fd.append(`teamMembers[${i}][teamMemberFullName]`, m.name);
+      fd.append(`teamMembers[${i}][teamMemberEmail]`, m.email);
+      fd.append(`teamMembers[${i}][teamMemberPhone]`, m.phone);
+      fd.append(`teamMembers[${i}][teamMemberRole]`, m.role);
+      fd.append(`teamMembers[${i}][teamMemberLinkedIn]`, m.linkedin ?? '');
+    }
 
-      // Project Information (mapped from idea summary fields)
-      projectTitle: `${data.teamName} Solution`,
-      ideaSummary: data.solutionVision,
-      problemSolving: data.distributionChallenge,
-      technology: 'To be determined during hackathon',
-      alignment: data.teamPositioning,
-      hasPrototype: false, // Hackathon teams haven't built yet
+    /* ───────────────────────── Section 4 – Idea summary ───────────────────────── */
+    fd.append('challengeSolving', data.creativeIndustryChallenge);
+    fd.append('challengeAims', data.distributionChallenge);
+    fd.append('solutionEnvision', data.solutionVision);
+    fd.append('uniquelyPositioned', data.teamPositioning);
 
-      // Skills and Interests
-      technicalSkills: teamRoles.filter(role =>
-        ['Developer', 'Data Scientist'].includes(role)
-      ),
-      creativeSkills: teamRoles.filter(role =>
-        ['Designer', 'Creative Lead'].includes(role)
-      ),
-      challengeAreas: [data.creativeIndustryChallenge],
+    /* ───────────────────────── Section 5 – Logistics ───────────────────────── */
+    fd.append('teamAvailability', yesNo(data.allMembersAvailable));
+    fd.append(
+      'teamAvailabilityDesc',
+      data.allMembersAvailable ? (data.availabilityExplanation ?? '') : ''
+    );
 
-      // Experience
-      hackathonExperience: data.hackathonExperience,
-      hackathonExperienceDetails:
-        data.hackathonExperienceDetails || 'No previous experience',
-      motivation: `Passionate about solving: ${data.creativeIndustryChallenge}`,
+    fd.append('dietaryRestrictions', yesNo(data.hasDietaryRestrictions));
+    fd.append(
+      'dietaryRestrictionsDesc',
+      data.hasDietaryRestrictions ? (data.dietaryNeeds ?? '') : ''
+    );
 
-      // Logistics
-      travelSupport: !data.allMembersAvailable, // May need support if not all available
-      accommodationSupport: false, // Not specified in form
-      dietaryPreferences: data.hasDietaryRestrictions
-        ? data.dietaryNeeds || 'Special dietary requirements'
-        : 'No special requirements',
-      accessibilityNeeds: 'None specified',
+    /* ───────────────────────── Section 6 – Declarations & signature ───────────────── */
+    data.declarations.forEach((d, idx) => fd.append(`declarations[${idx}]`, d));
+    fd.append('teamLeadSignature', data.teamLeadSignature);
 
-      // Additional context
-      countryOfResidence: data.countryOfResidence,
-      availabilityDetails:
-        data.availabilityExplanation || 'All members available',
-
-      // Consent
-      declarations: data.declarations,
-      digitalSignature: data.digitalSignature,
-    };
+    return fd;
   }
 }
 

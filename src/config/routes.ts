@@ -6,6 +6,7 @@ const Home = lazy(() => import('../pages/Home'));
 const About = lazy(() => import('../pages/About'));
 const Contact = lazy(() => import('../pages/Contact'));
 const Application = lazy(() => import('../pages/Application'));
+const NewApplication = lazy(() => import('../pages/NewApplication'));
 const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
 const FAQ = lazy(() => import('../pages/FAQ'));
@@ -40,8 +41,15 @@ export const routes: RouteConfig[] = [
     isProtected: false,
   },
   {
-    path: '/registration',
+    path: '/registration-old',
     component: Application,
+    title: 'Apply (Old) - ACM Hackathon',
+    description: 'Apply for the ACM Hackathon 2025 (Legacy Form)',
+    isProtected: false,
+  },
+  {
+    path: '/registration',
+    component: NewApplication,
     title: 'Apply - ACM Hackathon',
     description: 'Apply for the ACM Hackathon 2025',
     isProtected: false,

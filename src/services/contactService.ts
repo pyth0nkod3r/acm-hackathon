@@ -35,9 +35,10 @@ export class ContactService extends APIService {
       }
 
       // Submit form data
+      const apiPayload = this.mapToApiPayload(formattedData);
       return this.post<FormSubmissionResponse>(
         apiConfig.formEndpoints.contact,
-        formattedData
+        apiPayload
       );
     } catch {
       return {
@@ -47,6 +48,15 @@ export class ContactService extends APIService {
     }
   }
 
+  private mapToApiPayload(data: ContactFormData) {
+    return {
+      fullName: data.name,
+      emailAddress: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
+  }
+
   /**
    * Formats contact data for API submission
    */
@@ -54,7 +64,7 @@ export class ContactService extends APIService {
     return {
       name: data.name.trim(),
       email: data.email.trim().toLowerCase(),
-      subject: data.subject.trim(),
+      subject: data.subject.trim(), 
       message: data.message.trim(),
     };
   }
