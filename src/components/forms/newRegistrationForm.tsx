@@ -521,7 +521,7 @@ const NewRegistrationForm: React.FC<NewRegistrationFormProps> = ({
                 htmlFor="teamLeaderLinkedIn"
                 className="text-sm font-medium text-gray-700"
               >
-                LinkedIn Profile (Optional)
+                LinkedIn Profile (Required)
               </Label>
               <Input
                 id="teamLeaderLinkedIn"
@@ -530,7 +530,7 @@ const NewRegistrationForm: React.FC<NewRegistrationFormProps> = ({
                 onChange={e =>
                   updateFormData('teamLeaderLinkedIn', e.target.value)
                 }
-                className="mt-1"
+                className="mt-1 required"
                 placeholder="https://linkedin.com/in/yourprofile"
               />
             </div>
