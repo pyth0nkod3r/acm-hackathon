@@ -1,7 +1,6 @@
 
 # Don't index SpecStory auto-save files, but allow explicit context inclusion via @ references
 .specstory/**
-.env
 .env.local
 .env.development.local
 .env.test.local

@@ -16,6 +16,7 @@ export const apiConfig: AppConfig = {
   formEndpoints: {
     registration: '/api/hackathon/', // Updated endpoint
     contact: '/api/hackathon/contact',
+    partner: '/api/hackathon/partner',
   },
   features: {
     enableAnimations: true,
