@@ -9,7 +9,7 @@ const Application = lazy(() => import('../pages/Application'));
 const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
 const FAQ = lazy(() => import('../pages/FAQ'));
-// const Awards = lazy(() => import('../pages/Awards'));
+const Awards = lazy(() => import('../pages/Awards'));
 // const Gallery = lazy(() => import('../pages/Gallery'));
 // const Highlights = lazy(() => import('../pages/Highlights'));
 // const Partners = lazy(() => import('../pages/Partners'));
@@ -69,14 +69,14 @@ export const routes: RouteConfig[] = [
       'Find answers to frequently asked questions about the ACM Hackathon 2025',
     isProtected: false,
   },
-  // {
-  //   path: '/awards',
-  //   component: Awards,
-  //   title: 'Awards & Judging - ACM Hackathon',
-  //   description:
-  //     'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
-  //   isProtected: false,
-  // },
+  {
+    path: '/awards',
+    component: Awards,
+    title: 'Awards & Judging - ACM Hackathon',
+    description:
+      'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
+    isProtected: false,
+  },
   // {
   //   path: '/gallery',
   //   component: Gallery,

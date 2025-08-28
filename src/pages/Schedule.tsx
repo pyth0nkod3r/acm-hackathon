@@ -35,30 +35,51 @@ const Schedule = () => {
     {
       day: 1,
       date: 'September 16, 2025',
-      title: 'Kick-off & Ideation',
+      title: 'Opening & Ideation',
       theme:
-        "Understanding Africa's Music & Film Distribution Challenges and Defining Innovation Solutions",
+        'Distribute Africa: Hacking the Future of Music & Film Access - Opening Ceremony and Hacking Begins',
       sessions: {
         morning: [
           {
-            timeSlot: '9:00 AM - 10:00 AM',
-            session: 'Opening Ceremony & Welcome',
+            timeSlot: '9:00 AM - 9:10 AM',
+            session: 'Welcome Address',
             details:
-              'Welcome address, hackathon overview, and team introductions',
+              "Introduction to the hackathon's objectives, rules, and expectations",
           },
           {
-            timeSlot: '10:00 AM - 12:00 PM',
-            session: 'Distribution Challenges Workshop',
+            timeSlot: '9:10 AM - 9:20 AM',
+            session: 'Keynote Speech - CcHub Representative',
+            details: 'Keynote address from CcHub representative',
+          },
+          {
+            timeSlot: '9:20 AM - 9:30 AM',
+            session: 'Keynote Speech - AWS Representative',
+            details: 'Keynote address from Amazon Web Services representative',
+          },
+          {
+            timeSlot: '9:30 AM - 9:40 AM',
+            session: 'Hackathon Finalists Announcement',
             details:
-              "Deep dive into Africa's music and film distribution challenges",
+              'Announcement of hackathon finalists and declaration of hackathon open',
+          },
+          {
+            timeSlot: '9:40 AM - 9:45 AM',
+            session: 'Participants Take Positions',
+            details: 'All participants take their hacking positions',
+          },
+          {
+            timeSlot: '9:45 AM - 12:00 PM',
+            session: 'Hacking Begins',
+            details:
+              'Main hacking session begins between participants. After lunch break, advisors take turns visiting each team to ask critical, thought-provoking questions, ensuring all essential elements are considered in their solutions. This is a two-way learning system where both participants and advisors engage in mutual knowledge exchange.',
           },
         ],
         afternoon: [
           {
-            timeSlot: '2:00 PM - 4:00 PM',
-            session: 'Solution Ideation',
+            timeSlot: '2:00 PM - 5:00 PM',
+            session: 'Continued Hacking with Advisory Support',
             details:
-              'Team brainstorming and initial solution concept development',
+              'Teams continue developing solutions with rotating advisory support. Advisors visit each team to provide guidance and challenge their concepts.',
           },
         ],
       },
@@ -66,23 +87,30 @@ const Schedule = () => {
     {
       day: 2,
       date: 'September 17, 2025',
-      title: 'Prototyping & Mentorship',
+      title: 'Hacking & Refinement',
       theme:
-        'Building MVPs for Distribution Solutions and Receiving Expert Guidance',
+        'Building MVPs with Expert Mentorship and Lightning Talks from Partners',
       sessions: {
         morning: [
           {
-            timeSlot: '9:00 AM - 12:00 PM',
-            session: 'MVP Development',
+            timeSlot: '9:00 AM - 10:30 AM',
+            session: 'Breakout Sessions with Mentors',
             details:
-              'Building minimum viable products for distribution solutions',
+              'Each team consults mentors (creatives and legal experts) to refine their ideas and scope',
+          },
+          {
+            timeSlot: '10:30 AM - 12:00 PM',
+            session: 'Lightning Talks',
+            details:
+              'Short talks with Partners/Support Group for 20 minutes each in a revolving manner',
           },
         ],
         afternoon: [
           {
-            timeSlot: '2:00 PM - 5:00 PM',
-            session: 'Expert Mentorship',
-            details: 'One-on-one guidance from industry experts',
+            timeSlot: '1:00 PM - 5:00 PM',
+            session: 'Main Hacking Session',
+            details:
+              'Teams continue developing MVPs for their solutions. Advisors rotate again to challenge teams and push concepts further, ensuring real-world feasibility and policy alignment.',
           },
         ],
       },
@@ -90,21 +118,23 @@ const Schedule = () => {
     {
       day: 3,
       date: 'September 18, 2025',
-      title: 'Development & Testing',
-      theme: 'Refining Solutions and Testing with Real-World Scenarios',
+      title: 'Offsite at CcHub',
+      theme: 'Continued Development and Refinement at CcHub Innovation Hub',
       sessions: {
         morning: [
           {
             timeSlot: '9:00 AM - 12:00 PM',
-            session: 'Solution Refinement',
-            details: 'Iterating and improving distribution solutions',
+            session: 'Offsite Development Session',
+            details:
+              'Teams continue working on their solutions at CcHub innovation hub with continued mentorship and support',
           },
         ],
         afternoon: [
           {
             timeSlot: '2:00 PM - 5:00 PM',
-            session: 'Testing & Validation',
-            details: 'Real-world scenario testing and user feedback',
+            session: 'Solution Refinement & Testing',
+            details:
+              'Final iterations and testing of solutions in preparation for final presentations',
           },
         ],
       },
@@ -112,21 +142,64 @@ const Schedule = () => {
     {
       day: 4,
       date: 'September 19, 2025',
-      title: 'Final Presentations & Awards',
+      title: 'Final Pitching & Awards',
       theme: 'Showcasing Distribution Innovations and Celebrating Success',
       sessions: {
         morning: [
           {
-            timeSlot: '9:00 AM - 12:00 PM',
-            session: 'Final Presentations',
-            details: 'Teams present their distribution solutions to judges',
+            timeSlot: '9:00 AM - 9:30 AM',
+            session: 'Arrival & Briefing',
+            details:
+              'Arrival of finalist teams and judges, followed by briefing for teams and judges',
+          },
+          {
+            timeSlot: '9:30 AM - 10:00 AM',
+            session: 'Welcome and Opening Remarks',
+            details:
+              'ACM Hackathon Coordinator delivers welcome and opening remarks',
+          },
+          {
+            timeSlot: '10:00 AM - 10:10 AM',
+            session: 'Keynote Speech',
+            details:
+              'Mr. Ralph Simon - Patron of the ACM Hackathon delivers keynote address',
+          },
+          {
+            timeSlot: '10:10 AM - 10:25 AM',
+            session: 'Preparation Break',
+            details: 'Brief preparation time for teams before pitching begins',
+          },
+          {
+            timeSlot: '10:25 AM - 11:30 AM',
+            session: 'First Pitch Block (Teams 1-6)',
+            details: 'First round of team presentations to judges',
+          },
+          {
+            timeSlot: '11:30 AM - 11:45 AM',
+            session: 'Break & Light Refreshments',
+            details: 'Short break with refreshments for all participants',
           },
         ],
         afternoon: [
           {
-            timeSlot: '1:00 PM - 4:00 PM',
-            session: 'Awards Ceremony',
-            details: 'Celebration of winning solutions and closing remarks',
+            timeSlot: '11:45 AM - 12:45 PM',
+            session: 'Second Pitch Block (Teams 7-12)',
+            details: 'Second round of team presentations to judges',
+          },
+          {
+            timeSlot: '12:45 PM - 1:15 PM',
+            session: 'Judges Deliberation',
+            details: 'Judges deliberate and evaluate all team presentations',
+          },
+          {
+            timeSlot: '1:15 PM - 1:25 PM',
+            session: 'Winner Announcement',
+            details: 'Announcement of hackathon winners',
+          },
+          {
+            timeSlot: '1:25 PM - 2:00 PM',
+            session: 'Closing Remarks & Group Photo',
+            details: 'Final closing remarks and group photo session',
           },
         ],
       },
@@ -374,30 +447,31 @@ const Schedule = () => {
                 <p className="text-gray-600 max-w-2xl mx-auto">{day.theme}</p>
               </div>
 
-              <div className="grid lg:grid-cols-3 gap-8">
+              <div className="grid lg:grid-cols-3 gap-12 items-start">
                 {Object.entries(day.sessions).map(([period, sessions]) => (
                   <div key={period} className="space-y-6">
-                    <h4 className="text-lg font-semibold text-gray-900 capitalize">
+                    <h4 className="text-lg font-semibold text-gray-900 capitalize mb-6">
                       {period}
                     </h4>
-                    {sessions?.map((session, index) => (
-                      <motion.div
-                        key={`${day.day}-${period}-${index}`}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
-                      >
-                        <div className="flex items-start justify-between mb-4">
+                    <div className="space-y-6">
+                      {sessions?.map((session, index) => (
+                        <motion.div
+                          key={`${day.day}-${period}-${index}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
+                          style={{ minHeight: 'fit-content' }}
+                        >
                           <div className="flex items-start justify-between mb-4">
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 flex-1">
                               {session.icon && (
-                                <div className="w-10 h-10 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center flex-shrink-0">
                                   <session.icon className="h-5 w-5 text-white" />
                                 </div>
                               )}
-                              <div>
-                                <h5 className="font-semibold text-gray-900">
+                              <div className="flex-1 min-w-0">
+                                <h5 className="font-semibold text-gray-900 mb-2">
                                   {session.session}
                                 </h5>
                                 {session.timeSlot && (
@@ -407,45 +481,45 @@ const Schedule = () => {
                                 )}
                               </div>
                             </div>
+                            <button
+                              onClick={() =>
+                                toggleSession(`${day.day}-${period}-${index}`)
+                              }
+                              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 ml-2"
+                            >
+                              {expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              ) ? (
+                                <ChevronUp className="h-5 w-5" />
+                              ) : (
+                                <ChevronDown className="h-5 w-5" />
+                              )}
+                            </button>
                           </div>
-                          <button
-                            onClick={() =>
-                              toggleSession(`${day.day}-${period}-${index}`)
-                            }
-                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                          <motion.div
+                            initial={false}
+                            animate={{
+                              height: expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              )
+                                ? 'auto'
+                                : 0,
+                              opacity: expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              )
+                                ? 1
+                                : 0,
+                            }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
                           >
-                            {expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            ) ? (
-                              <ChevronUp className="h-5 w-5" />
-                            ) : (
-                              <ChevronDown className="h-5 w-5" />
-                            )}
-                          </button>
-                        </div>
-                        <motion.div
-                          initial={false}
-                          animate={{
-                            height: expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            )
-                              ? 'auto'
-                              : 0,
-                            opacity: expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            )
-                              ? 1
-                              : 0,
-                          }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <p className="text-gray-600 text-sm leading-relaxed">
-                            {session.details}
-                          </p>
+                            <p className="text-gray-600 text-sm leading-relaxed">
+                              {session.details}
+                            </p>
+                          </motion.div>
                         </motion.div>
-                      </motion.div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
