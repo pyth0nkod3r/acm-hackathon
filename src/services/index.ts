@@ -81,6 +81,9 @@ export const formSubmissionService = createFormSubmissionService();
 export { registrationService, contactService, mockAPIService };
 export type { RegistrationService, ContactService, MockAPIService };
 
+// Export email service
+export { default as emailService } from './email.service';
+
 // Export error logging service
 export { errorLogger } from './errorLogger';
 

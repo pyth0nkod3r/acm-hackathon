@@ -4,6 +4,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
 import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
 import { hackathonService } from '../nServices';
+import { emailService } from '../services';
 import { useNotification } from '../hooks';
 import type { HackathonForm } from '../nServices/apiType';
 import { NewRegistrationForm } from '@/components/forms';
@@ -32,13 +33,22 @@ const NewApplication = () => {
       const response = await hackathonService.submitRegistration(data);
 
       if (response.success) {
+        // Send confirmation email
+        try {
+          await emailService.sendHackathonConfirmation(data);
+          console.log('Confirmation email sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send confirmation email:', emailError);
+          // Don't fail the registration if email fails
+        }
+
         // Show success notification with registration ID if available
         const registrationId = response.data?.id;
         const successMessage = registrationId
-          ? `Registration submitted successfully! Your registration ID is: ${registrationId}. We will review your application and get back to you soon.`
-          : 'Registration submitted successfully! We will review your application and get back to you soon.';
+          ? `Registration submitted successfully! Your registration ID is: ${registrationId}. A confirmation email has been sent to ${data.teamLeaderEmail}.`
+          : `Registration submitted successfully! A confirmation email has been sent to ${data.teamLeaderEmail}. We will review your application and get back to you soon.`;
 
-        showSuccess(successMessage, 8000);
+        showSuccess(successMessage, 10000);
       } else {
         showError(
           (response.message as string) ?? 'Failed to submit registration'

@@ -7,14 +7,15 @@ import { Label } from '../components/ui/label';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { apiConfig, apiCredentials } from '../config/api';
+import { emailService } from '../services';
 
-interface PartnerRegistrationData {
+export interface PartnerRegistrationData {
   fullName: string;
   phoneNumber: string;
   altPhoneNumber: string;
   emailAddress: string;
   altEmailAddress: string;
-  company: string;
+  company: string; 
   message: string;
 }
 
@@ -76,11 +77,20 @@ const PartnerRegistration = () => {
 
       const resJson = await response.json().catch(() => ({}));
 
+      // Send partnership confirmation email
+      try {
+        await emailService.sendPartnershipConfirmation(formData);
+        console.log('Partnership confirmation email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send partnership confirmation email:', emailError);
+        // Don't fail the registration if email fails
+      }
+
       setSubmitResult({
         success: true,
         message:
           resJson.message ??
-          'Your partner registration has been submitted successfully! We will get back to you soon.',
+          `Your partner registration has been submitted successfully! A confirmation email has been sent to ${formData.emailAddress}. We will get back to you soon.`,
       });
 
       setFormData({

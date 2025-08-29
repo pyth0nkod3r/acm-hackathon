@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Container } from '../components/layout';
 import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { ContactForm } from '../components/forms';
-import { formSubmissionService } from '../services';
+import { formSubmissionService, emailService } from '../services';
 import { useNotification } from '../hooks';
 import type { ContactFormData } from '../lib/validations';
 import { Link } from 'react-router-dom';
@@ -17,10 +17,19 @@ const Contact = () => {
       const response = await formSubmissionService.submitContact(data);
 
       if (response.success) {
+        // Send inquiry response email
+        try {
+          await emailService.sendInquiryResponse(data);
+          console.log('Inquiry response email sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send inquiry response email:', emailError);
+          // Don't fail the contact submission if email fails
+        }
+
         // Show success notification
         showSuccess(
-          `Message sent successfully! Your message ID is: ${response.data?.id}. We will get back to you within 24 hours.`,
-          6000
+          `Message sent successfully! Your message ID is: ${response.data?.id}. A confirmation email has been sent to ${data.email}. We will get back to you within 24 hours.`,
+          8000
         );
       } else {
         // If the API returns field-level messages, surface them to the user

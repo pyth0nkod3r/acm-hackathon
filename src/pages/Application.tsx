@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
 import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
-import { formSubmissionService } from '../services';
+import { formSubmissionService, emailService } from '../services';
 import { useNotification } from '../hooks';
 import type { RegistrationFormData } from '../lib/validations';
+import type { HackathonForm } from '../nServices/apiType';
 import { RegistrationForm } from '@/components/forms';
 
 const Application = () => {
@@ -24,6 +25,39 @@ const Application = () => {
     }
   }, [searchParams]);
 
+  // Transform old form data to new email format
+  const transformToEmailFormat = (data: RegistrationFormData): HackathonForm => {
+    return {
+      teamName: data.teamName,
+      teamSize: data.teamSize.toString(),
+      countryOfResidence: data.countryOfResidence,
+      hackathonExperience: data.hackathonExperience === 'yes' ? 'Yes' : 'No',
+      hackathonExperienceDesc: data.hackathonExperienceDetails || '',
+      teamLeaderFullName: data.teamLeader.name,
+      teamLeaderPhone: data.teamLeader.phone,
+      teamLeaderEmail: data.teamLeader.email,
+      teamLeaderLinkedIn: data.teamLeader.linkedin || '',
+      teamLeaderRole: data.teamLeader.role,
+      teamMembers: (data.teamMembers || []).map(member => ({
+        teamMemberFullName: member.name,
+        teamMemberEmail: member.email,
+        teamMemberPhone: member.phone,
+        teamMemberRole: member.role,
+        teamMemberLinkedIn: member.linkedin || '',
+      })),
+      challengeSolving: data.creativeIndustryChallenge,
+      challengeAims: data.distributionChallenge,
+      solutionEnvision: data.solutionVision,
+      uniquelyPositioned: data.teamPositioning,
+      teamAvailability: data.allMembersAvailable ? 'Yes' : 'No',
+      teamAvailabilityDesc: data.availabilityExplanation || '',
+      dietaryRestrictions: data.hasDietaryRestrictions ? 'Yes' : 'No',
+      dietaryRestrictionsDesc: data.dietaryNeeds || '',
+      declarations: data.declarations,
+      teamLeadSignature: data.digitalSignature,
+    };
+  };
+
   const handleRegistrationSubmit = async (data: RegistrationFormData) => {
     try {
       console.log('Registration form submitted:', data);
@@ -32,10 +66,20 @@ const Application = () => {
       const response = await formSubmissionService.submitRegistration(data);
 
       if (response.success) {
+        // Send confirmation email using transformed data
+        try {
+          const emailData = transformToEmailFormat(data);
+          await emailService.sendHackathonConfirmation(emailData);
+          console.log('Confirmation email sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send confirmation email:', emailError);
+          // Don't fail the registration if email fails
+        }
+
         // Show success notification
         showSuccess(
-          `Registration submitted successfully! Your submission ID is: ${response.data?.id}. We will review your application and get back to you soon.`,
-          8000
+          `Registration submitted successfully! Your submission ID is: ${response.data?.id}. A confirmation email has been sent to ${data.teamLeader.email}. We will review your application and get back to you soon.`,
+          10000
         );
       } else {
         showError(response.message ?? 'Failed to submit registration');
