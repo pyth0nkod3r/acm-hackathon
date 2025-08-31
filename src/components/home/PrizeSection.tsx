@@ -15,7 +15,7 @@ export const PrizeSection = () => {
   };
 
   const additionalPrizes = [
-    'AWS Credits for Cloud Infrastructure',
+    'AWS tech support',
     'Mentorship from Industry Experts',
     'Incubation Program Access (ASF + CcHub)',
     'Funding Opportunities & Investor Connections',
@@ -35,8 +35,8 @@ export const PrizeSection = () => {
       icon: '🚀',
     },
     {
-      title: 'AWS cloud infrastructure',
-      description: 'Cloud credits and technical support',
+      title: 'AWS tech support',
+      description: 'Technical support',
       icon: '☁️',
     },
     {

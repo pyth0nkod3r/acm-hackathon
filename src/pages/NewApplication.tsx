@@ -7,7 +7,7 @@ import { hackathonService } from '../nServices';
 import { emailService } from '../services';
 import { useNotification } from '../hooks';
 import type { HackathonForm } from '../nServices/apiType';
-import { NewRegistrationForm } from '@/components/forms';
+import { NewApplicationForm } from '@/components/forms';
 
 const NewApplication = () => {
   const { showSuccess, showError } = useNotification();
@@ -15,6 +15,8 @@ const NewApplication = () => {
   const [preSelectedChallenges, setPreSelectedChallenges] = useState<string[]>(
     []
   );
+  const [isFormSuccess, setIsFormSuccess] = useState(false);
+  const [formSuccessMessage, setFormSuccessMessage] = useState('');
 
   useEffect(() => {
     // Get pre-selected challenges from URL parameters
@@ -28,6 +30,10 @@ const NewApplication = () => {
   const handleRegistrationSubmit = async (data: HackathonForm) => {
     try {
       console.log('New registration form submitted:', data);
+
+      // Reset success state
+      setIsFormSuccess(false);
+      setFormSuccessMessage('');
 
       // Submit form using the new hackathon service
       const response = await hackathonService.submitRegistration(data);
@@ -48,7 +54,20 @@ const NewApplication = () => {
           ? `Registration submitted successfully! Your registration ID is: ${registrationId}. A confirmation email has been sent to ${data.teamLeaderEmail}.`
           : `Registration submitted successfully! A confirmation email has been sent to ${data.teamLeaderEmail}. We will review your application and get back to you soon.`;
 
+        // Set form success state
+        setIsFormSuccess(true);
+        setFormSuccessMessage(successMessage);
+
+        // Also show toast notification
         showSuccess(successMessage, 10000);
+
+        // Scroll to success message
+        setTimeout(() => {
+          const successElement = document.querySelector('.bg-green-50');
+          if (successElement) {
+            successElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
       } else {
         showError(
           (response.message as string) ?? 'Failed to submit registration'
@@ -139,7 +158,7 @@ const NewApplication = () => {
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: ₦10,000,000 + AWS Credits + Mentorship + Investment
+                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship + Investment
                     Opportunities
                   </p>
                 </div>
@@ -276,9 +295,15 @@ const NewApplication = () => {
                 Registration Form
               </h2>
 
-              <NewRegistrationForm
+              {/* <NewRegistrationForm
                 onSubmit={handleRegistrationSubmit}
                 _initialChallenges={preSelectedChallenges}
+              /> */}
+              <NewApplicationForm
+                onSubmit={handleRegistrationSubmit}
+                _initialChallenges={preSelectedChallenges}
+                isSuccess={isFormSuccess}
+                successMessage={formSuccessMessage}
               />
             </div>
 
@@ -292,7 +317,7 @@ const NewApplication = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">August 25, 2025</p>
+                  <p className="text-yellow-700">August 29, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">

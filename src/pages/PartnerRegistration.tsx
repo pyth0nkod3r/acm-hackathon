@@ -15,7 +15,7 @@ export interface PartnerRegistrationData {
   altPhoneNumber: string;
   emailAddress: string;
   altEmailAddress: string;
-  company: string; 
+  company: string;
   message: string;
 }
 
@@ -35,6 +35,7 @@ const PartnerRegistration = () => {
     success?: boolean;
     message?: string;
   }>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -46,12 +47,18 @@ const PartnerRegistration = () => {
       ...prev,
       [name]: value,
     }));
+    
+    // Clear field error when user starts typing
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitResult({});
+    setFieldErrors({});
 
     try {
       // Hit the live Partner-Registration API
@@ -70,19 +77,83 @@ const PartnerRegistration = () => {
         }
       );
 
-      if (!response.ok) {
-        // Let the catch-block handle non-2xx responses
-        throw new Error(`Server returned ${response.status}`);
-      }
-
       const resJson = await response.json().catch(() => ({}));
 
+      if (!response.ok) {
+        // Handle different types of errors
+        if (response.status === 400 && resJson.messages) {
+          // Field validation errors
+          const errors: Record<string, string> = {};
+          Object.entries(resJson.messages).forEach(([field, message]) => {
+            errors[field] = message as string;
+          });
+          setFieldErrors(errors);
+          
+          setSubmitResult({
+            success: false,
+            message: 'Please fix the errors below and try again.',
+          });
+          
+          // Scroll to first error
+          setTimeout(() => {
+            const firstErrorElement = document.querySelector('.border-red-500');
+            if (firstErrorElement) {
+              firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          
+          return;
+        } else if (response.status === 500 && resJson.details?.includes('Duplicate entry')) {
+          // Handle duplicate email error
+          const emailMatch = resJson.details.match(/'([^']+)'/);
+          const duplicateEmail = emailMatch ? emailMatch[1] : 'this email';
+          
+          setFieldErrors({
+            emailAddress: `The email address ${duplicateEmail} is already registered. Please use a different email address.`
+          });
+          
+          setSubmitResult({
+            success: false,
+            message: 'This email address is already registered. Please use a different email address.',
+          });
+          
+          // Focus on email field
+          setTimeout(() => {
+            const emailField = document.getElementById('emailAddress');
+            if (emailField) {
+              emailField.focus();
+              emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          
+          return;
+        } else if (response.status === 500) {
+          // Generic server error
+          setSubmitResult({
+            success: false,
+            message: 'A server error occurred. Please try again in a few minutes. If the problem persists, please contact support.',
+          });
+          return;
+        } else {
+          // Other HTTP errors
+          setSubmitResult({
+            success: false,
+            message: `Server error (${response.status}). Please try again later.`,
+          });
+          return;
+        }
+      }
+
+      // Success case
       // Send partnership confirmation email
       try {
         await emailService.sendPartnershipConfirmation(formData);
         console.log('Partnership confirmation email sent successfully');
       } catch (emailError) {
-        console.error('Failed to send partnership confirmation email:', emailError);
+        console.error(
+          'Failed to send partnership confirmation email:',
+          emailError
+        );
         // Don't fail the registration if email fails
       }
 
@@ -103,20 +174,27 @@ const PartnerRegistration = () => {
         message: '',
       });
 
-      // Clear the success message after 5 s
-      setTimeout(() => setSubmitResult({}), 5000);
+      // Clear the success message after 8 seconds
+      setTimeout(() => setSubmitResult({}), 8000);
     } catch (err) {
-      console.error(err);
-      setSubmitResult({
-        success: false,
-        message:
-          (err as Error).message ||
-          'An unexpected error occurred. Please try again later.',
-      });
+      console.error('Network or unexpected error:', err);
+      
+      // Handle network errors
+      if (err instanceof TypeError && err.message.includes('fetch')) {
+        setSubmitResult({
+          success: false,
+          message: 'Network error. Please check your internet connection and try again.',
+        });
+      } else {
+        setSubmitResult({
+          success: false,
+          message: 'An unexpected error occurred. Please try again later.',
+        });
+      }
 
-      // Clear the error message after 5 s
-      setTimeout(() => setSubmitResult({}), 5000);
-    } finally {
+      // Clear the error message after 8 seconds
+      setTimeout(() => setSubmitResult({}), 8000);
+     } finally {
       setIsSubmitting(false);
     }
   };
@@ -195,9 +273,15 @@ const PartnerRegistration = () => {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     required
-                    className="mt-1"
+                    className={`mt-1 ${fieldErrors.fullName ? 'border-red-500' : ''}`}
                     placeholder="Enter your full name"
                   />
+                  {fieldErrors.fullName && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                      <span className="text-red-500">⚠</span>
+                      {fieldErrors.fullName}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -216,9 +300,15 @@ const PartnerRegistration = () => {
                       required
                       value={formData.phoneNumber}
                       onChange={handleInputChange}
-                      className="mt-1"
+                      className={`mt-1 ${fieldErrors.phoneNumber ? 'border-red-500' : ''}`}
                       placeholder="Enter your phone number"
                     />
+                    {fieldErrors.phoneNumber && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                        <span className="text-red-500">⚠</span>
+                        {fieldErrors.phoneNumber}
+                      </p>
+                    )}
                   </div>
 
                   {/* Alternate Phone Number */}
@@ -255,9 +345,15 @@ const PartnerRegistration = () => {
                       value={formData.emailAddress}
                       onChange={handleInputChange}
                       required
-                      className="mt-1"
+                      className={`mt-1 ${fieldErrors.emailAddress ? 'border-red-500' : ''}`}
                       placeholder="Enter your email address"
                     />
+                    {fieldErrors.emailAddress && (
+                      <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                        <span className="text-red-500">⚠</span>
+                        {fieldErrors.emailAddress}
+                      </p>
+                    )}
                   </div>
 
                   {/* Alternate Email */}
@@ -296,8 +392,14 @@ const PartnerRegistration = () => {
                     onChange={handleInputChange}
                     placeholder="Enter your company name"
                     required
-                    className="mt-1"
+                    className={`mt-1 ${fieldErrors.company ? 'border-red-500' : ''}`}
                   />
+                  {fieldErrors.company && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                      <span className="text-red-500">⚠</span>
+                      {fieldErrors.company}
+                    </p>
+                  )}
                 </div>
 
                 {/* Message */}

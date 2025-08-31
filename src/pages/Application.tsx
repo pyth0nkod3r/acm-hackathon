@@ -169,7 +169,7 @@ const Application = () => {
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: ₦10,000,000 + AWS Credits + Mentorship + Investment
+                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship + Investment
                     Opportunities
                   </p>
                 </div>
@@ -321,7 +321,7 @@ const Application = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">August 25, 2025</p>
+                  <p className="text-yellow-700">August 29, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
