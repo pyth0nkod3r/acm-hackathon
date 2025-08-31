@@ -13,3 +13,4 @@ export {
 } from './ErrorFallback';
 export { SkipLinks } from './SkipLinks';
 export { AriaLiveRegion, GlobalAnnouncer } from './AriaLiveRegion';
+export { default as ScrollToTopButton } from './ScrollToTopButton';

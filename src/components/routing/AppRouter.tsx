@@ -13,6 +13,7 @@ import {
   useDocumentTitle,
   useDocumentMeta,
 } from '../../hooks/useDocumentTitle';
+import { useSimpleScrollToTop } from '../../hooks';
 import HackathonGuide from '../../pages/HackathonGuide';
 
 const AppRouter = () => {
@@ -21,6 +22,9 @@ const AppRouter = () => {
   // Set document title and meta tags based on current route
   useDocumentTitle();
   useDocumentMeta();
+  
+  // Enable smooth scroll to top on route changes
+  useSimpleScrollToTop();
 
   return (
     <ErrorBoundary>

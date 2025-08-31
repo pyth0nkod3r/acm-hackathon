@@ -280,7 +280,7 @@ export const HeroSection = () => {
                   /> */}
                   {/* <div className="hidden"> */}
                   <div className="w-32 h-32 mx-auto mb-6 bg-[#c2d72f] rounded-full flex items-center justify-center">
-                    <span className="text-4xl font-bold text-black">ACM</span>
+                    <span className="text-xl font-bold text-black">ACM 2025 Hackathon</span>
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">
                     Music & Film Distribution Innovation

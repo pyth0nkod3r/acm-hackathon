@@ -29,8 +29,6 @@ const emailService = {
     hackathonData: HackathonForm
   ): Promise<ApiResponse<EmailResponse>> => {
     try {
-      // Generate QR code and get a shareable url (if needed)
-
       // Create personalized message
       const subject = `Welcome to ACM 2025 Hackathon - Team "${hackathonData.teamName}" Registration Confirmed! 🚀`;
 
@@ -48,63 +46,39 @@ const emailService = {
     }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f8fafc;
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: #1a202c;
       min-height: 100vh;
+      line-height: 1.6;
     }
     .email-container {
       max-width: 650px;
       margin: 0 auto;
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
     }
     .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       padding: 40px 30px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255,255,255,0.05) 10px,
-        rgba(255,255,255,0.05) 20px
-      );
-      animation: slide 20s linear infinite;
-    }
-    @keyframes slide {
-      0% { transform: translateX(-50px); }
-      100% { transform: translateX(50px); }
-    }
-    .header-content {
-      position: relative;
-      z-index: 2;
+      color: white;
     }
     .header h1 {
       color: white;
       font-size: 32px;
       font-weight: 800;
       margin-bottom: 8px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .header .tagline {
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.95);
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 500;
     }
     .content {
       padding: 40px 30px;
@@ -117,56 +91,44 @@ const emailService = {
     .welcome-title {
       font-size: 28px;
       font-weight: 700;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #1a202c;
       margin-bottom: 15px;
     }
     .content p {
       line-height: 1.7;
       margin-bottom: 18px;
-      color: #555;
+      color: #374151;
       font-size: 16px;
     }
     .highlight-box {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
-      padding: 25px;
-      border-radius: 15px;
+      padding: 30px;
+      border-radius: 12px;
       margin: 30px 0;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .highlight-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      animation: shimmer 3s infinite;
-    }
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
     }
     .highlight-box h3 {
       margin-bottom: 15px;
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+    }
+    .highlight-box p {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 16px;
+      margin-bottom: 0;
     }
     .status-badge {
       display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 8px 16px;
-      border-radius: 20px;
+      background: rgba(255,255,255,0.25);
+      padding: 10px 20px;
+      border-radius: 25px;
       font-size: 14px;
-      font-weight: 500;
-      margin-top: 10px;
-      backdrop-filter: blur(10px);
+      font-weight: 600;
+      margin-top: 15px;
+      color: white;
     }
     .info-grid {
       display: grid;
@@ -178,104 +140,93 @@ const emailService = {
       background: #f8fafc;
       padding: 25px;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
     }
     .info-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: #2563eb;
     }
     .info-card h3 {
-      color: #667eea;
+      color: #2563eb;
       margin-bottom: 15px;
       font-size: 18px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-weight: 700;
+    }
+    .info-card p {
+      color: #4b5563;
+      font-size: 15px;
+      margin-bottom: 0;
     }
     .contact-info {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
       color: white;
-      padding: 25px;
-      border-radius: 15px;
+      padding: 30px;
+      border-radius: 12px;
       margin: 30px 0;
     }
     .contact-info h3 {
       margin-bottom: 20px;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 700;
+      color: white;
     }
     .contact-item {
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      padding: 8px 0;
+    }
+    .contact-item span {
+      font-size: 18px;
     }
     .contact-item a {
-      color: white;
+      color: #f3f4f6;
       text-decoration: none;
       font-weight: 500;
+      font-size: 16px;
     }
     .contact-item a:hover {
+      color: white;
       text-decoration: underline;
-    }
-    .social-section {
-      background: #1a202c;
-      color: white;
-      padding: 25px;
-      border-radius: 15px;
-      margin: 30px 0;
-      text-align: center;
-    }
-    .social-section h3 {
-      margin-bottom: 20px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 15px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 25px;
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .social-link:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
     }
     .cta-section {
       text-align: center;
       margin: 35px 0;
-      padding: 25px;
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      border-radius: 15px;
+      padding: 30px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    }
+    .cta-section h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
       color: white;
     }
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 16px;
+      margin-bottom: 0;
+    }
     .footer {
-      background: #f1f5f9;
-      padding: 25px;
+      background: #f8fafc;
+      padding: 30px;
       text-align: center;
       font-size: 14px;
-      color: #64748b;
-      border-top: 1px solid #e2e8f0;
+      color: #6b7280;
+      border-top: 2px solid #e5e7eb;
+    }
+    .footer strong {
+      color: #374151;
     }
     .footer a {
-      color: #667eea;
+      color: #2563eb;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
     .footer a:hover {
       text-decoration: underline;
@@ -283,7 +234,7 @@ const emailService = {
     @media (max-width: 600px) {
       .email-container {
         margin: 10px;
-        border-radius: 15px;
+        border-radius: 12px;
       }
       .header {
         padding: 30px 20px;
@@ -300,13 +251,6 @@ const emailService = {
       .info-grid {
         grid-template-columns: 1fr;
         gap: 20px;
-      }
-      .social-links {
-        gap: 15px;
-      }
-      .social-link {
-        padding: 8px 12px;
-        font-size: 14px;
       }
     }
   </style>
@@ -414,61 +358,39 @@ const emailService = {
     }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+      background: #f8fafc;
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: #1a202c;
       min-height: 100vh;
+      line-height: 1.6;
     }
     .email-container {
       max-width: 650px;
       margin: 0 auto;
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 25px 70px rgba(30, 58, 138, 0.4);
-      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
     }
     .header {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
       padding: 40px 30px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-conic-gradient(
-        from 0deg,
-        transparent 0deg 30deg,
-        rgba(255,255,255,0.03) 30deg 60deg
-      );
-      animation: rotate 25s linear infinite;
-    }
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .header-content {
-      position: relative;
-      z-index: 2;
+      color: white;
     }
     .header h1 {
       color: white;
       font-size: 32px;
       font-weight: 800;
       margin-bottom: 8px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .header .tagline {
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.95);
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 500;
     }
     .content {
       padding: 40px 30px;
@@ -480,16 +402,13 @@ const emailService = {
     .welcome-title {
       font-size: 28px;
       font-weight: 700;
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #1a202c;
       margin-bottom: 20px;
     }
     .content p {
       line-height: 1.7;
       margin-bottom: 18px;
-      color: #555;
+      color: #374151;
       font-size: 16px;
     }
     .vision-section {
@@ -500,7 +419,7 @@ const emailService = {
       border-left: 5px solid #3b82f6;
     }
     .vision-section h3 {
-      color: #1e3a8a;
+      color: black;
       margin-bottom: 15px;
       font-size: 20px;
       font-weight: 600;
@@ -535,7 +454,10 @@ const emailService = {
       margin-bottom: 15px;
       font-size: 20px;
       font-weight: 600;
-    }
+    }Ï
+         .inquiry-section p{
+         color: white
+         }
     .timeline-section {
       background: #f1f5f9;
       padding: 25px;
@@ -573,6 +495,7 @@ const emailService = {
       font-weight: 600;
       display: flex;
       align-items: center;
+      color: white;
       gap: 10px;
     }
     .contact-item {
@@ -754,57 +677,39 @@ const emailService = {
     }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+      background: #f8fafc;
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: #1a202c;
       min-height: 100vh;
+      line-height: 1.6;
     }
     .email-container {
       max-width: 650px;
       margin: 0 auto;
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 25px 70px rgba(99, 102, 241, 0.4);
-      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
     }
     .header {
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
       padding: 40px 30px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
-      animation: float 15s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
-    }
-    .header-content {
-      position: relative;
-      z-index: 2;
+      color: white;
     }
     .header h1 {
       color: white;
       font-size: 32px;
       font-weight: 800;
       margin-bottom: 8px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .header .tagline {
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.95);
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 500;
     }
     .content {
       padding: 40px 30px;
@@ -816,16 +721,13 @@ const emailService = {
     .greeting-title {
       font-size: 28px;
       font-weight: 700;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #1a202c;
       margin-bottom: 20px;
     }
     .content p {
       line-height: 1.7;
       margin-bottom: 18px;
-      color: #555;
+      color: #374151;
       font-size: 16px;
     }
     .acknowledgment-section {
@@ -836,7 +738,7 @@ const emailService = {
       border-left: 5px solid #6366f1;
     }
     .acknowledgment-section h3 {
-      color: #1e40af;
+      color: black;
       margin-bottom: 15px;
       font-size: 18px;
       font-weight: 600;
@@ -870,6 +772,9 @@ const emailService = {
       font-size: 20px;
       font-weight: 600;
     }
+      .response-timeline p {
+      color: white;
+      }
     .timeline-badge {
       background: rgba(255,255,255,0.2);
       padding: 10px 16px;
@@ -881,41 +786,44 @@ const emailService = {
       backdrop-filter: blur(10px);
     }
     .contact-section {
-      background: #f8fafc;
-      padding: 25px;
-      border-radius: 15px;
+      background: #f1f5f9;
+      padding: 30px;
+      border-radius: 12px;
       margin: 25px 0;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #cbd5e1;
     }
     .contact-section h3 {
-      color: #6366f1;
+      color: #1e40af;
       margin-bottom: 20px;
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .contact-item {
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 10px;
+      padding: 12px;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid #e2e8f0;
     }
     .contact-item strong {
       min-width: 60px;
-      color: #6366f1;
+      color: #1e40af;
+      font-weight: 600;
     }
     .contact-item a {
-      color: #6366f1;
+      color: #1e40af;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
     .contact-item a:hover {
+      color: #1d4ed8;
       text-decoration: underline;
     }
     .social-section {
@@ -930,6 +838,7 @@ const emailService = {
       margin-bottom: 20px;
       font-size: 18px;
       font-weight: 600;
+      color: white;
     }
     .social-links {
       display: flex;
@@ -1029,7 +938,7 @@ const emailService = {
       <div class='acknowledgment-section'>
         <h3>📋 Your Inquiry</h3>
         <p><strong>Subject:</strong> ${contactData.subject}</p>
-        <p style="margin-top: 10px; font-size: 14px; color: #666;">We've received your message and our team will review it carefully.</p>
+        <p style="margin-top: 10px; font-size: 14px; color: #4b5563;">We've received your message and our team will review it carefully.</p>
       </div>
       
       <div class='response-timeline'>

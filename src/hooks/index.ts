@@ -27,6 +27,8 @@ export {
   useHighContrast,
   useColorScheme,
 } from './useAccessibility';
+export { useScrollToTop, useSimpleScrollToTop } from './useScrollToTop';
+export { useAdvancedScrollToTop, useScrollToSection } from './useAdvancedScrollToTop';
 
 export type {
   UsePageTransitionOptions,
@@ -55,3 +57,5 @@ export type {
   SwipeGestureState,
 } from './useSwipeGesture';
 export type { TouchCapabilities } from './useTouchDevice';
+export type { UseScrollToTopOptions } from './useScrollToTop';
+export type { AdvancedScrollToTopOptions } from './useAdvancedScrollToTop';
