@@ -18,7 +18,13 @@ export const verifyRoutingImplementation = () => {
 
   // Test route lookup
   console.log('🔍 Route Lookup Tests:');
-  const testPaths = ['/', '/about', '/contact', '/application', '/nonexistent'];
+  const testPaths = [
+    '/',
+    '/about',
+    '/contact',
+    '/registration',
+    '/nonexistent',
+  ];
 
   testPaths.forEach(path => {
     const route = getRouteByPath(path);
@@ -29,16 +35,16 @@ export const verifyRoutingImplementation = () => {
     }
   });
 
-  console.log('\n✅ Routing verification complete!');
-  console.log('\n📝 Implementation Summary:');
-  console.log('  • React Router DOM configured');
-  console.log('  • 4 Phase 1 pages implemented with smooth transitions');
-  console.log('  • Route protection system ready');
-  console.log('  • Error boundary for error handling');
-  console.log('  • Breadcrumb navigation component');
+  // console.log('\n✅ Routing verification complete!');
+  // console.log('\n📝 Implementation Summary:');
+  // console.log('  • React Router DOM configured');
+  // console.log('  • 4 Phase 1 pages implemented with smooth transitions');
+  // console.log('  • Route protection system ready');
+  // console.log('  • Error boundary for error handling');
+  // console.log('  • Breadcrumb navigation component');
   console.log('  • 404 Not Found page');
-  console.log('  • Document title and meta management');
-  console.log('  • Framer Motion page transitions');
+  // console.log('  • Document title and meta management');
+  // console.log('  • Framer Motion page transitions');
 };
 
 // Run verification if this file is executed directly

@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
-import { Users, FileText, Trophy, Calendar } from 'lucide-react';
-import { RegistrationForm } from '../components/forms';
-import { formSubmissionService } from '../services';
+import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
+import { formSubmissionService, emailService } from '../services';
 import { useNotification } from '../hooks';
 import type { RegistrationFormData } from '../lib/validations';
+import type { HackathonForm } from '../nServices/apiType';
+import { RegistrationForm } from '@/components/forms';
 
 const Application = () => {
   const { showSuccess, showError } = useNotification();
@@ -24,64 +25,68 @@ const Application = () => {
     }
   }, [searchParams]);
 
+  // Transform old form data to new email format
+  const transformToEmailFormat = (data: RegistrationFormData): HackathonForm => {
+    return {
+      teamName: data.teamName,
+      teamSize: data.teamSize.toString(),
+      countryOfResidence: data.countryOfResidence,
+      hackathonExperience: data.hackathonExperience === 'yes' ? 'Yes' : 'No',
+      hackathonExperienceDesc: data.hackathonExperienceDetails || '',
+      teamLeaderFullName: data.teamLeader.name,
+      teamLeaderPhone: data.teamLeader.phone,
+      teamLeaderEmail: data.teamLeader.email,
+      teamLeaderLinkedIn: data.teamLeader.linkedin || '',
+      teamLeaderRole: data.teamLeader.role,
+      teamMembers: (data.teamMembers || []).map(member => ({
+        teamMemberFullName: member.name,
+        teamMemberEmail: member.email,
+        teamMemberPhone: member.phone,
+        teamMemberRole: member.role,
+        teamMemberLinkedIn: member.linkedin || '',
+      })),
+      challengeSolving: data.creativeIndustryChallenge,
+      challengeAims: data.distributionChallenge,
+      solutionEnvision: data.solutionVision,
+      uniquelyPositioned: data.teamPositioning,
+      teamAvailability: data.allMembersAvailable ? 'Yes' : 'No',
+      teamAvailabilityDesc: data.availabilityExplanation || '',
+      dietaryRestrictions: data.hasDietaryRestrictions ? 'Yes' : 'No',
+      dietaryRestrictionsDesc: data.dietaryNeeds || '',
+      declarations: data.declarations,
+      teamLeadSignature: data.digitalSignature,
+    };
+  };
+
   const handleRegistrationSubmit = async (data: RegistrationFormData) => {
     try {
       console.log('Registration form submitted:', data);
 
-      // Clean the data to ensure all optional fields are strings
-      // Clean the data to ensure all optional fields are strings
-      const cleanData = {
-        teamName: data.teamName,
-        teamSize: data.teamSize,
-        teamLeader: {
-          name: data.teamLeader.name,
-          email: data.teamLeader.email,
-          phone: data.teamLeader.phone,
-          role: data.teamLeader.role,
-          country: data.teamLeader.country,
-          nationality: data.teamLeader.nationality,
-          age: data.teamLeader.age,
-          linkedin: data.teamLeader.linkedin ?? '',
-          gender: data.teamLeader.gender ?? '',
-        },
-        teamMembers: data.teamMembers.map(member => ({
-          ...member,
-          linkedin: member.linkedin ?? '',
-          gender: member.gender ?? '',
-        })),
-        projectTitle: data.projectTitle,
-        ideaSummary: data.ideaSummary,
-        problemSolving: data.problemSolving,
-        technology: data.technology,
-        alignment: data.alignment,
-        hasPrototype: data.hasPrototype,
-        prototypeURL: data.prototypeURL ?? '',
-        projectRepo: data.projectRepo ?? '',
-        challengeAreas: data.challengeAreas,
-        declarations: data.declarations,
-      };
+      // Submit form using the updated API service
+      const response = await formSubmissionService.submitRegistration(data);
 
-      // Submit form using the API service
-      const response =
-        await formSubmissionService.submitRegistration(cleanData);
       if (response.success) {
+        // Send confirmation email using transformed data
+        try {
+          const emailData = transformToEmailFormat(data);
+          await emailService.sendHackathonConfirmation(emailData);
+          console.log('Confirmation email sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send confirmation email:', emailError);
+          // Don't fail the registration if email fails
+        }
+
         // Show success notification
         showSuccess(
-          `Registration submitted successfully! Your submission ID is: ${response.data?.id}. We will review your application and get back to you soon.`,
-          8000
+          `Registration submitted successfully! Your submission ID is: ${response.data?.id}. A confirmation email has been sent to ${data.teamLeader.email}. We will review your application and get back to you soon.`,
+          10000
         );
       } else {
-        // Handle API errors
-        const errorMessage =
-          response.message || 'Failed to submit registration';
-        console.error('Registration submission failed:', response);
-        showError(`Error: ${errorMessage}`);
+        showError(response.message ?? 'Failed to submit registration');
       }
-    } catch (error) {
-      console.error('Registration submission error:', error);
-      showError(
-        'There was an unexpected error submitting your registration. Please try again.'
-      );
+    } catch (err) {
+      console.error(err);
+      showError('Unexpected error. Please try again.');
     }
   };
 
@@ -103,21 +108,25 @@ const Application = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl font-bold mb-4"
             >
-              Hackathon Registration
+              Registration for ACM Hackathon 2025
             </motion.h1>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
               className="flex items-center justify-center space-x-2 text-lg"
             >
-              <span>Home</span>
-              <span>/</span>
-              <span>application</span>
+              <Link to="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Registration</span>
             </motion.div>
           </div>
         </div>
       </motion.section>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,9 +136,57 @@ const Application = () => {
         <Container className="py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-              Apply for the Hackathon
+              Apply for the ACM Hackathon 2025
             </h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl md:text-2xl mb-6 font-semibold text-center bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
+            >
+              "Distribute Africa: Hacking the Future of Music & Film Access"
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl mb-8"
+            >
+              <div className="space-y-4 text-center">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <p className="font-medium">September 16-19, 2025</p>
+                  </div>
+                  <div className="hidden md:block w-px h-6 bg-white/30"></div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                    <p className="font-medium">
+                      Finale & Demo Day: September 19, 2025
+                    </p>
+                  </div>
+                </div>
 
+                <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
+                  <p className="text-2xl font-bold text-white-400 mb-2">
+                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship + Investment
+                    Opportunities
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center gap-3 text-md opacity-90">
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    ACM
+                  </span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    Ascend Studios Foundation
+                  </span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    AWS
+                  </span>
+                </div>
+              </div>
+            </motion.div>
             {/* Application Process Overview */}
             <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -145,7 +202,7 @@ const Application = () => {
                     Form Team
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Assemble your team of 2-5 members
+                    Assemble your team of 3-5 members
                   </p>
                 </div>
 
@@ -196,9 +253,10 @@ const Application = () => {
                 <ul className="text-blue-700 space-y-2">
                   <li>• African citizens or residents</li>
                   <li>• Age 18 or above</li>
-                  <li>• Technical background preferred</li>
-                  <li>• Team size: 2-5 members</li>
+                  <li>• Technical or creative background preferred</li>
+                  <li>• Team size: 3-5 members</li>
                   <li>• Commitment to full event participation</li>
+                  <li>• Interest in music & film distribution</li>
                 </ul>
               </div>
 
@@ -212,6 +270,7 @@ const Application = () => {
                   <li>• Technical approach outline</li>
                   <li>• Prototype or portfolio (optional)</li>
                   <li>• Motivation statement</li>
+                  <li>• Skills and experience details</li>
                 </ul>
               </div>
             </div>
@@ -245,13 +304,14 @@ const Application = () => {
               <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
                 Registration Form
               </h2>
+
               <RegistrationForm
                 onSubmit={handleRegistrationSubmit}
-                initialChallenges={preSelectedChallenges}
+                _initialChallenges={preSelectedChallenges}
               />
             </div>
 
-            {/* Important Dates */}
+            {/* Important Dates - Updated with correct dates */}
             <div className="bg-yellow-50 rounded-lg p-6 mt-8">
               <h3 className="text-xl font-semibold text-yellow-900 mb-4">
                 Important Dates
@@ -261,19 +321,19 @@ const Application = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">January 15, 2025</p>
+                  <p className="text-yellow-700">August 29, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Application Deadline
                   </h4>
-                  <p className="text-yellow-700">February 28, 2025</p>
+                  <p className="text-yellow-700">September 5, 2025</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Hackathon Event
                   </h4>
-                  <p className="text-yellow-700">March 15-17, 2025</p>
+                  <p className="text-yellow-700">September 16-19, 2025</p>
                 </div>
               </div>
             </div>

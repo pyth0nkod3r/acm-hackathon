@@ -236,10 +236,6 @@ describe('Header', () => {
       { text: 'About', href: '/about' },
       { text: 'Challenges', href: '/challenges' },
       { text: 'Schedule', href: '/schedule' },
-      { text: 'Awards & Judging', href: '/awards' },
-      { text: 'Gallery', href: '/gallery' },
-      { text: 'Highlights', href: '/highlights' },
-      { text: 'Mentors & Judges', href: '/partners' },
       { text: 'Application', href: '/application' },
       { text: 'Contact', href: '/contact' },
     ];

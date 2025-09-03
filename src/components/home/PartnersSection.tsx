@@ -4,38 +4,29 @@ import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button } from '../ui';
+import { acmLogo, asfLogo, awsLogo, CcHUBLogo } from '@/assets/img/partners';
 
 export const PartnersSection = () => {
   const partners = [
     {
       name: 'ACM Global',
-      logo: '/assets/img/logo/afcfta-logo.jpg',
-      tier: 'Title Sponsor',
+      logo: acmLogo,
+      tier: 'Organizer',
     },
     {
-      name: 'NITDA',
-      logo: '/assets/img/brands/nitda2.jpeg',
-      tier: 'Government Partner',
-    },
-    {
-      name: 'AWS',
-      logo: '/assets/img/brands/aws.png',
-      tier: 'Technology Partner',
-    },
-    {
-      name: 'African Union',
-      logo: '/assets/img/brands/African union.png',
+      name: 'Ascend Studios Foundation',
+      logo: asfLogo,
       tier: 'Strategic Partner',
     },
     {
-      name: 'Cherith-Code Concept Ltd',
-      logo: '/assets/img/brands/CHERITH-CODE Logo FA (Full Color) PNG.png',
-      tier: 'Implementation Partner',
+      name: 'AWS',
+      logo: awsLogo,
+      tier: 'Technology Partner',
     },
     {
-      name: 'Ascend Studio',
-      logo: '/assets/img/brands/03.png',
-      tier: 'Media Partner',
+      name: 'CcHub',
+      logo: CcHUBLogo,
+      tier: 'Incubation Partner',
     },
   ];
 
@@ -66,7 +57,7 @@ export const PartnersSection = () => {
                 size="lg"
                 className="border-white text-white hover:bg-white hover:text-blue-600"
               >
-                <Link to="/contact">
+                <Link to="/partner-registration">
                   Become a Partner
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -85,21 +76,22 @@ export const PartnersSection = () => {
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group"
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
               >
-                <div className="aspect-square flex items-center justify-center mb-4">
-                  {/* Placeholder for partner logo */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-                    <span className="text-blue-600 font-bold text-xs text-center">
-                      {partner.name}
-                    </span>
-                  </div>
+                <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    className="w-20 h-20 object-contain rounded-lg"
+                  />
                 </div>
-                <div className="text-center">
-                  <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors">
+                <div className="text-center flex-1 flex flex-col justify-center">
+                  <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors leading-tight">
                     {partner.name}
                   </h3>
-                  <p className="text-xs text-gray-500">{partner.tier}</p>
+                  <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
+                    {partner.tier}
+                  </p>
                 </div>
               </motion.div>
             </ScrollAnimation>

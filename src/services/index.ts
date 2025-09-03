@@ -8,13 +8,12 @@ import {
 } from './registrationService';
 import { contactService, ContactService } from './contactService';
 import { mockAPIService, MockAPIService } from './mockService';
-import type { ContactFormData, RegistrationFormData } from '../types/forms';
+import type { ContactFormData, RegistrationFormData } from '../lib/validations';
 import type { APIResponse, FormSubmissionResponse } from '../types/api';
 
 // Environment configuration
-const isDevelopment = import.meta.env.DEV;
 const useMockAPI =
-  import.meta.env.VITE_USE_MOCK_API === 'true' || isDevelopment;
+  import.meta.env.VITE_USE_MOCK_API === 'true';
 
 /**
  * Form submission service interface
@@ -81,6 +80,9 @@ export const formSubmissionService = createFormSubmissionService();
 // Export individual services for direct use if needed
 export { registrationService, contactService, mockAPIService };
 export type { RegistrationService, ContactService, MockAPIService };
+
+// Export email service
+export { default as emailService } from './email.service';
 
 // Export error logging service
 export { errorLogger } from './errorLogger';

@@ -3,7 +3,7 @@ import { z } from 'zod';
 // Common validation patterns
 export const ValidationPatterns = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  phone: /^[\+]?[1-9][\d]{0,15}$/,
+  phone: /^[\\+]?[1-9][\d]{0,15}$/,
   url: /^https?:\/\/.+/,
   strongPassword:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
@@ -17,7 +17,10 @@ export const createFieldValidator = <T>(schema: z.ZodSchema<T>) => {
       return { isValid: true };
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return { isValid: false, error: error.issues[0]?.message };
+        return {
+          isValid: false,
+          error: error.issues[0]?.message || 'Validation failed',
+        };
       }
       return { isValid: false, error: 'Validation failed' };
     }
@@ -26,8 +29,8 @@ export const createFieldValidator = <T>(schema: z.ZodSchema<T>) => {
 
 // Form data transformation helpers
 export const transformFormData = {
-  trimStrings: (data: Record<string, any>): Record<string, any> => {
-    const transformed: Record<string, any> = {};
+  trimStrings: (data: Record<string, unknown>): Record<string, unknown> => {
+    const transformed: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(data)) {
       if (typeof value === 'string') {
         transformed[key] = value.trim();
@@ -42,8 +45,10 @@ export const transformFormData = {
     return transformed;
   },
 
-  removeEmptyStrings: (data: Record<string, any>): Record<string, any> => {
-    const cleaned: Record<string, any> = {};
+  removeEmptyStrings: (
+    data: Record<string, unknown>
+  ): Record<string, unknown> => {
+    const cleaned: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(data)) {
       if (value !== '' && value !== null && value !== undefined) {
         cleaned[key] = value;

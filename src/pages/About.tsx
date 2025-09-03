@@ -66,13 +66,13 @@ const About = () => {
 
   const acmTimeline = [
     {
-      year: '2020',
+      year: '2022',
       title: 'Africa Creative Market Foundation',
       description:
         "Establishment of ACM to support and promote Africa's creative industries and cultural heritage.",
     },
     {
-      year: '2022',
+      year: '2023',
       title: 'Creative Economy Initiative',
       description:
         "Launch of programs to foster innovation and entrepreneurship in Africa's creative sectors.",
@@ -113,7 +113,7 @@ const About = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-purple-200 text-lg">About</span>
+              {/* <span className="text-purple-200 text-lg">About</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -132,8 +132,8 @@ const About = () => {
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>About ACM Hackathon</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">About ACM Hackathon</span>
             </motion.div>
           </div>
         </Container>
@@ -242,7 +242,7 @@ const About = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col"
                 >
                   <div
                     className={`w-16 h-16 bg-gradient-to-br ${objective.color} rounded-lg flex items-center justify-center mb-6`}
@@ -252,7 +252,7 @@ const About = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     {objective.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed flex-grow">
                     {objective.description}
                   </p>
                 </motion.div>
@@ -407,7 +407,7 @@ const About = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
+      <section className="py-20 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
         <Container>
           <ScrollAnimation animation="fadeIn">
             <div className="text-center text-white">
@@ -424,7 +424,7 @@ const About = () => {
                   size="lg"
                   className="bg-white text-purple-600 hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

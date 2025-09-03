@@ -3,293 +3,146 @@
  */
 
 import { APIService } from './api';
-import type { RegistrationFormData } from '../types/forms';
-import type { APIResponse, FormSubmissionResponse } from '../types/api';
+import type { RegistrationFormData } from '../lib/validations';
+import type { APIResponse, PartnerRegistrationResponse } from '../types/api';
 import { apiConfig } from '../config/api';
 
 export class RegistrationService extends APIService {
   /**
-   * Submits registration form data
+   * Submits registration form data to the API
    */
   async submitRegistration(
     formData: RegistrationFormData
-  ): Promise<APIResponse<FormSubmissionResponse>> {
+  ): Promise<APIResponse<PartnerRegistrationResponse>> {
     try {
-      // Format and validate form data before submission
-      const formattedData = this.formatRegistrationData(formData);
+      // Validate required fields before submission
+      this.validateFormData(formData);
 
-      // Validate required fields
-      const validationResult = this.validateRegistrationData(formattedData);
-      if (!validationResult.isValid) {
-        return {
-          success: false,
-          message: validationResult.errors[0]?.message || 'Validation failed',
-          messages: validationResult.errors.reduce(
-            (acc, error) => {
-              acc[error.field] = error.message;
-              return acc;
-            },
-            {} as Record<string, string>
-          ),
-        };
-      }
+      // Convert to FormData required by the ACM Hackathon API
+      const fd = this.transformToFormData(formData);
 
-      // Handle file upload if present
-      if (formData.fileUpload) {
-        return this.submitRegistrationWithFile(
-          formattedData,
-          formData.fileUpload
-        );
-      }
+      console.log('Submitting registration data:', Object.fromEntries(fd));
 
-      // Submit without file
-      return this.post<FormSubmissionResponse>(
+      // POST multipart/formdata to the endpoint
+      const response = await this.postFormData<PartnerRegistrationResponse>(
         apiConfig.formEndpoints.registration,
-        formattedData
+        fd
       );
+
+      if (response.success) {
+        console.log('Registration submitted successfully:', response);
+      }
+
+      return response;
     } catch (error) {
+      console.error('Registration submission error:', error);
       return {
         success: false,
-        message: 'Failed to submit registration form',
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to submit registration form. Please try again.',
       };
     }
   }
 
   /**
-   * Submits registration with file upload
+   * Validates required form data before submission
    */
-  private async submitRegistrationWithFile(
-    formData: Omit<RegistrationFormData, 'fileUpload'>,
-    file: File
-  ): Promise<APIResponse<FormSubmissionResponse>> {
-    const formDataObj = new FormData();
+  private validateFormData(data: RegistrationFormData): void {
+    if (!data.teamLeader?.name?.trim()) {
+      throw new Error('Team leader name is required');
+    }
+    if (!data.teamLeader?.email?.trim()) {
+      throw new Error('Team leader email is required');
+    }
+    if (!data.teamLeader?.phone?.trim()) {
+      throw new Error('Team leader phone is required');
+    }
+    if (!data.teamName?.trim()) {
+      throw new Error('Team name is required');
+    }
+    if (!data.teamLeadSignature?.trim()) {
+      throw new Error('Digital signature is required');
+    }
+    if (!data.declarations?.length || data.declarations.length < 3) {
+      throw new Error('All required declarations must be accepted');
+    }
+  }
+  /**
+   * Transforms RegistrationFormData into the exact FormData structure
+   * expected by the ACM Hackathon endpoint.
+   */
+  private transformToFormData(data: RegistrationFormData): FormData {
+    const fd = new FormData();
 
-    // Add form fields
-    formDataObj.append('data', JSON.stringify(formData));
+    /* ───────────────────────── Section 1 – Team information ───────────────────────── */
+    fd.append('teamName', data.teamName);
+    fd.append('teamSize', String(data.teamSize));
+    fd.append('countryOfResidence', data.countryOfResidence);
 
-    // Add file
-    formDataObj.append('file', file);
+    // Yes/No stored as "Yes" / "No" for API
+    const yesNo = (b: boolean | 'yes' | 'no') =>
+      b === true || b === 'yes' ? 'Yes' : 'No';
 
-    return this.postFormData<FormSubmissionResponse>(
-      apiConfig.formEndpoints.registration,
-      formDataObj
+    fd.append('hackathonExperience', yesNo(data.hackathonExperience));
+    // ALWAYS include the “…Desc” key – empty string when not applicable
+    fd.append(
+      'hackathonExperienceDesc',
+      data.hackathonExperience === 'yes'
+        ? (data.hackathonExperienceDetails ?? '')
+        : ''
     );
-  }
 
-  /**
-   * Formats registration data for API submission
-   */
-  private formatRegistrationData(
-    data: RegistrationFormData
-  ): Omit<RegistrationFormData, 'fileUpload'> {
-    const formatted: Omit<RegistrationFormData, 'fileUpload'> = {
-      teamName: data.teamName.trim(),
-      teamSize: data.teamSize,
-      teamLeader: this.formatTeamMember(data.teamLeader),
-      teamMembers: data.teamMembers.map(member =>
-        this.formatTeamMember(member)
-      ),
-      projectTitle: data.projectTitle.trim(),
-      ideaSummary: data.ideaSummary.trim(),
-      problemSolving: data.problemSolving.trim(),
-      technology: data.technology.trim(),
-      alignment: data.alignment.trim(),
-      hasPrototype: data.hasPrototype,
-      challengeAreas: data.challengeAreas.filter(
-        area => area.trim().length > 0
-      ),
-      declarations: data.declarations.filter(
-        declaration => declaration.trim().length > 0
-      ),
-    };
+    /* ───────────────────────── Section 2 – Team lead ───────────────────────── */
+    fd.append('teamLeaderFullName', data.teamLeader.name);
+    fd.append('teamLeaderPhone', data.teamLeader.phone);
+    fd.append('teamLeaderEmail', data.teamLeader.email);
+    fd.append('teamLeaderRole', data.teamLeader.role);
+    fd.append('teamLeaderLinkedIn', data.teamLeader.linkedin ?? '');
 
-    // Only add optional fields if they have values
-    if (data.prototypeURL?.trim()) {
-      formatted.prototypeURL = data.prototypeURL.trim();
+    /* ───────────────────────── Section 3 – Team members ───────────────────────── */
+    // Backend expects indexes 0…teamSize-2
+    const expectedMembers = Math.max(0, data.teamSize - 1);
+    for (let i = 0; i < expectedMembers; i++) {
+      const m = data.teamMembers?.[i] ?? {
+        name: '',
+        email: '',
+        phone: '',
+        role: '',
+        linkedin: '',
+      };
+      fd.append(`teamMembers[${i}][teamMemberFullName]`, m.name);
+      fd.append(`teamMembers[${i}][teamMemberEmail]`, m.email);
+      fd.append(`teamMembers[${i}][teamMemberPhone]`, m.phone);
+      fd.append(`teamMembers[${i}][teamMemberRole]`, m.role);
+      fd.append(`teamMembers[${i}][teamMemberLinkedIn]`, m.linkedin ?? '');
     }
 
-    if (data.projectRepo?.trim()) {
-      formatted.projectRepo = data.projectRepo.trim();
-    }
+    /* ───────────────────────── Section 4 – Idea summary ───────────────────────── */
+    fd.append('challengeSolving', data.creativeIndustryChallenge);
+    fd.append('challengeAims', data.distributionChallenge);
+    fd.append('solutionEnvision', data.solutionVision);
+    fd.append('uniquelyPositioned', data.teamPositioning);
 
-    return formatted;
-  }
-
-  /**
-   * Formats team member data
-   */
-  private formatTeamMember(member: any) {
-    return {
-      name: member.name?.trim() || '',
-      email: member.email?.trim().toLowerCase() || '',
-      phone: member.phone?.trim() || '',
-      role: member.role?.trim() || '',
-      linkedin: member.linkedin?.trim() || undefined,
-      country: member.country?.trim() || '',
-      nationality: member.nationality?.trim() || '',
-      age: parseInt(member.age?.toString() || '0', 10),
-      gender: member.gender?.trim() || undefined,
-    };
-  }
-
-  /**
-   * Validates registration data
-   */
-  private validateRegistrationData(
-    data: Omit<RegistrationFormData, 'fileUpload'>
-  ) {
-    const errors: Array<{ field: string; message: string }> = [];
-
-    // Team validation
-    if (!data.teamName || data.teamName.length < 2) {
-      errors.push({
-        field: 'teamName',
-        message: 'Team name must be at least 2 characters long',
-      });
-    }
-
-    if (data.teamSize < 1 || data.teamSize > 5) {
-      errors.push({
-        field: 'teamSize',
-        message: 'Team size must be between 1 and 5 members',
-      });
-    }
-
-    // Team leader validation
-    if (!this.isValidTeamMember(data.teamLeader)) {
-      errors.push({
-        field: 'teamLeader',
-        message: 'Team leader information is incomplete',
-      });
-    }
-
-    // Team members validation
-    if (data.teamMembers.length !== data.teamSize - 1) {
-      errors.push({
-        field: 'teamMembers',
-        message: `Expected ${data.teamSize - 1} team members, got ${data.teamMembers.length}`,
-      });
-    }
-
-    data.teamMembers.forEach((member, index) => {
-      if (!this.isValidTeamMember(member)) {
-        errors.push({
-          field: `teamMembers[${index}]`,
-          message: `Team member ${index + 1} information is incomplete`,
-        });
-      }
-    });
-
-    // Project validation
-    if (!data.projectTitle || data.projectTitle.length < 5) {
-      errors.push({
-        field: 'projectTitle',
-        message: 'Project title must be at least 5 characters long',
-      });
-    }
-
-    if (!data.ideaSummary || data.ideaSummary.length < 50) {
-      errors.push({
-        field: 'ideaSummary',
-        message: 'Idea summary must be at least 50 characters long',
-      });
-    }
-
-    if (!data.problemSolving || data.problemSolving.length < 50) {
-      errors.push({
-        field: 'problemSolving',
-        message:
-          'Problem solving description must be at least 50 characters long',
-      });
-    }
-
-    if (!data.technology || data.technology.length < 10) {
-      errors.push({
-        field: 'technology',
-        message: 'Technology description must be at least 10 characters long',
-      });
-    }
-
-    if (!data.alignment || data.alignment.length < 50) {
-      errors.push({
-        field: 'alignment',
-        message: 'Alignment description must be at least 50 characters long',
-      });
-    }
-
-    // Challenge areas validation
-    if (data.challengeAreas.length === 0) {
-      errors.push({
-        field: 'challengeAreas',
-        message: 'At least one challenge area must be selected',
-      });
-    }
-
-    // Declarations validation
-    if (data.declarations.length === 0) {
-      errors.push({
-        field: 'declarations',
-        message: 'All required declarations must be accepted',
-      });
-    }
-
-    // URL validation
-    if (data.prototypeURL && !this.isValidUrl(data.prototypeURL)) {
-      errors.push({
-        field: 'prototypeURL',
-        message: 'Prototype URL is not valid',
-      });
-    }
-
-    if (data.projectRepo && !this.isValidUrl(data.projectRepo)) {
-      errors.push({
-        field: 'projectRepo',
-        message: 'Project repository URL is not valid',
-      });
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-    };
-  }
-
-  /**
-   * Validates team member data
-   */
-  private isValidTeamMember(member: any): boolean {
-    return !!(
-      member.name &&
-      member.email &&
-      this.isValidEmail(member.email) &&
-      member.phone &&
-      member.role &&
-      member.country &&
-      member.nationality &&
-      member.age &&
-      member.age >= 16 &&
-      member.age <= 100
+    /* ───────────────────────── Section 5 – Logistics ───────────────────────── */
+    fd.append('teamAvailability', yesNo(data.allMembersAvailable));
+    fd.append(
+      'teamAvailabilityDesc',
+      data.allMembersAvailable ? (data.availabilityExplanation ?? '') : ''
     );
-  }
 
-  /**
-   * Validates email format
-   */
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+    fd.append('dietaryRestrictions', yesNo(data.hasDietaryRestrictions));
+    fd.append(
+      'dietaryRestrictionsDesc',
+      data.hasDietaryRestrictions ? (data.dietaryNeeds ?? '') : ''
+    );
 
-  /**
-   * Validates URL format
-   */
-  private isValidUrl(url: string): boolean {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
+    /* ───────────────────────── Section 6 – Declarations & signature ───────────────── */
+    data.declarations.forEach((d, idx) => fd.append(`declarations[${idx}]`, d));
+    fd.append('teamLeadSignature', data.teamLeadSignature);
+
+    return fd;
   }
 }
 

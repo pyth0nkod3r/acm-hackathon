@@ -19,18 +19,16 @@ export const nameSchema = z
   .min(2, 'Name must be at least 2 characters')
   .max(50, 'Name must be less than 50 characters');
 
-// Age validation schema
-export const ageSchema = z
-  .number()
-  .min(16, 'Must be at least 16 years old')
-  .max(100, 'Age must be less than 100');
-
 // URL validation schema
 export const urlSchema = z
   .string()
   .url('Please enter a valid URL')
   .optional()
-  .or(z.literal(''));
+  .or(z.literal(''))
+  .transform(val => val || '') // Transform undefined to empty string
+  .refine(val => val === '' || val.match(/^https?:\/\/.+/), {
+    message: 'Please enter a valid URL or leave empty',
+  });
 
 // Required text field validation
 export const requiredTextSchema = z
@@ -41,17 +39,13 @@ export const requiredTextSchema = z
 // Optional text field validation
 export const optionalTextSchema = z.string().optional();
 
-// Team member validation schema
+// Team member validation schema (simplified for new form)
 export const teamMemberSchema = z.object({
   name: nameSchema,
   email: emailSchema,
   phone: phoneSchema,
   role: requiredTextSchema,
   linkedin: urlSchema,
-  country: requiredTextSchema,
-  nationality: requiredTextSchema,
-  age: ageSchema,
-  gender: optionalTextSchema,
 });
 
 // Contact form validation schema
@@ -62,49 +56,56 @@ export const contactFormSchema = z.object({
   message: requiredTextSchema.min(10, 'Message must be at least 10 characters'),
 });
 
-// Registration form validation schema
+// Registration form validation schema (updated for new form structure)
 export const registrationFormSchema = z.object({
+  // Section 1: Team Information
   teamName: requiredTextSchema.min(
     3,
     'Team name must be at least 3 characters'
   ),
   teamSize: z
     .number()
-    .min(1, 'Team must have at least 1 member')
+    .min(3, 'Team must have at least 3 members')
     .max(5, 'Team cannot exceed 5 members'),
+  countryOfResidence: requiredTextSchema,
+  hackathonExperience: z.enum(['yes', 'no']),
+  hackathonExperienceDetails: z.string().optional(),
+
+  // Section 2: Team Lead Information
   teamLeader: teamMemberSchema,
-  teamMembers: z
-    .array(teamMemberSchema)
-    .max(4, 'Maximum 4 additional team members'),
-  projectTitle: requiredTextSchema.min(
-    5,
-    'Project title must be at least 5 characters'
+
+  // Section 3: Team Members Information
+  teamMembers: z.array(teamMemberSchema).optional(),
+
+  // Section 4: Idea Summary
+  creativeIndustryChallenge: requiredTextSchema.min(
+    10,
+    'Challenge description must be at least 10 characters'
   ),
-  ideaSummary: requiredTextSchema.min(
-    50,
-    'Idea summary must be at least 50 characters'
-  ),
-  problemSolving: requiredTextSchema.min(
-    50,
-    'Problem solving description must be at least 50 characters'
-  ),
-  technology: requiredTextSchema.min(
-    20,
-    'Technology description must be at least 20 characters'
-  ),
-  alignment: requiredTextSchema.min(
-    30,
-    'Alignment description must be at least 30 characters'
-  ),
-  hasPrototype: z.boolean(),
-  prototypeURL: urlSchema,
-  projectRepo: urlSchema,
-  challengeAreas: z
-    .array(z.string())
-    .min(1, 'Please select at least one challenge area'),
+  distributionChallenge: requiredTextSchema
+    .min(50, 'Distribution challenge must be at least 50 characters')
+    .max(250, 'Distribution challenge must be less than 250 characters'),
+  solutionVision: requiredTextSchema
+    .min(50, 'Solution vision must be at least 50 characters')
+    .max(250, 'Solution vision must be less than 250 characters'),
+  teamPositioning: requiredTextSchema
+    .min(50, 'Team positioning must be at least 50 characters')
+    .max(150, 'Team positioning must be less than 150 characters'),
+
+  // Section 5: Logistics
+  allMembersAvailable: z.boolean(),
+  availabilityExplanation: z.string().optional(),
+  hasDietaryRestrictions: z.boolean(),
+  dietaryNeeds: z.string().optional(),
+
+  // Section 6: Declaration & Consent
   declarations: z
     .array(z.string())
-    .min(1, 'Please accept the required declarations'),
+    .min(3, 'All required declarations must be accepted'),
+  teamLeadSignature: requiredTextSchema.min(
+    2,
+    'Digital signature must be at least 2 characters'
+  ),
 });
 
 // Validation helper functions
@@ -117,7 +118,11 @@ export const validateField = <T>(
     return { isValid: true };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { isValid: false, error: error.issues[0]?.message };
+      const errorMessage = error.issues[0]?.message;
+      return {
+        isValid: false,
+        error: errorMessage || 'Validation failed',
+      };
     }
     return { isValid: false, error: 'Validation failed' };
   }

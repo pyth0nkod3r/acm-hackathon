@@ -1,6 +1,13 @@
-/**
- * Custom hook for accessing notification functionality
- * Re-exports the useNotification hook from the NotificationContext
- */
+import { useContext } from 'react';
+import { NotificationContext } from '../contexts/NotificationContext';
+import type { NotificationContextType } from '../contexts/NotificationContext';
 
-export { useNotification } from '../contexts/NotificationContext';
+export const useNotification = (): NotificationContextType => {
+  const context = useContext(NotificationContext);
+  if (context === undefined) {
+    throw new Error(
+      'useNotification must be used within a NotificationProvider'
+    );
+  }
+  return context;
+};

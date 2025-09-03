@@ -2,4 +2,4 @@
  * Context providers export file
  */
 
-export { NotificationProvider, useNotification } from './NotificationContext';
+export { NotificationProvider } from './NotificationContext';

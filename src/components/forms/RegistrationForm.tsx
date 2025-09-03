@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useNotification } from '../../hooks';
 import { motion } from 'framer-motion';
-import { Plus, Minus, Upload, FileText, Users, Target } from 'lucide-react';
+import { Users, Target, MapPin, CheckCircle, Plus, Trash2 } from 'lucide-react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { Button } from '../ui/button';
@@ -18,21 +19,21 @@ import { useFormValidation } from '../../hooks/useFormValidation';
 import {
   registrationFormSchema,
   type RegistrationFormData,
-  type TeamMemberData,
 } from '../../lib/validations';
 import { cn } from '../../lib/utils';
 
-const challengeAreas = [
-  'Digital Trade Infrastructure',
-  'Cross-border Payments',
-  'Supply Chain Transparency',
-  'Digital Identity & Authentication',
-  'Trade Finance Innovation',
-  'Regulatory Technology (RegTech)',
-  'Sustainable Trade Solutions',
-  'SME Trade Enablement',
+// Updated roles based on the new form
+const roles = [
+  'Developer',
+  'Designer',
+  'Creative Lead',
+  'Business Lead',
+  'Legal/Policy',
+  'Data Scientist',
+  'Other',
 ];
 
+// Countries list (keeping existing African countries)
 const countries = [
   'Algeria',
   'Angola',
@@ -90,65 +91,47 @@ const countries = [
   'Zimbabwe',
 ];
 
-const roles = [
-  'Team Leader',
-  'Frontend Developer',
-  'Backend Developer',
-  'Full Stack Developer',
-  'Mobile Developer',
-  'UI/UX Designer',
-  'Product Manager',
-  'Business Analyst',
-  'Data Scientist',
-  'DevOps Engineer',
-  'Other',
-];
-
 interface RegistrationFormProps {
   onSubmit?: (data: RegistrationFormData) => Promise<void>;
   isLoading?: boolean;
-  initialChallenges?: string[];
+  _initialChallenges?: string[];
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSubmit,
   isLoading = false,
-  initialChallenges = [],
 }) => {
-  const [selectedChallengeAreas, setSelectedChallengeAreas] =
-    useState<string[]>(initialChallenges);
+  const { showError } = useNotification();
   const [selectedDeclarations, setSelectedDeclarations] = useState<string[]>(
     []
   );
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const { isMobile } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
 
   const initialValues: Partial<RegistrationFormData> = {
     teamName: '',
-    teamSize: 1,
+    teamSize: 3,
+    countryOfResidence: '',
+    hackathonExperience: 'no',
+    hackathonExperienceDetails: '',
     teamLeader: {
       name: '',
       email: '',
       phone: '',
-      role: 'Team Leader',
+      role: 'Developer',
       linkedin: '',
-      country: '',
-      nationality: '',
-      age: 18,
-      gender: '',
     },
     teamMembers: [],
-    projectTitle: '',
-    ideaSummary: '',
-    problemSolving: '',
-    technology: '',
-    alignment: '',
-    hasPrototype: false,
-    prototypeURL: '',
-    projectRepo: '',
-    challengeAreas: [],
+    creativeIndustryChallenge: '',
+    distributionChallenge: '',
+    solutionVision: '',
+    teamPositioning: '',
+    allMembersAvailable: true,
+    availabilityExplanation: '',
+    hasDietaryRestrictions: false,
+    dietaryNeeds: '',
     declarations: [],
+    teamLeadSignature: '',
   };
 
   const {
@@ -156,81 +139,51 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     errors,
     touched,
     isSubmitting,
+    isValid,
     handleBlur,
     handleSubmit,
     setValue,
-    getFieldProps,
   } = useFormValidation({
     schema: registrationFormSchema,
     initialValues,
     onSubmit: async data => {
       const formData = {
         ...data,
-        challengeAreas: selectedChallengeAreas,
         declarations: selectedDeclarations,
-        fileUpload: uploadedFile || undefined,
       };
       if (onSubmit) {
         await onSubmit(formData);
       }
     },
+    onValidationError: errs => {
+      showError('Please fix the highlighted errors before submitting.');
+      // Scroll to the first field that has an error
+      const firstKey = Object.keys(errs)[0];
+      if (firstKey) {
+        // IDs are the same strings used in validation paths (e.g. "teamName")
+        const el = document.getElementById(firstKey);
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        (el as HTMLElement | null)?.focus?.(); // optional: set keyboard focus
+        const errorNode = el?.parentElement?.querySelector('.form-error'); // <FormError/>
+        if (errorNode) {
+          errorNode.classList.add(
+            'ring-2',
+            'ring-red-500',
+            'animate-pulse',
+            'highlight-error'
+          );
+          setTimeout(() => {
+            errorNode.classList.remove(
+              'ring-2',
+              'ring-red-500',
+              'animate-pulse',
+              'highlight-error'
+            );
+          }, 1800);
+        }
+      }
+    },
   });
-
-  const addTeamMember = () => {
-    const currentMembers = values.teamMembers || [];
-    if (currentMembers.length < 4) {
-      const newMember: TeamMemberData = {
-        name: '',
-        email: '',
-        phone: '',
-        role: '',
-        linkedin: '',
-        country: '',
-        nationality: '',
-        age: 18,
-        gender: '',
-      };
-      setValue('teamMembers', [...currentMembers, newMember]);
-      setValue('teamSize', currentMembers.length + 2); // +1 for new member, +1 for team leader
-    }
-  };
-
-  const removeTeamMember = (index: number) => {
-    const currentMembers = values.teamMembers || [];
-    const updatedMembers = currentMembers.filter((_, i) => i !== index);
-    setValue('teamMembers', updatedMembers);
-    setValue('teamSize', updatedMembers.length + 1); // +1 for team leader
-  };
-
-  const updateTeamMember = (
-    index: number,
-    field: keyof TeamMemberData,
-    value: string | number
-  ) => {
-    const currentMembers = values.teamMembers || [];
-    const updatedMembers = [...currentMembers];
-    const currentMember = updatedMembers[index] || {
-      name: '',
-      email: '',
-      phone: '',
-      role: '',
-      linkedin: '',
-      country: '',
-      nationality: '',
-      age: 18,
-      gender: '',
-    };
-    updatedMembers[index] = { ...currentMember, [field]: value };
-    setValue('teamMembers', updatedMembers);
-  };
-
-  const handleChallengeAreaToggle = (area: string) => {
-    const updated = selectedChallengeAreas.includes(area)
-      ? selectedChallengeAreas.filter(a => a !== area)
-      : [...selectedChallengeAreas, area];
-    setSelectedChallengeAreas(updated);
-    setValue('challengeAreas', updated);
-  };
 
   const handleDeclarationToggle = (declaration: string) => {
     const updated = selectedDeclarations.includes(declaration)
@@ -240,10 +193,40 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     setValue('declarations', updated);
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
+  const addTeamMember = () => {
+    if (
+      values.teamMembers &&
+      values.teamMembers.length < (values.teamSize || 3) - 1
+    ) {
+      const newMember = {
+        name: '',
+        email: '',
+        phone: '',
+        role: 'Developer',
+        linkedin: '',
+      };
+      setValue('teamMembers', [...(values.teamMembers || []), newMember]);
+    }
+  };
+
+  const removeTeamMember = (index: number) => {
+    if (values.teamMembers) {
+      const updated = values.teamMembers.filter((_, i) => i !== index);
+      setValue('teamMembers', updated);
+    }
+  };
+
+  const updateTeamMember = (index: number, field: string, value: string) => {
+    if (values.teamMembers) {
+      const updated = [...values.teamMembers];
+      updated[index] = { ...updated[index], [field]: value } as {
+        name: string;
+        email: string;
+        phone: string;
+        role: string;
+        linkedin: string;
+      };
+      setValue('teamMembers', updated);
     }
   };
 
@@ -255,28 +238,18 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       onSubmit={handleSubmit}
       className="space-y-8"
     >
-      {/* Team Information Section */}
-      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border">
+      {/* Section 1: Team Information */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-blue-100 rounded-full p-2">
             <Users className="w-5 h-5 text-blue-600" />
           </div>
-          <h2
-            className={cn(
-              'font-semibold text-gray-900',
-              isMobile ? 'text-lg' : 'text-xl'
-            )}
-          >
-            Team Information
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 1: Team Information
           </h2>
         </div>
 
-        <div
-          className={cn(
-            'grid gap-6',
-            isMobile ? 'grid-cols-1' : 'md:grid-cols-2'
-          )}
-        >
+        <div className="grid md:grid-cols-2 gap-6">
           <FormField
             label="Team Name"
             required
@@ -286,50 +259,103 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             <Input
               id="teamName"
               placeholder="Enter your team name"
-              {...getFieldProps('teamName')}
+              value={values.teamName || ''}
+              onChange={e => setValue('teamName', e.target.value)}
+              onBlur={() => handleBlur('teamName')}
             />
           </FormField>
 
+          <FormField label="Team Size" required htmlFor="teamSize">
+            <Select
+              value={values.teamSize?.toString() || '3'}
+              onValueChange={value => setValue('teamSize', parseInt(value))}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="3">3 members</SelectItem>
+                <SelectItem value="4">4 members</SelectItem>
+                <SelectItem value="5">5 members</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+
           <FormField
-            label="Team Size"
+            label="Country of Residence"
             required
-            error={touched.teamSize ? errors.teamSize : undefined}
-            htmlFor="teamSize"
+            htmlFor="countryOfResidence"
           >
-            <Input
-              id="teamSize"
-              type="number"
-              min="1"
-              max="5"
-              value={values.teamSize || 1}
-              onChange={e =>
-                setValue('teamSize', parseInt(e.target.value) || 1)
-              }
-              onBlur={() => handleBlur('teamSize')}
-            />
+            <Select
+              value={values.countryOfResidence || ''}
+              onValueChange={value => setValue('countryOfResidence', value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select country" />
+              </SelectTrigger>
+              <SelectContent>
+                {countries.map(country => (
+                  <SelectItem key={country} value={country}>
+                    {country}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          <FormField
+            label="Have any team members participated in a hackathon before?"
+            required
+            htmlFor="hackathonExperience"
+          >
+            <Select
+              value={values.hackathonExperience || 'no'}
+              onValueChange={value => setValue('hackathonExperience', value)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectContent>
+            </Select>
           </FormField>
         </div>
+
+        {values.hackathonExperience === 'yes' && (
+          <FormField
+            label="If yes, describe one project your team (or team members) previously worked on:"
+            htmlFor="hackathonExperienceDetails"
+            className="mt-6"
+          >
+            <Textarea
+              id="hackathonExperienceDetails"
+              placeholder="Describe the project briefly..."
+              rows={3}
+              value={values.hackathonExperienceDetails || ''}
+              onChange={e =>
+                setValue('hackathonExperienceDetails', e.target.value)
+              }
+            />
+          </FormField>
+        )}
       </div>
 
-      {/* Team Leader Section */}
-      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border">
-        <h3
-          className={cn(
-            'font-semibold text-gray-900 mb-6',
-            isMobile ? 'text-base' : 'text-lg'
-          )}
-        >
-          Team Leader Information
-        </h3>
+      {/* Section 2: Team Lead Information */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-green-100 rounded-full p-2">
+            <Users className="w-5 h-5 text-green-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 2: Team Lead Information
+          </h2>
+        </div>
 
-        <div
-          className={cn(
-            'grid gap-6',
-            isMobile ? 'grid-cols-1' : 'md:grid-cols-2'
-          )}
-        >
+        <div className="grid md:grid-cols-2 gap-6">
           <FormField
-            label="Full Name"
+            label="Full Name (First, Middle, Last)"
             required
             error={
               touched['teamLeader.name'] ? errors['teamLeader.name'] : undefined
@@ -338,7 +364,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           >
             <Input
               id="teamLeader.name"
-              placeholder="Enter full name"
+              placeholder="Enter your full name"
               value={values.teamLeader?.name || ''}
               onChange={e =>
                 setValue('teamLeader', {
@@ -347,6 +373,30 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 })
               }
               onBlur={() => handleBlur('teamLeader.name')}
+            />
+          </FormField>
+
+          <FormField
+            label="Phone Number (include country code)"
+            required
+            error={
+              touched['teamLeader.phone']
+                ? errors['teamLeader.phone']
+                : undefined
+            }
+            htmlFor="teamLeader.phone"
+          >
+            <Input
+              id="teamLeader.phone"
+              placeholder="+234 123 456 7890"
+              value={values.teamLeader?.phone || ''}
+              onChange={e =>
+                setValue('teamLeader', {
+                  ...values.teamLeader,
+                  phone: e.target.value,
+                })
+              }
+              onBlur={() => handleBlur('teamLeader.phone')}
             />
           </FormField>
 
@@ -363,7 +413,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             <Input
               id="teamLeader.email"
               type="email"
-              placeholder="Enter email address"
+              placeholder="Enter your email address"
               value={values.teamLeader?.email || ''}
               onChange={e =>
                 setValue('teamLeader', {
@@ -375,46 +425,29 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             />
           </FormField>
 
-          <FormField
-            label="Phone Number"
-            required
-            error={
-              touched['teamLeader.phone']
-                ? errors['teamLeader.phone']
-                : undefined
-            }
-            htmlFor="teamLeader.phone"
-          >
+          <FormField label="LinkedIn Profile" htmlFor="teamLeader.linkedin">
             <Input
-              id="teamLeader.phone"
-              placeholder="Enter phone number"
-              value={values.teamLeader?.phone || ''}
+              id="teamLeader.linkedin"
+              placeholder="https://linkedin.com/in/username (Optional)"
+              value={values.teamLeader?.linkedin || ''}
               onChange={e =>
                 setValue('teamLeader', {
                   ...values.teamLeader,
-                  phone: e.target.value,
+                  linkedin: e.target.value,
                 })
               }
-              onBlur={() => handleBlur('teamLeader.phone')}
             />
           </FormField>
 
-          <FormField
-            label="Role"
-            required
-            error={
-              touched['teamLeader.role'] ? errors['teamLeader.role'] : undefined
-            }
-            htmlFor="teamLeader.role"
-          >
+          <FormField label="Role in Team" required htmlFor="teamLeader.role">
             <Select
-              value={values.teamLeader?.role || 'Team Leader'}
+              value={values.teamLeader?.role || 'Developer'}
               onValueChange={value =>
                 setValue('teamLeader', { ...values.teamLeader, role: value })
               }
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select role" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {roles.map(role => (
@@ -425,531 +458,340 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
               </SelectContent>
             </Select>
           </FormField>
-
-          <FormField
-            label="Country"
-            required
-            error={
-              touched['teamLeader.country']
-                ? errors['teamLeader.country']
-                : undefined
-            }
-            htmlFor="teamLeader.country"
-          >
-            <Select
-              value={values.teamLeader?.country || ''}
-              onValueChange={value =>
-                setValue('teamLeader', { ...values.teamLeader, country: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select country" />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map(country => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="Nationality"
-            required
-            error={
-              touched['teamLeader.nationality']
-                ? errors['teamLeader.nationality']
-                : undefined
-            }
-            htmlFor="teamLeader.nationality"
-          >
-            <Select
-              value={values.teamLeader?.nationality || ''}
-              onValueChange={value =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  nationality: value,
-                })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select nationality" />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map(country => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField
-            label="Age"
-            required
-            error={
-              touched['teamLeader.age'] ? errors['teamLeader.age'] : undefined
-            }
-            htmlFor="teamLeader.age"
-          >
-            <Input
-              id="teamLeader.age"
-              type="number"
-              min="16"
-              max="100"
-              value={values.teamLeader?.age || 18}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  age: parseInt(e.target.value) || 18,
-                })
-              }
-              onBlur={() => handleBlur('teamLeader.age')}
-            />
-          </FormField>
-
-          <FormField
-            label="LinkedIn Profile (Optional)"
-            error={
-              touched['teamLeader.linkedin']
-                ? errors['teamLeader.linkedin']
-                : undefined
-            }
-            htmlFor="teamLeader.linkedin"
-          >
-            <Input
-              id="teamLeader.linkedin"
-              placeholder="https://linkedin.com/in/username"
-              value={values.teamLeader?.linkedin || ''}
-              onChange={e =>
-                setValue('teamLeader', {
-                  ...values.teamLeader,
-                  linkedin: e.target.value,
-                })
-              }
-              onBlur={() => handleBlur('teamLeader.linkedin')}
-            />
-          </FormField>
         </div>
       </div>
 
-      {/* Team Members Section */}
-      {(values.teamMembers?.length || 0) > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-6 border">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Team Members
-            </h3>
-            <Button
-              type="button"
-              variant="outline"
-              size={isMobile ? 'default' : 'sm'}
-              onClick={addTeamMember}
-              disabled={(values.teamMembers?.length || 0) >= 4}
-              className={cn(
-                'touch-manipulation',
-                isTouchDevice ? 'min-h-[44px]' : ''
-              )}
-            >
-              <Plus className="w-4 h-4" />
-              Add Member
-            </Button>
+      {/* Section 3: Team Members Information */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-purple-100 rounded-full p-2">
+            <Users className="w-5 h-5 text-purple-600" />
           </div>
-
-          <div className="space-y-6">
-            {values.teamMembers?.map((member, index) => (
-              <div key={index} className="border rounded-lg p-4 relative">
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="font-medium text-gray-900">
-                    Team Member {index + 1}
-                  </h4>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size={isMobile ? 'default' : 'sm'}
-                    onClick={() => removeTeamMember(index)}
-                    className={cn(
-                      'touch-manipulation',
-                      isTouchDevice ? 'min-h-[44px]' : ''
-                    )}
-                  >
-                    <Minus className="w-4 h-4" />
-                    Remove
-                  </Button>
-                </div>
-
-                <div
-                  className={cn(
-                    'grid gap-4',
-                    isMobile ? 'grid-cols-1' : 'md:grid-cols-2'
-                  )}
-                >
-                  <FormField
-                    label="Full Name"
-                    required
-                    htmlFor={`teamMember.${index}.name`}
-                  >
-                    <Input
-                      id={`teamMember.${index}.name`}
-                      placeholder="Enter full name"
-                      value={member.name}
-                      onChange={e =>
-                        updateTeamMember(index, 'name', e.target.value)
-                      }
-                    />
-                  </FormField>
-
-                  <FormField
-                    label="Email Address"
-                    required
-                    htmlFor={`teamMember.${index}.email`}
-                  >
-                    <Input
-                      id={`teamMember.${index}.email`}
-                      type="email"
-                      placeholder="Enter email address"
-                      value={member.email}
-                      onChange={e =>
-                        updateTeamMember(index, 'email', e.target.value)
-                      }
-                    />
-                  </FormField>
-
-                  <FormField
-                    label="Phone Number"
-                    required
-                    htmlFor={`teamMember.${index}.phone`}
-                  >
-                    <Input
-                      id={`teamMember.${index}.phone`}
-                      placeholder="Enter phone number"
-                      value={member.phone}
-                      onChange={e =>
-                        updateTeamMember(index, 'phone', e.target.value)
-                      }
-                    />
-                  </FormField>
-
-                  <FormField
-                    label="Role"
-                    required
-                    htmlFor={`teamMember.${index}.role`}
-                  >
-                    <Select
-                      value={member.role}
-                      onValueChange={value =>
-                        updateTeamMember(index, 'role', value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {roles.map(role => (
-                          <SelectItem key={role} value={role}>
-                            {role}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormField>
-
-                  <FormField
-                    label="Country"
-                    required
-                    htmlFor={`teamMember.${index}.country`}
-                  >
-                    <Select
-                      value={member.country}
-                      onValueChange={value =>
-                        updateTeamMember(index, 'country', value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {countries.map(country => (
-                          <SelectItem key={country} value={country}>
-                            {country}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormField>
-
-                  <FormField
-                    label="Age"
-                    required
-                    htmlFor={`teamMember.${index}.age`}
-                  >
-                    <Input
-                      id={`teamMember.${index}.age`}
-                      type="number"
-                      min="16"
-                      max="100"
-                      value={member.age}
-                      onChange={e =>
-                        updateTeamMember(
-                          index,
-                          'age',
-                          parseInt(e.target.value) || 18
-                        )
-                      }
-                    />
-                  </FormField>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 3: Team Members Information
+          </h2>
         </div>
-      )}
 
-      {/* Add Team Member Button */}
-      {(values.teamMembers?.length || 0) === 0 && (
-        <div className="text-center">
+        <p className="text-gray-600 mb-4">
+          Add team members (repeat this section for each member)
+        </p>
+
+        {values.teamMembers &&
+          values.teamMembers.map((member, index) => (
+            <div
+              key={index}
+              className="border border-gray-200 rounded-lg p-4 mb-4"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="font-medium text-gray-900">
+                  Team Member {index + 1}
+                </h4>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => removeTeamMember(index)}
+                  className="text-red-600 hover:text-red-700"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Remove
+                </Button>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <FormField
+                  label="Full Name"
+                  required
+                  htmlFor={`member-${index}-name`}
+                >
+                  <Input
+                    id={`member-${index}-name`}
+                    placeholder="Enter full name"
+                    value={member.name}
+                    onChange={e =>
+                      updateTeamMember(index, 'name', e.target.value)
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  label="Email Address"
+                  required
+                  htmlFor={`member-${index}-email`}
+                >
+                  <Input
+                    id={`member-${index}-email`}
+                    type="email"
+                    placeholder="Enter email address"
+                    value={member.email}
+                    onChange={e =>
+                      updateTeamMember(index, 'email', e.target.value)
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  label="Phone Number"
+                  required
+                  htmlFor={`member-${index}-phone`}
+                >
+                  <Input
+                    id={`member-${index}-phone`}
+                    placeholder="Enter phone number"
+                    value={member.phone}
+                    onChange={e =>
+                      updateTeamMember(index, 'phone', e.target.value)
+                    }
+                  />
+                </FormField>
+
+                <FormField
+                  label="Role in Team"
+                  required
+                  htmlFor={`member-${index}-role`}
+                >
+                  <Select
+                    value={member.role}
+                    onValueChange={value =>
+                      updateTeamMember(index, 'role', value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roles.map(role => (
+                        <SelectItem key={role} value={role}>
+                          {role}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormField>
+
+                <FormField
+                  label="LinkedIn Profile or Portfolio (Optional)"
+                  htmlFor={`member-${index}-linkedin`}
+                  className="md:col-span-2"
+                >
+                  <Input
+                    id={`member-${index}-linkedin`}
+                    placeholder="https://linkedin.com/in/username or portfolio URL"
+                    value={member.linkedin}
+                    onChange={e =>
+                      updateTeamMember(index, 'linkedin', e.target.value)
+                    }
+                  />
+                </FormField>
+              </div>
+            </div>
+          ))}
+
+        {(!values.teamMembers ||
+          values.teamMembers.length < (values.teamSize || 3) - 1) && (
           <Button
             type="button"
             variant="outline"
             onClick={addTeamMember}
-            disabled={(values.teamMembers?.length || 0) >= 4}
+            className="w-full"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 mr-2" />
             Add Team Member
           </Button>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Project Information Section */}
+      {/* Section 4: Idea Summary */}
       <div className="bg-white rounded-lg shadow-sm p-6 border">
         <div className="flex items-center gap-3 mb-6">
-          <div className="bg-green-100 rounded-full p-2">
-            <Target className="w-5 h-5 text-green-600" />
+          <div className="bg-yellow-100 rounded-full p-2">
+            <Target className="w-5 h-5 text-yellow-600" />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Project Information
+            Section 4: Idea Summary
           </h2>
         </div>
 
         <div className="space-y-6">
           <FormField
-            label="Project Title"
+            label="What creative industry challenge are you most passionate about solving?"
             required
-            error={touched.projectTitle ? errors.projectTitle : undefined}
-            htmlFor="projectTitle"
+            htmlFor="creativeIndustryChallenge"
           >
             <Input
-              id="projectTitle"
-              placeholder="Enter your project title"
-              {...getFieldProps('projectTitle')}
+              id="creativeIndustryChallenge"
+              placeholder="Briefly describe the challenge..."
+              value={values.creativeIndustryChallenge || ''}
+              onChange={e =>
+                setValue('creativeIndustryChallenge', e.target.value)
+              }
             />
           </FormField>
 
           <FormField
-            label="Idea Summary"
+            label="Describe the distribution challenge you aim to tackle during the hackathon"
             required
-            error={touched.ideaSummary ? errors.ideaSummary : undefined}
-            htmlFor="ideaSummary"
+            htmlFor="distributionChallenge"
           >
             <Textarea
-              id="ideaSummary"
-              placeholder="Provide a brief summary of your project idea (minimum 50 characters)"
+              id="distributionChallenge"
+              placeholder="Describe the challenge in detail... (Max 250 words)"
               rows={4}
-              {...getFieldProps('ideaSummary')}
+              maxLength={250}
+              value={values.distributionChallenge || ''}
+              onChange={e => setValue('distributionChallenge', e.target.value)}
             />
-          </FormField>
-
-          <FormField
-            label="Problem Solving"
-            required
-            error={touched.problemSolving ? errors.problemSolving : undefined}
-            htmlFor="problemSolving"
-          >
-            <Textarea
-              id="problemSolving"
-              placeholder="Describe the problem your project solves (minimum 50 characters)"
-              rows={4}
-              {...getFieldProps('problemSolving')}
-            />
-          </FormField>
-
-          <FormField
-            label="Technology Stack"
-            required
-            error={touched.technology ? errors.technology : undefined}
-            htmlFor="technology"
-          >
-            <Textarea
-              id="technology"
-              placeholder="Describe the technologies you plan to use (minimum 20 characters)"
-              rows={3}
-              {...getFieldProps('technology')}
-            />
-          </FormField>
-
-          <FormField
-            label="ACM Alignment"
-            required
-            error={touched.alignment ? errors.alignment : undefined}
-            htmlFor="alignment"
-          >
-            <Textarea
-              id="alignment"
-              placeholder="Explain how your project aligns with ACM Hackathon objectives (minimum 30 characters)"
-              rows={3}
-              {...getFieldProps('alignment')}
-            />
-          </FormField>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <FormField label="Do you have a prototype?" htmlFor="hasPrototype">
-              <Select
-                value={values.hasPrototype ? 'yes' : 'no'}
-                onValueChange={value =>
-                  setValue('hasPrototype', value === 'yes')
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="no">No</SelectItem>
-                  <SelectItem value="yes">Yes</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormField>
-
-            {values.hasPrototype && (
-              <FormField
-                label="Prototype URL"
-                error={touched.prototypeURL ? errors.prototypeURL : undefined}
-                htmlFor="prototypeURL"
-              >
-                <Input
-                  id="prototypeURL"
-                  placeholder="https://your-prototype-url.com"
-                  {...getFieldProps('prototypeURL')}
-                />
-              </FormField>
-            )}
-          </div>
-
-          <FormField
-            label="Project Repository (Optional)"
-            error={touched.projectRepo ? errors.projectRepo : undefined}
-            htmlFor="projectRepo"
-          >
-            <Input
-              id="projectRepo"
-              placeholder="https://github.com/username/repository"
-              {...getFieldProps('projectRepo')}
-            />
-          </FormField>
-        </div>
-      </div>
-
-      {/* Challenge Areas Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Challenge Areas
-        </h3>
-        <p className="text-gray-600 mb-6">
-          Select the challenge areas your project addresses (select at least
-          one):
-        </p>
-
-        <div
-          className={cn(
-            'grid gap-3',
-            isMobile ? 'grid-cols-1' : 'md:grid-cols-2'
-          )}
-        >
-          {challengeAreas.map(area => (
-            <label
-              key={area}
-              className={cn(
-                'flex items-center space-x-3 cursor-pointer touch-manipulation',
-                isTouchDevice ? 'min-h-[44px] py-2' : ''
-              )}
-            >
-              <input
-                type="checkbox"
-                checked={selectedChallengeAreas.includes(area)}
-                onChange={() => handleChallengeAreaToggle(area)}
-                className={cn(
-                  'rounded border-gray-300 text-blue-600 focus:ring-blue-500',
-                  isTouchDevice ? 'w-5 h-5' : 'w-4 h-4'
-                )}
-              />
-              <span
-                className={cn(
-                  'text-gray-700',
-                  isMobile ? 'text-sm' : 'text-sm'
-                )}
-              >
-                {area}
-              </span>
-            </label>
-          ))}
-        </div>
-
-        {errors.challengeAreas && (
-          <p className="text-red-600 text-sm mt-2">{errors.challengeAreas}</p>
-        )}
-      </div>
-
-      {/* File Upload Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="bg-purple-100 rounded-full p-2">
-            <FileText className="w-5 h-5 text-purple-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900">
-            Supporting Documents
-          </h3>
-        </div>
-
-        <p className="text-gray-600 mb-4">
-          Upload any supporting documents (optional):
-        </p>
-
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-          <input
-            type="file"
-            id="fileUpload"
-            onChange={handleFileUpload}
-            accept=".pdf,.doc,.docx,.ppt,.pptx"
-            className="hidden"
-          />
-          <label htmlFor="fileUpload" className="cursor-pointer">
-            <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-            <p className="text-gray-600">
-              {uploadedFile
-                ? uploadedFile.name
-                : 'Click to upload or drag and drop'}
-            </p>
             <p className="text-sm text-gray-500 mt-1">
-              PDF, DOC, DOCX, PPT, PPTX (max 10MB)
+              {values.distributionChallenge?.length || 0}/250 words
             </p>
-          </label>
+          </FormField>
+
+          <FormField
+            label="What solution do you envision your team building (even if it's an early idea)?"
+            required
+            htmlFor="solutionVision"
+          >
+            <Textarea
+              id="solutionVision"
+              placeholder="Describe your envisioned solution... (Max 250 words)"
+              rows={4}
+              maxLength={250}
+              value={values.solutionVision || ''}
+              onChange={e => setValue('solutionVision', e.target.value)}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              {values.solutionVision?.length || 0}/250 words
+            </p>
+          </FormField>
+
+          <FormField
+            label="What makes your team uniquely positioned to solve this?"
+            required
+            htmlFor="teamPositioning"
+          >
+            <Textarea
+              id="teamPositioning"
+              placeholder="Explain your team's unique position... (Max 150 words)"
+              rows={3}
+              maxLength={150}
+              value={values.teamPositioning || ''}
+              onChange={e => setValue('teamPositioning', e.target.value)}
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              {values.teamPositioning?.length || 0}/150 words
+            </p>
+          </FormField>
         </div>
       </div>
 
-      {/* Declarations Section */}
+      {/* Section 5: Logistics */}
       <div className="bg-white rounded-lg shadow-sm p-6 border">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Declarations
-        </h3>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-indigo-100 rounded-full p-2">
+            <MapPin className="w-5 h-5 text-indigo-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 5: Logistics
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <FormField
+            label="Will all team members be available to participate in-person in Lagos from Sept 16–19?"
+            required
+            htmlFor="allMembersAvailable"
+          >
+            <Select
+              value={values.allMembersAvailable ? 'yes' : 'no'}
+              onValueChange={value =>
+                setValue('allMembersAvailable', value === 'yes')
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          {!values.allMembersAvailable && (
+            <FormField
+              label="If No, explain:"
+              required
+              htmlFor="availabilityExplanation"
+            >
+              <Input
+                id="availabilityExplanation"
+                placeholder="Explain why some members cannot attend..."
+                value={values.availabilityExplanation || ''}
+                onChange={e =>
+                  setValue('availabilityExplanation', e.target.value)
+                }
+              />
+            </FormField>
+          )}
+
+          <FormField
+            label="Do any of your team members have dietary restrictions?"
+            required
+            htmlFor="hasDietaryRestrictions"
+          >
+            <Select
+              value={values.hasDietaryRestrictions ? 'yes' : 'no'}
+              onValueChange={value =>
+                setValue('hasDietaryRestrictions', value === 'yes')
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="no">No</SelectItem>
+                <SelectItem value="yes">Yes</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          {values.hasDietaryRestrictions && (
+            <FormField
+              label="If Yes, list dietary needs:"
+              required
+              htmlFor="dietaryNeeds"
+            >
+              <Input
+                id="dietaryNeeds"
+                placeholder="List dietary restrictions..."
+                value={values.dietaryNeeds || ''}
+                onChange={e => setValue('dietaryNeeds', e.target.value)}
+              />
+            </FormField>
+          )}
+        </div>
+      </div>
+
+      {/* Section 6: Declaration & Consent */}
+      <div className="bg-white rounded-lg shadow-sm p-6 border">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-green-100 rounded-full p-2">
+            <CheckCircle className="w-5 h-5 text-green-600" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Section 6: Declaration & Consent
+          </h2>
+        </div>
 
         <div className="space-y-4">
+          <p className="text-gray-700 mb-4">
+            By submitting this application, I confirm that:
+          </p>
+
           {[
-            'I confirm that all information provided is accurate and complete',
-            'I agree to the terms and conditions of the hackathon',
-            'I consent to the processing of my personal data for hackathon purposes',
-            'I understand that participation is subject to final approval',
+            'All information provided is accurate',
+            'All team members are aged 18+',
+            'Our team will abide by the rules of the ACM Hackathon 2025',
           ].map(declaration => (
             <label
               key={declaration}
@@ -966,15 +808,30 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           ))}
         </div>
 
+        <FormField
+          label="Signature of Team Lead (Typed Full Name)"
+          required
+          htmlFor="teamLeadSignature"
+          className="mt-6"
+        >
+          <Input
+            id="teamLeadSignature"
+            placeholder="Type your full name to confirm"
+            value={values.teamLeadSignature || ''}
+            onChange={e => setValue('teamLeadSignature', e.target.value)}
+          />
+        </FormField>
+
         {errors.declarations && (
           <p className="text-red-600 text-sm mt-2">{errors.declarations}</p>
         )}
       </div>
 
       {/* Submit Button */}
-      <div className="flex justify-center pt-6">
+      <div className="flex justify-center items-start gap-4 pt-6">
         <Button
           type="submit"
+          variant="outline"
           size="lg"
           disabled={isSubmitting || isLoading}
           className={cn(
@@ -983,8 +840,37 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             isMobile ? 'w-full' : ''
           )}
         >
-          {isSubmitting || isLoading ? 'Submitting...' : 'Submit Application'}
+          {isSubmitting || isLoading
+            ? 'Submitting...'
+            : 'Complete Registration'}
         </Button>
+        {/* inline “toast” – appears beside the button */}
+        {!isValid && Object.keys(errors).length > 0 && (
+          <div
+            role="alert"
+            className="bg-red-100 text-red-700 text-sm rounded px-3 py-2 shadow-sm"
+          >
+            <ul className="space-y-0.5">
+              {Object.entries(errors).map(([field, msg]) => {
+                // Convert camelCase / dot.path to Title Case for readability
+                const label = field
+                  .split('.')
+                  .map(
+                    part =>
+                      part
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, c => c.toUpperCase()) // capitalise first
+                  )
+                  .join(' › ');
+                return (
+                  <li key={field}>
+                    • <span className="font-medium">{label}</span>: {msg}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
     </motion.form>
   );

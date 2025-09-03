@@ -130,8 +130,8 @@ const Partners = () => {
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Meet Our Distinguished Panel of Mentors and Judges for the
-                ACM Hackathon
+                Meet Our Distinguished Panel of Mentors and Judges for the ACM
+                Hackathon
               </h2>
             </div>
           </motion.div>
@@ -184,7 +184,7 @@ const Partners = () => {
                         href={person.socialLinks.linkedin}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                        className="w-10 h-10 bg-[#c2d72f] text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                         aria-label={`${person.name} LinkedIn`}
                       >
                         <Linkedin size={18} />

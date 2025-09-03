@@ -1,16 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import {
-  Users,
-  Presentation,
-  Code,
-  Trophy,
-  ArrowRight,
-  ChevronDown,
-  ChevronUp,
-  Palette,
-} from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { Container } from '../components/layout';
 import { ScrollAnimation } from '../components/animations';
 import { Button } from '../components/ui';
@@ -43,185 +34,172 @@ const Schedule = () => {
   const scheduleData: DaySchedule[] = [
     {
       day: 1,
-      date: 'March 15, 2025',
-      title: 'Kick-off & Ideation',
+      date: 'September 16, 2025',
+      title: 'Opening & Ideation',
       theme:
-        "Understanding Africa's Creative Economy and Defining Innovation Challenges",
+        'Distribute Africa: Hacking the Future of Music & Film Access - Opening Ceremony and Hacking Begins',
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Opening Ceremony',
+            timeSlot: '9:00 AM - 9:10 AM',
+            session: 'Welcome Address',
             details:
-              'Presented by ACM Leadership and Creative Industry Partners',
-            icon: Users,
+              "Introduction to the hackathon's objectives, rules, and expectations",
           },
           {
-            timeSlot: '',
-            session: 'Keynote Speech 1',
-            details: "Africa's Creative Economy: Opportunities and Challenges",
-            icon: Presentation,
+            timeSlot: '9:10 AM - 9:20 AM',
+            session: 'Keynote Speech - CcHub Representative',
+            details: 'Keynote address from CcHub representative',
           },
           {
-            timeSlot: '',
-            session: 'Keynote Speech 2',
+            timeSlot: '9:20 AM - 9:30 AM',
+            session: 'Keynote Speech - AWS Representative',
+            details: 'Keynote address from Amazon Web Services representative',
+          },
+          {
+            timeSlot: '9:30 AM - 9:40 AM',
+            session: 'Hackathon Finalists Announcement',
             details:
-              'Technology Innovation in Creative Industries: Global Trends and African Potential',
-            icon: Presentation,
+              'Announcement of hackathon finalists and declaration of hackathon open',
+          },
+          {
+            timeSlot: '9:40 AM - 9:45 AM',
+            session: 'Participants Take Positions',
+            details: 'All participants take their hacking positions',
+          },
+          {
+            timeSlot: '9:45 AM - 12:00 PM',
+            session: 'Hacking Begins',
+            details:
+              'Main hacking session begins between participants. After lunch break, advisors take turns visiting each team to ask critical, thought-provoking questions, ensuring all essential elements are considered in their solutions. This is a two-way learning system where both participants and advisors engage in mutual knowledge exchange.',
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Theme Deep Dive',
+            timeSlot: '2:00 PM - 5:00 PM',
+            session: 'Continued Hacking with Advisory Support',
             details:
-              'Industry experts outline problem statements for each creative category',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop 1',
-            details: 'Design Thinking for Creative Innovation',
-            icon: Code,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop 2',
-            details: 'Prototyping Tools and Creative Technology Stack',
-            icon: Code,
-          },
-        ],
-        evening: [
-          {
-            timeSlot: 'Evening',
-            session: 'Team Finalization',
-            details: 'Participants lock in teams (2-6 members)',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Design Thinking Sprint',
-            details:
-              'Guided by facilitators to refine problem statements and proposed solutions',
-            icon: Code,
-          },
-          {
-            timeSlot: '',
-            session: 'Mentor Pairing',
-            details:
-              'Each team assigned at least 1 technical and 1 industry mentor',
-            icon: Users,
+              'Teams continue developing solutions with rotating advisory support. Advisors visit each team to provide guidance and challenge their concepts.',
           },
         ],
       },
     },
     {
       day: 2,
-      date: 'March 16, 2025',
-      title: 'Prototyping & Mentorship',
-      theme: 'Building MVPs and Receiving Expert Guidance',
+      date: 'September 17, 2025',
+      title: 'Hacking & Refinement',
+      theme:
+        'Building MVPs with Expert Mentorship and Lightning Talks from Partners',
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Development Marathon Begins',
-            details: 'Teams build MVPs (minimum viable products)',
-            icon: Code,
+            timeSlot: '9:00 AM - 10:30 AM',
+            session: 'Breakout Sessions with Mentors',
+            details:
+              'Each team consults mentors (creatives and legal experts) to refine their ideas and scope',
           },
           {
-            timeSlot: '',
-            session: 'Workshop: UI/UX for Creative Platforms',
-            details: 'Design principles for creative industry applications',
-            icon: Palette,
+            timeSlot: '10:30 AM - 12:00 PM',
+            session: 'Lightning Talks',
+            details:
+              'Short talks with Partners/Support Group for 20 minutes each in a revolving manner',
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Mentor Check-ins',
+            timeSlot: '1:00 PM - 5:00 PM',
+            session: 'Main Hacking Session',
             details:
-              'Midday feedback sessions with technical and industry mentors',
-            icon: Users,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop: Monetization Strategies',
-            details: 'Revenue models for creative economy solutions',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Workshop: IP Protection & Funding',
-            details:
-              'Intellectual property strategies and funding opportunities',
-            icon: Presentation,
-          },
-        ],
-        evening: [
-          {
-            timeSlot: 'Evening',
-            session: 'Progress Showcase',
-            details: 'Teams show rough builds for early feedback',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Networking Session',
-            details:
-              'Connect with mentors, industry leaders, and fellow participants',
-            icon: Users,
+              'Teams continue developing MVPs for their solutions. Advisors rotate again to challenge teams and push concepts further, ensuring real-world feasibility and policy alignment.',
           },
         ],
       },
     },
     {
       day: 3,
-      date: 'March 17, 2025',
-      title: 'Final Presentations & Awards',
-      theme: 'Showcasing Innovations and Celebrating Success',
+      date: 'September 18, 2025',
+      title: 'Offsite at CcHub',
+      theme: 'Continued Development and Refinement at CcHub Innovation Hub',
       sessions: {
         morning: [
           {
-            timeSlot: 'Morning',
-            session: 'Pitch Prep Coaching',
+            timeSlot: '9:00 AM - 12:00 PM',
+            session: 'Offsite Development Session',
             details:
-              'Morning coaching for pitch decks, live demo readiness, and storytelling',
-            icon: Presentation,
-          },
-          {
-            timeSlot: '',
-            session: 'Final Development Sprint',
-            details: 'Last-minute refinements and demo preparation',
-            icon: Code,
+              'Teams continue working on their solutions at CcHub innovation hub with continued mentorship and support',
           },
         ],
         afternoon: [
           {
-            timeSlot: 'Afternoon',
-            session: 'Judging Sessions',
-            details: '5-7 minutes per team (pitch + demo + Q&A)',
-            icon: Trophy,
-          },
-          {
-            timeSlot: '',
-            session: 'Category Awards',
-            details: 'Special recognition for each creative economy category',
-            icon: Trophy,
+            timeSlot: '2:00 PM - 5:00 PM',
+            session: 'Solution Refinement & Testing',
+            details:
+              'Final iterations and testing of solutions in preparation for final presentations',
           },
         ],
-        evening: [
+      },
+    },
+    {
+      day: 4,
+      date: 'September 19, 2025',
+      title: 'Final Pitching & Awards',
+      theme: 'Showcasing Distribution Innovations and Celebrating Success',
+      sessions: {
+        morning: [
           {
-            timeSlot: 'Evening',
-            session: 'Closing Ceremony',
-            details: 'Awards, networking, and investment discussions',
-            icon: Trophy,
+            timeSlot: '9:00 AM - 9:30 AM',
+            session: 'Arrival & Briefing',
+            details:
+              'Arrival of finalist teams and judges, followed by briefing for teams and judges',
           },
           {
-            timeSlot: '',
-            session: 'Demo Day Announcement',
+            timeSlot: '9:30 AM - 10:00 AM',
+            session: 'Welcome and Opening Remarks',
             details:
-              'Introduction to post-hackathon opportunities and next steps',
-            icon: Presentation,
+              'ACM Hackathon Coordinator delivers welcome and opening remarks',
+          },
+          {
+            timeSlot: '10:00 AM - 10:10 AM',
+            session: 'Keynote Speech',
+            details:
+              'Mr. Ralph Simon - Patron of the ACM Hackathon delivers keynote address',
+          },
+          {
+            timeSlot: '10:10 AM - 10:25 AM',
+            session: 'Preparation Break',
+            details: 'Brief preparation time for teams before pitching begins',
+          },
+          {
+            timeSlot: '10:25 AM - 11:30 AM',
+            session: 'First Pitch Block (Teams 1-6)',
+            details: 'First round of team presentations to judges',
+          },
+          {
+            timeSlot: '11:30 AM - 11:45 AM',
+            session: 'Break & Light Refreshments',
+            details: 'Short break with refreshments for all participants',
+          },
+        ],
+        afternoon: [
+          {
+            timeSlot: '11:45 AM - 12:45 PM',
+            session: 'Second Pitch Block (Teams 7-12)',
+            details: 'Second round of team presentations to judges',
+          },
+          {
+            timeSlot: '12:45 PM - 1:15 PM',
+            session: 'Judges Deliberation',
+            details: 'Judges deliberate and evaluate all team presentations',
+          },
+          {
+            timeSlot: '1:15 PM - 1:25 PM',
+            session: 'Winner Announcement',
+            details: 'Announcement of hackathon winners',
+          },
+          {
+            timeSlot: '1:25 PM - 2:00 PM',
+            session: 'Closing Remarks & Group Photo',
+            details: 'Final closing remarks and group photo session',
           },
         ],
       },
@@ -238,8 +216,8 @@ const Schedule = () => {
 
   const preHackathonEvents = [
     {
-      phase: 'Call for Applications',
-      duration: '4-6 Weeks Before Event',
+      phase: 'Application Open',
+      duration: 'August 29 - September 5, 2025',
       activities: [
         'Launch via ACM website, social media, press releases',
         'Partner platforms, universities, and tech hubs outreach',
@@ -247,30 +225,21 @@ const Schedule = () => {
       ],
     },
     {
-      phase: 'Info Sessions/Webinars',
-      duration: 'Ongoing',
-      activities: [
-        'Live webinars explaining hackathon process',
-        'Tips for success and Q&A sessions',
-        'Industry expert insights and best practices',
-      ],
-    },
-    {
       phase: 'Registration & Idea Submission',
-      duration: '2-3 Weeks Before Event',
+      duration: 'August 29 - September 5, 2025',
       activities: [
         'Team/individual profile submission',
         'Initial solution concept presentation',
-        'Challenge area selection and team formation',
+        'Distribution challenge area selection and team formation',
       ],
     },
     {
-      phase: 'Pre-event Bootcamp',
-      duration: '1 Week Before Event',
+      phase: 'Selected Participants Notified',
+      duration: 'September 8, 2025',
       activities: [
-        'Online training on design thinking',
-        'Pitch skills development',
-        'Prototyping tools training (Figma, Flutter, Unity, Adobe CC)',
+        'Notifications sent via e-mail and ACM platform',
+        'Public update across ACM website and social media',
+        'Confirmation of participation deadline shared with selected teams',
       ],
     },
   ];
@@ -284,9 +253,9 @@ const Schedule = () => {
       className="min-h-screen"
     >
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-[#4a5f8a] via-[#6b7a9a] to-[#a8b82a] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 to-pink-800/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#4a5f8a]/20 to-[#a8b82a]/20"></div>
         </div>
 
         <Container className="relative z-10">
@@ -297,7 +266,7 @@ const Schedule = () => {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <span className="text-purple-200 text-lg">Hackathon</span>
+              {/* <span className="text-blue-200 text-lg">Hackathon</span> */}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -307,26 +276,26 @@ const Schedule = () => {
             >
               Event Schedule
             </motion.h1>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl text-purple-200 max-w-3xl mx-auto mb-8"
+              className="text-xl text-blue-200 max-w-3xl mx-auto mb-8"
             >
-              A comprehensive 3-day journey from ideation to innovation, with
+              A comprehensive 4-day journey from ideation to innovation, with
               extensive pre-hackathon preparation
-            </motion.p>
+            </motion.p> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-2 text-purple-200"
+              className="flex items-center justify-center gap-2 text-blue-200"
             >
               <Link to="/" className="hover:text-white transition-colors">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>Schedule</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Schedule</span>
             </motion.div>
           </div>
         </Container>
@@ -340,15 +309,11 @@ const Schedule = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Pre-Hackathon Phase
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                4-6 weeks of preparation, training, and team formation before
-                the main event
-              </p>
             </div>
           </ScrollAnimation>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {preHackathonEvents.map((phase, index) => (
+            {preHackathonEvents.slice(0, 2).map((phase, index) => (
               <ScrollAnimation
                 key={phase.phase}
                 animation="slideUp"
@@ -356,10 +321,10 @@ const Schedule = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.02, y: -5 }}
-                  className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-8 border border-purple-200"
+                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
                       <span className="text-white font-bold text-lg">
                         {index + 1}
                       </span>
@@ -368,7 +333,7 @@ const Schedule = () => {
                       <h3 className="text-xl font-semibold text-gray-900">
                         {phase.phase}
                       </h3>
-                      <p className="text-purple-600 font-medium">
+                      <p className="text-[#4a5f8a] font-medium">
                         {phase.duration}
                       </p>
                     </div>
@@ -379,7 +344,7 @@ const Schedule = () => {
                         key={activityIndex}
                         className="flex items-start gap-2 text-gray-700"
                       >
-                        <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#4a5f8a] rounded-full mt-2 flex-shrink-0"></div>
                         <span className="text-sm">{activity}</span>
                       </li>
                     ))}
@@ -388,11 +353,50 @@ const Schedule = () => {
               </ScrollAnimation>
             ))}
           </div>
+
+          {/* Third event spanning full width */}
+          {preHackathonEvents[2] && (
+            <div className="mt-8 flex justify-center">
+              <ScrollAnimation animation="slideUp" delay={0.2}>
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="bg-gradient-to-br from-blue-50 to-lime-50 rounded-xl p-8 border border-blue-200 max-w-2xl w-full"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">3</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900">
+                        {preHackathonEvents[2].phase}
+                      </h3>
+                      <p className="text-[#4a5f8a] font-medium">
+                        {preHackathonEvents[2].duration}
+                      </p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    {preHackathonEvents[2].activities.map(
+                      (activity, activityIndex) => (
+                        <li
+                          key={activityIndex}
+                          className="flex items-start gap-2 text-gray-700"
+                        >
+                          <div className="w-2 h-2 bg-[#4a5f8a] rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm">{activity}</span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </motion.div>
+              </ScrollAnimation>
+            </div>
+          )}
         </Container>
       </section>
 
       {/* Main Event Schedule */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <Container>
           <ScrollAnimation animation="fadeIn">
             <div className="text-center mb-16">
@@ -400,7 +404,7 @@ const Schedule = () => {
                 Main Event Schedule
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                3 days of intensive innovation, collaboration, and creative
+                4 days of intensive innovation, collaboration, and creative
                 problem-solving
               </p>
             </div>
@@ -414,8 +418,8 @@ const Schedule = () => {
                 onClick={() => setActiveDay(day.day)}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                   activeDay === day.day
-                    ? 'bg-purple-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-purple-50 border border-gray-200'
+                    ? 'bg-[#4a5f8a] text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-blue-50 border border-gray-200'
                 }`}
               >
                 Day {day.day}
@@ -439,80 +443,83 @@ const Schedule = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   {day.title}
                 </h3>
-                <p className="text-purple-600 font-medium mb-4">{day.date}</p>
+                <p className="text-[#4a5f8a] font-medium mb-4">{day.date}</p>
                 <p className="text-gray-600 max-w-2xl mx-auto">{day.theme}</p>
               </div>
 
-              <div className="grid lg:grid-cols-3 gap-8">
+              <div className="grid lg:grid-cols-3 gap-12 items-start">
                 {Object.entries(day.sessions).map(([period, sessions]) => (
                   <div key={period} className="space-y-6">
-                    <h4 className="text-lg font-semibold text-gray-900 capitalize">
+                    <h4 className="text-lg font-semibold text-gray-900 capitalize mb-6">
                       {period}
                     </h4>
-                    {sessions?.map((session, index) => (
-                      <motion.div
-                        key={`${day.day}-${period}-${index}`}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
-                      >
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            {session.icon && (
-                              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                <session.icon className="h-5 w-5 text-white" />
-                              </div>
-                            )}
-                            <div>
-                              <h5 className="font-semibold text-gray-900">
-                                {session.session}
-                              </h5>
-                              {session.timeSlot && (
-                                <p className="text-sm text-purple-600 font-medium">
-                                  {session.timeSlot}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                          <button
-                            onClick={() =>
-                              toggleSession(`${day.day}-${period}-${index}`)
-                            }
-                            className="text-gray-400 hover:text-gray-600 transition-colors"
-                          >
-                            {expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            ) ? (
-                              <ChevronUp className="h-5 w-5" />
-                            ) : (
-                              <ChevronDown className="h-5 w-5" />
-                            )}
-                          </button>
-                        </div>
+                    <div className="space-y-6">
+                      {sessions?.map((session, index) => (
                         <motion.div
-                          initial={false}
-                          animate={{
-                            height: expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            )
-                              ? 'auto'
-                              : 0,
-                            opacity: expandedSessions.includes(
-                              `${day.day}-${period}-${index}`
-                            )
-                              ? 1
-                              : 0,
-                          }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
+                          key={`${day.day}-${period}-${index}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
+                          style={{ minHeight: 'fit-content' }}
                         >
-                          <p className="text-gray-600 text-sm leading-relaxed">
-                            {session.details}
-                          </p>
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3 flex-1">
+                              {session.icon && (
+                                <div className="w-10 h-10 bg-gradient-to-br from-[#4a5f8a] to-[#a8b82a] rounded-lg flex items-center justify-center flex-shrink-0">
+                                  <session.icon className="h-5 w-5 text-white" />
+                                </div>
+                              )}
+                              <div className="flex-1 min-w-0">
+                                <h5 className="font-semibold text-gray-900 mb-2">
+                                  {session.session}
+                                </h5>
+                                {session.timeSlot && (
+                                  <p className="text-sm text-[#4a5f8a] font-medium">
+                                    {session.timeSlot}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            <button
+                              onClick={() =>
+                                toggleSession(`${day.day}-${period}-${index}`)
+                              }
+                              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 ml-2"
+                            >
+                              {expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              ) ? (
+                                <ChevronUp className="h-5 w-5" />
+                              ) : (
+                                <ChevronDown className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                          <motion.div
+                            initial={false}
+                            animate={{
+                              height: expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              )
+                                ? 'auto'
+                                : 0,
+                              opacity: expandedSessions.includes(
+                                `${day.day}-${period}-${index}`
+                              )
+                                ? 1
+                                : 0,
+                            }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <p className="text-gray-600 text-sm leading-relaxed">
+                              {session.details}
+                            </p>
+                          </motion.div>
                         </motion.div>
-                      </motion.div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -522,7 +529,7 @@ const Schedule = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
+      <section className="py-20 bg-gradient-to-r from-[#a8b82a] to-[#4a5f8a]">
         <Container>
           <ScrollAnimation animation="fadeIn">
             <div className="text-center text-white">
@@ -530,16 +537,16 @@ const Schedule = () => {
                 Ready to Join the Innovation Journey?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Be part of this transformative 3-day experience that will shape
+                Be part of this transformative 4-day experience that will shape
                 the future of Africa's creative economy.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-white text-purple-600 hover:bg-gray-100"
+                  className="bg-white text-[#4a5f8a] hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -548,7 +555,7 @@ const Schedule = () => {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-purple-600"
+                  className="border-white text-white hover:bg-white hover:text-[#4a5f8a]"
                 >
                   <Link to="/challenges">
                     View Categories

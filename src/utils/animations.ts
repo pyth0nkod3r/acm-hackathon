@@ -113,9 +113,9 @@ export const createStaggerVariants = (
   baseVariants: Variants,
   staggerDelay: number = 0.1
 ): Variants => ({
-  hidden: baseVariants.hidden,
+  hidden: baseVariants.hidden || {},
   visible: {
-    ...baseVariants.visible,
+    ...(baseVariants.visible || {}),
     transition: {
       staggerChildren: staggerDelay,
     },
@@ -164,11 +164,11 @@ export const createPageTransition = (
 
 // Utility function to create custom variants
 export const createCustomVariants = (
-  hidden: Record<string, any>,
-  visible: Record<string, any>
+  hidden: Record<string, unknown>,
+  visible: Record<string, unknown>
 ): Variants => ({
-  hidden,
-  visible,
+  hidden: hidden as Variants['hidden'],
+  visible: visible as Variants['visible'],
 });
 
 // Performance optimization helpers

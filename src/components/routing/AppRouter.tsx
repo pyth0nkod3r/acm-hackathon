@@ -13,6 +13,8 @@ import {
   useDocumentTitle,
   useDocumentMeta,
 } from '../../hooks/useDocumentTitle';
+import { useSimpleScrollToTop } from '../../hooks';
+import HackathonGuide from '../../pages/HackathonGuide';
 
 const AppRouter = () => {
   const location = useLocation();
@@ -20,6 +22,9 @@ const AppRouter = () => {
   // Set document title and meta tags based on current route
   useDocumentTitle();
   useDocumentMeta();
+  
+  // Enable smooth scroll to top on route changes
+  useSimpleScrollToTop();
 
   return (
     <ErrorBoundary>
@@ -52,6 +57,8 @@ const AppRouter = () => {
               );
             })}
 
+            {/* Add new route */}
+            <Route path="/hackathon-guide" element={<HackathonGuide />} />
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

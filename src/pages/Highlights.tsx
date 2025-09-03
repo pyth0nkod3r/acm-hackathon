@@ -244,9 +244,9 @@ const Highlights = () => {
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Discover the remarkable achievements, breakthrough solutions,
-                and inspiring stories from the ACM creative
-                Hackathon. Witness how innovation is transforming Africa's
-                digital creative landscape.
+                and inspiring stories from the ACM creative Hackathon. Witness
+                how innovation is transforming Africa's digital creative
+                landscape.
               </p>
             </div>
           </ScrollAnimation>
@@ -480,7 +480,7 @@ const Highlights = () => {
                     onClick={() => setCurrentTestimonial(index)}
                     className={`w-3 h-3 rounded-full transition-colors ${
                       index === currentTestimonial
-                        ? 'bg-blue-600'
+                        ? 'bg-[#c2d72f]'
                         : 'bg-gray-300'
                     }`}
                   />
@@ -608,8 +608,8 @@ const Highlights = () => {
                 Ready to Create Your Own Success Story?
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join the next ACM Hackathon and be
-                part of Africa's digital trade transformation.
+                Join the next ACM Hackathon and be part of Africa's digital
+                trade transformation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

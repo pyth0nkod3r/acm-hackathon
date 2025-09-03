@@ -6,91 +6,113 @@ const Home = lazy(() => import('../pages/Home'));
 const About = lazy(() => import('../pages/About'));
 const Contact = lazy(() => import('../pages/Contact'));
 const Application = lazy(() => import('../pages/Application'));
+const NewApplication = lazy(() => import('../pages/NewApplication'));
 const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
+const FAQ = lazy(() => import('../pages/FAQ'));
 const Awards = lazy(() => import('../pages/Awards'));
-const Gallery = lazy(() => import('../pages/Gallery'));
-const Highlights = lazy(() => import('../pages/Highlights'));
-const Partners = lazy(() => import('../pages/Partners'));
+// const Gallery = lazy(() => import('../pages/Gallery'));
+// const Highlights = lazy(() => import('../pages/Highlights'));
+// const Partners = lazy(() => import('../pages/Partners'));
+const PartnerRegistration = lazy(() => import('../pages/PartnerRegistration'));
 
 export const routes: RouteConfig[] = [
   {
     path: '/',
     component: Home,
-    title: 'Home - AfCFTA Digital Trade Protocol Hackathon',
+    title: 'Home - ACM Hackathon',
     description:
-      'Join the future of digital trade in Africa with the AfCFTA Digital Trade Protocol Hackathon 2025',
+      'Join the future of digital trade in Africa with the ACM Hackathon 2025',
     isProtected: false,
   },
   {
     path: '/about',
     component: About,
-    title: 'About - AfCFTA Digital Trade Protocol Hackathon',
+    title: 'About - ACM Hackathon',
     description:
-      'Learn about the AfCFTA Digital Trade Protocol Hackathon mission, goals, and event details',
+      'Learn about the ACM Hackathon mission, goals, and event details',
     isProtected: false,
   },
   {
     path: '/contact',
     component: Contact,
-    title: 'Contact - AfCFTA Digital Trade Protocol Hackathon',
-    description:
-      'Get in touch with the AfCFTA Digital Trade Protocol Hackathon organizers',
+    title: 'Contact - ACM Hackathon',
+    description: 'Get in touch with the ACM Hackathon organizers',
     isProtected: false,
   },
   {
-    path: '/application',
+    path: '/registration-old',
     component: Application,
-    title: 'Apply - AfCFTA Digital Trade Protocol Hackathon',
-    description: 'Apply for the AfCFTA Digital Trade Protocol Hackathon 2025',
+    title: 'Apply (Old) - ACM Hackathon',
+    description: 'Apply for the ACM Hackathon 2025 (Legacy Form)',
+    isProtected: false,
+  },
+  {
+    path: '/registration',
+    component: NewApplication,
+    title: 'Apply - ACM Hackathon',
+    description: 'Apply for the ACM Hackathon 2025',
     isProtected: false,
   },
   {
     path: '/challenges',
     component: Challenges,
-    title: 'Challenges - AfCFTA Digital Trade Protocol Hackathon',
+    title: 'Challenges - ACM Hackathon',
     description:
-      'Explore the key challenges and innovation areas for the AfCFTA Digital Trade Protocol Hackathon 2025',
+      'Explore the key challenges and innovation areas for the ACM Hackathon 2025',
     isProtected: false,
   },
   {
     path: '/schedule',
     component: Schedule,
-    title: 'Schedule - AfCFTA Digital Trade Protocol Hackathon',
+    title: 'Schedule - ACM Hackathon',
+    description: 'View the complete event schedule for the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/faq',
+    component: FAQ,
+    title: 'FAQ - ACM Hackathon',
     description:
-      'View the complete event schedule for the AfCFTA Digital Trade Protocol Hackathon 2025',
+      'Find answers to frequently asked questions about the ACM Hackathon 2025',
     isProtected: false,
   },
   {
     path: '/awards',
     component: Awards,
-    title: 'Awards & Judging - AfCFTA Digital Trade Protocol Hackathon',
+    title: 'Awards & Judging - ACM Hackathon',
     description:
-      'Learn about prizes, judging criteria, and post-hackathon opportunities for the AfCFTA Digital Trade Protocol Hackathon 2025',
+      'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
     isProtected: false,
   },
+  // {
+  //   path: '/gallery',
+  //   component: Gallery,
+  //   title: 'Gallery - ACM Hackathon',
+  //   description: 'Explore photos and moments from the ACM Hackathon events',
+  //   isProtected: false,
+  // },
+  // {
+  //   path: '/highlights',
+  //   component: Highlights,
+  //   title: 'Highlights - ACM Hackathon',
+  //   description:
+  //     'Discover success stories, testimonials, and achievements from the ACM Hackathon',
+  //   isProtected: false,
+  // },
+  // {
+  //   path: '/judges',
+  //   component: Partners,
+  //   title: 'Mentors & Judges -  ACM Hackathon',
+  //   description:
+  //     'Meet our distinguished panel of mentors and judges for the ACM Hackathon 2025',
+  //   isProtected: false,
+  // },
   {
-    path: '/gallery',
-    component: Gallery,
-    title: 'Gallery - AfCFTA Digital Trade Protocol Hackathon',
-    description:
-      'Explore photos and moments from the AfCFTA Digital Trade Protocol Hackathon events',
-    isProtected: false,
-  },
-  {
-    path: '/highlights',
-    component: Highlights,
-    title: 'Highlights - AfCFTA Digital Trade Protocol Hackathon',
-    description:
-      'Discover success stories, testimonials, and achievements from the AfCFTA Digital Trade Protocol Hackathon',
-    isProtected: false,
-  },
-  {
-    path: '/partners',
-    component: Partners,
-    title: 'Mentors & Judges - AfCFTA Digital Trade Protocol Hackathon',
-    description:
-      'Meet our distinguished panel of mentors and judges for the AfCFTA Digital Trade Protocol Hackathon 2025',
+    path: '/partner-registration',
+    component: PartnerRegistration,
+    title: 'Partner Registration - ACM Hackathon',
+    description: 'Register to become a partner for the ACM Hackathon 2025',
     isProtected: false,
   },
 ];

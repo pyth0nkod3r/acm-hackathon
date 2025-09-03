@@ -6,15 +6,17 @@ import type { AppConfig } from '../types/config';
 
 // Environment variables with fallbacks
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://api.hackathon.africacreativemarket-global.com';
-const API_USERNAME = import.meta.env.VITE_API_USERNAME || '';
-const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || '';
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://api.africacreativemarketglobal.com';
+const API_USERNAME = import.meta.env.VITE_API_USERNAME || 'admin'; // ← default
+const API_PASSWORD = import.meta.env.VITE_API_PASSWORD || 'secret'; // ← default
 
 export const apiConfig: AppConfig = {
   apiBaseUrl: API_BASE_URL,
   formEndpoints: {
-    registration: '/api/registration',
-    contact: '/api/contact',
+    registration: '/api/hackathon/', // Updated endpoint
+    contact: '/api/hackathon/contact',
+    partner: '/api/hackathon/partner',
   },
   features: {
     enableAnimations: true,

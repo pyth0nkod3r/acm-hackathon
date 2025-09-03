@@ -5,6 +5,8 @@ export interface UseFormValidationOptions<T> {
   schema: z.ZodSchema<T>;
   initialValues?: Partial<T>;
   onSubmit?: (data: T) => void | Promise<void>;
+  /** Optional: fired when validateForm() fails so the UI can show a toast, etc. */
+  onValidationError?: (errors: Record<string, string>) => void;
 }
 
 export interface FormValidationState {
@@ -14,10 +16,11 @@ export interface FormValidationState {
   touched: Record<string, boolean>;
 }
 
-export function useFormValidation<T extends Record<string, any>>({
+export function useFormValidation<T extends Record<string, unknown>>({
   schema,
   initialValues = {},
   onSubmit,
+  onValidationError,
 }: UseFormValidationOptions<T>) {
   const [values, setValues] = useState<Partial<T>>(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -25,7 +28,7 @@ export function useFormValidation<T extends Record<string, any>>({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateField = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: unknown) => {
       try {
         // For simple field validation, we'll validate the current form state
         const testValues = { ...values, [name]: value };
@@ -62,18 +65,21 @@ export function useFormValidation<T extends Record<string, any>>({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
+        const newTouched: Record<string, boolean> = {};
         error.issues.forEach(err => {
           const path = err.path.join('.');
           newErrors[path] = err.message;
+          newTouched[path] = true;
         });
         setErrors(newErrors);
+        setTouched(prev => ({ ...prev, ...newTouched }));
       }
       return false;
     }
   }, [schema, values]);
 
   const setValue = useCallback(
-    (name: string, value: any, shouldValidate = true) => {
+    (name: string, value: unknown, shouldValidate = true) => {
       setValues(prev => ({ ...prev, [name]: value }));
 
       if (shouldValidate && touched[name]) {
@@ -98,7 +104,7 @@ export function useFormValidation<T extends Record<string, any>>({
   );
 
   const handleChange = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: unknown) => {
       setValue(name, value, touched[name]);
     },
     [setValue, touched]
@@ -117,6 +123,8 @@ export function useFormValidation<T extends Record<string, any>>({
       setTouched(touchedState);
 
       if (!validateForm()) {
+        /* Notify caller that the form is invalid */
+        onValidationError?.(errors);
         return;
       }
 
@@ -131,7 +139,7 @@ export function useFormValidation<T extends Record<string, any>>({
         }
       }
     },
-    [values, validateForm, onSubmit]
+    [values, validateForm, onSubmit, onValidationError, errors]
   );
 
   const reset = useCallback(() => {
@@ -157,7 +165,8 @@ export function useFormValidation<T extends Record<string, any>>({
     [values, errors, touched, handleChange, handleBlur]
   );
 
-  const isValid = Object.keys(errors).length === 0;
+  // Reliable validity: run Zod on the *current* form values
+  const isValid = schema.safeParse(values).success;
 
   return {
     values,
@@ -174,5 +183,9 @@ export function useFormValidation<T extends Record<string, any>>({
     validateForm,
     reset,
     getFieldProps,
+    getExternalTools: () => ({
+      setFieldError: (name: string, message: string) =>
+        setErrors(prev => ({ ...prev, [name]: message })),
+    }),
   };
 }

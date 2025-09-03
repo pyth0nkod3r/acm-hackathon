@@ -34,10 +34,10 @@ export const TouchFriendlyButton: React.FC<TouchFriendlyButtonProps> = ({
   );
 
   const variantClasses = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+    primary: 'bg-[#c2d72f] text-white hover:bg-blue-700 focus:ring-blue-500',
     secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
     outline:
-      'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
+      'border-2 border-blue-600 text-[#c2d72f] hover:bg-blue-50 focus:ring-blue-500',
   };
 
   const sizeClasses = {

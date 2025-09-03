@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Linkedin,
-  Instagram,
-  Twitter,
-  MessageCircle,
-  Mail,
-  Phone,
-  MapPin,
-} from 'lucide-react';
+  FaLinkedinIn as Linkedin,
+  FaInstagram as Instagram,
+  FaXTwitter as Twitter,
+  FaFacebookF as Facebook,
+  FaWhatsapp as MessageCircle,
+} from 'react-icons/fa6';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import type { SocialLink, ContactInfo } from '../../types/navigation';
 import { cn } from '../../lib/utils';
+import { acmHackathonLogoWhite } from '@/assets/img/logo';
 
 interface FooterProps {
   className?: string;
@@ -21,20 +21,26 @@ interface FooterProps {
 
 const socialLinks: SocialLink[] = [
   {
+    platform: 'Facebook',
+    icon: 'Facebook',
+    url: 'https://www.facebook.com/share/1AaY2WVCUc/',
+    label: 'Facebook',
+  },
+  {
     platform: 'LinkedIn',
-    url: '#',
+    url: 'https://www.linkedin.com/company/africacmglobal/',
     icon: 'Linkedin',
     label: 'Follow us on LinkedIn',
   },
   {
     platform: 'Instagram',
-    url: '#',
+    url: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==',
     icon: 'Instagram',
     label: 'Follow us on Instagram',
   },
   {
     platform: 'Twitter',
-    url: '#',
+    url: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09',
     icon: 'Twitter',
     label: 'Follow us on Twitter',
   },
@@ -49,17 +55,16 @@ const socialLinks: SocialLink[] = [
 const quickLinks = [
   { label: 'About', href: '/about' },
   { label: 'Challenges', href: '/challenges' },
-  { label: 'Application', href: '/application' },
+  { label: 'Registration', href: '/registration' },
+  { label: 'Partnership', href: '/partner-registration' },
   { label: 'Schedule', href: '/schedule' },
-  { label: 'Awards & Judging', href: '/awards-judging' },
-  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const contactInfo: ContactInfo = {
-  email: 'info@africacreativemarket-global.org',
-  phone: '+234 123 456 7890',
-  address: 'LAGOS, Nigeria',
+  email: 'info@acmhackathon.com',
+  phone: '+234 9167667376',
+  address: 'Landmark Events Center, Victoria Island, Lagos, Nigeria',
   website: 'www.africacreativemarket-global.org',
 };
 
@@ -69,13 +74,14 @@ const getSocialIcon = (iconName: string) => {
     Instagram: Instagram,
     Twitter: Twitter,
     MessageCircle: MessageCircle,
+    Facebook: Facebook,
   };
 
   const IconComponent = iconMap[iconName as keyof typeof iconMap];
   return IconComponent || MessageCircle;
 };
 
-export const Footer: React.FC<FooterProps> = ({ className }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const currentYear = new Date().getFullYear();
   const { isMobile, isTablet } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
@@ -84,23 +90,18 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
     <footer
       id="footer"
       role="contentinfo"
-      className={cn('bg-gray-900 text-white', className)}
+      className={cn('bg-[#1a1a1a] text-white')}
     >
       {/* Main Footer Content */}
-      <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
-        <div
-          className={cn(
-            'container mx-auto px-4 sm:px-6 lg:px-8',
-            isMobile ? 'py-12' : isTablet ? 'py-14' : 'py-16'
-          )}
-        >
+      <div className="pt-12 pb-6">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-8">
           <div
             className={cn(
-              'grid gap-8',
+              'grid gap-6 md:gap-8',
               isMobile
-                ? 'grid-cols-1 gap-8'
+                ? 'grid-cols-1 gap-6'
                 : isTablet
-                  ? 'grid-cols-2 gap-8'
+                  ? 'grid-cols-2 gap-6'
                   : 'grid-cols-4 gap-8'
             )}
           >
@@ -114,47 +115,47 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <Link
                   to="/"
                   className={cn(
-                    'flex items-center space-x-3 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md',
+                    'flex items-center space-x-3 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded-md',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                   aria-label="ACM Hackathon - Go to homepage"
                 >
                   <img
-                    src="/assets/img/logo/afcfta-logo.jpg"
+                    src={acmHackathonLogoWhite}
                     alt="ACM Logo"
                     className={cn(
-                      'object-contain',
-                      isMobile ? 'h-10 w-10' : 'h-12 w-12'
+                      'object-contain max-h-full',
+                      isMobile ? 'h-10 w-10' : 'h-25 md:h-20 w-20'
                     )}
                   />
-                  <span
+                  {/* <span
                     className={cn(
                       'font-bold',
                       isMobile ? 'text-lg' : 'text-xl'
                     )}
                   >
                     {isMobile ? 'ACM' : 'ACM Hackathon'}
-                  </span>
+                  </span> */}
                 </Link>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                Join the ACM Hackathon and help shape
-                the future of creative content in Africa. Compete for amazing
-                prizes and connect with innovators across the continent.
+              <p className="text-gray-300 text-sm leading-relaxed mb-4 md:mb-6">
+                Join the ACM Hackathon and help shape the future of creative
+                content in Africa. Compete for amazing prizes and connect with
+                innovators across the continent.
               </p>
 
               {/* Contact Info */}
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Mail className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`mailto:${contactInfo.email}`}
                     className={cn(
-                      'hover:text-blue-400 transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                      'hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                       isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                     )}
                     aria-label={`Send email to ${contactInfo.email}`}
@@ -163,11 +164,11 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Phone className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#c2d72f] flex-shrink-0 mb-5" />
                   <a
                     href={`tel:${contactInfo.phone}`}
                     className={cn(
-                      'hover:text-blue-400 transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                      'hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                       isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                     )}
                     aria-label={`Call ${contactInfo.phone}`}
@@ -176,7 +177,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   </a>
                 </div>
                 <div className="flex items-start space-x-3 text-sm text-gray-300">
-                  <MapPin className="h-4 w-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 text-[#c2d72f] mt-0.5 flex-shrink-0" />
                   <span className="break-words">{contactInfo.address}</span>
                 </div>
               </div>
@@ -192,7 +193,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
             >
               <h3
                 className={cn(
-                  'font-bold mb-6 text-white',
+                  'font-bold mb-4 md:mb-6 text-white',
                   isMobile ? 'text-base' : 'text-lg'
                 )}
               >
@@ -202,7 +203,9 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 <ul
                   className={cn(
                     'space-y-2',
-                    isMobile ? 'grid grid-cols-2 gap-2 space-y-0' : 'space-y-3'
+                    isMobile
+                      ? 'grid grid-cols-2 gap-2 space-y-0'
+                      : 'space-y-2 md:space-y-3'
                   )}
                 >
                   {quickLinks.map((link, index) => (
@@ -216,7 +219,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                       <Link
                         to={link.href}
                         className={cn(
-                          'text-gray-300 hover:text-blue-400 transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded',
+                          'text-gray-300 hover:text-[#c2d72f] transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
                           isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                         )}
                       >
@@ -240,7 +243,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
             >
               <h3
                 className={cn(
-                  'font-bold mb-6 text-white',
+                  'font-bold mb-4 md:mb-6 text-white',
                   isMobile ? 'text-base' : 'text-lg'
                 )}
               >
@@ -248,15 +251,16 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               </h3>
               <p
                 className={cn(
-                  'text-gray-300 mb-6 leading-relaxed',
+                  'text-gray-300 mb-4 md:mb-6 leading-relaxed',
                   isMobile ? 'text-sm' : 'text-sm'
                 )}
               >
-                Subscribe to receive updates about the ACM Hackathon and future innovation initiatives.
+                Subscribe to receive updates about the ACM Hackathon and future
+                innovation initiatives.
               </p>
 
               <form
-                className="flex flex-col gap-3 mb-8"
+                className="flex flex-col gap-3 mb-6 md:mb-8"
                 aria-label="Newsletter subscription"
               >
                 <label htmlFor="newsletter-email" className="sr-only">
@@ -270,8 +274,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   aria-required="true"
                   aria-describedby="newsletter-description"
                   className={cn(
-                    'px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400',
-                    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300',
+                    'px-4 py-2 bg-[#2a2a2a] text-gray-200 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:border-transparent transition-all duration-300',
                     'touch-manipulation',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
@@ -282,8 +285,8 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 <motion.button
                   type="submit"
                   className={cn(
-                    'px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300',
-                    'touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+                    'px-6 py-2 bg-[#c2d72f] hover:bg-[#c2d72f]/60 text-black font-medium rounded-md transition-colors duration-300',
+                    'touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2',
                     isTouchDevice ? 'min-h-[44px]' : ''
                   )}
                   whileHover={!isTouchDevice ? { scale: 1.05 } : {}}
@@ -298,7 +301,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               <div>
                 <h4
                   className={cn(
-                    'font-semibold text-white mb-4',
+                    'font-semibold text-white mb-3 md:mb-4',
                     isMobile ? 'text-sm' : 'text-base'
                   )}
                 >
@@ -306,7 +309,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 </h4>
                 <div
                   className={cn(
-                    'flex gap-4',
+                    'flex gap-3 md:gap-4',
                     isMobile ? 'justify-center' : 'justify-start'
                   )}
                 >
@@ -318,7 +321,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                         href={social.url}
                         aria-label={social.label}
                         className={cn(
-                          'bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-300 touch-manipulation',
+                          'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                           isMobile ? 'w-12 h-12' : 'w-10 h-10',
                           isTouchDevice ? 'min-h-[44px] min-w-[44px]' : ''
                         )}
@@ -342,13 +345,16 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
 
       {/* Footer Bottom */}
       <motion.div
-        className={cn('bg-gray-950', isMobile ? 'py-4' : 'py-6')}
+        className={cn(
+          'bg-gray-950',
+          isMobile ? 'py-3 md:py-4' : 'py-4 md:py-6'
+        )}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-8">
           <div
             className={cn(
               'flex justify-between items-center',
@@ -364,8 +370,8 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               )}
             >
               <p>
-                Copyright © {currentYear} Africa Creative Market
-                Hackathon. All rights reserved.
+                Powered by Africa Creative Market {' -  '}
+                {'  '} Copyright © {currentYear}. All rights reserved.
               </p>
             </div>
             <div
@@ -377,7 +383,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               <Link
                 to="/privacy"
                 className={cn(
-                  'text-gray-400 hover:text-blue-400 transition-colors duration-300 touch-manipulation',
+                  'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                 )}
               >
@@ -386,7 +392,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
               <Link
                 to="/terms"
                 className={cn(
-                  'text-gray-400 hover:text-blue-400 transition-colors duration-300 touch-manipulation',
+                  'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''
                 )}
               >
