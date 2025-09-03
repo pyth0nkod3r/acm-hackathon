@@ -217,7 +217,7 @@ const Schedule = () => {
   const preHackathonEvents = [
     {
       phase: 'Application Open',
-      duration: 'August 29 - September 5, 2025',
+      duration: 'August 29, 2025',
       activities: [
         'Launch via ACM website, social media, press releases',
         'Partner platforms, universities, and tech hubs outreach',
@@ -226,7 +226,7 @@ const Schedule = () => {
     },
     {
       phase: 'Registration & Idea Submission',
-      duration: 'August 29 - September 5, 2025',
+      duration: 'August 29 - September 10, 2025',
       activities: [
         'Team/individual profile submission',
         'Initial solution concept presentation',
@@ -235,7 +235,7 @@ const Schedule = () => {
     },
     {
       phase: 'Selected Participants Notified',
-      duration: 'September 8, 2025',
+      duration: 'September 11, 2025',
       activities: [
         'Notifications sent via e-mail and ACM platform',
         'Public update across ACM website and social media',
