@@ -119,7 +119,7 @@ export const routes: RouteConfig[] = [
     isProtected: false,
   },
   {
-    path: '/terms',
+    path: '/terms-and-conditions',
     component: Terms,
     title: 'Terms and Conditions - ACM Hackathon',
     description:
@@ -134,7 +134,7 @@ export const routes: RouteConfig[] = [
     isProtected: false,
   },
   {
-    path: '/privacy',
+    path: '/privacy-policy',
     component: PrivacyPolicy,
     title: 'Privacy Policy - ACM Hackathon',
     description:

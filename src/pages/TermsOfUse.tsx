@@ -33,27 +33,27 @@ const TermsOfUse = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-6xl font-bold mb-4"
             >
-              Website Terms of Use
+              ACM Hackathon Terms of Use
             </motion.h1>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
               className="text-purple-200 text-lg mb-6"
             >
               ACM Hackathon 2025
-            </motion.p>
+            </motion.p> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="flex items-center justify-center gap-2 text-purple-200"
             >
-              <Link to="/" className="hover:text-white transition-colors">
+              <Link to="/" className="hover:text-white transition-colors ">
                 Home
               </Link>
-              <ArrowRight className="h-4 w-4" />
-              <span>Terms of Use</span>
+              <ArrowRight className="h-4 w-4 mb-4" />
+              <span className="mb-4">Terms of Use</span>
             </motion.div>
           </div>
         </Container>
