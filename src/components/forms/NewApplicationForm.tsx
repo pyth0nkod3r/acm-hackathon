@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import Modal from '@/components/ui/modal';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
 import type { HackathonForm, TeamMember } from '@/nServices/apiType';
@@ -76,7 +77,7 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
   const { isTouchDevice } = useTouchDevice();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState<HackathonForm>({
@@ -92,7 +93,7 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
     teamLeaderRole: '',
     teamMembers: [],
     challengeSolving:
-      _initialChallenges.length > 0 ? _initialChallenges[0] : '',
+      _initialChallenges.length > 0 ? _initialChallenges[0] || '' : '',
     challengeAims: '',
     solutionEnvision: '',
     uniquelyPositioned: '',
@@ -116,40 +117,10 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
       return newData;
     });
 
-    // Mark field as touched
-    setTouched(prev => ({ ...prev, [field]: true }));
-
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
-  };
-
-  const addTeamMember = () => {
-    if (formData.teamMembers.length < 4) {
-      const newMember: TeamMember = {
-        teamMemberFullName: '',
-        teamMemberEmail: '',
-        teamMemberPhone: '',
-        teamMemberRole: '',
-        teamMemberLinkedIn: '',
-      };
-      updateFormData('teamMembers', [...formData.teamMembers, newMember]);
-    }
-  };
-
-  const removeTeamMember = (index: number) => {
-    const newMembers = formData.teamMembers.filter((_, i) => i !== index);
-    updateFormData('teamMembers', newMembers);
-
-    // Clear related errors
-    const newErrors = { ...errors };
-    Object.keys(newErrors).forEach(key => {
-      if (key.startsWith(`teamMember_${index}_`)) {
-        delete newErrors[key];
-      }
-    });
-    setErrors(newErrors);
   };
 
   const updateTeamMember = (
@@ -167,10 +138,6 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
     };
     newMembers[index] = updatedMember;
     updateFormData('teamMembers', newMembers);
-
-    // Mark team member field as touched
-    const touchedKey = `teamMember_${index}_${field}`;
-    setTouched(prev => ({ ...prev, [touchedKey]: true }));
 
     // Clear team member field error
     const errorKey = `teamMember_${index}_${field}`;
@@ -200,13 +167,13 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
   const validatePhone = (phone: string): boolean => {
     // Accept phone numbers with or without + prefix
     // Allow numbers starting with 0 as well (for local numbers)
-    const phoneRegex = /^[\+]?[0-9][\d]{6,15}$/;
-    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+    const phoneRegex = /^[+]?[0-9][\d]{6,15}$/;
+    return phoneRegex.test(phone.replace(/[\s-()]/g, ''));
   };
 
   const validateLinkedIn = (url: string): boolean => {
     const linkedinRegex =
-      /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9\-]+\/?$/;
+      /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/;
     return linkedinRegex.test(url);
   };
 
@@ -356,44 +323,6 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mark all fields as touched
-    const allFields = [
-      'teamName',
-      'teamSize',
-      'countryOfResidence',
-      'hackathonExperience',
-      'teamLeaderFullName',
-      'teamLeaderPhone',
-      'teamLeaderEmail',
-      'teamLeaderLinkedIn',
-      'teamLeaderRole',
-      'challengeSolving',
-      'challengeAims',
-      'solutionEnvision',
-      'uniquelyPositioned',
-      'teamAvailability',
-      'dietaryRestrictions',
-      'declarations',
-      'teamLeadSignature',
-    ];
-
-    const touchedState: Record<string, boolean> = {};
-    allFields.forEach(field => {
-      touchedState[field] = true;
-    });
-
-    // Add team member fields to touched state
-    const expectedMembers = parseInt(formData.teamSize || '0') - 1;
-    for (let i = 0; i < expectedMembers; i++) {
-      touchedState[`teamMember_${i}_teamMemberFullName`] = true;
-      touchedState[`teamMember_${i}_teamMemberEmail`] = true;
-      touchedState[`teamMember_${i}_teamMemberPhone`] = true;
-      touchedState[`teamMember_${i}_teamMemberRole`] = true;
-      touchedState[`teamMember_${i}_teamMemberLinkedIn`] = true;
-    }
-
-    setTouched(touchedState);
-
     if (!validateForm()) {
       // Scroll to first error
       const firstErrorElement = document.querySelector('.border-red-500');
@@ -424,6 +353,160 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
     'I understand that participation is subject to acceptance and availability.',
   ];
 
+  const TermsContent = () => (
+    <div className="prose prose-sm max-w-none text-gray-700">
+      <h3 className="font-bold text-lg text-gray-900 mb-4">
+        ACM Hackathon Terms and Conditions
+      </h3>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        1. Overview
+      </h4>
+      <p className="mb-3 text-sm">
+        These Terms and Conditions ("Terms") govern participation in the ACM
+        Hackathon 2025 ("Hackathon"), as organized by the Africa Creative Market
+        (ACM) Hackathon team in collaboration with Ascend Studios Foundation and
+        Amazon Web Services (AWS). By submitting an application to participate
+        in the Hackathon (the "Application"), you ("Participant") agree to abide
+        by these Terms in full.
+      </p>
+      <p className="mb-4 text-sm">
+        The Hackathon will take place from September 16 – 19, 2025, with the
+        finale and demo day on September 19, 2025, in Lagos, Nigeria.
+      </p>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        2. Eligibility & Participation
+      </h4>
+      <h5 className="font-bold text-sm text-gray-800 mt-4 mb-2">
+        Team Formation:
+      </h5>
+      <ul className="list-disc pl-4 mb-3 text-sm">
+        <li className="mb-1">
+          Participation is encouraged as a team. Teams must consist of 3 to 5
+          members with complementary skills (software development, UI/UX design,
+          creative strategy, business/legal, and optionally data science).
+        </li>
+        <li className="mb-1">
+          Individuals are welcome to apply and form or join a team on-site
+          before the Hackathon begins.
+        </li>
+      </ul>
+
+      <h5 className="font-bold text-sm text-gray-800 mt-4 mb-2">
+        Application Process:
+      </h5>
+      <ul className="list-disc pl-4 mb-4 text-sm">
+        <li className="mb-1">
+          Submission of an Application signifies acceptance of all Terms herein.
+        </li>
+        <li className="mb-1">
+          Only participants whose Applications have been approved by email the
+          Organizer are officially accepted.
+        </li>
+      </ul>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        3. Application & Acceptance
+      </h4>
+      <p className="mb-4 text-sm">
+        By submitting the Application, you affirm that all information provided
+        is accurate and true. The Organizer reserves the right, at its sole
+        discretion, to reject or accept any Application without providing a
+        reason.
+      </p>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        4. Participation Requirements
+      </h4>
+      <p className="mb-3 text-sm">
+        Participants are expected to behave professionally, collaborate
+        respectfully, and support the spirit of innovation and teamwork. The
+        Organizer may disqualify any team or individual for reasons including,
+        but not limited to:
+      </p>
+      <ul className="list-disc pl-4 mb-4 text-sm">
+        <li>Harmful conduct</li>
+        <li>Plagiarism</li>
+        <li>Breach of these Terms</li>
+      </ul>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        5. Intellectual Property
+      </h4>
+      <p className="mb-3 text-sm">
+        Each team retains ownership of its own pre-existing intellectual
+        property (IP). Any new ideas, code, or creations developed during the
+        Hackathon ("Hackathon IP") remain the property of the respective team,
+        unless otherwise stated in separate agreements.
+      </p>
+      <p className="mb-3 text-sm">
+        By participating, you grant the Organizer a perpetual, irrevocable,
+        royalty-free license to:
+      </p>
+      <ul className="list-disc pl-4 mb-4 text-sm">
+        <li>Use, reproduce, modify, and display Hackathon IP</li>
+        <li>Use content for promotional purposes</li>
+        <li>Use content for publicity purposes</li>
+        <li>Use content for archival purposes</li>
+      </ul>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        6. Prize Fund Guidelines
+      </h4>
+      <h5 className="font-bold text-sm text-gray-800 mt-4 mb-2">
+        6.1 Seed Fund, Not Personal Reward
+      </h5>
+      <p className="mb-3 text-sm">
+        The ₦10,000,000 Grand Prize allocated to the winning team is provided as
+        seed capital to support the growth and development of the
+        project/platform presented at the Hackathon. It must not be divided
+        among team members as personal reward.
+      </p>
+
+      <h5 className="font-bold text-sm text-gray-800 mt-4 mb-2">
+        6.2 Responsible Use of Funds
+      </h5>
+      <p className="mb-3 text-sm">
+        The seed fund must be utilized for activities such as:
+      </p>
+      <ul className="list-disc pl-4 mb-3 text-sm">
+        <li>Product development</li>
+        <li>Market validation</li>
+        <li>Technical improvements</li>
+        <li>Business structuring</li>
+        <li>
+          Other milestones that transform the solution into a viable, scalable,
+          and impactful venture
+        </li>
+      </ul>
+
+      <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
+        7. Disclaimers & Limitation of Liability
+      </h4>
+      <p className="mb-3 text-sm">
+        The Organizer, including its successors, assigns, employees, and agents,
+        is not responsible for any:
+      </p>
+      <ul className="list-disc pl-4 mb-3 text-sm">
+        <li>Losses arising from or in connection with the Hackathon</li>
+        <li>Damages arising from or in connection with the Hackathon</li>
+        <li>Claims arising from or in connection with the Hackathon</li>
+        <li>Costs arising from or in connection with the Hackathon</li>
+        <li>Liabilities arising from or in connection with the Hackathon</li>
+      </ul>
+      <p className="mb-4 text-sm">
+        To the fullest extent permitted by law, the Organizer disclaims all
+        warranties, whether express or implied, regarding any aspect of the
+        Hackathon.
+      </p>
+
+      <p className="text-xs text-gray-500 mt-6">
+        For the complete terms and conditions, please visit our full terms page.
+      </p>
+    </div>
+  );
+
   // Ensure we have the right number of team members based on team size
   const expectedMembers = parseInt(formData.teamSize || '0') - 1;
   const currentMembers = formData.teamMembers.length;
@@ -432,22 +515,26 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
   React.useEffect(() => {
     if (expectedMembers > currentMembers) {
       const membersToAdd = expectedMembers - currentMembers;
-      const newMembers = [...formData.teamMembers];
-      for (let i = 0; i < membersToAdd; i++) {
-        newMembers.push({
-          teamMemberFullName: '',
-          teamMemberEmail: '',
-          teamMemberPhone: '',
-          teamMemberRole: '',
-          teamMemberLinkedIn: '',
-        });
-      }
-      setFormData(prev => ({ ...prev, teamMembers: newMembers }));
+      setFormData(prev => {
+        const newMembers = [...prev.teamMembers];
+        for (let i = 0; i < membersToAdd; i++) {
+          newMembers.push({
+            teamMemberFullName: '',
+            teamMemberEmail: '',
+            teamMemberPhone: '',
+            teamMemberRole: '',
+            teamMemberLinkedIn: '',
+          });
+        }
+        return { ...prev, teamMembers: newMembers };
+      });
     } else if (expectedMembers < currentMembers) {
-      const newMembers = formData.teamMembers.slice(0, expectedMembers);
-      setFormData(prev => ({ ...prev, teamMembers: newMembers }));
+      setFormData(prev => ({
+        ...prev,
+        teamMembers: prev.teamMembers.slice(0, expectedMembers),
+      }));
     }
-  }, [formData.teamSize]);
+  }, [formData.teamSize, currentMembers, expectedMembers]);
 
   return (
     <motion.div
@@ -1300,16 +1387,39 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
                     <Checkbox
                       id={`declaration-${index}`}
                       checked={formData.declarations.includes(declaration)}
-                      onCheckedChange={checked =>
-                        handleDeclarationChange(declaration, checked as boolean)
-                      }
+                      onCheckedChange={checked => {
+                        // Show modal for terms and conditions
+                        if (
+                          index === 1 &&
+                          checked &&
+                          !formData.declarations.includes(declaration)
+                        ) {
+                          setShowTermsModal(true);
+                        } else {
+                          handleDeclarationChange(
+                            declaration,
+                            checked as boolean
+                          );
+                        }
+                      }}
                       className="mt-1"
                     />
                     <Label
                       htmlFor={`declaration-${index}`}
-                      className="text-sm text-gray-700 leading-relaxed"
+                      className="text-sm text-gray-700 leading-relaxed cursor-pointer"
+                      onClick={() => {
+                        // Show modal for terms and conditions when label is clicked
+                        if (index === 1) {
+                          setShowTermsModal(true);
+                        }
+                      }}
                     >
                       {declaration}
+                      {index === 1 && (
+                        <span className="text-blue-600 hover:text-blue-800 ml-1 underline">
+                          (Click to review)
+                        </span>
+                      )}
                     </Label>
                   </div>
                 ))}
@@ -1348,7 +1458,9 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
                 </p>
               )}
               <p className="mt-1 text-sm text-gray-500">
-                This field automatically matches your team leader name. By submitting this form, you agree to electronically sign this application.
+                This field automatically matches your team leader name. By
+                submitting this form, you agree to electronically sign this
+                application.
               </p>
             </div>
           </div>
@@ -1423,6 +1535,37 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
           </Button>
         </motion.div>
       </form>
+
+      {/* Terms and Conditions Modal */}
+      <Modal
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        title="Terms and Conditions"
+        size="xl"
+      >
+        <TermsContent />
+        <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+          <Button variant="outline" onClick={() => setShowTermsModal(false)}>
+            Close
+          </Button>
+          <Button
+            onClick={() => {
+              // Accept terms and check the checkbox
+              const termsDeclaration = requiredDeclarations[1];
+              if (
+                termsDeclaration &&
+                !formData.declarations.includes(termsDeclaration)
+              ) {
+                handleDeclarationChange(termsDeclaration, true);
+              }
+              setShowTermsModal(false);
+            }}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            I Accept the Terms
+          </Button>
+        </div>
+      </Modal>
     </motion.div>
   );
 };
