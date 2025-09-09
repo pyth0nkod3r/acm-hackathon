@@ -18,6 +18,7 @@ export { Toaster } from './sonner';
 export { Skeleton } from './loading-skeleton';
 export { PageLoading } from './page-loading';
 export { OptimizedImage } from './OptimizedImage';
+export { default as Modal } from './modal';
 export {
   Card,
   CardHeader,

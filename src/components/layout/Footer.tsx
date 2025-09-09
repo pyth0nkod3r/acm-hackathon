@@ -52,13 +52,19 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-const quickLinks = [
+const mainLinks = [
   { label: 'About', href: '/about' },
   { label: 'Challenges', href: '/challenges' },
   { label: 'Registration', href: '/registration' },
-  { label: 'Partnership', href: '/partner-registration' },
   { label: 'Schedule', href: '/schedule' },
   { label: 'Contact', href: '/contact' },
+];
+
+const supportLinks = [
+  { label: 'Partnership', href: '/partner-registration' },
+  { label: 'Terms and Conditions', href: '/terms-and-conditions' },
+  { label: 'Terms of Use', href: '/terms-of-use' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
 ];
 
 const contactInfo: ContactInfo = {
@@ -97,18 +103,18 @@ export const Footer: React.FC<FooterProps> = () => {
         <div className="max-w-[1280px] mx-auto px-6 md:px-8">
           <div
             className={cn(
-              'grid gap-6 md:gap-8',
+              'grid gap-4 md:gap-6',
               isMobile
-                ? 'grid-cols-1 gap-6'
+                ? 'grid-cols-1 gap-4'
                 : isTablet
-                  ? 'grid-cols-2 gap-6'
-                  : 'grid-cols-4 gap-8'
+                  ? 'grid-cols-3 gap-4'
+                  : 'grid-cols-4 gap-6'
             )}
           >
             {/* Logo and Description */}
             <motion.div
               className={cn(
-                isMobile ? 'col-span-1' : isTablet ? 'col-span-2' : 'col-span-1'
+                isMobile ? 'col-span-1' : isTablet ? 'col-span-3' : 'col-span-1'
               )}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -183,7 +189,7 @@ export const Footer: React.FC<FooterProps> = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links */}
+            {/* Links Section - Navigation and Support */}
             <motion.div
               className="col-span-1"
               initial={{ opacity: 0, y: 20 }}
@@ -191,44 +197,86 @@ export const Footer: React.FC<FooterProps> = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <h3
+              <div
                 className={cn(
-                  'font-bold mb-4 md:mb-6 text-white',
-                  isMobile ? 'text-base' : 'text-lg'
+                  'flex gap-6',
+                  isMobile ? 'flex-col gap-4' : 'flex-row gap-6'
                 )}
               >
-                Quick Links
-              </h3>
-              <nav aria-label="Footer navigation">
-                <ul
-                  className={cn(
-                    'space-y-2',
-                    isMobile
-                      ? 'grid grid-cols-2 gap-2 space-y-0'
-                      : 'space-y-2 md:space-y-3'
-                  )}
-                >
-                  {quickLinks.map((link, index) => (
-                    <motion.li
-                      key={link.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <Link
-                        to={link.href}
-                        className={cn(
-                          'text-gray-300 hover:text-[#c2d72f] transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
-                          isTouchDevice ? 'min-h-[44px] flex items-center' : ''
-                        )}
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
-              </nav>
+                {/* Navigation Links */}
+                <div className="flex-1">
+                  <h3
+                    className={cn(
+                      'font-bold mb-4 md:mb-6 text-white',
+                      isMobile ? 'text-base' : 'text-lg'
+                    )}
+                  >
+                    Navigation
+                  </h3>
+                  <nav aria-label="Main navigation">
+                    <ul className="space-y-2 md:space-y-3">
+                      {mainLinks.map((link, index) => (
+                        <motion.li
+                          key={link.href}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                        >
+                          <Link
+                            to={link.href}
+                            className={cn(
+                              'text-gray-300 hover:text-[#c2d72f] transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
+                              isTouchDevice
+                                ? 'min-h-[44px] flex items-center'
+                                : ''
+                            )}
+                          >
+                            {link.label}
+                          </Link>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+
+                {/* Support Links */}
+                <div className="flex-1">
+                  <h3
+                    className={cn(
+                      'font-bold mb-4 md:mb-6 text-white',
+                      isMobile ? 'text-base' : 'text-lg'
+                    )}
+                  >
+                    Support & Legal
+                  </h3>
+                  <nav aria-label="Support and legal links">
+                    <ul className="space-y-2 md:space-y-3">
+                      {supportLinks.map((link, index) => (
+                        <motion.li
+                          key={link.href}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                        >
+                          <Link
+                            to={link.href}
+                            className={cn(
+                              'text-gray-300 hover:text-[#c2d72f] transition-colors duration-300 text-sm block py-1 touch-manipulation focus:outline-none focus:ring-2 focus:ring-[#c2d72f] focus:ring-offset-2 rounded',
+                              isTouchDevice
+                                ? 'min-h-[44px] flex items-center'
+                                : ''
+                            )}
+                          >
+                            {link.label}
+                          </Link>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
             </motion.div>
 
             {/* Newsletter Signup */}
@@ -381,7 +429,7 @@ export const Footer: React.FC<FooterProps> = () => {
               )}
             >
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 className={cn(
                   'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''
@@ -390,7 +438,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to="/terms-and-conditions"
                 className={cn(
                   'text-gray-400 hover:text-[#c2d72f] transition-colors duration-300 touch-manipulation',
                   isTouchDevice ? 'min-h-[44px] flex items-center' : ''

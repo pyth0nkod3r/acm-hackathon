@@ -11,6 +11,9 @@ const Challenges = lazy(() => import('../pages/Challenges'));
 const Schedule = lazy(() => import('../pages/Schedule'));
 const FAQ = lazy(() => import('../pages/FAQ'));
 const Awards = lazy(() => import('../pages/Awards'));
+const Terms = lazy(() => import('../pages/TermsConditions'));
+const TermsOfUse = lazy(() => import('../pages/TermsOfUse'));
+const PrivacyPolicy = lazy(() => import('../pages/PrivacyPolicy'));
 // const Gallery = lazy(() => import('../pages/Gallery'));
 // const Highlights = lazy(() => import('../pages/Highlights'));
 // const Partners = lazy(() => import('../pages/Partners'));
@@ -113,6 +116,29 @@ export const routes: RouteConfig[] = [
     component: PartnerRegistration,
     title: 'Partner Registration - ACM Hackathon',
     description: 'Register to become a partner for the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/terms-and-conditions',
+    component: Terms,
+    title: 'Terms and Conditions - ACM Hackathon',
+    description:
+      'Read the official terms and conditions for participating in the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/terms-of-use',
+    component: TermsOfUse,
+    title: 'Terms of Use - ACM Hackathon',
+    description: 'Read the website terms of use for the ACM Hackathon 2025',
+    isProtected: false,
+  },
+  {
+    path: '/privacy-policy',
+    component: PrivacyPolicy,
+    title: 'Privacy Policy - ACM Hackathon',
+    description:
+      'Read our privacy policy to understand how we collect, use, and protect your personal information',
     isProtected: false,
   },
 ];
