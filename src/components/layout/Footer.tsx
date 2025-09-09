@@ -107,14 +107,14 @@ export const Footer: React.FC<FooterProps> = () => {
               isMobile
                 ? 'grid-cols-1 gap-4'
                 : isTablet
-                  ? 'grid-cols-3 gap-4'
-                  : 'grid-cols-4 gap-6'
+                  ? 'grid-cols-2 gap-4'
+                  : 'grid-cols-3 gap-6'
             )}
           >
             {/* Logo and Description */}
             <motion.div
               className={cn(
-                isMobile ? 'col-span-1' : isTablet ? 'col-span-3' : 'col-span-1'
+                isMobile ? 'col-span-1' : isTablet ? 'col-span-1' : 'col-span-1'
               )}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -241,7 +241,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 </div>
 
                 {/* Support Links */}
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <h3
                     className={cn(
                       'font-bold mb-4 md:mb-6 text-white',
@@ -282,7 +282,7 @@ export const Footer: React.FC<FooterProps> = () => {
             {/* Newsletter Signup */}
             <motion.div
               className={cn(
-                isMobile ? 'col-span-1' : isTablet ? 'col-span-2' : 'col-span-2'
+                isMobile ? 'col-span-1' : isTablet ? 'col-span-1' : 'col-span-1'
               )}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
