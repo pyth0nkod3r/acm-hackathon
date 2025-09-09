@@ -53,13 +53,7 @@ export const Layout: React.FC<LayoutProps> = ({
         className={cn(
           'flex-1',
           // Only add padding-top if not on home page (where hero section handles spacing)
-          location.pathname === '/'
-            ? ''
-            : isMobile
-              ? 'pt-14'
-              : isTablet
-                ? 'pt-16'
-                : 'pt-20',
+          location.pathname === '/' ? '' : isMobile ? '' : isTablet ? '' : '',
           className
         )}
       >
