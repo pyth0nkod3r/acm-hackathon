@@ -2,7 +2,14 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Container } from '../components/layout';
-import { Users, FileText, Trophy, Calendar, ArrowRight } from 'lucide-react';
+import {
+  Users,
+  FileText,
+  Trophy,
+  Calendar,
+  ArrowRight,
+  XCircle,
+} from 'lucide-react';
 import { hackathonService } from '../nServices';
 import { emailService } from '../services';
 import { useNotification } from '../hooks';
@@ -17,6 +24,9 @@ const NewApplication = () => {
   );
   const [isFormSuccess, setIsFormSuccess] = useState(false);
   const [formSuccessMessage, setFormSuccessMessage] = useState('');
+
+  // Registration closed state - set to true to close registration
+  const [isRegistrationClosed, setIsRegistrationClosed] = useState(true);
 
   useEffect(() => {
     // Get pre-selected challenges from URL parameters
@@ -65,7 +75,10 @@ const NewApplication = () => {
         setTimeout(() => {
           const successElement = document.querySelector('.bg-green-50');
           if (successElement) {
-            successElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            successElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
           }
         }, 100);
       } else {
@@ -158,8 +171,8 @@ const NewApplication = () => {
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship + Investment
-                    Opportunities
+                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship +
+                    Investment Opportunities
                   </p>
                 </div>
 
@@ -177,96 +190,127 @@ const NewApplication = () => {
               </div>
             </motion.div>
 
-            {/* Application Process Overview */}
-            <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-                Application Process
-              </h2>
-
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Form Team
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Assemble your team of 3-5 members
+            {/* Registration Closed Message */}
+            {isRegistrationClosed && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-red-50 border border-red-200 rounded-lg p-8 mb-8 text-center"
+              >
+                <div className="flex items-center justify-center mb-4">
+                  <XCircle className="w-12 h-12 text-red-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-red-900 mb-4">
+                  Registration is closed
+                </h2>
+                <p className="text-lg text-red-800 mb-4">
+                  Registration is closed. See you at the ACM Hackathon @
+                  Landmark Event Center, 16th - 19th September, 2025.
+                </p>
+                <div className="bg-red-100 rounded-lg p-4 border border-red-200">
+                  <p className="text-red-700 font-medium">
+                    Thank you for your interest in the ACM Hackathon 2025. We
+                    look forward to seeing you at the event!
                   </p>
                 </div>
+              </motion.div>
+            )}
 
-                <div className="text-center">
-                  <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <FileText className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Submit Application
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Complete the registration form
-                  </p>
-                </div>
+            {/* Application Process Overview - Only show if registration is open */}
+            {!isRegistrationClosed && (
+              <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+                  Application Process
+                </h2>
 
-                <div className="text-center">
-                  <div className="bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Trophy className="w-8 h-8 text-yellow-600" />
+                <div className="grid md:grid-cols-4 gap-6">
+                  <div className="text-center">
+                    <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Users className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Form Team
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Assemble your team of 3-5 members
+                    </p>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Review Process
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Applications reviewed by our panel
-                  </p>
-                </div>
 
-                <div className="text-center">
-                  <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Calendar className="w-8 h-8 text-purple-600" />
+                  <div className="text-center">
+                    <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <FileText className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Submit Application
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Complete the registration form
+                    </p>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    Confirmation
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Receive acceptance notification
-                  </p>
+
+                  <div className="text-center">
+                    <div className="bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Trophy className="w-8 h-8 text-yellow-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Review Process
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Applications reviewed by our panel
+                    </p>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Calendar className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Confirmation
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Receive acceptance notification
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Application Requirements */}
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-blue-50 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-blue-900 mb-4">
-                  Eligibility Requirements
-                </h3>
-                <ul className="text-blue-700 space-y-2">
-                  <li>• African citizens or residents</li>
-                  <li>• Age 18 or above</li>
-                  <li>• Technical or creative background preferred</li>
-                  <li>• Team size: 3-5 members</li>
-                  <li>• Commitment to full event participation</li>
-                  <li>• Interest in music & film distribution</li>
-                </ul>
+            {/* Application Requirements - Only show if registration is open */}
+            {!isRegistrationClosed && (
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                <div className="bg-blue-50 rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-blue-900 mb-4">
+                    Eligibility Requirements
+                  </h3>
+                  <ul className="text-blue-700 space-y-2">
+                    <li>• African citizens or residents</li>
+                    <li>• Age 18 or above</li>
+                    <li>• Technical or creative background preferred</li>
+                    <li>• Team size: 3-5 members</li>
+                    <li>• Commitment to full event participation</li>
+                    <li>• Interest in music & film distribution</li>
+                  </ul>
+                </div>
+
+                <div className="bg-green-50 rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-green-900 mb-4">
+                    What You'll Need
+                  </h3>
+                  <ul className="text-green-700 space-y-2">
+                    <li>• Team member details</li>
+                    <li>• Project idea summary</li>
+                    <li>• Technical approach outline</li>
+                    <li>• Prototype or portfolio (optional)</li>
+                    <li>• Motivation statement</li>
+                    <li>• Skills and experience details</li>
+                  </ul>
+                </div>
               </div>
+            )}
 
-              <div className="bg-green-50 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-green-900 mb-4">
-                  What You'll Need
-                </h3>
-                <ul className="text-green-700 space-y-2">
-                  <li>• Team member details</li>
-                  <li>• Project idea summary</li>
-                  <li>• Technical approach outline</li>
-                  <li>• Prototype or portfolio (optional)</li>
-                  <li>• Motivation statement</li>
-                  <li>• Skills and experience details</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Pre-selected Challenges Indicator */}
-            {preSelectedChallenges.length > 0 && (
+            {/* Pre-selected Challenges Indicator - Only show if registration is open */}
+            {!isRegistrationClosed && preSelectedChallenges.length > 0 && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
                 <h3 className="text-lg font-semibold text-blue-900 mb-3">
                   Selected Challenge Areas ({preSelectedChallenges.length})
@@ -289,23 +333,21 @@ const NewApplication = () => {
               </div>
             )}
 
-            {/* Registration Form */}
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
-                Registration Form
-              </h2>
+            {/* Registration Form - Only show if registration is open */}
+            {!isRegistrationClosed && (
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+                  Registration Form
+                </h2>
 
-              {/* <NewRegistrationForm
-                onSubmit={handleRegistrationSubmit}
-                _initialChallenges={preSelectedChallenges}
-              /> */}
-              <NewApplicationForm
-                onSubmit={handleRegistrationSubmit}
-                _initialChallenges={preSelectedChallenges}
-                isSuccess={isFormSuccess}
-                successMessage={formSuccessMessage}
-              />
-            </div>
+                <NewApplicationForm
+                  onSubmit={handleRegistrationSubmit}
+                  _initialChallenges={preSelectedChallenges}
+                  isSuccess={isFormSuccess}
+                  successMessage={formSuccessMessage}
+                />
+              </div>
+            )}
 
             {/* Important Dates - Updated with correct dates */}
             <div className="bg-yellow-50 rounded-lg p-6 mt-8">
