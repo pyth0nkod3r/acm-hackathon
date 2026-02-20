@@ -4,7 +4,12 @@ import { AppRouter, Breadcrumb } from './components/routing';
 import { NotificationProvider } from './contexts';
 import { Toaster } from './components/ui/sonner';
 import { useImagePreloading } from './hooks/useImagePreloading';
-import { ErrorBoundary, SkipLinks, ScrollToTopButton } from './components/common';
+import {
+  ErrorBoundary,
+  SkipLinks,
+  ScrollToTopButton,
+  GoogleAnalytics,
+} from './components/common';
 import { Analytics } from '@vercel/analytics/react';
 
 function AppContent() {
@@ -34,9 +39,10 @@ function AppContent() {
             </main>
           </ErrorBoundary>
         </div>
-        
+
         {/* Global scroll to top button */}
         <ScrollToTopButton />
+        <GoogleAnalytics />
       </Layout>
     </>
   );

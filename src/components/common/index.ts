@@ -14,3 +14,4 @@ export {
 export { SkipLinks } from './SkipLinks';
 export { AriaLiveRegion, GlobalAnnouncer } from './AriaLiveRegion';
 export { default as ScrollToTopButton } from './ScrollToTopButton';
+export { GoogleAnalytics } from './GoogleAnalytics';
