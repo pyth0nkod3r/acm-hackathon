@@ -1,9 +1,9 @@
 // Import images directly as modules (this is the correct way)
 import acmHackathonLogoBlackImg from './ACM Hackathon Logo FA - Black (PNG).png';
 import acmHackathonLogoWhiteImg from './ACM Hackathon Logo FA - White (PNG).png';
-import faviconImg from './favicon.png';
-import logoBlackImg from './logo-black.png';
-import logoWhiteImg from './logo-white.png';
+import faviconImg from './logo.png';
+import logoBlackImg from './logo.png';
+import logoWhiteImg from './logo.png';
 import logoImg from './logo.png';
 
 // Export the imported modules

@@ -76,7 +76,6 @@ export const HeroSection = () => {
             muted
             playsInline
             className="w-full h-full object-cover"
-            poster={videoBg}
           >
             <source src={videoBg} type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
