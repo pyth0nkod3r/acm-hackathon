@@ -6,15 +6,27 @@ import React, { type ReactElement } from 'react';
 import { render, type RenderOptions } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationProvider } from '../../contexts';
+import { Toaster } from 'sonner';
 import { vi } from 'vitest';
 
 // Mock IntersectionObserver for animation tests
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
+// Cast as any to satisfy TypeScript's strict interface (root, rootMargin, thresholds, takeRecords
+// are browser-only properties not needed in unit tests)
+global.IntersectionObserver = class MockIntersectionObserver {
+  readonly root: Element | Document | null = null;
+  readonly rootMargin: string = '';
+  readonly thresholds: ReadonlyArray<number> = [];
+  constructor(
+    _callback: IntersectionObserverCallback,
+    _options?: IntersectionObserverInit
+  ) {}
   observe() {}
   unobserve() {}
   disconnect() {}
-};
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+} as unknown as typeof IntersectionObserver;
 
 // Mock ResizeObserver for responsive tests
 global.ResizeObserver = class ResizeObserver {
@@ -63,7 +75,12 @@ export function renderWithProviders(
     return React.createElement(
       BrowserRouter,
       null,
-      React.createElement(NotificationProvider, null, children)
+      React.createElement(
+        NotificationProvider,
+        null,
+        React.createElement(Toaster, null),
+        children
+      )
     );
   }
 
