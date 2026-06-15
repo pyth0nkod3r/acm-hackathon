@@ -110,14 +110,12 @@ describe('RegistrationForm', () => {
     expect(screen.getByText(/Section 1.*Team Information/i)).toBeInTheDocument();
   });
 
-  it('renders a "Section 2" or "Team Leader" heading', () => {
+  it('renders "Section 2: Team Lead Information" heading', () => {
     renderForm();
-    // Component renders numbered sections — find any h2 with Team Leader text
-    const headings = screen.getAllByRole('heading');
-    const leaderHeading = headings.some(h =>
-      /team leader/i.test(h.textContent ?? '')
-    );
-    expect(leaderHeading).toBe(true);
+    // Component renders h2 with exact text "Section 2: Team Lead Information"
+    expect(
+      screen.getByText(/Section 2.*Team Lead/i)
+    ).toBeInTheDocument();
   });
 
   it('renders the Team Name input field', () => {
