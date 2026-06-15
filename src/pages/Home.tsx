@@ -1,4 +1,5 @@
 import { HeroSection } from '../components/home/HeroSection';
+import { ThemeBanner } from '../components/home/ThemeBanner';
 import { AboutSection } from '../components/home/AboutSection';
 import { PartnersSection } from '../components/home/PartnersSection';
 import { PrizeSection } from '../components/home/PrizeSection';
@@ -13,6 +14,8 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <HeroSection />
+      {/* Theme Banner */}
+      <ThemeBanner />
       {/* About Section */}
       <AboutSection />
       {/* Why Esports Section */}

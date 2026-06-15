@@ -17,11 +17,29 @@ const Application = () => {
   );
 
   useEffect(() => {
-    // Get pre-selected challenges from URL parameters
-    const challengesParam = searchParams.get('challenges');
-    if (challengesParam) {
-      const challenges = challengesParam.split(',').filter(Boolean);
-      setPreSelectedChallenges(challenges);
+    // Get pre-selected challenges from URL parameters (support both params for backward compatibility)
+    const rawParam = searchParams.get('challenges') || searchParams.get('problems');
+    if (rawParam) {
+      const items = rawParam.split(',').filter(Boolean);
+      // Map 2026 problems to form challenge areas
+      const mapped = items.map(item => {
+        const title = item.trim();
+        if (title === 'Expensive Data') {
+          return 'Mobile-first & Low-bandwidth Gaming';
+        }
+        if (title === 'Poor Connectivity' || title === 'High Latency') {
+          return 'Connectivity & Network Optimization';
+        }
+        if (title === 'Weak Gaming Infrastructure') {
+          return 'Community Esports Systems';
+        }
+        if (title === 'Limited Digital Inclusion') {
+          return 'Inclusive Gaming Tools';
+        }
+        return title;
+      });
+      const uniqueMapped = Array.from(new Set(mapped));
+      setPreSelectedChallenges(uniqueMapped);
     }
   }, [searchParams]);
 

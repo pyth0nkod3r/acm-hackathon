@@ -36,136 +36,90 @@ const ProblemStatement = () => {
   const problems: Problem[] = [
     {
       id: 1,
-      title: 'Fragmented Distribution Networks',
+      title: 'Expensive Data',
       description:
-        'Lack of unified distribution ecosystem connecting creators, distributors, and consumers across multiple channels',
-      icon: '🌐',
+        'High data costs keep millions of young Africans out of online gaming and esports',
+      icon: '💸',
       color: 'from-red-500 to-red-600',
       impact: 'Critical',
       currentState:
-        'Multiple isolated platforms with no interoperability or unified content aggregation',
+        'High costs for internet bundles exclude a large portion of the youth from online gaming communities.',
       solutionOpportunities:
-        'Multi-layered distribution ecosystem, content aggregation platforms, cross-platform integration, unified analytics',
-      stakeholders: [
-        'Content Creators',
-        'Platform Providers',
-        'Distributors',
-        'Consumers',
-      ],
+        'Low-data consumption models, data compression algorithms, and optimized data usage tools.',
+      stakeholders: ['Gamers', 'Developers', 'Telecom Operators'],
     },
     {
       id: 2,
-      title: 'Mobile Accessibility & Bandwidth Limitations',
+      title: 'Poor Connectivity',
       description:
-        'Poor mobile experience and high data costs preventing access in varying internet conditions',
-      icon: '📱',
+        'Inconsistent and weak networks limit access to gaming platforms across the continent',
+      icon: '📶',
       color: 'from-blue-500 to-blue-600',
       impact: 'Critical',
       currentState:
-        'Desktop-focused solutions with no offline capabilities or data optimization',
+        'Slow connection speeds and periodic dropouts disrupt real-time gameplay.',
       solutionOpportunities:
-        'Mobile-first design, offline capabilities, data compression, progressive loading, low-bandwidth optimization',
-      stakeholders: [
-        'Mobile Users',
-        'Rural Communities',
-        'Content Creators',
-        'Telecom Providers',
-      ],
+        'Offline play modes, lightweight game client distribution, and local data caching.',
+      stakeholders: ['Players', 'Platform Providers', 'ISP Networks'],
     },
     {
       id: 3,
-      title: 'Content Piracy & Rights Management',
+      title: 'High Latency',
       description:
-        'Unauthorized distribution and complex copyright enforcement without transparent tracking',
-      icon: '🔒',
+        'Lag and delay make competitive, real-time esports nearly impossible in many regions',
+      icon: '⚡',
       color: 'from-purple-500 to-purple-600',
       impact: 'High',
       currentState:
-        'Widespread piracy with limited enforcement and no automated royalty distribution',
+        'Server routing outside the continent introduces high latency and lag.',
       solutionOpportunities:
-        'Blockchain-based rights management, smart contracts, automated payments, transparent tracking, digital rights protection',
-      stakeholders: [
-        'Artists',
-        'Rights Holders',
-        'Content Creators',
-        'Platforms',
-      ],
+        'Local server orchestration, peer-to-peer multiplayer architectures, and latency reduction layers.',
+      stakeholders: ['Esports Athletes', 'Developers', 'Hosting Providers'],
     },
     {
       id: 4,
-      title: 'Limited Monetization Options',
+      title: 'Weak Gaming Infrastructure',
       description:
-        'Lack of diverse revenue streams and efficient payment systems for creators and distributors',
-      icon: '💎',
+        'Limited local servers, tournament systems, and community platforms restrict growth',
+      icon: '🎮',
       color: 'from-green-500 to-green-600',
       impact: 'Critical',
       currentState:
-        'Single revenue models with high transaction fees and no unified payment systems',
+        'A shortage of structured platforms for competitive tournaments and local servers.',
       solutionOpportunities:
-        'Subscription models, pay-per-view, advertising integration, micro-transactions, unified payment systems',
-      stakeholders: [
-        'Content Creators',
-        'Distributors',
-        'Payment Processors',
-        'Platforms',
-      ],
+        'Community tournament management platforms, decentralized server distribution, and local esports hubs.',
+      stakeholders: ['Tournament Organizers', 'Teams', 'Community Leads'],
     },
     {
       id: 5,
-      title: 'Poor Content Discovery & Talent Visibility',
+      title: 'Limited Digital Inclusion',
       description:
-        'Ineffective discovery algorithms and limited opportunities for emerging talent',
-      icon: '🤖',
+        'Talented players and developers lack pathways into the gaming economy',
+      icon: '🌐',
       color: 'from-yellow-500 to-yellow-600',
       impact: 'High',
       currentState:
-        'Discovery algorithms favor established artists with no AI-powered matching or trend analysis',
+        'Underrepresented creators and developers face high barriers of entry to the global gaming ecosystem.',
       solutionOpportunities:
-        'AI-powered discovery engine, content matching algorithms, trend analysis, audience insights, talent discovery',
-      stakeholders: [
-        'Emerging Artists',
-        'Content Creators',
-        'Fans',
-        'Industry Professionals',
-      ],
-    },
-    {
-      id: 6,
-      title: 'Lack of Community & Data Insights',
-      description:
-        'No social features or data-driven decision making for creators and distributors',
-      icon: '👥',
-      color: 'from-indigo-500 to-indigo-600',
-      impact: 'Medium',
-      currentState:
-        'Isolated creators with no community features or performance analytics',
-      solutionOpportunities:
-        'Integrated community features, performance metrics, market trends analysis, creator communities, social networking',
-      stakeholders: [
-        'Content Creators',
-        'Distributors',
-        'Fans',
-        'Industry Analysts',
-      ],
+        'Development frameworks, regional incubation, mentor networks, and talent matching platforms.',
+      stakeholders: ['Young Creators', 'Educators', 'Sponsors'],
     },
   ];
 
   const problemCategories = [
-    'Distribution',
-    'Accessibility',
-    'Security',
-    'Monetization',
-    'Discovery',
-    'Community',
+    'Data Costs',
+    'Connectivity',
+    'Latency',
+    'Infrastructure',
+    'Inclusion',
   ];
   // Create a mapping of categories to problem titles
   const categoryToProblems = {
-    Distribution: ['Fragmented Distribution Networks'],
-    Accessibility: ['Mobile Accessibility & Bandwidth Limitations'],
-    Security: ['Content Piracy & Rights Management'],
-    Monetization: ['Limited Monetization Options'],
-    Discovery: ['Poor Content Discovery & Talent Visibility'],
-    Community: ['Lack of Community & Data Insights'],
+    'Data Costs': ['Expensive Data'],
+    'Connectivity': ['Poor Connectivity'],
+    'Latency': ['High Latency'],
+    'Infrastructure': ['Weak Gaming Infrastructure'],
+    'Inclusion': ['Limited Digital Inclusion'],
   };
 
   const handleProblemToggle = (problemTitle: string) => {
@@ -206,7 +160,7 @@ const ProblemStatement = () => {
     // Navigate to application page with selected problems as URL params
     const params = new URLSearchParams();
     if (selectedProblems.length > 0) {
-      params.set('problems', selectedProblems.join(','));
+      params.set('challenges', selectedProblems.join(','));
     }
     navigate(`/registration?${params.toString()}`);
   };
@@ -334,7 +288,7 @@ const ProblemStatement = () => {
                     {category}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Critical challenges in Africa's creative industries
+                    Critical connectivity and esports challenges
                   </p>
                 </motion.button>
               </ScrollAnimation>
@@ -366,8 +320,8 @@ const ProblemStatement = () => {
                 Problem Analysis
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Deep dive into each critical problem affecting Africa's creative
-                economy and the opportunities for innovative solutions
+                Deep dive into each critical problem affecting Africa's esports
+                landscape and the opportunities for innovative solutions
               </p>
             </div>
           </ScrollAnimation>
@@ -510,11 +464,11 @@ const ProblemStatement = () => {
           <ScrollAnimation animation="fadeIn">
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Solve Africa's Creative Economy Problems?
+                Ready to Solve Africa's Esports Infrastructure Challenges?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
                 Choose the problems you want to address and start building
-                solutions that will transform Africa's creative industries.
+                solutions that will shape the future of low-bandwidth esports and connectivity in Africa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

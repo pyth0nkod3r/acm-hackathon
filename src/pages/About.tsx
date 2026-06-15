@@ -186,7 +186,7 @@ const About = () => {
                 </h2>
                 <div className="space-y-4 text-gray-700">
                   <p>
-                    The Africa Creative Market Hackathon 2025 is a landmark
+                    The Africa Creative Market Hackathon 2026 is a landmark
                     event aimed at harnessing Africa's creative and
                     technological talent to develop innovative solutions that
                     solve challenges in the creative economy.
