@@ -1,10 +1,12 @@
 /**
  * Registration Service tests
  * Tests registration form submission, data formatting, and error handling
+ * Aligned with the 2026 RegistrationFormData schema and RegistrationService implementation.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { RegistrationService } from '../registrationService';
+import { APIService } from '../api';
 import type { RegistrationFormData } from '../../lib/validations';
 
 // Mock the base API service
@@ -24,71 +26,83 @@ vi.mock('../../config/api', () => ({
   },
 }));
 
+// ---------------------------------------------------------------------------
+// Helpers: minimal valid team member (matches teamMemberSchema: name, email,
+// phone, role, linkedin only)
+// ---------------------------------------------------------------------------
+const validTeamMember = {
+  name: 'Jane Smith',
+  email: 'jane@example.com',
+  phone: '+1234567891',
+  role: 'Software Developer',
+  linkedin: 'https://linkedin.com/in/janesmith',
+};
+
+// ---------------------------------------------------------------------------
+// Minimal valid registration payload matching RegistrationFormData (2026)
+// ---------------------------------------------------------------------------
+const mockRegistrationData: RegistrationFormData = {
+  // Section 1 – Team information
+  teamName: 'Test Team',
+  teamSize: 2,
+  countryOfResidence: 'Zambia',
+  hackathonExperience: 'no',
+
+  // Section 2 – Team lead
+  teamLeader: {
+    name: 'John Doe',
+    email: 'john@example.com',
+    phone: '+1234567890',
+    role: 'Team Leader',
+    linkedin: 'https://linkedin.com/in/johndoe',
+  },
+
+  // Section 3 – Team members (optional in schema)
+  teamMembers: [validTeamMember],
+
+  // Section 4 – Idea summary
+  creativeIndustryChallenge:
+    'High data costs prevent African youth from accessing online gaming.',
+  distributionChallenge:
+    'The lack of affordable data plans and poor infrastructure creates a barrier that prevents millions of young Africans from accessing competitive gaming platforms and esports communities.',
+  solutionVision:
+    'Build a lightweight, low-bandwidth gaming platform optimised for African mobile networks that can run on limited data and deliver a smooth esports experience.',
+  teamPositioning:
+    'Our team combines software engineering, UX and gaming strategy to build Africa-first connectivity solutions.',
+
+  // Section 5 – Logistics
+  allMembersAvailable: true,
+  hasDietaryRestrictions: false,
+
+  // Section 6 – Declarations & signature
+  declarations: [
+    'I confirm all information provided is accurate and complete.',
+    'I agree to the terms and conditions of the ACM Hackathon 2026.',
+    'I acknowledge that all team members are between 20 and 35 years of age.',
+  ],
+  teamLeadSignature: 'John Doe',
+};
+
 describe('RegistrationService', () => {
   let registrationService: RegistrationService;
-  let mockPost: ReturnType<typeof vi.fn>;
   let mockPostFormData: ReturnType<typeof vi.fn>;
-
-  const mockRegistrationData: RegistrationFormData = {
-    teamName: 'Test Team',
-    teamSize: 2,
-    teamLeader: {
-      name: 'John Doe',
-      email: 'john@example.com',
-      phone: '+1234567890',
-      role: 'Team Leader',
-      linkedin: 'https://linkedin.com/in/johndoe',
-      country: 'Ghana',
-      nationality: 'Ghanaian',
-      age: 28,
-      gender: 'Male',
-    },
-    teamMembers: [
-      {
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-        phone: '+1234567891',
-        role: 'Developer',
-        linkedin: 'https://linkedin.com/in/janesmith',
-        country: 'Nigeria',
-        nationality: 'Nigerian',
-        age: 26,
-        gender: 'Female',
-      },
-    ],
-    projectTitle: 'Digital Trade Platform',
-    ideaSummary: 'A platform to facilitate digital trade across Africa',
-    problemSolving: 'Solving cross-border payment challenges in African trade',
-    technology: 'React, Node.js, Blockchain',
-    alignment: 'Aligns with AfCFTA digital trade objectives',
-    hasPrototype: true,
-    prototypeURL: 'https://prototype.example.com',
-    projectRepo: 'https://github.com/team/project',
-    challengeAreas: ['Digital Trade Infrastructure', 'Cross-border Payments'],
-    declarations: [
-      'I confirm that all information provided is accurate and complete',
-      'I agree to the terms and conditions of the hackathon',
-    ],
-    fileUpload: new File(['test'], 'test.pdf', { type: 'application/pdf' }),
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();
     registrationService = new RegistrationService();
 
     // Get references to the mocked methods
-    const MockAPIService = require('../api').APIService;
+    const MockAPIService = APIService as any;
     const instance = new MockAPIService();
-    mockPost = instance.post;
     mockPostFormData = instance.postFormData;
 
-    // Replace the service's methods with our mocks
-    registrationService['post'] = mockPost;
+    // Replace the service's method with our mock
     registrationService['postFormData'] = mockPostFormData;
   });
 
+  // -------------------------------------------------------------------------
   describe('submitRegistration', () => {
-    it('submits registration with file upload successfully', async () => {
+    it('submits registration successfully via FormData', async () => {
       mockPostFormData.mockResolvedValue({
         success: true,
         data: { id: '123', status: 'submitted' },
@@ -107,381 +121,367 @@ describe('RegistrationService', () => {
       });
     });
 
-    it('submits registration without file upload successfully', async () => {
-      const dataWithoutFile = { ...mockRegistrationData };
-      delete dataWithoutFile.fileUpload;
-
-      mockPost.mockResolvedValue({
-        success: true,
-        data: { id: '124', status: 'submitted' },
-      });
-
-      const result =
-        await registrationService.submitRegistration(dataWithoutFile);
-
-      expect(mockPost).toHaveBeenCalledWith(
-        '/api/registration',
-        expect.any(Object)
-      );
-      expect(result).toEqual({
-        success: true,
-        data: { id: '124', status: 'submitted' },
-      });
-    });
-
-    it('formats registration data correctly for JSON submission', async () => {
-      const dataWithoutFile = { ...mockRegistrationData };
-      delete dataWithoutFile.fileUpload;
-
-      mockPost.mockResolvedValue({
-        success: true,
-        data: { id: '125', status: 'submitted' },
-      });
-
-      await registrationService.submitRegistration(dataWithoutFile);
-
-      expect(mockPost).toHaveBeenCalledWith('/api/registration', {
-        teamName: 'Test Team',
-        teamSize: 2,
-        teamLeader: mockRegistrationData.teamLeader,
-        teamMembers: mockRegistrationData.teamMembers,
-        projectTitle: 'Digital Trade Platform',
-        ideaSummary: 'A platform to facilitate digital trade across Africa',
-        problemSolving:
-          'Solving cross-border payment challenges in African trade',
-        technology: 'React, Node.js, Blockchain',
-        alignment: 'Aligns with AfCFTA digital trade objectives',
-        hasPrototype: true,
-        prototypeURL: 'https://prototype.example.com',
-        projectRepo: 'https://github.com/team/project',
-        challengeAreas: [
-          'Digital Trade Infrastructure',
-          'Cross-border Payments',
-        ],
-        declarations: [
-          'I confirm that all information provided is accurate and complete',
-          'I agree to the terms and conditions of the hackathon',
-        ],
-      });
-    });
-
-    it('formats registration data correctly for FormData submission', async () => {
-      mockPostFormData.mockResolvedValue({
-        success: true,
-        data: { id: '126', status: 'submitted' },
-      });
+    it('transforms team information into FormData fields', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
       await registrationService.submitRegistration(mockRegistrationData);
 
-      const formDataCall = mockPostFormData.mock.calls[0];
+      const formDataCall = mockPostFormData.mock.calls[0]!;
       const formData = formDataCall[1] as FormData;
 
       expect(formData.get('teamName')).toBe('Test Team');
       expect(formData.get('teamSize')).toBe('2');
-      expect(formData.get('projectTitle')).toBe('Digital Trade Platform');
-      expect(formData.get('hasPrototype')).toBe('true');
-      expect(formData.get('file')).toBeInstanceOf(File);
+      expect(formData.get('countryOfResidence')).toBe('Zambia');
+      expect(formData.get('hackathonExperience')).toBe('No');
+    });
 
-      // Check that complex objects are JSON stringified
-      const teamLeaderData = JSON.parse(formData.get('teamLeader') as string);
-      expect(teamLeaderData).toEqual(mockRegistrationData.teamLeader);
+    it('transforms team leader into FormData fields', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
-      const teamMembersData = JSON.parse(formData.get('teamMembers') as string);
-      expect(teamMembersData).toEqual(mockRegistrationData.teamMembers);
+      await registrationService.submitRegistration(mockRegistrationData);
 
-      const challengeAreasData = JSON.parse(
-        formData.get('challengeAreas') as string
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
+
+      expect(formData.get('teamLeaderFullName')).toBe('John Doe');
+      expect(formData.get('teamLeaderEmail')).toBe('john@example.com');
+      expect(formData.get('teamLeaderPhone')).toBe('+1234567890');
+      expect(formData.get('teamLeaderRole')).toBe('Team Leader');
+    });
+
+    it('transforms team member into indexed FormData fields', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
+
+      await registrationService.submitRegistration(mockRegistrationData);
+
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
+
+      // teamSize=2, so 1 member expected at index 0
+      expect(formData.get('teamMembers[0][teamMemberFullName]')).toBe(
+        'Jane Smith'
       );
-      expect(challengeAreasData).toEqual(mockRegistrationData.challengeAreas);
+      expect(formData.get('teamMembers[0][teamMemberEmail]')).toBe(
+        'jane@example.com'
+      );
     });
 
-    it('handles API errors correctly', async () => {
-      mockPost.mockResolvedValue({
-        success: false,
-        message: 'Validation failed',
-      });
+    it('transforms idea summary fields into FormData', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
-      const dataWithoutFile = { ...mockRegistrationData };
-      delete dataWithoutFile.fileUpload;
+      await registrationService.submitRegistration(mockRegistrationData);
 
-      const result =
-        await registrationService.submitRegistration(dataWithoutFile);
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Validation failed',
-      });
+      expect(formData.get('challengeSolving')).toBeTruthy();
+      expect(formData.get('challengeAims')).toBeTruthy();
+      expect(formData.get('solutionEnvision')).toBeTruthy();
+      expect(formData.get('uniquelyPositioned')).toBeTruthy();
     });
 
-    it('handles network errors correctly', async () => {
-      mockPost.mockRejectedValue(new Error('Network error'));
+    it('transforms declarations into indexed FormData fields', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
-      const dataWithoutFile = { ...mockRegistrationData };
-      delete dataWithoutFile.fileUpload;
+      await registrationService.submitRegistration(mockRegistrationData);
 
-      const result =
-        await registrationService.submitRegistration(dataWithoutFile);
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Failed to submit registration. Please try again.',
-      });
+      expect(formData.get('declarations[0]')).toBeTruthy();
+      expect(formData.get('declarations[1]')).toBeTruthy();
+      expect(formData.get('declarations[2]')).toBeTruthy();
+      expect(formData.get('teamLeadSignature')).toBe('John Doe');
     });
 
-    it('handles file upload errors correctly', async () => {
-      mockPostFormData.mockRejectedValue(new Error('File upload failed'));
+    it('converts hackathonExperience "yes" to "Yes" in FormData', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
+
+      const dataWithExperience: RegistrationFormData = {
+        ...mockRegistrationData,
+        hackathonExperience: 'yes',
+        hackathonExperienceDetails: 'Built a fintech app at HackLagos 2024.',
+      };
+
+      await registrationService.submitRegistration(dataWithExperience);
+
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
+
+      expect(formData.get('hackathonExperience')).toBe('Yes');
+      expect(formData.get('hackathonExperienceDesc')).toBe(
+        'Built a fintech app at HackLagos 2024.'
+      );
+    });
+
+    it('handles API error response correctly', async () => {
+      mockPostFormData.mockResolvedValue({
+        success: false,
+        message: 'Server validation failed',
+      });
 
       const result =
         await registrationService.submitRegistration(mockRegistrationData);
 
       expect(result).toEqual({
         success: false,
-        message: 'Failed to submit registration. Please try again.',
+        message: 'Server validation failed',
       });
     });
 
-    it('validates required fields', async () => {
-      const incompleteData = {
+    it('handles network errors correctly', async () => {
+      mockPostFormData.mockRejectedValue(new Error('Network error'));
+
+      const result =
+        await registrationService.submitRegistration(mockRegistrationData);
+
+      expect(result).toEqual({
+        success: false,
+        message: 'Network error',
+      });
+    });
+
+    it('returns error when team leader name is missing', async () => {
+      const incompleteData: RegistrationFormData = {
         ...mockRegistrationData,
-        teamName: '',
-        teamLeader: {
-          ...mockRegistrationData.teamLeader,
-          email: '',
-        },
+        teamLeader: { ...mockRegistrationData.teamLeader, name: '' },
       };
 
       const result =
         await registrationService.submitRegistration(incompleteData);
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Please fill in all required fields.',
-      });
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Team leader name is required');
     });
 
-    it('validates email format', async () => {
-      const invalidEmailData = {
+    it('returns error when team leader email is missing', async () => {
+      const incompleteData: RegistrationFormData = {
         ...mockRegistrationData,
-        teamLeader: {
-          ...mockRegistrationData.teamLeader,
-          email: 'invalid-email',
-        },
+        teamLeader: { ...mockRegistrationData.teamLeader, email: '' },
       };
 
       const result =
-        await registrationService.submitRegistration(invalidEmailData);
+        await registrationService.submitRegistration(incompleteData);
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Please provide valid email addresses.',
-      });
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Team leader email is required');
     });
 
-    it('validates team member emails', async () => {
-      const invalidTeamMemberEmailData = {
+    it('returns error when team leader phone is missing', async () => {
+      const incompleteData: RegistrationFormData = {
         ...mockRegistrationData,
-        teamMembers: [
-          {
-            ...mockRegistrationData.teamMembers[0],
-            email: 'invalid-email',
-          },
-        ],
+        teamLeader: { ...mockRegistrationData.teamLeader, phone: '' },
       };
 
-      const result = await registrationService.submitRegistration(
-        invalidTeamMemberEmailData
+      const result =
+        await registrationService.submitRegistration(incompleteData);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Team leader phone is required');
+    });
+
+    it('returns error when team name is missing', async () => {
+      const incompleteData: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamName: '',
+      };
+
+      const result =
+        await registrationService.submitRegistration(incompleteData);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Team name is required');
+    });
+
+    it('returns error when digital signature is missing', async () => {
+      const incompleteData: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamLeadSignature: '',
+      };
+
+      const result =
+        await registrationService.submitRegistration(incompleteData);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Digital signature is required');
+    });
+
+    it('returns error when fewer than 3 declarations are provided', async () => {
+      const incompleteData: RegistrationFormData = {
+        ...mockRegistrationData,
+        declarations: ['Only one declaration accepted.', 'And a second one.'],
+      };
+
+      const result =
+        await registrationService.submitRegistration(incompleteData);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toContain(
+        'All required declarations must be accepted'
       );
-
-      expect(result).toEqual({
-        success: false,
-        message: 'Please provide valid email addresses.',
-      });
     });
 
-    it('validates challenge areas selection', async () => {
-      const noChallengeAreasData = {
-        ...mockRegistrationData,
-        challengeAreas: [],
-      };
-
-      const result =
-        await registrationService.submitRegistration(noChallengeAreasData);
-
-      expect(result).toEqual({
-        success: false,
-        message: 'Please select at least one challenge area.',
-      });
-    });
-
-    it('validates declarations acceptance', async () => {
-      const noDeclarationsData = {
+    it('returns error when declarations array is empty', async () => {
+      const incompleteData: RegistrationFormData = {
         ...mockRegistrationData,
         declarations: [],
       };
 
       const result =
-        await registrationService.submitRegistration(noDeclarationsData);
+        await registrationService.submitRegistration(incompleteData);
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Please accept all required declarations.',
-      });
+      expect(result.success).toBe(false);
     });
 
-    it('validates file size limits', async () => {
-      const largeFile = new File(['x'.repeat(11 * 1024 * 1024)], 'large.pdf', {
-        type: 'application/pdf',
-      });
+    it('includes empty hackathonExperienceDesc when hackathonExperience is "no"', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
-      const largeFileData = {
-        ...mockRegistrationData,
-        fileUpload: largeFile,
-      };
+      await registrationService.submitRegistration(mockRegistrationData);
 
-      const result =
-        await registrationService.submitRegistration(largeFileData);
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
 
-      expect(result).toEqual({
-        success: false,
-        message: 'File size must be less than 10MB.',
-      });
+      // hackathonExperience is 'no', so desc should be empty string
+      expect(formData.get('hackathonExperienceDesc')).toBe('');
     });
 
-    it('validates file types', async () => {
-      const invalidFile = new File(['test'], 'test.exe', {
-        type: 'application/x-executable',
-      });
+    it('converts allMembersAvailable boolean to "Yes"/"No" string', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
 
-      const invalidFileData = {
+      const withUnavailable: RegistrationFormData = {
         ...mockRegistrationData,
-        fileUpload: invalidFile,
+        allMembersAvailable: false,
+        availabilityExplanation: 'One member travels June 30.',
       };
 
-      const result =
-        await registrationService.submitRegistration(invalidFileData);
+      await registrationService.submitRegistration(withUnavailable);
 
-      expect(result).toEqual({
-        success: false,
-        message:
-          'Please upload a valid document file (PDF, DOC, DOCX, PPT, PPTX).',
-      });
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
+
+      expect(formData.get('teamAvailability')).toBe('No');
     });
 
-    it('handles prototype URL validation when prototype exists', async () => {
-      const invalidPrototypeData = {
+    it('converts hasDietaryRestrictions boolean to "Yes"/"No" string', async () => {
+      mockPostFormData.mockResolvedValue({ success: true });
+
+      const withDietary: RegistrationFormData = {
         ...mockRegistrationData,
-        hasPrototype: true,
-        prototypeURL: '',
+        hasDietaryRestrictions: true,
+        dietaryNeeds: 'Vegan',
       };
 
-      const result =
-        await registrationService.submitRegistration(invalidPrototypeData);
+      await registrationService.submitRegistration(withDietary);
 
-      expect(result).toEqual({
-        success: false,
-        message: 'Please provide a prototype URL when prototype exists.',
-      });
-    });
+      const formDataCall = mockPostFormData.mock.calls[0]!;
+      const formData = formDataCall[1] as FormData;
 
-    it('allows empty prototype URL when no prototype exists', async () => {
-      const noPrototypeData = {
-        ...mockRegistrationData,
-        hasPrototype: false,
-        prototypeURL: '',
-      };
-
-      delete noPrototypeData.fileUpload;
-
-      mockPost.mockResolvedValue({
-        success: true,
-        data: { id: '127', status: 'submitted' },
-      });
-
-      const result =
-        await registrationService.submitRegistration(noPrototypeData);
-
-      expect(result.success).toBe(true);
-    });
-
-    it('handles minimum team member age validation', async () => {
-      const youngTeamMemberData = {
-        ...mockRegistrationData,
-        teamLeader: {
-          ...mockRegistrationData.teamLeader,
-          age: 16,
-        },
-      };
-
-      const result =
-        await registrationService.submitRegistration(youngTeamMemberData);
-
-      expect(result).toEqual({
-        success: false,
-        message: 'All team members must be at least 18 years old.',
-      });
-    });
-
-    it('handles team size validation', async () => {
-      const oversizedTeamData = {
-        ...mockRegistrationData,
-        teamSize: 6,
-        teamMembers: new Array(5).fill(mockRegistrationData.teamMembers[0]),
-      };
-
-      const result =
-        await registrationService.submitRegistration(oversizedTeamData);
-
-      expect(result).toEqual({
-        success: false,
-        message: 'Team size cannot exceed 5 members.',
-      });
+      expect(formData.get('dietaryRestrictions')).toBe('Yes');
+      expect(formData.get('dietaryRestrictionsDesc')).toBe('Vegan');
     });
   });
 
-  describe('formatRegistrationData', () => {
-    it('formats data for JSON submission correctly', () => {
-      const dataWithoutFile = { ...mockRegistrationData };
-      delete dataWithoutFile.fileUpload;
-
-      const formatted =
-        registrationService['formatRegistrationData'](dataWithoutFile);
-
-      expect(formatted).toEqual({
-        teamName: 'Test Team',
-        teamSize: 2,
-        teamLeader: mockRegistrationData.teamLeader,
-        teamMembers: mockRegistrationData.teamMembers,
-        projectTitle: 'Digital Trade Platform',
-        ideaSummary: 'A platform to facilitate digital trade across Africa',
-        problemSolving:
-          'Solving cross-border payment challenges in African trade',
-        technology: 'React, Node.js, Blockchain',
-        alignment: 'Aligns with AfCFTA digital trade objectives',
-        hasPrototype: true,
-        prototypeURL: 'https://prototype.example.com',
-        projectRepo: 'https://github.com/team/project',
-        challengeAreas: [
-          'Digital Trade Infrastructure',
-          'Cross-border Payments',
-        ],
-        declarations: [
-          'I confirm that all information provided is accurate and complete',
-          'I agree to the terms and conditions of the hackathon',
-        ],
-      });
+  // -------------------------------------------------------------------------
+  describe('validateFormData (private)', () => {
+    it('does not throw for valid complete data', () => {
+      expect(() =>
+        registrationService['validateFormData'](mockRegistrationData)
+      ).not.toThrow();
     });
-  });
 
-  describe('createFormData', () => {
-    it('creates FormData correctly with file', () => {
-      const formData =
-        registrationService['createFormData'](mockRegistrationData);
-
-      expect(formData.get('teamName')).toBe('Test Team');
-      expect(formData.get('file')).toBeInstanceOf(File);
-      expect(formData.get('teamLeader')).toBe(
-        JSON.stringify(mockRegistrationData.teamLeader)
+    it('throws when team leader name is empty', () => {
+      const bad: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamLeader: { ...mockRegistrationData.teamLeader, name: '' },
+      };
+      expect(() => registrationService['validateFormData'](bad)).toThrow(
+        'Team leader name is required'
       );
+    });
+
+    it('throws when team leader email is empty', () => {
+      const bad: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamLeader: { ...mockRegistrationData.teamLeader, email: '' },
+      };
+      expect(() => registrationService['validateFormData'](bad)).toThrow(
+        'Team leader email is required'
+      );
+    });
+
+    it('throws when team name is empty', () => {
+      const bad: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamName: '   ',
+      };
+      expect(() => registrationService['validateFormData'](bad)).toThrow(
+        'Team name is required'
+      );
+    });
+
+    it('throws when digital signature is empty', () => {
+      const bad: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamLeadSignature: '',
+      };
+      expect(() => registrationService['validateFormData'](bad)).toThrow(
+        'Digital signature is required'
+      );
+    });
+
+    it('throws when fewer than 3 declarations provided', () => {
+      const bad: RegistrationFormData = {
+        ...mockRegistrationData,
+        declarations: ['Only one.', 'Only two.'],
+      };
+      expect(() => registrationService['validateFormData'](bad)).toThrow(
+        'All required declarations must be accepted'
+      );
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  describe('transformToFormData (private)', () => {
+    it('creates a FormData instance', () => {
+      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      expect(fd).toBeInstanceOf(FormData);
+    });
+
+    it('includes teamName in FormData', () => {
+      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      expect(fd.get('teamName')).toBe('Test Team');
+    });
+
+    it('includes teamLeaderFullName in FormData', () => {
+      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      expect(fd.get('teamLeaderFullName')).toBe('John Doe');
+    });
+
+    it('includes teamLeadSignature in FormData', () => {
+      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      expect(fd.get('teamLeadSignature')).toBe('John Doe');
+    });
+
+    it('populates member slots up to teamSize - 1', () => {
+      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      // teamSize=2, expects index 0 only
+      expect(fd.get('teamMembers[0][teamMemberFullName]')).toBe('Jane Smith');
+      // index 1 should not exist (teamSize-1 = 1 member)
+      expect(fd.get('teamMembers[1][teamMemberFullName]')).toBeNull();
+    });
+
+    it('sets empty strings for missing optional member slots', () => {
+      // teamSize=3 but only 1 member supplied
+      const data: RegistrationFormData = {
+        ...mockRegistrationData,
+        teamSize: 3,
+        teamMembers: [validTeamMember],
+      };
+      const fd = registrationService['transformToFormData'](data);
+      // index 0: from supplied member
+      expect(fd.get('teamMembers[0][teamMemberFullName]')).toBe('Jane Smith');
+      // index 1: should fall back to empty string
+      expect(fd.get('teamMembers[1][teamMemberFullName]')).toBe('');
     });
   });
 });

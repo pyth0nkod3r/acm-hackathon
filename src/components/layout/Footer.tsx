@@ -87,7 +87,7 @@ const getSocialIcon = (iconName: string) => {
   return IconComponent || MessageCircle;
 };
 
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC<FooterProps> = ({ className }) => {
   const currentYear = new Date().getFullYear();
   const { isMobile, isTablet } = useResponsive();
   const { isTouchDevice } = useTouchDevice();
@@ -96,7 +96,7 @@ export const Footer: React.FC<FooterProps> = () => {
     <footer
       id="footer"
       role="contentinfo"
-      className={cn('bg-[#1a1a1a] text-white')}
+      className={cn('bg-[#1a1a1a] text-white', className)}
     >
       {/* Main Footer Content */}
       <div className="pt-12 pb-6">

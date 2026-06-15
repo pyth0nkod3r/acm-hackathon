@@ -37,7 +37,7 @@ export class APIService {
 
     // Set up default headers
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
       ...(options.headers as Record<string, string>),
     };
 
@@ -103,6 +103,16 @@ export class APIService {
 
       // Re-throw API errors
       if (this.isAPIError(error)) {
+        if (
+          error.type === 'server' &&
+          'code' in error &&
+          typeof error.code === 'string' &&
+          Number(error.code) >= 500 &&
+          retryCount < RETRY_CONFIG.maxRetries
+        ) {
+          return this.retryRequest(endpoint, options, retryCount + 1);
+        }
+
         return {
           success: false,
           message: error.message,
@@ -241,8 +251,10 @@ export class APIService {
       method: 'POST',
     };
 
-    if (data) {
+    if (data !== undefined && data !== null) {
       requestOptions.body = JSON.stringify(data);
+    } else {
+      (requestOptions as any).body = undefined;
     }
 
     return this.makeRequest<T>(endpoint, requestOptions);

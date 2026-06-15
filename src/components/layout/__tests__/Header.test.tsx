@@ -68,8 +68,8 @@ describe('Header', () => {
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
 
-    const logoImage = screen.getByAltText('ACM Logo');
-    expect(logoImage).toBeInTheDocument();
+    const logoImages = screen.getAllByAltText('ACM Logo');
+    expect(logoImages[0]).toBeInTheDocument();
   });
 
   it('renders all navigation items', () => {
@@ -130,8 +130,8 @@ describe('Header', () => {
     });
 
     renderWithRouter(<Header />);
-    const logoImage = screen.getByAltText('ACM Logo');
-    expect(logoImage).toHaveClass('h-8 w-8');
+    const logoImages = screen.getAllByAltText('ACM Logo');
+    expect(logoImages[0]).toHaveClass('h-8 w-8');
   });
 
   it('handles tablet responsive layout', () => {
@@ -146,8 +146,8 @@ describe('Header', () => {
     });
 
     renderWithRouter(<Header />);
-    const logoImage = screen.getByAltText('ACM Logo');
-    expect(logoImage).toHaveClass('h-16 w-16');
+    const logoImages = screen.getAllByAltText('ACM Logo');
+    expect(logoImages[0]).toHaveClass('h-16 w-16');
   });
 
   it('handles touch device interactions', () => {

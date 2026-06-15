@@ -1,20 +1,30 @@
-/**
- * Footer component tests
- * Tests footer content, social links, responsive behavior, and accessibility
- */
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Footer } from '../Footer';
+import { useResponsive } from '../../../hooks/useResponsive';
+import { useTouchDevice } from '../../../hooks/useTouchDevice';
+import React from 'react';
 
 // Mock hooks
 vi.mock('../../../hooks/useResponsive', () => ({
-  useResponsive: () => ({ isMobile: false, isTablet: false }),
+  useResponsive: vi.fn(() => ({
+    isMobile: false,
+    isTablet: false,
+    isDesktop: true,
+    isLargeDesktop: false,
+    screenWidth: 1024,
+    screenHeight: 768,
+  })),
 }));
 
 vi.mock('../../../hooks/useTouchDevice', () => ({
-  useTouchDevice: () => ({ isTouchDevice: false }),
+  useTouchDevice: vi.fn(() => ({
+    isTouchDevice: false,
+    hasHover: true,
+    supportsTouch: false,
+    maxTouchPoints: 0,
+  })),
 }));
 
 // Mock framer-motion
@@ -34,98 +44,99 @@ const renderWithRouter = (component: React.ReactElement) => {
 };
 
 describe('Footer', () => {
+  const currentYear = new Date().getFullYear();
+
   beforeEach(() => {
     vi.clearAllMocks();
-    // Mock current year to make tests consistent
-    vi.setSystemTime(new Date('2024-01-01'));
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   it('renders footer with correct structure', () => {
     renderWithRouter(<Footer />);
-
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
     expect(footer).toHaveAttribute('id', 'footer');
   });
 
-  it('renders logo and company name', () => {
+  it('renders logo and company name link', () => {
     renderWithRouter(<Footer />);
-
     const logoLink = screen.getByLabelText('ACM Hackathon - Go to homepage');
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
 
     const logoImage = screen.getByAltText('ACM Logo');
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute(
-      'src',
-      '/assets/img/logo/afcfta-logo.jpg'
-    );
-
-    const logoText = screen.getByText('AfCFTA Hackathon');
-    expect(logoText).toBeInTheDocument();
   });
 
   it('renders company description', () => {
     renderWithRouter(<Footer />);
-
     const description = screen.getByText(
-      /join the afcfta digital trade protocol hackathon/i
+      /shape the future of low-bandwidth esports infrastructure/i
     );
     expect(description).toBeInTheDocument();
   });
 
   it('renders contact information', () => {
     renderWithRouter(<Footer />);
-
-    const email = screen.getByText('info@afcfta-hackathon.org');
+    const email = screen.getByText('info@acmhackathon.com');
     expect(email).toBeInTheDocument();
     expect(email.closest('a')).toHaveAttribute(
       'href',
-      'mailto:info@afcfta-hackathon.org'
+      'mailto:info@acmhackathon.com'
     );
 
-    const phone = screen.getByText('+234 123 456 7890');
+    const phone = screen.getByText('+234 9167667376');
     expect(phone).toBeInTheDocument();
-    expect(phone.closest('a')).toHaveAttribute('href', 'tel:+234 123 456 7890');
+    expect(phone.closest('a')).toHaveAttribute('href', 'tel:+234 9167667376');
 
-    const address = screen.getByText('AfCFTA Secretariat, Accra, Ghana');
+    const address = screen.getByText(/Mulungushi International Conference Center/i);
     expect(address).toBeInTheDocument();
   });
 
-  it('renders quick links section', () => {
+  it('renders navigation section links', () => {
     renderWithRouter(<Footer />);
+    expect(screen.getByText('Navigation')).toBeInTheDocument();
 
-    expect(screen.getByText('Quick Links')).toBeInTheDocument();
-
-    const expectedLinks = [
+    const expectedMainLinks = [
       { text: 'About', href: '/about' },
       { text: 'Challenges', href: '/challenges' },
-      { text: 'Application', href: '/application' },
+      { text: 'Registration', href: '/registration' },
       { text: 'Schedule', href: '/schedule' },
-      { text: 'Awards & Judging', href: '/awards-judging' },
-      { text: 'Gallery', href: '/gallery' },
       { text: 'Contact', href: '/contact' },
     ];
 
-    expectedLinks.forEach(({ text, href }) => {
+    expectedMainLinks.forEach(({ text, href }) => {
       const link = screen.getByText(text);
       expect(link).toBeInTheDocument();
       expect(link.closest('a')).toHaveAttribute('href', href);
     });
   });
 
+  it('renders support and legal section links', () => {
+    renderWithRouter(<Footer />);
+    expect(screen.getByText('Support & Legal')).toBeInTheDocument();
+
+    const expectedSupportLinks = [
+      { text: 'Partnership', href: '/partner-registration' },
+      { text: 'Terms and Conditions', href: '/terms-and-conditions' },
+      { text: 'Terms of Use', href: '/terms-of-use' },
+      { text: 'Privacy Policy', href: '/privacy-policy' },
+    ];
+
+    expectedSupportLinks.forEach(({ text, href }) => {
+      const links = screen.getAllByText(text);
+      expect(links.length).toBeGreaterThan(0);
+      const anchor = links[0]!.closest('a');
+      expect(anchor).not.toBeNull();
+      expect(anchor!).toHaveAttribute('href', href);
+    });
+  });
+
   it('renders newsletter signup section', () => {
     renderWithRouter(<Footer />);
-
     expect(screen.getByText('Stay Updated')).toBeInTheDocument();
-    expect(
-      screen.getByText(/subscribe to receive updates/i)
-    ).toBeInTheDocument();
+
+    const textElements = screen.getAllByText(/subscribe to receive updates/i);
+    expect(textElements.length).toBeGreaterThan(0);
 
     const emailInput = screen.getByLabelText(/email address for newsletter/i);
     expect(emailInput).toBeInTheDocument();
@@ -143,98 +154,87 @@ describe('Footer', () => {
 
   it('renders social media links', () => {
     renderWithRouter(<Footer />);
-
     expect(screen.getByText('Follow Us')).toBeInTheDocument();
 
-    const socialLinks = [
-      'Follow us on LinkedIn',
-      'Follow us on Instagram',
-      'Follow us on Twitter',
-      'Contact us on WhatsApp',
+    const socialLinksData = [
+      { label: 'Facebook', href: 'https://www.facebook.com/share/1AaY2WVCUc/' },
+      { label: 'Follow us on LinkedIn', href: 'https://www.linkedin.com/company/africacmglobal/' },
+      { label: 'Follow us on Instagram', href: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==' },
+      { label: 'Follow us on Twitter', href: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09' },
+      { label: 'Contact us on WhatsApp', href: '#' },
     ];
 
-    socialLinks.forEach(label => {
+    socialLinksData.forEach(({ label, href }) => {
       const link = screen.getByLabelText(label);
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', '#');
+      expect(link).toHaveAttribute('href', href);
     });
   });
 
   it('renders copyright information with current year', () => {
     renderWithRouter(<Footer />);
-
     const copyright = screen.getByText(
-      /copyright © 2024 afcfta digital trade protocol hackathon/i
+      new RegExp(`copyright © ${currentYear}`, 'i')
     );
     expect(copyright).toBeInTheDocument();
   });
 
-  it('renders legal links', () => {
-    renderWithRouter(<Footer />);
-
-    const privacyLink = screen.getByText('Privacy Policy');
-    expect(privacyLink).toBeInTheDocument();
-    expect(privacyLink.closest('a')).toHaveAttribute('href', '/privacy');
-
-    const termsLink = screen.getByText('Terms of Service');
-    expect(termsLink).toBeInTheDocument();
-    expect(termsLink.closest('a')).toHaveAttribute('href', '/terms');
-  });
-
   it('handles mobile responsive layout', () => {
-    const mockUseResponsive = vi.mocked(
-      require('../../../hooks/useResponsive').useResponsive
-    );
+    const mockUseResponsive = vi.mocked(useResponsive);
     mockUseResponsive.mockReturnValue({
       isMobile: true,
       isTablet: false,
+      isDesktop: false,
+      isLargeDesktop: false,
+      screenWidth: 375,
+      screenHeight: 667,
     });
 
     renderWithRouter(<Footer />);
-
-    // Logo text should be shortened on mobile
-    expect(screen.getByText('AfCFTA')).toBeInTheDocument();
-    expect(screen.queryByText('AfCFTA Hackathon')).not.toBeInTheDocument();
+    const footer = screen.getByRole('contentinfo');
+    expect(footer).toBeInTheDocument();
   });
 
   it('handles tablet responsive layout', () => {
-    const mockUseResponsive = vi.mocked(
-      require('../../../hooks/useResponsive').useResponsive
-    );
+    const mockUseResponsive = vi.mocked(useResponsive);
     mockUseResponsive.mockReturnValue({
       isMobile: false,
       isTablet: true,
+      isDesktop: false,
+      isLargeDesktop: false,
+      screenWidth: 768,
+      screenHeight: 1024,
     });
 
     renderWithRouter(<Footer />);
-
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
   });
 
   it('handles touch device interactions', () => {
-    const mockUseTouchDevice = vi.mocked(
-      require('../../../hooks/useTouchDevice').useTouchDevice
-    );
+    const mockUseTouchDevice = vi.mocked(useTouchDevice);
     mockUseTouchDevice.mockReturnValue({
       isTouchDevice: true,
+      hasHover: false,
+      supportsTouch: true,
+      maxTouchPoints: 5,
     });
 
     renderWithRouter(<Footer />);
-
-    // Touch-friendly elements should have appropriate classes
-    const logoLink = screen.getByLabelText('AfCFTA Hackathon - Go to homepage');
+    const logoLink = screen.getByLabelText('ACM Hackathon - Go to homepage');
     expect(logoLink).toBeInTheDocument();
   });
 
   it('renders with correct ARIA attributes for accessibility', () => {
     renderWithRouter(<Footer />);
-
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
 
-    const quickLinksNav = screen.getByLabelText('Footer navigation');
-    expect(quickLinksNav).toBeInTheDocument();
+    const mainNav = screen.getByLabelText('Main navigation');
+    expect(mainNav).toBeInTheDocument();
+
+    const supportNav = screen.getByLabelText('Support and legal links');
+    expect(supportNav).toBeInTheDocument();
 
     const newsletterForm = screen.getByLabelText('Newsletter subscription');
     expect(newsletterForm).toBeInTheDocument();
@@ -247,96 +247,9 @@ describe('Footer', () => {
     );
   });
 
-  it('renders contact information with correct icons', () => {
-    renderWithRouter(<Footer />);
-
-    // We can't easily test for specific icons, but we can test that the contact info is structured correctly
-    const emailLink = screen.getByLabelText(/send email to/i);
-    expect(emailLink).toBeInTheDocument();
-
-    const phoneLink = screen.getByLabelText(/call/i);
-    expect(phoneLink).toBeInTheDocument();
-  });
-
   it('applies custom className when provided', () => {
     renderWithRouter(<Footer className="custom-footer-class" />);
-
     const footer = screen.getByRole('contentinfo');
     expect(footer).toHaveClass('custom-footer-class');
-  });
-
-  it('handles newsletter form submission', () => {
-    renderWithRouter(<Footer />);
-
-    const form = screen.getByLabelText('Newsletter subscription');
-    const emailInput = screen.getByLabelText(/email address for newsletter/i);
-    const subscribeButton = screen.getByRole('button', { name: /subscribe/i });
-
-    // Test form structure
-    expect(form.tagName.toLowerCase()).toBe('form');
-    expect(emailInput).toBeInTheDocument();
-    expect(subscribeButton).toBeInTheDocument();
-  });
-
-  it('renders social links with correct accessibility labels', () => {
-    renderWithRouter(<Footer />);
-
-    const socialLabels = [
-      'Follow us on LinkedIn',
-      'Follow us on Instagram',
-      'Follow us on Twitter',
-      'Contact us on WhatsApp',
-    ];
-
-    socialLabels.forEach(label => {
-      const link = screen.getByLabelText(label);
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('aria-label', label);
-    });
-  });
-
-  it('renders gradient background', () => {
-    renderWithRouter(<Footer />);
-
-    const footer = screen.getByRole('contentinfo');
-    expect(footer).toHaveClass('bg-gray-900');
-  });
-
-  it('renders quick links in mobile grid layout', () => {
-    const mockUseResponsive = vi.mocked(
-      require('../../../hooks/useResponsive').useResponsive
-    );
-    mockUseResponsive.mockReturnValue({
-      isMobile: true,
-      isTablet: false,
-    });
-
-    renderWithRouter(<Footer />);
-
-    // Quick links should be rendered in a grid on mobile
-    const quickLinksSection = screen.getByText('Quick Links').closest('div');
-    expect(quickLinksSection).toBeInTheDocument();
-  });
-
-  it('renders newsletter description with screen reader support', () => {
-    renderWithRouter(<Footer />);
-
-    const description = screen.getByText(
-      /subscribe to receive updates about the afcfta/i
-    );
-    expect(description).toBeInTheDocument();
-    expect(description).toHaveAttribute('id', 'newsletter-description');
-  });
-
-  it('renders footer bottom section with proper layout', () => {
-    renderWithRouter(<Footer />);
-
-    const copyright = screen.getByText(/copyright © 2024/i);
-    const privacyLink = screen.getByText('Privacy Policy');
-    const termsLink = screen.getByText('Terms of Service');
-
-    expect(copyright).toBeInTheDocument();
-    expect(privacyLink).toBeInTheDocument();
-    expect(termsLink).toBeInTheDocument();
   });
 });

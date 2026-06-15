@@ -10,14 +10,7 @@ import { APIService } from '../api';
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-// Mock AbortSignal.timeout
-Object.defineProperty(AbortSignal, 'timeout', {
-  value: vi.fn().mockImplementation((timeout: number) => {
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), timeout);
-    return controller.signal;
-  }),
-});
+
 
 // Mock API configuration
 vi.mock('../../config/api', () => ({
@@ -107,13 +100,15 @@ describe('APIService', () => {
     });
 
     it('handles 500 server errors correctly', async () => {
-      mockFetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
         json: () => Promise.resolve({ message: 'Internal server error' }),
       });
 
-      const result = await apiService.testGet('/error');
+      const resultPromise = apiService.testGet('/error');
+      await vi.runAllTimersAsync();
+      const result = await resultPromise;
 
       expect(result).toEqual({
         success: false,
@@ -164,11 +159,13 @@ describe('APIService', () => {
     });
 
     it('handles timeout errors', async () => {
-      mockFetch.mockRejectedValueOnce(
+      mockFetch.mockRejectedValue(
         new DOMException('Timeout', 'TimeoutError')
       );
 
-      const result = await apiService.testGet('/timeout');
+      const resultPromise = apiService.testGet('/timeout');
+      await vi.runAllTimersAsync();
+      const result = await resultPromise;
 
       expect(result).toEqual({
         success: false,
@@ -307,17 +304,19 @@ describe('APIService', () => {
 
   describe('Error handling', () => {
     it('handles malformed JSON responses', async () => {
-      mockFetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
         json: () => Promise.reject(new Error('Invalid JSON')),
       });
 
-      const result = await apiService.testGet('/malformed');
+      const resultPromise = apiService.testGet('/malformed');
+      await vi.runAllTimersAsync();
+      const result = await resultPromise;
 
       expect(result).toEqual({
         success: false,
-        message: 'HTTP error: 500',
+        message: 'Server error: 500',
       });
     });
 
@@ -360,12 +359,10 @@ describe('APIService', () => {
       const resultPromise = apiService.testGet('/backoff-test');
 
       // First retry after 1000ms
-      vi.advanceTimersByTime(1000);
-      await Promise.resolve();
+      await vi.advanceTimersByTimeAsync(1000);
 
       // Second retry after 2000ms (1000 * 2)
-      vi.advanceTimersByTime(2000);
-      await Promise.resolve();
+      await vi.advanceTimersByTimeAsync(2000);
 
       const result = await resultPromise;
 
