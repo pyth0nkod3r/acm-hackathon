@@ -41,7 +41,7 @@ const PrivacyPolicy = () => {
               transition={{ delay: 0.35 }}
               className="text-purple-200 text-lg mb-6"
             >
-              Last Updated: August 25th, 2025
+              Last Updated: June 10th, 2026
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -72,11 +72,11 @@ const PrivacyPolicy = () => {
                 1. Introduction
               </h3>
               <p className="mb-6">
-                ACM Hackathon 2025 ("we," "our," or "us") values your privacy
+                ACM Hackathon 2026 ("we," "our," or "us") values your privacy
                 and is committed to protecting your personal information. This
                 Privacy Policy explains how we collect, use, disclose, and
                 safeguard your data when you participate in or interact with the
-                ACM Hackathon 2025 website and related activities. By using our
+                ACM Hackathon 2026 website and related activities. By using our
                 website or submitting your information for participation in the
                 Hackathon, you agree to the practices described in this Policy.
               </p>

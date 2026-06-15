@@ -9,59 +9,59 @@ export const SolutionVisionSection = () => {
 
   const solutions = [
     {
-      title: 'Multi-layered Distribution Ecosystem',
+      title: 'Connectivity & Network Optimization',
       description:
-        'Comprehensive platform connecting creators, distributors, and consumers across multiple channels',
-      icon: '🌐',
+        "Solutions tackling Africa's data costs, latency, and network access barriers for gaming",
+      icon: '📶',
       features: [
-        'Content aggregation',
-        'Multi-platform distribution',
-        'Analytics dashboard',
+        'Connectivity optimization',
+        'Latency reduction',
+        'Low-data gaming systems',
       ],
     },
     {
-      title: 'Mobile-first & Low-bandwidth Optimized',
+      title: 'Mobile-first & Low-bandwidth Gaming',
       description:
-        "Solutions designed for Africa's mobile-first users and varying internet conditions",
+        "Solutions designed for Africa's mobile-first gamers and varying internet conditions",
       icon: '📱',
       features: [
-        'Offline capabilities',
+        'Offline play capabilities',
         'Data compression',
         'Progressive loading',
       ],
     },
     {
-      title: 'Secure Content Protection + Smart Contracts',
+      title: 'Community Esports Systems',
       description:
-        'Blockchain-based rights management and automated royalty distribution',
-      icon: '🔒',
+        'Tournament systems, player matchmaking, and community gaming infrastructure',
+      icon: '🎮',
       features: [
-        'Digital rights management',
-        'Automated payments',
-        'Transparent tracking',
+        'Mobile tournament ecosystems',
+        'Player matchmaking',
+        'Community gaming infrastructure',
       ],
     },
     {
-      title: 'Monetization Tools',
-      description: 'Diverse revenue streams for creators and distributors',
-      icon: '💎',
-      features: [
-        'Subscription models',
-        'Pay-per-view',
-        'Advertising integration',
-      ],
-    },
-    {
-      title: 'AI-powered Discovery Engine',
-      description: 'Intelligent content recommendation and talent discovery',
+      title: 'AI & Analytics',
+      description:
+        'Intelligent tools for player performance, matchmaking, and network insights',
       icon: '🤖',
-      features: ['Content matching', 'Trend analysis', 'Audience insights'],
+      features: [
+        'Player/talent matching',
+        'Performance analytics',
+        'Network/bandwidth insights',
+      ],
     },
     {
-      title: 'Integrated Community + Insights',
-      description: 'Social features and data-driven decision making',
+      title: 'Inclusive Gaming Tools',
+      description:
+        'Tools and platforms expanding access to gaming for underserved communities',
       icon: '👥',
-      features: ['Creator communities', 'Performance metrics', 'Market trends'],
+      features: [
+        'Inclusive digital participation',
+        'Creator/gamer communities',
+        'Market trends',
+      ],
     },
   ];
 

@@ -70,7 +70,7 @@ const supportLinks = [
 const contactInfo: ContactInfo = {
   email: 'info@acmhackathon.com',
   phone: '+234 9167667376',
-  address: 'Landmark Events Center, Victoria Island, Lagos, Nigeria',
+  address: 'Mulungushi International Conference Center, 8025 Great East Rd, Lusaka, Zambia',
   website: 'www.africacreativemarket-global.org',
 };
 
@@ -149,9 +149,9 @@ export const Footer: React.FC<FooterProps> = () => {
                 </Link>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-4 md:mb-6">
-                Join the ACM Hackathon and help shape the future of creative
-                content in Africa. Compete for amazing prizes and connect with
-                innovators across the continent.
+                Join the ACM Hackathon and help shape the future of low-bandwidth esports
+                infrastructure and connectivity in Africa. Compete for amazing prizes and
+                connect with innovators across the continent.
               </p>
 
               {/* Contact Info */}

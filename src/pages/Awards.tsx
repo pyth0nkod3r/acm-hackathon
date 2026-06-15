@@ -17,12 +17,12 @@ import { Button } from '../components/ui';
 import { useDocumentTitle } from '../hooks';
 
 const Awards = () => {
-  useDocumentTitle('Awards & Judging - Africa Creative Market Hackathon');
+  useDocumentTitle('Awards & Judging - ACM Hackathon 2026');
 
   // Replace main prizes with grand prize from PrizeSection
   const grandPrize = {
     position: 'Grand Prize',
-    amount: '₦10,000,000',
+    amount: '$5,000 USD',
     icon: Trophy,
     color: 'from-yellow-400 to-yellow-600',
     bgColor: 'bg-yellow-50',
@@ -33,43 +33,39 @@ const Awards = () => {
   // Replace category awards with solutions from SolutionVisionSection
   const categoryAwards = [
     {
-      category: 'Multi-layered Distribution Ecosystem',
+      category: 'Connectivity & Network Optimization',
       description:
-        'Comprehensive platform connecting creators, distributors, and consumers across multiple channels',
+        'Solutions tackling data costs, latency, and network access barriers for gaming in Africa',
       icon: Code,
       color: 'from-red-500 to-red-600',
     },
     {
-      category: 'Mobile-first & Low-bandwidth Optimized',
+      category: 'Mobile-first & Low-bandwidth Gaming',
       description:
-        "Solutions designed for Africa's mobile-first users and varying internet conditions",
+        "Solutions designed for Africa's mobile-first gamers and varying internet conditions",
       icon: Code,
       color: 'from-blue-500 to-blue-600',
     },
     {
-      category: 'Secure Content Protection + Smart Contracts',
+      category: 'Community Esports Systems',
       description:
-        'Blockchain-based rights management and automated royalty distribution',
+        'Tournament systems, player matchmaking, and community gaming infrastructure',
       icon: Code,
       color: 'from-green-500 to-green-600',
     },
     {
-      category: 'Monetization Tools',
-      description: 'Diverse revenue streams for creators and distributors',
+      category: 'AI & Analytics',
+      description:
+        'Intelligent tools for player performance, matchmaking, and network insights',
       icon: Code,
       color: 'from-purple-500 to-purple-600',
     },
     {
-      category: 'AI-powered Discovery Engine',
-      description: 'Intelligent content recommendation and talent discovery',
+      category: 'Inclusive Gaming Tools',
+      description:
+        'Tools and platforms expanding access to gaming for underserved communities',
       icon: Code,
       color: 'from-indigo-500 to-indigo-600',
-    },
-    {
-      category: 'Integrated Community + Insights',
-      description: 'Social features and data-driven decision making',
-      icon: Code,
-      color: 'from-pink-500 to-pink-600',
     },
   ];
 
@@ -79,7 +75,7 @@ const Awards = () => {
       criterion: 'Problem Relevance',
       weight: '15%',
       description:
-        'Does the solution directly address a key challenge in African music or film distribution?',
+        'Does the solution directly address a key challenge in low-bandwidth gaming, esports, or connectivity in Africa?',
       icon: Target,
       color: 'from-red-500 to-red-600',
       details: [
@@ -144,7 +140,7 @@ const Awards = () => {
       criterion: 'Impact & Sustainability',
       weight: '20%',
       description:
-        'What is the potential impact of this solution on creators, consumers, and the industry?',
+        'What is the potential impact of this solution on gamers, local communities, and the African esports ecosystem?',
       icon: Users,
       color: 'from-pink-500 to-pink-600',
       details: [
@@ -157,11 +153,11 @@ const Awards = () => {
 
   // Replace additionalIncentives with additionalPrizes from PrizeSection
   const additionalPrizes = [
-    'AWS tech support',
-    'Mentorship from Industry Experts',
-    'Incubation Program Access (ASF + CcHub)',
-    'Funding Opportunities & Investor Connections',
+    '3-Month Mentorship from Industry Experts',
+    'Investor Introductions & Funding Connections',
+    'Official Presentation to the Ministry of Youth, Sport and Arts',
     'ACM Platform Exposure & Marketing Support',
+    'AWS Tech Support',
     'Legal & IP Guidance for Startups',
   ];
 
@@ -203,8 +199,8 @@ const Awards = () => {
               transition={{ delay: 0.4 }}
               className="text-xl text-purple-200 max-w-3xl mx-auto mb-8"
             >
-              World-class judging criteria and over ₦10 million in prizes and
-              incentives
+              World-class judging criteria and $5,000 USD in grand prizes and
+              valuable incentives
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -262,7 +258,7 @@ const Awards = () => {
                 </div>
                 <p className="text-gray-600 mb-4">{grandPrize.description}</p>
                 <p className="text-sm text-gray-500">
-                  Plus mentorship and incubation opportunities
+                  Plus 3-Month Mentorship, Investor Introductions, and an Official Presentation to the Ministry of Youth, Sport and Arts
                 </p>
               </motion.div>
             </ScrollAnimation>
@@ -279,8 +275,8 @@ const Awards = () => {
                 What You'll Build
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Special recognition for excellence in each creative economy
-                solution category
+                Special recognition for excellence in each low-bandwidth esports
+                and connectivity category
               </p>
             </div>
           </ScrollAnimation>
@@ -454,8 +450,8 @@ const Awards = () => {
                 Ready to Compete for These Prizes?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Join the Africa Creative Market Hackathon and compete for
-                world-class recognition and valuable opportunities.
+                Join the ACM Hackathon 2026 and compete for $5,000 in grand prizes
+                and valuable incubation opportunities.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -463,7 +459,7 @@ const Awards = () => {
                   size="lg"
                   className="bg-white text-purple-600 hover:bg-gray-100"
                 >
-                  <Link to="/application">
+                  <Link to="/registration">
                     Apply Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

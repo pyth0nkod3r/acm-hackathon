@@ -26,7 +26,7 @@ const FAQ = () => {
     {
       question: 'What is the Africa Creative Market Hackathon?',
       answer:
-        "The ACM Hackathon 2025 is a high-energy innovation sprint hosted as part of the Africa Creative Market 2025, bringing together brilliant minds across technology, music, and film to create multi-layered solutions to Africa's music and film distribution challenges. From last-mile access to payment systems and anti-piracy tech, this hackathon is a call to action for transformative disruption.",
+        "The ACM Hackathon 2026 is a high-energy innovation sprint hosted as part of the Africa Creative Market 2026, bringing together brilliant minds across technology, gaming, and infrastructure to create solutions for the 'Connected Play' theme. Focus areas include low-bandwidth esports infrastructure, connectivity optimization, mobile-first tournament ecosystems, and inclusive digital participation in Africa.",
     },
     {
       question: 'Who can participate in the ACM Hackathon?',
@@ -134,7 +134,7 @@ const FAQ = () => {
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Find answers to the most common questions about the ACM Hackathon
-              2025. Can't find what you're looking for?{' '}
+              2026. Can't find what you're looking for?{' '}
               <Link
                 to="/contact"
                 className="text-blue-600 hover:text-blue-800 underline"

@@ -23,15 +23,15 @@ export const routes: RouteConfig[] = [
   {
     path: '/',
     component: Home,
-    title: 'Home - ACM Hackathon',
+    title: 'Home - ACM Hackathon 2026',
     description:
-      'Join the future of digital trade in Africa with the ACM Hackathon 2025',
+      'Join the future of low-bandwidth esports and connectivity in Africa with the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/about',
     component: About,
-    title: 'About - ACM Hackathon',
+    title: 'About - ACM Hackathon 2026',
     description:
       'Learn about the ACM Hackathon mission, goals, and event details',
     isProtected: false,
@@ -39,53 +39,53 @@ export const routes: RouteConfig[] = [
   {
     path: '/contact',
     component: Contact,
-    title: 'Contact - ACM Hackathon',
+    title: 'Contact - ACM Hackathon 2026',
     description: 'Get in touch with the ACM Hackathon organizers',
     isProtected: false,
   },
   {
     path: '/registration-old',
     component: Application,
-    title: 'Apply (Old) - ACM Hackathon',
-    description: 'Apply for the ACM Hackathon 2025 (Legacy Form)',
+    title: 'Apply (Old) - ACM Hackathon 2026',
+    description: 'Apply for the ACM Hackathon 2026 (Legacy Form)',
     isProtected: false,
   },
   {
     path: '/registration',
     component: NewApplication,
-    title: 'Apply - ACM Hackathon',
-    description: 'Apply for the ACM Hackathon 2025',
+    title: 'Apply - ACM Hackathon 2026',
+    description: 'Apply for the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/challenges',
     component: Challenges,
-    title: 'Challenges - ACM Hackathon',
+    title: 'Challenges - ACM Hackathon 2026',
     description:
-      'Explore the key challenges and innovation areas for the ACM Hackathon 2025',
+      'Explore the key challenges and innovation areas for the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/schedule',
     component: Schedule,
-    title: 'Schedule - ACM Hackathon',
-    description: 'View the complete event schedule for the ACM Hackathon 2025',
+    title: 'Schedule - ACM Hackathon 2026',
+    description: 'View the complete event schedule for the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/faq',
     component: FAQ,
-    title: 'FAQ - ACM Hackathon',
+    title: 'FAQ - ACM Hackathon 2026',
     description:
-      'Find answers to frequently asked questions about the ACM Hackathon 2025',
+      'Find answers to frequently asked questions about the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/awards',
     component: Awards,
-    title: 'Awards & Judging - ACM Hackathon',
+    title: 'Awards & Judging - ACM Hackathon 2026',
     description:
-      'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2025',
+      'Learn about prizes, judging criteria, and post-hackathon opportunities for the ACM Hackathon 2026',
     isProtected: false,
   },
   // {
@@ -114,29 +114,29 @@ export const routes: RouteConfig[] = [
   {
     path: '/partner-registration',
     component: PartnerRegistration,
-    title: 'Partner Registration - ACM Hackathon',
-    description: 'Register to become a partner for the ACM Hackathon 2025',
+    title: 'Partner Registration - ACM Hackathon 2026',
+    description: 'Register to become a partner for the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/terms-and-conditions',
     component: Terms,
-    title: 'Terms and Conditions - ACM Hackathon',
+    title: 'Terms and Conditions - ACM Hackathon 2026',
     description:
-      'Read the official terms and conditions for participating in the ACM Hackathon 2025',
+      'Read the official terms and conditions for participating in the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/terms-of-use',
     component: TermsOfUse,
-    title: 'Terms of Use - ACM Hackathon',
-    description: 'Read the website terms of use for the ACM Hackathon 2025',
+    title: 'Terms of Use - ACM Hackathon 2026',
+    description: 'Read the website terms of use for the ACM Hackathon 2026',
     isProtected: false,
   },
   {
     path: '/privacy-policy',
     component: PrivacyPolicy,
-    title: 'Privacy Policy - ACM Hackathon',
+    title: 'Privacy Policy - ACM Hackathon 2026',
     description:
       'Read our privacy policy to understand how we collect, use, and protect your personal information',
     isProtected: false,

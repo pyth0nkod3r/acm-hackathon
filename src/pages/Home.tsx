@@ -5,6 +5,8 @@ import { PrizeSection } from '../components/home/PrizeSection';
 import { ProblemStatementSection } from '../components/home/ProblemStatementSection';
 import { SolutionVisionSection } from '../components/home/SolutionVisionSection';
 import { TeamRolesSection } from '../components/home/TeamRolesSection';
+import { WhyEsportsSection } from '../components/home/WhyEsportsSection';
+import { PastWinnersSection } from '../components/home/PastWinnersSection';
 
 const Home = () => {
   return (
@@ -13,10 +15,16 @@ const Home = () => {
       <HeroSection />
       {/* About Section */}
       <AboutSection />
-      <ProblemStatementSection /> {/* New section */}
-      <SolutionVisionSection /> {/* New section */}
-      {/* Team Roles Section */}
+      {/* Why Esports Section */}
+      <WhyEsportsSection />
+      {/* Challenges to Solve */}
+      <ProblemStatementSection />
+      {/* What You'll Build */}
+      <SolutionVisionSection />
+      {/* Team Roles / Participants Section */}
       <TeamRolesSection />
+      {/* Past Winners Recap */}
+      <PastWinnersSection />
       {/* Prize Information Section */}
       <PrizeSection />
       {/* Partners Section */}

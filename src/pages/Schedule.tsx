@@ -27,17 +27,17 @@ interface DaySchedule {
 }
 
 const Schedule = () => {
-  useDocumentTitle('Schedule - Africa Creative Market Hackathon');
+  useDocumentTitle('Schedule - ACM Hackathon 2026');
   const [activeDay, setActiveDay] = useState(1);
   const [expandedSessions, setExpandedSessions] = useState<string[]>([]);
 
   const scheduleData: DaySchedule[] = [
     {
       day: 1,
-      date: 'September 16, 2025',
+      date: 'June 29, 2026',
       title: 'Opening & Ideation',
       theme:
-        'Distribute Africa: Hacking the Future of Music & Film Access - Opening Ceremony and Hacking Begins',
+        'Connected Play: Hacking Africa’s Future Through Low-Bandwidth Esports Infrastructure - Opening Ceremony and Hacking Begins',
       sessions: {
         morning: [
           {
@@ -48,8 +48,8 @@ const Schedule = () => {
           },
           {
             timeSlot: '9:10 AM - 9:20 AM',
-            session: 'Keynote Speech - CcHub Representative',
-            details: 'Keynote address from CcHub representative',
+            session: 'Keynote Speech - Ministry Representative',
+            details: 'Keynote address from the Ministry of Youth, Sport & Arts representative',
           },
           {
             timeSlot: '9:20 AM - 9:30 AM',
@@ -86,7 +86,7 @@ const Schedule = () => {
     },
     {
       day: 2,
-      date: 'September 17, 2025',
+      date: 'June 30, 2026',
       title: 'Hacking & Refinement',
       theme:
         'Building MVPs with Expert Mentorship and Lightning Talks from Partners',
@@ -96,7 +96,7 @@ const Schedule = () => {
             timeSlot: '9:00 AM - 10:30 AM',
             session: 'Breakout Sessions with Mentors',
             details:
-              'Each team consults mentors (creatives and legal experts) to refine their ideas and scope',
+              'Each team consults mentors (esports, connectivity, and business experts) to refine their ideas and scope',
           },
           {
             timeSlot: '10:30 AM - 12:00 PM',
@@ -117,16 +117,16 @@ const Schedule = () => {
     },
     {
       day: 3,
-      date: 'September 18, 2025',
-      title: 'Offsite at CcHub',
-      theme: 'Continued Development and Refinement at CcHub Innovation Hub',
+      date: 'July 1, 2026',
+      title: 'Offsite Development',
+      theme: 'Continued Development and Refinement at Partner Innovation Hubs',
       sessions: {
         morning: [
           {
             timeSlot: '9:00 AM - 12:00 PM',
             session: 'Offsite Development Session',
             details:
-              'Teams continue working on their solutions at CcHub innovation hub with continued mentorship and support',
+              'Teams continue working on their solutions at partner innovation hubs with continued mentorship and support',
           },
         ],
         afternoon: [
@@ -141,9 +141,9 @@ const Schedule = () => {
     },
     {
       day: 4,
-      date: 'September 19, 2025',
+      date: 'July 2, 2026',
       title: 'Final Pitching & Awards',
-      theme: 'Showcasing Distribution Innovations and Celebrating Success',
+      theme: 'Showcasing Esports & Connectivity Innovations and Celebrating Success',
       sessions: {
         morning: [
           {
@@ -162,7 +162,7 @@ const Schedule = () => {
             timeSlot: '10:00 AM - 10:10 AM',
             session: 'Keynote Speech',
             details:
-              'Mr. Ralph Simon - Patron of the ACM Hackathon delivers keynote address',
+              'Keynote address from Ministry of Youth, Sport & Arts and CIBSZ Representatives',
           },
           {
             timeSlot: '10:10 AM - 10:25 AM',
@@ -217,7 +217,7 @@ const Schedule = () => {
   const preHackathonEvents = [
     {
       phase: 'Application Open',
-      duration: 'August 29, 2025',
+      duration: 'June 10, 2026',
       activities: [
         'Launch via ACM website, social media, press releases',
         'Partner platforms, universities, and tech hubs outreach',
@@ -226,16 +226,16 @@ const Schedule = () => {
     },
     {
       phase: 'Registration & Idea Submission',
-      duration: 'August 29 - September 10, 2025',
+      duration: 'June 10 - June 23, 2026',
       activities: [
         'Team/individual profile submission',
         'Initial solution concept presentation',
-        'Distribution challenge area selection and team formation',
+        'Esports/connectivity challenge area selection and team formation',
       ],
     },
     {
       phase: 'Selected Participants Notified',
-      duration: 'September 11, 2025',
+      duration: 'June 24, 2026',
       activities: [
         'Notifications sent via e-mail and ACM platform',
         'Public update across ACM website and social media',
@@ -538,7 +538,7 @@ const Schedule = () => {
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
                 Be part of this transformative 4-day experience that will shape
-                the future of Africa's creative economy.
+                the future of low-bandwidth esports and connectivity in Africa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

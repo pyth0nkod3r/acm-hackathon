@@ -41,7 +41,7 @@ const Terms = () => {
               transition={{ delay: 0.35 }}
               className="text-purple-200 text-lg mb-6"
             >
-              Effective Date: August 25th, 2025
+              Effective Date: June 10th, 2026
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -73,17 +73,17 @@ const Terms = () => {
               </h3>
               <p className="mb-4">
                 These Terms and Conditions ("Terms") govern participation in the
-                ACM Hackathon 2025 ("Hackathon"), as organized by the Africa
-                Creative Market (ACM) Hackathon team in collaboration with
-                Ascend Studios Foundation and Amazon Web Services (AWS). By
-                submitting an application to participate in the Hackathon (the
-                "Application"), you ("Participant") agree to abide by these
-                Terms in full.
+                ACM Hackathon 2026 ("Hackathon"), as organized by the Africa
+                Creative Market (ACM) Hackathon team in collaboration with the
+                Ministry of Youth, Sport & Arts (Zambia), CIBSZ and Amazon Web
+                Services (AWS). By submitting an application to participate in the
+                Hackathon (the "Application"), you ("Participant") agree to abide by
+                these Terms in full.
               </p>
               <p className="mb-6">
-                The Hackathon will take place from September 16 – 19, 2025, with
-                the finale and demo day on September 19, 2025, in Lagos,
-                Nigeria.
+                The Hackathon will take place from June 29 – July 2, 2026, with
+                the finale and demo day on July 2, 2026, at the Mulungushi International
+                Conference Center in Lusaka, Zambia.
               </p>
 
               <h3 className="font-bold text-xl text-gray-900 mt-8 mb-4">
@@ -95,9 +95,9 @@ const Terms = () => {
               <ul className="list-disc pl-6 mb-4">
                 <li className="mb-2">
                   Participation is encouraged as a team. Teams must consist of 3
-                  to 5 members with complementary skills (software development,
-                  UI/UX design, creative strategy, business/legal, and
-                  optionally data science).
+                  to 5 members with complementary skills (software development/engineering,
+                  UI/UX design, gaming/esports strategy, business & product strategy, and
+                  AI/data/infrastructure specialization).
                 </li>
                 <li className="mb-2">
                   Individuals are welcome to apply and form or join a team
@@ -173,7 +173,7 @@ const Terms = () => {
                 6.1 Seed Fund, Not Personal Reward
               </h4>
               <p className="mb-4">
-                The ₦10,000,000 Grand Prize allocated to the winning team is
+                The $5,000 USD Grand Prize allocated to the winning team is
                 provided as seed capital to support the growth and development
                 of the project/platform presented at the Hackathon. It must not
                 be divided among team members as personal reward.
@@ -349,10 +349,9 @@ const Terms = () => {
               </h3>
               <p className="mb-6">
                 These Terms are governed by and construed in accordance with the
-                laws of Nigeria. All disputes arising from or related to these
-                Terms or the Hackathon shall be referred to the Lagos State
-                Multi-Door Courthouse (LMDC) for mediation, which shall be final
-                and binding on the Parties.
+                laws of Zambia. All disputes arising from or related to these
+                Terms or the Hackathon shall be referred to arbitration or mediation
+                under Zambian law, which shall be final and binding on the Parties.
               </p>
 
               <h3 className="font-bold text-xl text-gray-900 mt-8 mb-4">
@@ -378,7 +377,7 @@ const Terms = () => {
             </h2>
             <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
               Now that you've reviewed the terms and conditions, join us in
-              shaping Africa's creative future.
+              shaping the future of low-bandwidth esports and connectivity in Africa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

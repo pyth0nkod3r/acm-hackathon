@@ -27,32 +27,20 @@ import type { HackathonForm, TeamMember } from '@/nServices/apiType';
 
 // Team roles options
 const TEAM_ROLES = [
-  'Team Lead',
-  'Frontend Developer',
-  'Backend Developer',
-  'Full Stack Developer',
-  'Mobile Developer',
+  'Software Developer/Engineer',
   'UI/UX Designer',
-  'Product Designer',
-  'Data Scientist',
-  'Business Analyst',
-  'Marketing Specialist',
-  'Content Creator',
-  'Project Manager',
+  'Gaming/Esports Strategist',
+  'Business & Product Strategist',
+  'AI/Data/Infrastructure Specialist',
 ];
 
 // Challenge areas for the hackathon
 const CHALLENGE_AREAS = [
-  'Digital Trade Infrastructure',
-  'Cross-Border Payment Solutions',
-  'Supply Chain Transparency',
-  'Digital Identity & Authentication',
-  'E-commerce Platform Innovation',
-  'Logistics & Delivery Optimization',
-  'Financial Inclusion Technologies',
-  'Marketplace Security & Trust',
-  'Data Analytics & Insights',
-  'Mobile-First Solutions',
+  'Connectivity & Network Optimization',
+  'Mobile-first & Low-bandwidth Gaming',
+  'Community Esports Systems',
+  'AI & Analytics',
+  'Inclusive Gaming Tools',
 ];
 
 interface NewApplicationFormProps {
@@ -349,7 +337,7 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
 
   const requiredDeclarations = [
     'I confirm that all information provided is accurate and complete.',
-    'I agree to the terms and conditions of the ACM Hackathon 2025.',
+    'I agree to the terms and conditions of the ACM Hackathon 2026.',
     'I understand that participation is subject to acceptance and availability.',
   ];
 
@@ -364,15 +352,15 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
       </h4>
       <p className="mb-3 text-sm">
         These Terms and Conditions ("Terms") govern participation in the ACM
-        Hackathon 2025 ("Hackathon"), as organized by the Africa Creative Market
+        Hackathon 2026 ("Hackathon"), as organized by the Africa Creative Market
         (ACM) Hackathon team in collaboration with Ascend Studios Foundation and
         Amazon Web Services (AWS). By submitting an application to participate
         in the Hackathon (the "Application"), you ("Participant") agree to abide
         by these Terms in full.
       </p>
       <p className="mb-4 text-sm">
-        The Hackathon will take place from September 16 – 19, 2025, with the
-        finale and demo day on September 19, 2025, in Lagos, Nigeria.
+        The Hackathon will take place from June 29 – July 2, 2026, with the
+        finale and demo day on July 2, 2026, in Lusaka, Zambia.
       </p>
 
       <h4 className="font-bold text-base text-gray-900 mt-6 mb-3">
@@ -458,7 +446,7 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
         6.1 Seed Fund, Not Personal Reward
       </h5>
       <p className="mb-3 text-sm">
-        The ₦10,000,000 Grand Prize allocated to the winning team is provided as
+        The $5,000 Grand Prize allocated to the winning team is provided as
         seed capital to support the growth and development of the
         project/platform presented at the Hackathon. It must not be divided
         among team members as personal reward.

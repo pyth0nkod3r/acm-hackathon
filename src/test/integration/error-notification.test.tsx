@@ -3,16 +3,12 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { screen, waitFor, fireEvent } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders, mockApiResponses } from './setup';
-import {
-  NotificationProvider,
-  useNotification,
-} from '../../contexts/NotificationContext';
+import { useNotification } from '../../hooks/useNotification';
 import { ErrorBoundary } from '../../components/common/ErrorBoundary';
-import { RegistrationForm } from '../../components/forms/RegistrationForm';
-import { ContactForm } from '../../components/forms/ContactForm';
+import { RegistrationForm, ContactForm } from '../../components/forms';
 import { registrationService } from '../../services/registrationService';
 import { contactService } from '../../services/contactService';
 import React from 'react';

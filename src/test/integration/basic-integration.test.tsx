@@ -5,11 +5,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders, createTestContactData } from './setup';
-import {
-  NotificationProvider,
-  useNotification,
-} from '../../contexts/NotificationContext';
+import { renderWithProviders } from './setup';
+import { useNotification } from '../../hooks/useNotification';
 import React from 'react';
 
 // Simple test component for notifications

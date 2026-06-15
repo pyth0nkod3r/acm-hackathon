@@ -97,7 +97,7 @@ const NewApplication = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl font-bold mb-4"
             >
-              Registration for ACM Hackathon 2025
+              Registration for ACM Hackathon 2026
             </motion.h1>
 
             <motion.div
@@ -125,7 +125,7 @@ const NewApplication = () => {
         <Container className="py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-              Apply for the ACM Hackathon 2025
+              Apply for the ACM Hackathon 2026
             </h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -133,7 +133,7 @@ const NewApplication = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl mb-6 font-semibold text-center bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
             >
-              "Distribute Africa: Hacking the Future of Music & Film Access"
+              "Connected Play: Hacking Africa’s Future Through Low-Bandwidth Esports Infrastructure"
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -145,20 +145,20 @@ const NewApplication = () => {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-lg">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <p className="font-medium">September 16-19, 2025</p>
+                    <p className="font-medium">June 29 – July 2, 2026</p>
                   </div>
                   <div className="hidden md:block w-px h-6 bg-white/30"></div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                     <p className="font-medium">
-                      Finale & Demo Day: September 19, 2025
+                      Finale & Demo Day: July 2, 2026
                     </p>
                   </div>
                 </div>
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: ₦10,000,000 + AWS Tech Support + Mentorship + Investment
+                    Prize: $5,000 USD + AWS Tech Support + Mentorship + Investment
                     Opportunities
                   </p>
                 </div>
@@ -168,7 +168,10 @@ const NewApplication = () => {
                     ACM
                   </span>
                   <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
-                    Ascend Studios Foundation
+                    Ministry of Youth, Sport & Arts
+                  </span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
+                    CIBSZ
                   </span>
                   <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
                     AWS
@@ -246,7 +249,7 @@ const NewApplication = () => {
                   <li>• Technical or creative background preferred</li>
                   <li>• Team size: 3-5 members</li>
                   <li>• Commitment to full event participation</li>
-                  <li>• Interest in music & film distribution</li>
+                  <li>• Interest in low-bandwidth gaming & esports infrastructure</li>
                 </ul>
               </div>
 
@@ -317,19 +320,19 @@ const NewApplication = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">August 29, 2025</p>
+                  <p className="text-yellow-700">June 10, 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Application Deadline
                   </h4>
-                  <p className="text-yellow-700">September 10, 2025</p>
+                  <p className="text-yellow-700">June 23, 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Hackathon Event
                   </h4>
-                  <p className="text-yellow-700">September 16-19, 2025</p>
+                  <p className="text-yellow-700">June 29 – July 2, 2026</p>
                 </div>
               </div>
             </div>

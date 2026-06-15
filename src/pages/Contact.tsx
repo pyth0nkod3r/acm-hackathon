@@ -131,8 +131,8 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900">Location</h3>
                     <p className="text-gray-600">
-                      Landmark Events Center, Victoria Island, Lagos, <br />
-                      Nigeria
+                      Mulungushi International Conference Center, <br />
+                      8025 Great East Rd, Lusaka, Zambia
                     </p>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ const Contact = () => {
                       Support Hours
                     </h3>
                     <p className="text-gray-600">
-                      Monday - Friday: 9:00 AM - 6:00 PM (GMT)
+                      Monday - Friday: 9:00 AM - 6:00 PM (GMT+2)
                       <br />
                       Weekend: Limited support available
                     </p>

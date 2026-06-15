@@ -224,3 +224,4 @@ CHANGELOG.auto.md
 ./src/test/*.md
 parent_website/
 parent_website/*
+do-not-track/

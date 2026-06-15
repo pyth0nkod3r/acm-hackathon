@@ -7,7 +7,7 @@ export const PrizeSection = () => {
   // Remove the split prizes array and update to single grand prize
   const grandPrize = {
     position: 'Grand Prize',
-    amount: '₦10,000,000',
+    amount: '$5,000',
     icon: Trophy,
     color: 'from-yellow-400 to-yellow-600',
     bgColor: 'bg-yellow-50',
@@ -15,42 +15,42 @@ export const PrizeSection = () => {
   };
 
   const additionalPrizes = [
-    'AWS tech support',
-    'Mentorship from Industry Experts',
-    'Incubation Program Access (ASF + CcHub)',
-    'Funding Opportunities & Investor Connections',
+    '3-Month Mentorship from Industry Experts',
+    'Investor Introductions & Funding Connections',
+    'Official Presentation to the Ministry of Youth, Sport and Arts',
     'ACM Platform Exposure & Marketing Support',
+    'AWS Tech Support',
     'Legal & IP Guidance for Startups',
   ];
 
   const postHackathonSupport = [
     {
-      title: 'Investor-ready exposure',
-      description: 'Connect with potential investors and partners',
+      title: '3-Month Mentorship',
+      description: 'Ongoing guidance from industry experts in gaming, connectivity, and esports',
+      icon: '🧠',
+    },
+    {
+      title: 'Investor Introductions',
+      description: 'Connect with potential investors and partners in the gaming ecosystem',
       icon: '💼',
     },
     {
-      title: 'Technical & business incubation',
-      description: 'ASF + CcHub incubation programs',
-      icon: '🚀',
+      title: 'Official Ministry Presentation',
+      description: 'Present your solution to the Ministry of Youth, Sport and Arts, Zambia',
+      icon: '🏛️',
     },
     {
-      title: 'AWS tech support',
-      description: 'Technical support',
+      title: 'AWS Tech Support',
+      description: 'Technical support for scaling connectivity/infrastructure solutions',
       icon: '☁️',
     },
     {
-      title: 'ACM platform exposure',
-      description: 'Showcase on Africa Creative Market platform',
+      title: 'ACM Platform Exposure',
+      description: 'Showcase on the Africa Creative Market platform',
       icon: '🌟',
     },
     {
-      title: 'Legal & IP guidance',
-      description: 'Professional legal support for startups',
-      icon: '⚖️',
-    },
-    {
-      title: 'Road to market acceleration',
+      title: 'Road to Market Acceleration',
       description: 'Market entry and scaling support',
       icon: '📈',
     },
@@ -88,7 +88,7 @@ export const PrizeSection = () => {
                 {grandPrize.amount}
               </div>
               <p className="text-gray-600">
-                Plus mentorship and incubation opportunities
+                Plus 3-Month Mentorship, Investor Introductions, and an Official Presentation to the Ministry of Youth, Sport and Arts
               </p>
             </motion.div>
           </ScrollAnimation>

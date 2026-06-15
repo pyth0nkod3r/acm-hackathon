@@ -118,7 +118,7 @@ export const HeroSection = () => {
               >
                 <Calendar className="h-5 w-5" />
                 <span className="text-lg">
-                  September 16 - September 19, 2025
+                  29 June - 2 July, 2026
                 </span>
               </motion.div>
 
@@ -135,8 +135,8 @@ export const HeroSection = () => {
                       : 'text-4xl md:text-6xl'
                 )}
               >
-                Distribute Africa: Hacking the Future of{' '}
-                <span className="text-[#c2d72f]">Music & Film Access</span>
+                Connected Play: Hacking Africa's Future Through{' '}
+                <span className="text-[#c2d72f]">Low-Bandwidth Esports Infrastructure</span>
               </motion.h1>
 
               <motion.h2
@@ -148,8 +148,7 @@ export const HeroSection = () => {
                   isMobile ? 'text-lg' : 'text-xl md:text-2xl'
                 )}
               >
-                Join innovators, creators, and technologists to solve Africa's
-                distribution challenges
+                Join developers, designers, gaming strategists, and entrepreneurs to build the future of esports and connectivity in Africa
               </motion.h2>
 
               <motion.div
@@ -160,7 +159,7 @@ export const HeroSection = () => {
               >
                 <MapPin className="h-5 w-5" />
                 <span className="text-lg">
-                  Landmark Events Center, Victoria Island, Lagos, Nigeria
+                  Mulungushi International Conference Center, 8025 Great East Rd, Lusaka, Zambia
                 </span>
               </motion.div>
 
@@ -171,7 +170,7 @@ export const HeroSection = () => {
                 transition={{ delay: 0.6 }}
                 className="mb-8 lg:ml-[-190px]"
               >
-                <CountdownTimer targetDate="2025-09-16T00:00:00" />
+                <CountdownTimer targetDate="2026-06-29T00:00:00" />
               </motion.div>
 
               <motion.p
@@ -180,9 +179,7 @@ export const HeroSection = () => {
                 transition={{ delay: 0.7 }}
                 className="text-lg text-gray-200 mb-8 max-w-lg"
               >
-                Harness Africa's creative and technological talent to develop
-                innovative solutions for music and film distribution. Compete.
-                Innovate. Create!
+                Harness Africa's creative and technological talent to develop innovative solutions for low-data gaming, esports, and connectivity. Compete. Innovate. Create!
               </motion.p>
 
               {/* Action Buttons - Update CTA */}
@@ -244,7 +241,7 @@ export const HeroSection = () => {
                     const IconComponent = getSocialIcon(social.icon);
                     return (
                       <a
-                        key={social.label}
+                          key={social.label}
                         href={social.url}
                         className={cn(
                           'text-gray-400 hover:text-[#c2d72f] transition-colors touch-manipulation',
@@ -279,14 +276,13 @@ export const HeroSection = () => {
                   /> */}
                   {/* <div className="hidden"> */}
                   <div className="w-32 h-32 mx-auto mb-6 bg-[#c2d72f] rounded-full flex items-center justify-center">
-                    <span className="text-xl font-bold text-black">ACM 2025 Hackathon</span>
+                    <span className="text-xl font-bold text-black">ACM 2026 Hackathon</span>
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    Music & Film Distribution Innovation
+                    Connectivity & Esports Innovation
                   </h3>
                   <p className="text-gray-300">
-                    Transforming Africa's creative industries through technology
-                    and innovation
+                    Building Africa’s low-bandwidth gaming and esports ecosystem through technology and innovation
                   </p>
                   {/* </div> */}
                 </div>

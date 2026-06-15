@@ -24,13 +24,11 @@ import { cn } from '../../lib/utils';
 
 // Updated roles based on the new form
 const roles = [
-  'Developer',
-  'Designer',
-  'Creative Lead',
-  'Business Lead',
-  'Legal/Policy',
-  'Data Scientist',
-  'Other',
+  'Software Developer/Engineer',
+  'UI/UX Designer',
+  'Gaming/Esports Strategist',
+  'Business & Product Strategist',
+  'AI/Data/Infrastructure Specialist',
 ];
 
 // Countries list (keeping existing African countries)
@@ -697,7 +695,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           <FormField
-            label="Will all team members be available to participate in-person in Lagos from Sept 16–19?"
+            label="Will all team members be available to participate in-person in Lusaka from June 29 – July 2, 2026?"
             required
             htmlFor="allMembersAvailable"
           >
@@ -791,7 +789,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           {[
             'All information provided is accurate',
             'All team members are aged 18+',
-            'Our team will abide by the rules of the ACM Hackathon 2025',
+            'Our team will abide by the rules of the ACM Hackathon 2026',
           ].map(declaration => (
             <label
               key={declaration}

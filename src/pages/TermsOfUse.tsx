@@ -76,7 +76,7 @@ const TermsOfUse = () => {
                       1. Acceptance of Terms
                     </h2>
                     <p className="text-gray-700 leading-relaxed">
-                      By accessing or using the ACM Hackathon 2025 website
+                      By accessing or using the ACM Hackathon 2026 website
                       ("Website"), you agree to comply with these Terms of Use.
                       If you do not agree, please discontinue use of the
                       Website.
@@ -220,8 +220,8 @@ const TermsOfUse = () => {
                       10. Governing Law
                     </h2>
                     <p className="text-gray-700 leading-relaxed">
-                      These Terms of Use are governed by the laws of Nigeria.
-                      Any disputes shall be resolved under applicable Nigerian
+                      These Terms of Use are governed by the laws of Zambia.
+                      Any disputes shall be resolved under applicable Zambian
                       law.
                     </p>
                   </div>

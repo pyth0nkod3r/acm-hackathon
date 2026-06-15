@@ -5,35 +5,35 @@ import { ScrollAnimation } from '../animations';
 export const ProblemStatementSection = () => {
   const challenges = [
     {
-      title: 'Fragmented Infrastructure',
+      title: 'Expensive Data',
       description:
-        'Disconnected systems preventing seamless content distribution across Africa',
-      icon: '🏗️',
+        'High data costs keep millions of young Africans out of online gaming and esports',
+      icon: '💸',
       color: 'from-red-500 to-red-600',
     },
     {
-      title: 'Last-Mile Access & Affordability',
-      description: 'Limited reach to rural areas and high costs for consumers',
-      icon: '🌍',
+      title: 'Poor Connectivity',
+      description: 'Inconsistent and weak networks limit access to gaming platforms across the continent',
+      icon: '📶',
       color: 'from-blue-500 to-blue-600',
     },
     {
-      title: 'Piracy & Rights Management',
+      title: 'High Latency',
       description:
-        'Unauthorized distribution and complex copyright enforcement',
-      icon: '🛡️',
+        'Lag and delay make competitive, real-time esports nearly impossible in many regions',
+      icon: '⚡',
       color: 'from-purple-500 to-purple-600',
     },
     {
-      title: 'Revenue Leakage',
-      description: 'Lost income due to inefficient monetization systems',
-      icon: '💰',
+      title: 'Weak Gaming Infrastructure',
+      description: 'Limited local servers, tournament systems, and community platforms restrict growth',
+      icon: '🎮',
       color: 'from-green-500 to-green-600',
     },
     {
-      title: 'Limited Visibility for Talent',
-      description: 'Emerging artists struggle to reach wider audiences',
-      icon: '⭐',
+      title: 'Limited Digital Inclusion',
+      description: 'Talented players and developers lack pathways into the gaming economy',
+      icon: '🌐',
       color: 'from-yellow-500 to-yellow-600',
     },
   ];

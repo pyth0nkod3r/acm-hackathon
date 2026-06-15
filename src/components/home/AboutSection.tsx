@@ -9,15 +9,11 @@ export const AboutSection = () => {
           <ScrollAnimation animation="fadeIn">
             <div className="text-center mb-16">
               <span className="text-[#4a5f8a] font-semibold text-lg mb-4 block">
-                Welcome to ACM Hackathon 2025
+                Welcome to ACM Hackathon 2026
               </span>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  A 4-day innovation challenge dedicated to solving Africa's
-                  music and film distribution challenges. This exciting event
-                  brings together developers, designers, storytellers, artists,
-                  business minds and industry leaders to create market-ready
-                  solutions that can evolve into sustainable startups.
+                  A 6-day innovation challenge dedicated to solving Africa's connectivity and esports infrastructure challenges. This exciting event brings together developers, designers, gaming strategists, business minds and industry leaders to create market-ready solutions that can evolve into sustainable startups.
                 </p>
               </div>
             </div>
@@ -28,9 +24,9 @@ export const AboutSection = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {[
                 { stat: '4 Days', label: 'of innovation', icon: '📅' },
-                { stat: '₦10M', label: 'Prize', icon: '🏆' },
-                { stat: 'Top Partners', label: 'ACM, ASF, AWS', icon: '🤝' },
-                { stat: 'Tech + Creatives', label: 'united', icon: '💡' },
+                { stat: '$5,000', label: 'Prize', icon: '🏆' },
+                { stat: 'Top Partners', label: 'ACM, AWS, Ministry of Youth, Sport & Arts, CIBSZ', icon: '🤝' },
+                { stat: 'Tech + Gamers', label: 'united', icon: '💡' },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -88,19 +84,18 @@ export const AboutSection = () => {
                   Our Vision
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Catalyze Africa-led innovation for scalable and profitable
-                  distribution of music and film content across the continent
-                  and beyond.
+                  Catalyze Africa-led innovation for inclusive, low-bandwidth gaming and esports infrastructure that connects players, creators, and communities across the continent and beyond.
                 </p>
                 <div className="bg-gradient-to-r from-[#a8b82a]/20 to-[#4a5f8a]/20 p-6 rounded-xl">
                   <h4 className="font-semibold text-gray-900 mb-2">
                     Key Focus Areas:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• Scalable distribution infrastructure</li>
-                    <li>• Cross-border content access</li>
-                    <li>• Revenue optimization</li>
-                    <li>• Talent discovery and promotion</li>
+                    <li>• Low-data gaming systems</li>
+                    <li>• Esports infrastructure</li>
+                    <li>• Connectivity optimization</li>
+                    <li>• Mobile-first tournament ecosystems</li>
+                    <li>• Inclusive digital participation</li>
                   </ul>
                 </div>
               </div>
@@ -116,17 +111,17 @@ export const AboutSection = () => {
                     {
                       title: 'Empower Innovators',
                       description:
-                        'Provide tools, resources, and mentorship to creative entrepreneurs',
+                        'Provide tools, resources, and mentorship to young African gamers, developers, and digital entrepreneurs',
                     },
                     {
                       title: 'Build Collaborative Platforms',
                       description:
-                        'Create ecosystems that connect creators, distributors, and consumers',
+                        'Create ecosystems that connect players, developers, and esports communities',
                     },
                     {
                       title: 'Drive Real-World Implementation',
                       description:
-                        'Ensure solutions are practical and market-ready',
+                        'Ensure solutions are practical, low-bandwidth ready, and market-ready',
                     },
                   ].map((goal, index) => (
                     <div
