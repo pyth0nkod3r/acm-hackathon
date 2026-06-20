@@ -273,7 +273,7 @@ const Application = () => {
                 </h3>
                 <ul className="text-blue-700 space-y-2">
                   <li>• African citizens or residents</li>
-                  <li>• Age 18 or above</li>
+                  <li>• Age 20 -35</li>
                   <li>• Technical or creative background preferred</li>
                   <li>• Team size: 3-5 members</li>
                   <li>• Commitment to full event participation</li>

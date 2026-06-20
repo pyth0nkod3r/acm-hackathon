@@ -856,7 +856,7 @@ const NewRegistrationForm: React.FC<NewRegistrationFormProps> = ({
             <div>
               <Label className="text-sm font-medium text-gray-700">
                 Are all team members available for the full hackathon duration
-                (September 16-19, 2025)? *
+                (June 29, 2026)? *
               </Label>
               <div className="mt-2 space-y-2">
                 <div className="flex items-center space-x-2">
