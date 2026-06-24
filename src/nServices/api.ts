@@ -6,8 +6,8 @@ import axios, {
 } from 'axios';
 import type { ApiResponse } from './apiType';
 
-const USERNAME = 'admin'; // In production, move to environment variables
-const PASSWORD = 'secret'; // In production, move to environment variables
+const USERNAME = import.meta.env.VITE_API_USERNAME || 'admin';
+const PASSWORD = import.meta.env.VITE_API_PASSWORD || 'secret';
 const BASE_URL = 'https://api.africacreativemarketglobal.com'; // Adjust as needed
 const TIMEOUT = 10000; // 10 seconds timeout
 

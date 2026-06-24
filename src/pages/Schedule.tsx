@@ -217,7 +217,7 @@ const Schedule = () => {
   const preHackathonEvents = [
     {
       phase: 'Application Open',
-      duration: 'June 10, 2026',
+      duration: 'June 24, 2026',
       activities: [
         'Launch via ACM website, social media, press releases',
         'Partner platforms, universities, and tech hubs outreach',
@@ -226,7 +226,7 @@ const Schedule = () => {
     },
     {
       phase: 'Registration & Idea Submission',
-      duration: 'June 10 - June 23, 2026',
+      duration: 'June 24 - June 27, 2026',
       activities: [
         'Team/individual profile submission',
         'Initial solution concept presentation',
@@ -235,7 +235,7 @@ const Schedule = () => {
     },
     {
       phase: 'Selected Participants Notified',
-      duration: 'June 24, 2026',
+      duration: 'June 28, 2026',
       activities: [
         'Notifications sent via e-mail and ACM platform',
         'Public update across ACM website and social media',

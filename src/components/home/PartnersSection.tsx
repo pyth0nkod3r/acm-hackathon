@@ -7,7 +7,7 @@ import { Button } from '../ui';
 import { acmLogo, asfLogo, awsLogo, CcHUBLogo } from '@/assets/img/partners';
 
 export const PartnersSection = () => {
-  const partners = [
+  const currentPartners = [
     {
       name: 'ACM Global',
       logo: acmLogo,
@@ -18,6 +18,9 @@ export const PartnersSection = () => {
       logo: asfLogo,
       tier: 'Strategic Partner',
     },
+  ];
+
+  const partners2025 = [
     {
       name: 'AWS',
       logo: awsLogo,
@@ -66,36 +69,78 @@ export const PartnersSection = () => {
           </ScrollAnimation>
         </div>
 
-        {/* Partners Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-          {partners.map((partner, index) => (
-            <ScrollAnimation
-              key={partner.name}
-              animation="fadeIn"
-              delay={index * 0.1}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
+        {/* 2026 Partners */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-blue-200 mb-6 border-b border-white/10 pb-2">
+            2026 Partners
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            {currentPartners.map((partner, index) => (
+              <ScrollAnimation
+                key={partner.name}
+                animation="fadeIn"
+                delay={index * 0.1}
               >
-                <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
-                  <img
-                    src={partner.logo}
-                    alt={`${partner.name} logo`}
-                    className="w-20 h-20 object-contain rounded-lg"
-                  />
-                </div>
-                <div className="text-center flex-1 flex flex-col justify-center">
-                  <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors leading-tight">
-                    {partner.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
-                    {partner.tier}
-                  </p>
-                </div>
-              </motion.div>
-            </ScrollAnimation>
-          ))}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
+                >
+                  <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      className="w-20 h-20 object-contain rounded-lg"
+                    />
+                  </div>
+                  <div className="text-center flex-1 flex flex-col justify-center">
+                    <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors leading-tight">
+                      {partner.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
+                      {partner.tier}
+                    </p>
+                  </div>
+                </motion.div>
+              </ScrollAnimation>
+            ))}
+          </div>
+        </div>
+
+        {/* 2025 Partners */}
+        <div>
+          <h3 className="text-xl font-semibold text-blue-200 mb-6 border-b border-white/10 pb-2">
+            2025 Partners
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            {partners2025.map((partner, index) => (
+              <ScrollAnimation
+                key={partner.name}
+                animation="fadeIn"
+                delay={index * 0.1}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
+                >
+                  <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      className="w-20 h-20 object-contain rounded-lg"
+                    />
+                  </div>
+                  <div className="text-center flex-1 flex flex-col justify-center">
+                    <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-blue-600 transition-colors leading-tight">
+                      {partner.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 group-hover:text-[#4a5f8a] transition-colors">
+                      {partner.tier}
+                    </p>
+                  </div>
+                </motion.div>
+              </ScrollAnimation>
+            ))}
+          </div>
         </div>
 
         {/* Partnership Tiers */}

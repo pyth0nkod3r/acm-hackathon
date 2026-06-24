@@ -338,13 +338,13 @@ const NewApplication = () => {
                   <h4 className="font-semibold text-yellow-800">
                     Applications Open
                   </h4>
-                  <p className="text-yellow-700">June 10, 2026</p>
+                  <p className="text-yellow-700">June 24, 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">
                     Application Deadline
                   </h4>
-                  <p className="text-yellow-700">June 23, 2026</p>
+                  <p className="text-yellow-700">June 27, 2026</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-yellow-800">

@@ -328,7 +328,7 @@ const About = () => {
                 Creative Economy Focus Areas
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Seven innovative categories driving Africa's creative economy
+                Six innovative categories driving Africa's creative economy
                 transformation
               </p>
             </div>
