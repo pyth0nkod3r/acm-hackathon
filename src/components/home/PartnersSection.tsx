@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
-import { Button } from '../ui';
-import { acmLogo, asfLogo, awsLogo, CcHUBLogo } from '@/assets/img/partners';
+import { Button, OptimizedImage } from '../ui';
+import { acmLogo, asfLogo, awsLogo, CcHUBLogo, ministryLogo, nacLogo, nationalSportLogo } from '@/assets/img/partners';
+import { cn } from '@/lib/utils';
 
 export const PartnersSection = () => {
   const currentPartners = [
@@ -12,11 +13,31 @@ export const PartnersSection = () => {
       name: 'ACM Global',
       logo: acmLogo,
       tier: 'Organizer',
+      darkBg: false,
     },
     {
       name: 'Ascend Studios Foundation',
       logo: asfLogo,
       tier: 'Strategic Partner',
+      darkBg: false,
+    },
+    {
+      name: 'Ministry of Youth, Sport & Arts',
+      logo: ministryLogo,
+      tier: 'Strategic Partner',
+      darkBg: true,
+    },
+    {
+      name: 'National Arts Council of Zambia',
+      logo: nacLogo,
+      tier: 'Strategic Partner',
+      darkBg: true,
+    },
+    {
+      name: 'National Sports Council of Zambia',
+      logo: nationalSportLogo,
+      tier: 'Strategic Partner',
+      darkBg: false,
     },
   ];
 
@@ -25,11 +46,13 @@ export const PartnersSection = () => {
       name: 'AWS',
       logo: awsLogo,
       tier: 'Technology Partner',
+      darkBg: false,
     },
     {
       name: 'CcHub',
       logo: CcHUBLogo,
       tier: 'Incubation Partner',
+      darkBg: false,
     },
   ];
 
@@ -85,11 +108,16 @@ export const PartnersSection = () => {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
                 >
-                  <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
-                    <img
+                  <div className={cn(
+                    "aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300",
+                    partner.darkBg ? "bg-gray-950 p-4" : "bg-gray-50/50 p-2"
+                  )}>
+                    <OptimizedImage
                       src={partner.logo}
                       alt={`${partner.name} logo`}
-                      className="w-20 h-20 object-contain rounded-lg"
+                      className="w-20 h-20"
+                      aspectRatio="square"
+                      objectFit="contain"
                     />
                   </div>
                   <div className="text-center flex-1 flex flex-col justify-center">
@@ -122,11 +150,16 @@ export const PartnersSection = () => {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
                 >
-                  <div className="aspect-square flex items-center justify-center mb-4 flex-shrink-0">
-                    <img
+                  <div className={cn(
+                    "aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300",
+                    partner.darkBg ? "bg-gray-950 p-4" : "bg-gray-50/50 p-2"
+                  )}>
+                    <OptimizedImage
                       src={partner.logo}
                       alt={`${partner.name} logo`}
-                      className="w-20 h-20 object-contain rounded-lg"
+                      className="w-20 h-20"
+                      aspectRatio="square"
+                      objectFit="contain"
                     />
                   </div>
                   <div className="text-center flex-1 flex flex-col justify-center">

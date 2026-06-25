@@ -29,11 +29,34 @@ export const CountdownTimer = ({
       const difference = +new Date(targetDate) - +new Date();
 
       if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        setTimeLeft(prev => {
+          // Prevent state update if the values are identical to avoid unnecessary re-renders
+          if (
+            prev.days === days &&
+            prev.hours === hours &&
+            prev.minutes === minutes &&
+            prev.seconds === seconds
+          ) {
+            return prev;
+          }
+          return { days, hours, minutes, seconds };
+        });
+      } else {
+        setTimeLeft(prev => {
+          if (
+            prev.days === 0 &&
+            prev.hours === 0 &&
+            prev.minutes === 0 &&
+            prev.seconds === 0
+          ) {
+            return prev;
+          }
+          return { days: 0, hours: 0, minutes: 0, seconds: 0 };
         });
       }
     };

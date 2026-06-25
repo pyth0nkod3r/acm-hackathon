@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Container } from '../components/layout';
 import { ScrollAnimation } from '../components/animations';
-import { Button } from '../components/ui';
+import { Button, OptimizedImage } from '../components/ui';
 import { useDocumentTitle } from '../hooks';
 
 interface Testimonial {
@@ -63,7 +63,7 @@ const Highlights = () => {
       name: 'Amara Okafor',
       role: 'Lead Developer',
       company: 'TradeFlow Solutions',
-      image: '/assets/img/testimonials/participant-1.jpg',
+      image: '/assets/img/testimonials_avatars/participant_1.webp',
       quote:
         'The ACM Hackathon was a transformative experience. The mentorship and resources provided helped us develop a solution that is now being piloted across three African countries.',
       rating: 5,
@@ -73,7 +73,7 @@ const Highlights = () => {
       name: 'Kwame Asante',
       role: 'Product Manager',
       company: 'Digital Trade Hub',
-      image: '/assets/img/testimonials/participant-2.jpg',
+      image: '/assets/img/testimonials_avatars/participant_2.webp',
       quote:
         'The collaborative environment and expert guidance made this hackathon exceptional. We not only built a great product but also formed lasting partnerships.',
       rating: 5,
@@ -83,7 +83,7 @@ const Highlights = () => {
       name: 'Fatima Al-Rashid',
       role: 'UX Designer',
       company: 'AfriTech Innovations',
-      image: '/assets/img/testimonials/participant-3.jpg',
+      image: '/assets/img/testimonials_avatars/participant_3.webp',
       quote:
         'The focus on real-world impact and the quality of mentorship exceeded my expectations. This hackathon truly bridges the gap between innovation and implementation.',
       rating: 5,
@@ -93,7 +93,7 @@ const Highlights = () => {
       name: 'David Mwangi',
       role: 'Blockchain Developer',
       company: 'CryptoTrade Africa',
-      image: '/assets/img/testimonials/participant-4.jpg',
+      image: '/assets/img/testimonials_avatars/participant_4.webp',
       quote:
         'The technical challenges were perfectly balanced with business considerations. The judges provided invaluable feedback that shaped our final solution.',
       rating: 5,
@@ -110,7 +110,7 @@ const Highlights = () => {
       team: 'Team TradeFlow',
       category: 'Digital Infrastructure',
       impact: '3 countries piloting, 500+ businesses onboarded',
-      image: '/assets/img/success/trade-platform.jpg',
+      image: '/assets/img/success_stories/trade_platform.webp',
       videoUrl: 'https://example.com/demo1',
     },
     {
@@ -121,7 +121,7 @@ const Highlights = () => {
       team: 'Team ConnectAfrica',
       category: 'SME Empowerment',
       impact: '1,200+ SMEs registered, $2M in trade facilitated',
-      image: '/assets/img/success/sme-app.jpg',
+      image: '/assets/img/success_stories/sme_app.webp',
       videoUrl: 'https://example.com/demo2',
     },
     {
@@ -132,7 +132,7 @@ const Highlights = () => {
       team: 'Team LogiSmart',
       category: 'Supply Chain',
       impact: '25% cost reduction, 40% faster delivery',
-      image: '/assets/img/success/logistics.jpg',
+      image: '/assets/img/success_stories/logistics_engine.webp',
     },
   ];
 
@@ -326,30 +326,23 @@ const Highlights = () => {
                     index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                   }`}
                 >
-                  {/* Image/Video */}
+                  {/* Image/Video Container with actual image rendering */}
                   <div
                     className={`${index % 2 === 1 ? 'lg:col-start-2' : ''} relative`}
                   >
-                    <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-lg">
-                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <div className="text-center">
-                          {story.videoUrl ? (
-                            <div className="relative">
-                              <Play className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-                              <p className="text-gray-600 text-sm">
-                                Watch Demo
-                              </p>
-                            </div>
-                          ) : (
-                            <div>
-                              <Presentation className="h-16 w-16 text-gray-500 mx-auto mb-4" />
-                              <p className="text-gray-600 text-sm">
-                                {story.title}
-                              </p>
-                            </div>
-                          )}
+                    <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-lg relative group">
+                      <OptimizedImage
+                        src={story.image}
+                        alt={story.title}
+                        className="w-full h-full"
+                        aspectRatio="video"
+                        objectFit="cover"
+                      />
+                      {story.videoUrl && (
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all duration-300">
+                          <Play className="h-16 w-16 text-white drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300" />
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
 
@@ -433,10 +426,14 @@ const Highlights = () => {
                 </blockquote>
 
                 <div className="flex items-center justify-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {testimonials[currentTestimonial].name.charAt(0)}
-                    </span>
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500 shadow-md flex-shrink-0">
+                    <OptimizedImage
+                      src={testimonials[currentTestimonial].image}
+                      alt={testimonials[currentTestimonial].name}
+                      className="w-full h-full"
+                      aspectRatio="square"
+                      objectFit="cover"
+                    />
                   </div>
                   <div className="text-left">
                     <h4 className="text-lg font-semibold text-gray-900">

@@ -39,7 +39,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   desktopSrc,
   sizes,
   priority = false,
-  loading = 'lazy',
+  loading = 'eager',
   onLoad,
   onError,
   aspectRatio = 'auto',
@@ -142,32 +142,14 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   }
 
   return (
-    <motion.div
+    <div
       className={cn(
         'relative overflow-hidden',
         aspectRatioClasses[aspectRatio],
         className
       )}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isLoaded ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
       style={{ width, height }}
     >
-      {/* Blur placeholder */}
-      {!isLoaded && placeholder === 'blur' && blurDataURL && (
-        <div
-          className="absolute inset-0 bg-cover bg-center filter blur-sm scale-110"
-          style={{
-            backgroundImage: `url(${blurDataURL})`,
-          }}
-        />
-      )}
-
-      {/* Loading placeholder */}
-      {!isLoaded && placeholder === 'empty' && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-      )}
-
       <picture>
         {sources.map((source, index) => (
           <source
@@ -181,18 +163,17 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
           src={imageSource.src}
           alt={alt}
           sizes={defaultSizes}
-          loading={priority ? 'eager' : loading}
+          loading={loading}
           onLoad={handleLoad}
           onError={handleError}
           width={width}
           height={height}
           className={cn(
-            'w-full h-full transition-opacity duration-300',
-            objectFitClasses[objectFit],
-            isLoaded ? 'opacity-100' : 'opacity-0'
+            'w-full h-full',
+            objectFitClasses[objectFit]
           )}
         />
       </picture>
-    </motion.div>
+    </div>
   );
 };

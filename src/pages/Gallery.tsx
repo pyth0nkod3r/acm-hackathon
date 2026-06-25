@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Container } from '../components/layout';
 import { ScrollAnimation } from '../components/animations';
-import { Button } from '../components/ui';
+import { Button, OptimizedImage } from '../components/ui';
 import { useDocumentTitle } from '../hooks';
 
 interface GalleryImage {
@@ -50,7 +50,7 @@ const Gallery = () => {
   const galleryImages: GalleryImage[] = [
     {
       id: 1,
-      src: '/assets/img/gallery/hackathon-opening.jpg',
+      src: '/assets/img/gallery_photos/photo_1.webp',
       alt: 'Hackathon Opening Ceremony',
       title: 'Opening Ceremony',
       category: 'event',
@@ -60,7 +60,7 @@ const Gallery = () => {
     },
     {
       id: 2,
-      src: '/assets/img/gallery/team-collaboration.jpg',
+      src: '/assets/img/gallery_photos/photo_2.webp',
       alt: 'Teams collaborating on projects',
       title: 'Team Collaboration',
       category: 'teams',
@@ -70,7 +70,7 @@ const Gallery = () => {
     },
     {
       id: 3,
-      src: '/assets/img/gallery/coding-session.jpg',
+      src: '/assets/img/gallery_photos/photo_3.webp',
       alt: 'Intensive coding session',
       title: 'Coding Marathon',
       category: 'development',
@@ -80,7 +80,7 @@ const Gallery = () => {
     },
     {
       id: 4,
-      src: '/assets/img/gallery/mentorship.jpg',
+      src: '/assets/img/gallery_photos/photo_4.webp',
       alt: 'Mentors guiding participants',
       title: 'Mentorship Session',
       category: 'mentorship',
@@ -90,7 +90,7 @@ const Gallery = () => {
     },
     {
       id: 5,
-      src: '/assets/img/gallery/presentation-1.jpg',
+      src: '/assets/img/gallery_photos/photo_5.webp',
       alt: 'Team presenting their solution',
       title: 'Solution Presentation',
       category: 'presentations',
@@ -100,7 +100,7 @@ const Gallery = () => {
     },
     {
       id: 6,
-      src: '/assets/img/gallery/judges-panel.jpg',
+      src: '/assets/img/gallery_photos/photo_6.webp',
       alt: 'Panel of expert judges',
       title: 'Expert Judges Panel',
       category: 'judging',
@@ -110,7 +110,7 @@ const Gallery = () => {
     },
     {
       id: 7,
-      src: '/assets/img/gallery/networking.jpg',
+      src: '/assets/img/gallery_photos/photo_7.webp',
       alt: 'Networking session',
       title: 'Networking Break',
       category: 'networking',
@@ -120,7 +120,7 @@ const Gallery = () => {
     },
     {
       id: 8,
-      src: '/assets/img/gallery/awards-ceremony.jpg',
+      src: '/assets/img/gallery_photos/photo_8.webp',
       alt: 'Awards ceremony',
       title: 'Awards Ceremony',
       category: 'awards',
@@ -130,7 +130,7 @@ const Gallery = () => {
     },
     {
       id: 9,
-      src: '/assets/img/gallery/winner-team-1.jpg',
+      src: '/assets/img/gallery_photos/photo_9.webp',
       alt: 'First place winners',
       title: 'First Place Winners',
       category: 'awards',
@@ -140,7 +140,7 @@ const Gallery = () => {
     },
     {
       id: 10,
-      src: '/assets/img/gallery/demo-day.jpg',
+      src: '/assets/img/gallery_photos/photo_1.webp',
       alt: 'Demo day presentations',
       title: 'Demo Day',
       category: 'presentations',
@@ -150,7 +150,7 @@ const Gallery = () => {
     },
     {
       id: 11,
-      src: '/assets/img/gallery/team-diversity.jpg',
+      src: '/assets/img/gallery_photos/photo_2.webp',
       alt: 'Diverse team of participants',
       title: 'Diverse Participation',
       category: 'teams',
@@ -161,7 +161,7 @@ const Gallery = () => {
     },
     {
       id: 12,
-      src: '/assets/img/gallery/innovation-showcase.jpg',
+      src: '/assets/img/gallery_photos/photo_3.webp',
       alt: 'Innovation showcase',
       title: 'Innovation Showcase',
       category: 'development',
@@ -421,18 +421,13 @@ const Gallery = () => {
                   onClick={() => openLightbox(image)}
                 >
                   <div className="relative h-full bg-gray-200 rounded-xl overflow-hidden shadow-lg">
-                    {/* Placeholder for image */}
-                    <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-                      <div className="text-center">
-                        <Camera className="h-12 w-12 text-gray-500 mx-auto mb-2" />
-                        <p className="text-gray-600 text-sm font-medium">
-                          {image.title}
-                        </p>
-                        <p className="text-gray-500 text-xs">
-                          {image.category}
-                        </p>
-                      </div>
-                    </div>
+                    <OptimizedImage
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-full"
+                      aspectRatio={viewMode === 'masonry' ? 'auto' : 'square'}
+                      objectFit="cover"
+                    />
 
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
@@ -516,15 +511,15 @@ const Gallery = () => {
               className="relative max-w-full max-h-full bg-gray-800 rounded-lg overflow-hidden"
               onClick={e => e.stopPropagation()}
             >
-              {/* Placeholder for actual image */}
-              <div className="w-full h-96 md:h-[600px] bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <Camera className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <h3 className="text-2xl font-bold mb-2">
-                    {selectedImage.title}
-                  </h3>
-                  <p className="text-gray-300">{selectedImage.description}</p>
-                </div>
+              {/* Actual image rendered eagerly */}
+              <div className="w-full max-h-[70vh] bg-gray-950 flex items-center justify-center overflow-hidden">
+                <OptimizedImage
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="w-full h-full max-h-[70vh]"
+                  aspectRatio="auto"
+                  objectFit="contain"
+                />
               </div>
 
               {/* Image Info */}

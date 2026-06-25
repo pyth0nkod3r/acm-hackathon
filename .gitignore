@@ -225,3 +225,5 @@ CHANGELOG.auto.md
 parent_website/
 parent_website/*
 do-not-track/
+_quarantine/
+scripts/

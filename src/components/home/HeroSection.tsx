@@ -7,8 +7,8 @@ import { CountdownTimer } from '../common/CountdownTimer';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTouchDevice } from '../../hooks/useTouchDevice';
 import { cn } from '../../lib/utils';
-import videoBg from '@/assets/video/videobg.mp4';
-// import { flierImages } from '@/assets/img/flier';
+
+import { flierImages } from '@/assets/img/flier';
 import type { SocialLink } from '../../types/navigation';
 import {
   FaLinkedinIn as Linkedin,
@@ -77,7 +77,7 @@ export const HeroSection = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src={videoBg} type="video/mp4" />
+            <source src="/assets/video/videobg.mp4" type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
             <div className="w-full h-full bg-gradient-to-r from-black/40 to-black/40 relative">
               <div className="absolute inset-0 bg-gradient-to-br from-[#4a5f8a]/80 to-[#a8b82a]/80 opacity-60"></div>
@@ -264,28 +264,14 @@ export const HeroSection = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative group"
             >
-              {/* <div className="relative z-10  rounded-2xl p-8  "> */}
-              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <div className="text-center">
-                  {/* <img
-                    src={flierImages.acmHackathon2025}
-                    alt="ACM Hackathon 2025 - Music & Film Distribution Innovation"
-                    className="w-full h-auto rounded-lg mb-4"
-                  /> */}
-                  {/* <div className="hidden"> */}
-                  <div className="w-32 h-32 mx-auto mb-6 bg-[#c2d72f] rounded-full flex items-center justify-center">
-                    <span className="text-xl font-bold text-black">ACM 2026 Hackathon</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Connectivity & Esports Innovation
-                  </h3>
-                  <p className="text-gray-300">
-                    Building Africa’s low-bandwidth gaming and esports ecosystem through technology and innovation
-                  </p>
-                  {/* </div> */}
-                </div>
+              <div className="relative z-10 bg-white/15 backdrop-blur-md rounded-2xl p-3 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(194,215,47,0.15)]">
+                <img
+                  src={flierImages.acmHackathon2026}
+                  alt="ACM Hackathon 2026 - Connectivity & Esports Innovation"
+                  className="w-full h-auto rounded-xl shadow-inner"
+                />
               </div>
 
               {/* Floating Elements */}

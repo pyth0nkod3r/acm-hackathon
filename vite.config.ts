@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
       },
 
       // Asset optimization
-      assetsInlineLimit: isProduction ? 4096 : 0, // 4kb - inline smaller assets as base64 in production
+      assetsInlineLimit: 0, // Disable inlining of assets to completely unbundle them from the build
       cssCodeSplit: true,
       sourcemap: isDevelopment || isStaging, // Enable sourcemaps for dev and staging
 

@@ -29,16 +29,15 @@ export function generateOptimizedImageUrls(
 ): OptimizedImageSource {
   const { width, height } = options;
 
-  // For now, return the original source
-  // In production, you would generate optimized URLs here
-  const optimizedSrc = originalSrc;
+  // URL-encode the source to handle spaces and special characters properly in attributes like srcset
+  const encodedSrc = encodeURI(originalSrc);
 
   // Generate WebP and AVIF versions (placeholder logic)
-  const webpSrc = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-  const avifSrc = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.avif');
+  const webpSrc = encodedSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+  const avifSrc = encodedSrc.replace(/\.(jpg|jpeg|png)$/i, '.avif');
 
   return {
-    src: optimizedSrc,
+    src: encodedSrc,
     webp: webpSrc,
     avif: avifSrc,
     ...(width !== undefined && { width }),
@@ -202,12 +201,21 @@ export function getOptimalImageDimensions(
 /**
  * Check if browser supports modern image formats
  */
+let formatSupportCache: { webp: boolean; avif: boolean } | null = null;
+
 export function checkImageFormatSupport(): Promise<{
   webp: boolean;
   avif: boolean;
 }> {
+  if (formatSupportCache) {
+    return Promise.resolve(formatSupportCache);
+  }
+
   return Promise.all([checkWebPSupport(), checkAVIFSupport()]).then(
-    ([webp, avif]) => ({ webp, avif })
+    ([webp, avif]) => {
+      formatSupportCache = { webp, avif };
+      return formatSupportCache;
+    }
   );
 }
 
