@@ -40,9 +40,7 @@ vi.mock('framer-motion', () => {
 const renderWithRouter = (component: React.ReactElement) => {
   return render(
     <BrowserRouter>
-      <NotificationProvider>
-        {component}
-      </NotificationProvider>
+      <NotificationProvider>{component}</NotificationProvider>
     </BrowserRouter>
   );
 };
@@ -50,12 +48,8 @@ const renderWithRouter = (component: React.ReactElement) => {
 describe('Page Components', () => {
   it('renders Home page correctly', () => {
     renderWithRouter(<Home />);
-    expect(
-      screen.getByText(/Connected Play/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/esports and connectivity/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Connected Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/esports and connectivity/i)).toBeInTheDocument();
   });
 
   it('renders About page correctly', () => {
@@ -93,8 +87,6 @@ describe('Route Configuration', () => {
     expect(routes[2]!.path).toBe('/contact');
 
     const homeRoute = getRouteByPath('/');
-    expect(homeRoute?.title).toBe(
-      'Home - ACM Hackathon 2026'
-    );
+    expect(homeRoute?.title).toBe('Home - ACM Hackathon 2026');
   });
 });

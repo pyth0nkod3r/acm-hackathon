@@ -7,25 +7,29 @@ export const WhyEsportsSection = () => {
   const points = [
     {
       title: 'Massive Youth Demographic',
-      description: "Over 60% of Africa's population is under the age of 25, representing the world's largest digital-native cohort eager for competitive play.",
+      description:
+        "Over 60% of Africa's population is under the age of 25, representing the world's largest digital-native cohort eager for competitive play.",
       icon: Users,
       color: 'from-pink-500 to-rose-600',
     },
     {
       title: 'Explosive Gaming Growth',
-      description: 'African mobile gaming is growing at an unprecedented rate, capturing global market attention and creating new economic pathways.',
+      description:
+        'African mobile gaming is growing at an unprecedented rate, capturing global market attention and creating new economic pathways.',
       icon: Gamepad2,
       color: 'from-amber-500 to-orange-600',
     },
     {
       title: 'Infrastructure Bottlenecks',
-      description: 'Esports is throttled by expensive data costs, weak networks, and high latency. Low-bandwidth infrastructure is the key to unlocking accessibility.',
+      description:
+        'Esports is throttled by expensive data costs, weak networks, and high latency. Low-bandwidth infrastructure is the key to unlocking accessibility.',
       icon: WifiOff,
       color: 'from-blue-500 to-indigo-600',
     },
     {
       title: 'Building Local Value',
-      description: 'Creating local tournament platforms and servers reduces latency and keeps digital revenues within the local developer ecosystem.',
+      description:
+        'Creating local tournament platforms and servers reduces latency and keeps digital revenues within the local developer ecosystem.',
       icon: Zap,
       color: 'from-emerald-500 to-teal-600',
     },
@@ -47,7 +51,10 @@ export const WhyEsportsSection = () => {
               Why Esports? Why Now?
             </h2>
             <p className="text-lg text-slate-300">
-              Africa has the fastest-growing youth population and mobile connectivity. However, infrastructure gaps limit access to competitive gaming. The future of esports belongs to low-bandwidth, low-data innovation.
+              Africa has the fastest-growing youth population and mobile
+              connectivity. However, infrastructure gaps limit access to
+              competitive gaming. The future of esports belongs to
+              low-bandwidth, low-data innovation.
             </p>
           </div>
         </ScrollAnimation>
@@ -63,7 +70,9 @@ export const WhyEsportsSection = () => {
                 whileHover={{ scale: 1.03 }}
                 className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/60 flex gap-6 h-full"
               >
-                <div className={`w-14 h-14 bg-gradient-to-br ${point.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                <div
+                  className={`w-14 h-14 bg-gradient-to-br ${point.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}
+                >
                   <point.icon className="h-7 w-7 text-white" />
                 </div>
                 <div>

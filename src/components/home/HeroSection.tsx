@@ -117,9 +117,7 @@ export const HeroSection = () => {
                 className="flex items-center gap-2 text-gray-300 mb-4"
               >
                 <Calendar className="h-5 w-5" />
-                <span className="text-lg">
-                  29 June - 2 July, 2026
-                </span>
+                <span className="text-lg">29 June - 2 July, 2026</span>
               </motion.div>
 
               <motion.h1
@@ -136,7 +134,9 @@ export const HeroSection = () => {
                 )}
               >
                 Connected Play: Hacking Africa's Future Through{' '}
-                <span className="text-[#c2d72f]">Low-Bandwidth Esports Infrastructure</span>
+                <span className="text-[#c2d72f]">
+                  Low-Bandwidth Esports Infrastructure
+                </span>
               </motion.h1>
 
               <motion.h2
@@ -148,7 +148,9 @@ export const HeroSection = () => {
                   isMobile ? 'text-lg' : 'text-xl md:text-2xl'
                 )}
               >
-                Join developers, designers, gaming strategists, and entrepreneurs to build the future of esports and connectivity in Africa
+                Join developers, designers, gaming strategists, and
+                entrepreneurs to build the future of esports and connectivity in
+                Africa
               </motion.h2>
 
               <motion.div
@@ -159,7 +161,8 @@ export const HeroSection = () => {
               >
                 <MapPin className="h-5 w-5" />
                 <span className="text-lg">
-                  Mulungushi International Conference Center, 8025 Great East Rd, Lusaka, Zambia
+                  Mulungushi International Conference Center, 8025 Great East
+                  Rd, Lusaka, Zambia
                 </span>
               </motion.div>
 
@@ -179,7 +182,9 @@ export const HeroSection = () => {
                 transition={{ delay: 0.7 }}
                 className="text-lg text-gray-200 mb-8 max-w-lg"
               >
-                Harness Africa's creative and technological talent to develop innovative solutions for low-data gaming, esports, and connectivity. Compete. Innovate. Create!
+                Harness Africa's creative and technological talent to develop
+                innovative solutions for low-data gaming, esports, and
+                connectivity. Compete. Innovate. Create!
               </motion.p>
 
               {/* Action Buttons - Update CTA */}
@@ -241,7 +246,7 @@ export const HeroSection = () => {
                     const IconComponent = getSocialIcon(social.icon);
                     return (
                       <a
-                          key={social.label}
+                        key={social.label}
                         href={social.url}
                         className={cn(
                           'text-gray-400 hover:text-[#c2d72f] transition-colors touch-manipulation',

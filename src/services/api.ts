@@ -37,7 +37,9 @@ export class APIService {
 
     // Set up default headers
     const headers: Record<string, string> = {
-      ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+      ...(options.body instanceof FormData
+        ? {}
+        : { 'Content-Type': 'application/json' }),
       ...(options.headers as Record<string, string>),
     };
 
@@ -145,16 +147,19 @@ export class APIService {
     const pickMessage = (data: unknown, fallback: string): string => {
       if (!data) return fallback;
       if (typeof data === 'string') return data;
-      if (typeof (data as any).message === 'string')
-        return (data as any).message;
-      if (typeof (data as any).error === 'string') return (data as any).error;
-      if (typeof (data as any).detail === 'string') return (data as any).detail;
+      if (typeof data === 'object') {
+        const dataObj = data as Record<string, unknown>;
+        if (typeof dataObj.message === 'string') return dataObj.message;
+        if (typeof dataObj.error === 'string') return dataObj.error;
+        if (typeof dataObj.detail === 'string') return dataObj.detail;
 
-      // Otherwise look for the first string value in the object
-      const firstString = Object.values(data as Record<string, unknown>).find(
-        v => typeof v === 'string'
-      );
-      return (firstString as string) ?? fallback;
+        // Otherwise look for the first string value in the object
+        const firstString = Object.values(dataObj).find(
+          v => typeof v === 'string'
+        );
+        return (firstString as string) ?? fallback;
+      }
+      return fallback;
     };
 
     // 4xx – client errors (validation, authentication, etc.)
@@ -166,12 +171,14 @@ export class APIService {
         errorData !== null &&
         'messages' in errorData
       ) {
-        const firstField = Object.keys((errorData as any).messages)[0];
+        const errorObj = errorData as Record<string, unknown>;
+        const messages = errorObj.messages as Record<string, unknown>;
+        const firstField = Object.keys(messages)[0];
         if (firstField) {
           const validationError: ValidationError = {
             type: 'validation',
             field: firstField,
-            message: (errorData as any).messages[firstField],
+            message: messages[firstField] as string,
           };
           return validationError;
         }
@@ -253,8 +260,6 @@ export class APIService {
 
     if (data !== undefined && data !== null) {
       requestOptions.body = JSON.stringify(data);
-    } else {
-      (requestOptions as any).body = undefined;
     }
 
     return this.makeRequest<T>(endpoint, requestOptions);

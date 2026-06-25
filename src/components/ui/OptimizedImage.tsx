@@ -52,7 +52,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     avif: boolean;
   }>({ webp: false, avif: false });
 
-
   // Use lazy loading hook if lazy is enabled and not priority
   const shouldUseLazy = lazy && !priority;
 
@@ -175,10 +174,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             loading="eager"
             onLoad={handleLoad}
             onError={handleError}
-            className={cn(
-              'w-full h-full',
-              objectFitClasses[objectFit]
-            )}
+            className={cn('w-full h-full', objectFitClasses[objectFit])}
           />
         </picture>
       )}

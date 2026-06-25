@@ -49,7 +49,8 @@ const Schedule = () => {
           {
             timeSlot: '9:10 AM - 9:20 AM',
             session: 'Keynote Speech - Ministry Representative',
-            details: 'Keynote address from the Ministry of Youth, Sport & Arts representative',
+            details:
+              'Keynote address from the Ministry of Youth, Sport & Arts representative',
           },
           {
             timeSlot: '9:20 AM - 9:30 AM',
@@ -143,7 +144,8 @@ const Schedule = () => {
       day: 4,
       date: 'July 2, 2026',
       title: 'Final Pitching & Awards',
-      theme: 'Showcasing Esports & Connectivity Innovations and Celebrating Success',
+      theme:
+        'Showcasing Esports & Connectivity Innovations and Celebrating Success',
       sessions: {
         morning: [
           {

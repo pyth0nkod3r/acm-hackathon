@@ -43,7 +43,13 @@ const makeMockFormValidation = (overrides: Partial<any> = {}) => ({
     countryOfResidence: '',
     hackathonExperience: 'no' as const,
     hackathonExperienceDetails: '',
-    teamLeader: { name: '', email: '', phone: '', role: 'Developer', linkedin: '' },
+    teamLeader: {
+      name: '',
+      email: '',
+      phone: '',
+      role: 'Developer',
+      linkedin: '',
+    },
     teamMembers: [] as any[],
     creativeIndustryChallenge: '',
     distributionChallenge: '',
@@ -85,7 +91,9 @@ describe('RegistrationForm', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(useFormValidation).mockReturnValue(makeMockFormValidation() as any);
+    vi.mocked(useFormValidation).mockReturnValue(
+      makeMockFormValidation() as any
+    );
     vi.mocked(useResponsive).mockReturnValue({
       isMobile: false,
       isTablet: false,
@@ -107,15 +115,15 @@ describe('RegistrationForm', () => {
   it('renders a "Section 1: Team Information" heading', () => {
     renderForm();
     // Component renders "Section 1: Team Information" as the section title
-    expect(screen.getByText(/Section 1.*Team Information/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Section 1.*Team Information/i)
+    ).toBeInTheDocument();
   });
 
   it('renders "Section 2: Team Lead Information" heading', () => {
     renderForm();
     // Component renders h2 with exact text "Section 2: Team Lead Information"
-    expect(
-      screen.getByText(/Section 2.*Team Lead/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Section 2.*Team Lead/i)).toBeInTheDocument();
   });
 
   it('renders the Team Name input field', () => {
@@ -187,7 +195,9 @@ describe('RegistrationForm', () => {
   // ── Member management ─────────────────────────────────────────────────────
   it('shows add member button when members < max', () => {
     vi.mocked(useFormValidation).mockReturnValue(
-      makeMockFormValidation({ values: { teamMembers: [], teamSize: 3 } }) as any
+      makeMockFormValidation({
+        values: { teamMembers: [], teamSize: 3 },
+      }) as any
     );
 
     renderForm();

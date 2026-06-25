@@ -443,27 +443,32 @@ describe('RegistrationService', () => {
   // -------------------------------------------------------------------------
   describe('transformToFormData (private)', () => {
     it('creates a FormData instance', () => {
-      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      const fd =
+        registrationService['transformToFormData'](mockRegistrationData);
       expect(fd).toBeInstanceOf(FormData);
     });
 
     it('includes teamName in FormData', () => {
-      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      const fd =
+        registrationService['transformToFormData'](mockRegistrationData);
       expect(fd.get('teamName')).toBe('Test Team');
     });
 
     it('includes teamLeaderFullName in FormData', () => {
-      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      const fd =
+        registrationService['transformToFormData'](mockRegistrationData);
       expect(fd.get('teamLeaderFullName')).toBe('John Doe');
     });
 
     it('includes teamLeadSignature in FormData', () => {
-      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      const fd =
+        registrationService['transformToFormData'](mockRegistrationData);
       expect(fd.get('teamLeadSignature')).toBe('John Doe');
     });
 
     it('populates member slots up to teamSize - 1', () => {
-      const fd = registrationService['transformToFormData'](mockRegistrationData);
+      const fd =
+        registrationService['transformToFormData'](mockRegistrationData);
       // teamSize=2, expects index 0 only
       expect(fd.get('teamMembers[0][teamMemberFullName]')).toBe('Jane Smith');
       // index 1 should not exist (teamSize-1 = 1 member)

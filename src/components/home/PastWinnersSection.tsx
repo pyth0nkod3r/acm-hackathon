@@ -18,17 +18,25 @@ export const PastWinnersSection = () => {
                 2025 Hackathon Recap
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                The inaugural ACM Hackathon focused on music and film distribution in Lagos, Nigeria. The caliber of talent and practical nature of solutions showed that Africa-led tech can solve complex local content access problems.
+                The inaugural ACM Hackathon focused on music and film
+                distribution in Lagos, Nigeria. The caliber of talent and
+                practical nature of solutions showed that Africa-led tech can
+                solve complex local content access problems.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center flex-shrink-0 text-lime-700 font-bold">
                     1
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">₦10M Funding Disbursed</h3>
-                    <p className="text-sm text-gray-600">Enabling product development and market scaling for early stages.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">
+                      ₦10M Funding Disbursed
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Enabling product development and market scaling for early
+                      stages.
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -36,8 +44,12 @@ export const PastWinnersSection = () => {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">3-Month Incubation</h3>
-                    <p className="text-sm text-gray-600">Ongoing startup support and mentoring provided by CcHub.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">
+                      3-Month Incubation
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Ongoing startup support and mentoring provided by CcHub.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -65,9 +77,12 @@ export const PastWinnersSection = () => {
               <p className="text-gray-500 text-sm mb-4">
                 Music & Film Distribution Platform
               </p>
-              
+
               <p className="text-gray-600 mb-6 leading-relaxed">
-                FairPlay Africa emerged as the grand prize winner, taking home <strong>₦10,000,000</strong> in funding, along with 3 months of technical/business incubation at CcHub and access to AWS infrastructure credits.
+                FairPlay Africa emerged as the grand prize winner, taking home{' '}
+                <strong>₦10,000,000</strong> in funding, along with 3 months of
+                technical/business incubation at CcHub and access to AWS
+                infrastructure credits.
               </p>
 
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-6">
@@ -76,7 +91,9 @@ export const PastWinnersSection = () => {
                   Incubation Progress
                 </h4>
                 <p className="text-sm text-gray-600">
-                  FairPlay has successfully completed incubation, established key distribution partnerships, and integrated automated rights/royalty splits into their production-ready MVP.
+                  FairPlay has successfully completed incubation, established
+                  key distribution partnerships, and integrated automated
+                  rights/royalty splits into their production-ready MVP.
                 </p>
               </div>
 

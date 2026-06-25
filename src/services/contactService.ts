@@ -64,7 +64,7 @@ export class ContactService extends APIService {
     return {
       name: data.name.trim(),
       email: data.email.trim().toLowerCase(),
-      subject: data.subject.trim(), 
+      subject: data.subject.trim(),
       message: data.message.trim(),
     };
   }

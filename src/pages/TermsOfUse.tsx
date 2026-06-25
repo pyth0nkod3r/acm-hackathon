@@ -220,9 +220,8 @@ const TermsOfUse = () => {
                       10. Governing Law
                     </h2>
                     <p className="text-gray-700 leading-relaxed">
-                      These Terms of Use are governed by the laws of Zambia.
-                      Any disputes shall be resolved under applicable Zambian
-                      law.
+                      These Terms of Use are governed by the laws of Zambia. Any
+                      disputes shall be resolved under applicable Zambian law.
                     </p>
                   </div>
 

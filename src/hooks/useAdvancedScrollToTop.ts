@@ -43,23 +43,20 @@ export interface AdvancedScrollToTopOptions {
 // Easing functions
 const easingFunctions = {
   linear: (t: number) => t,
-  easeInOutCubic: (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
-  easeInOutQuad: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+  easeInOutCubic: (t: number) =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+  easeInOutQuad: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
 };
 
 /**
  * Advanced hook for smooth scrolling to top with custom animations and targets
  */
-export const useAdvancedScrollToTop = (options: AdvancedScrollToTopOptions = {}) => {
+export const useAdvancedScrollToTop = (
+  options: AdvancedScrollToTopOptions = {}
+) => {
   const {
     target,
-    behavior = 'smooth',
-    duration,
-    easing = 'easeInOutCubic',
     offset = 0,
-    onScrollStart,
-    onScrollComplete,
-    onScrollProgress,
   } = options;
 
   const location = useLocation();
@@ -81,99 +78,107 @@ export const useAdvancedScrollToTop = (options: AdvancedScrollToTopOptions = {})
     return (element as Element).scrollTop;
   }, [getScrollElement]);
 
-  const setScrollTop = useCallback((value: number) => {
-    const element = getScrollElement();
-    if (element === window) {
-      window.scrollTo(0, value);
-    } else {
-      (element as Element).scrollTop = value;
-    }
-  }, [getScrollElement]);
+  const setScrollTop = useCallback(
+    (value: number) => {
+      const element = getScrollElement();
+      if (element === window) {
+        window.scrollTo(0, value);
+      } else {
+        (element as Element).scrollTop = value;
+      }
+    },
+    [getScrollElement]
+  );
 
-  const scrollToTop = useCallback((customOptions?: Partial<AdvancedScrollToTopOptions>) => {
-    const finalOptions = { ...options, ...customOptions };
-    const startTime = performance.now();
-    const startScrollTop = getCurrentScrollTop();
-    const targetScrollTop = finalOptions.offset || 0;
-    const scrollDistance = startScrollTop - targetScrollTop;
+  const scrollToTop = useCallback(
+    (customOptions?: Partial<AdvancedScrollToTopOptions>) => {
+      const finalOptions = { ...options, ...customOptions };
+      const startTime = performance.now();
+      const startScrollTop = getCurrentScrollTop();
+      const targetScrollTop = finalOptions.offset || 0;
+      const scrollDistance = startScrollTop - targetScrollTop;
 
-    // Cancel any existing animation
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-    }
+      // Cancel any existing animation
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
 
-    finalOptions.onScrollStart?.();
+      finalOptions.onScrollStart?.();
 
-    // Use native smooth scroll if no custom duration is specified
-    if (!finalOptions.duration) {
-      if (finalOptions.behavior === 'smooth') {
-        const element = getScrollElement();
-        if (element === window) {
-          window.scrollTo({
-            top: targetScrollTop,
-            behavior: 'smooth',
-          });
+      // Use native smooth scroll if no custom duration is specified
+      if (!finalOptions.duration) {
+        if (finalOptions.behavior === 'smooth') {
+          const element = getScrollElement();
+          if (element === window) {
+            window.scrollTo({
+              top: targetScrollTop,
+              behavior: 'smooth',
+            });
+          } else {
+            (element as Element).scrollTo({
+              top: targetScrollTop,
+              behavior: 'smooth',
+            });
+          }
         } else {
-          (element as Element).scrollTo({
-            top: targetScrollTop,
-            behavior: 'smooth',
-          });
+          setScrollTop(targetScrollTop);
         }
-      } else {
-        setScrollTop(targetScrollTop);
+
+        // Estimate completion time for callback
+        setTimeout(() => {
+          finalOptions.onScrollComplete?.();
+        }, 300);
+        return;
       }
 
-      // Estimate completion time for callback
-      setTimeout(() => {
-        finalOptions.onScrollComplete?.();
-      }, 300);
-      return;
-    }
+      // Custom animation
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / finalOptions.duration!, 1);
 
-    // Custom animation
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / finalOptions.duration!, 1);
-      
-      const easedProgress = easingFunctions[finalOptions.easing || 'easeInOutCubic'](progress);
-      const currentScrollTop = startScrollTop - (scrollDistance * easedProgress);
-      
-      setScrollTop(currentScrollTop);
-      finalOptions.onScrollProgress?.(progress);
+        const easedProgress =
+          easingFunctions[finalOptions.easing || 'easeInOutCubic'](progress);
+        const currentScrollTop =
+          startScrollTop - scrollDistance * easedProgress;
 
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        finalOptions.onScrollComplete?.();
-      }
-    };
+        setScrollTop(currentScrollTop);
+        finalOptions.onScrollProgress?.(progress);
 
-    animationRef.current = requestAnimationFrame(animate);
-  }, [
-    options,
-    getCurrentScrollTop,
-    setScrollTop,
-    getScrollElement,
-  ]);
+        if (progress < 1) {
+          animationRef.current = requestAnimationFrame(animate);
+        } else {
+          finalOptions.onScrollComplete?.();
+        }
+      };
 
-  const scrollToElement = useCallback((
-    elementOrSelector: string | Element,
-    customOptions?: Partial<AdvancedScrollToTopOptions>
-  ) => {
-    const element = typeof elementOrSelector === 'string' 
-      ? document.querySelector(elementOrSelector)
-      : elementOrSelector;
-    
-    if (!element) return;
+      animationRef.current = requestAnimationFrame(animate);
+    },
+    [options, getCurrentScrollTop, setScrollTop, getScrollElement]
+  );
 
-    const elementTop = element.getBoundingClientRect().top + getCurrentScrollTop();
-    const targetTop = elementTop - (customOptions?.offset || offset);
+  const scrollToElement = useCallback(
+    (
+      elementOrSelector: string | Element,
+      customOptions?: Partial<AdvancedScrollToTopOptions>
+    ) => {
+      const element =
+        typeof elementOrSelector === 'string'
+          ? document.querySelector(elementOrSelector)
+          : elementOrSelector;
 
-    scrollToTop({
-      ...customOptions,
-      offset: targetTop,
-    });
-  }, [scrollToTop, getCurrentScrollTop, offset]);
+      if (!element) return;
+
+      const elementTop =
+        element.getBoundingClientRect().top + getCurrentScrollTop();
+      const targetTop = elementTop - (customOptions?.offset || offset);
+
+      scrollToTop({
+        ...customOptions,
+        offset: targetTop,
+      });
+    },
+    [scrollToTop, getCurrentScrollTop, offset]
+  );
 
   const cancelScroll = useCallback(() => {
     if (animationRef.current) {
@@ -200,12 +205,15 @@ export const useScrollToSection = () => {
     offset: 80, // Account for fixed header
   });
 
-  const scrollToSection = useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      scrollToElement(element);
-    }
-  }, [scrollToElement]);
+  const scrollToSection = useCallback(
+    (sectionId: string) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        scrollToElement(element);
+      }
+    },
+    [scrollToElement]
+  );
 
   return { scrollToSection };
 };

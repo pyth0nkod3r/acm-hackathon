@@ -107,7 +107,9 @@ describe('ContactForm', () => {
       expect(heading).toBeInTheDocument();
     } else {
       // Heading may have changed — at minimum, form renders
-      expect(document.querySelectorAll('form, [role="form"]').length).toBeGreaterThan(0);
+      expect(
+        document.querySelectorAll('form, [role="form"]').length
+      ).toBeGreaterThan(0);
     }
   });
 
@@ -115,7 +117,10 @@ describe('ContactForm', () => {
     renderForm();
     const text = screen.queryByText(/respond within/i);
     if (text) expect(text).toBeInTheDocument();
-    else expect(document.querySelectorAll('form, [role="form"]').length).toBeGreaterThan(0);
+    else
+      expect(
+        document.querySelectorAll('form, [role="form"]').length
+      ).toBeGreaterThan(0);
   });
 
   it('calls getFieldProps for each form field', () => {
@@ -190,7 +195,9 @@ describe('ContactForm', () => {
       expect(submitBtn).toBeDisabled();
     } else {
       // Component rendered without crashing
-      expect(document.querySelectorAll('form, [role="form"]').length).toBeGreaterThan(0);
+      expect(
+        document.querySelectorAll('form, [role="form"]').length
+      ).toBeGreaterThan(0);
     }
   });
 
@@ -205,7 +212,9 @@ describe('ContactForm', () => {
     } else if (submitBtn) {
       expect(submitBtn).toBeDisabled();
     } else {
-      expect(document.querySelectorAll('form, [role="form"]').length).toBeGreaterThan(0);
+      expect(
+        document.querySelectorAll('form, [role="form"]').length
+      ).toBeGreaterThan(0);
     }
   });
 
@@ -220,7 +229,9 @@ describe('ContactForm', () => {
     });
 
     renderForm();
-    expect(document.querySelectorAll('form, [role="form"]').length).toBeGreaterThan(0);
+    expect(
+      document.querySelectorAll('form, [role="form"]').length
+    ).toBeGreaterThan(0);
   });
 
   it('renders with touch device mode when isTouchDevice is true', () => {
@@ -247,7 +258,10 @@ describe('ContactForm', () => {
   it('renders correct field IDs for accessibility', () => {
     renderForm();
     expect(screen.getByLabelText(/full name/i)).toHaveAttribute('id', 'name');
-    expect(screen.getByLabelText(/email address/i)).toHaveAttribute('id', 'email');
+    expect(screen.getByLabelText(/email address/i)).toHaveAttribute(
+      'id',
+      'email'
+    );
     expect(screen.getByLabelText(/subject/i)).toHaveAttribute('id', 'subject');
     expect(screen.getByLabelText(/message/i)).toHaveAttribute('id', 'message');
   });

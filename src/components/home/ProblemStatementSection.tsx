@@ -13,7 +13,8 @@ export const ProblemStatementSection = () => {
     },
     {
       title: 'Poor Connectivity',
-      description: 'Inconsistent and weak networks limit access to gaming platforms across the continent',
+      description:
+        'Inconsistent and weak networks limit access to gaming platforms across the continent',
       icon: '📶',
       color: 'from-blue-500 to-blue-600',
     },
@@ -26,13 +27,15 @@ export const ProblemStatementSection = () => {
     },
     {
       title: 'Weak Gaming Infrastructure',
-      description: 'Limited local servers, tournament systems, and community platforms restrict growth',
+      description:
+        'Limited local servers, tournament systems, and community platforms restrict growth',
       icon: '🎮',
       color: 'from-green-500 to-green-600',
     },
     {
       title: 'Limited Digital Inclusion',
-      description: 'Talented players and developers lack pathways into the gaming economy',
+      description:
+        'Talented players and developers lack pathways into the gaming economy',
       icon: '🌐',
       color: 'from-yellow-500 to-yellow-600',
     },

@@ -88,7 +88,9 @@ describe('Footer', () => {
     expect(phone).toBeInTheDocument();
     expect(phone.closest('a')).toHaveAttribute('href', 'tel:+234 9167667376');
 
-    const address = screen.getByText(/Mulungushi International Conference Center/i);
+    const address = screen.getByText(
+      /Mulungushi International Conference Center/i
+    );
     expect(address).toBeInTheDocument();
   });
 
@@ -158,9 +160,18 @@ describe('Footer', () => {
 
     const socialLinksData = [
       { label: 'Facebook', href: 'https://www.facebook.com/share/1AaY2WVCUc/' },
-      { label: 'Follow us on LinkedIn', href: 'https://www.linkedin.com/company/africacmglobal/' },
-      { label: 'Follow us on Instagram', href: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==' },
-      { label: 'Follow us on Twitter', href: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09' },
+      {
+        label: 'Follow us on LinkedIn',
+        href: 'https://www.linkedin.com/company/africacmglobal/',
+      },
+      {
+        label: 'Follow us on Instagram',
+        href: 'https://www.instagram.com/africacreativemarketglobal?igsh=MTd6c29oOHJyYjRrcQ==',
+      },
+      {
+        label: 'Follow us on Twitter',
+        href: 'https://x.com/africacmglobal?t=vTOk0X1V7BXUchthxRbZpw&s=09',
+      },
       { label: 'Contact us on WhatsApp', href: '#' },
     ];
 

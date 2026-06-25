@@ -22,7 +22,7 @@ const AppRouter = () => {
   // Set document title and meta tags based on current route
   useDocumentTitle();
   useDocumentMeta();
-  
+
   // Enable smooth scroll to top on route changes
   useSimpleScrollToTop();
 

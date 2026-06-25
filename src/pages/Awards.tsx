@@ -258,7 +258,8 @@ const Awards = () => {
                 </div>
                 <p className="text-gray-600 mb-4">{grandPrize.description}</p>
                 <p className="text-sm text-gray-500">
-                  Plus 3-Month Mentorship, Investor Introductions, and an Official Presentation to the Ministry of Youth, Sport and Arts
+                  Plus 3-Month Mentorship, Investor Introductions, and an
+                  Official Presentation to the Ministry of Youth, Sport and Arts
                 </p>
               </motion.div>
             </ScrollAnimation>
@@ -450,8 +451,8 @@ const Awards = () => {
                 Ready to Compete for These Prizes?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Join the ACM Hackathon 2026 and compete for $5,000 in grand prizes
-                and valuable incubation opportunities.
+                Join the ACM Hackathon 2026 and compete for $5,000 in grand
+                prizes and valuable incubation opportunities.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

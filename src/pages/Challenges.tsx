@@ -116,10 +116,10 @@ const ProblemStatement = () => {
   // Create a mapping of categories to problem titles
   const categoryToProblems = {
     'Data Costs': ['Expensive Data'],
-    'Connectivity': ['Poor Connectivity'],
-    'Latency': ['High Latency'],
-    'Infrastructure': ['Weak Gaming Infrastructure'],
-    'Inclusion': ['Limited Digital Inclusion'],
+    Connectivity: ['Poor Connectivity'],
+    Latency: ['High Latency'],
+    Infrastructure: ['Weak Gaming Infrastructure'],
+    Inclusion: ['Limited Digital Inclusion'],
   };
 
   const handleProblemToggle = (problemTitle: string) => {
@@ -468,7 +468,8 @@ const ProblemStatement = () => {
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
                 Choose the problems you want to address and start building
-                solutions that will shape the future of low-bandwidth esports and connectivity in Africa.
+                solutions that will shape the future of low-bandwidth esports
+                and connectivity in Africa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

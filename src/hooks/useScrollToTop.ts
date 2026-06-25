@@ -74,9 +74,12 @@ export const useScrollToTop = (options: UseScrollToTopOptions = {}) => {
       }
 
       // Call onAfterScroll after a brief delay to ensure scroll is complete
-      setTimeout(() => {
-        onAfterScroll?.(location.pathname);
-      }, behavior === 'smooth' ? 300 : 0);
+      setTimeout(
+        () => {
+          onAfterScroll?.(location.pathname);
+        },
+        behavior === 'smooth' ? 300 : 0
+      );
     };
 
     if (delay > 0) {
@@ -99,7 +102,7 @@ export const useScrollToTop = (options: UseScrollToTopOptions = {}) => {
   // Manual scroll to top function
   const scrollToTop = (customOptions?: Partial<UseScrollToTopOptions>) => {
     const finalOptions = { ...options, ...customOptions };
-    
+
     finalOptions.onBeforeScroll?.(location.pathname);
 
     if (finalOptions.smooth !== false) {
@@ -112,9 +115,12 @@ export const useScrollToTop = (options: UseScrollToTopOptions = {}) => {
       window.scrollTo(0, 0);
     }
 
-    setTimeout(() => {
-      finalOptions.onAfterScroll?.(location.pathname);
-    }, finalOptions.behavior === 'smooth' ? 300 : 0);
+    setTimeout(
+      () => {
+        finalOptions.onAfterScroll?.(location.pathname);
+      },
+      finalOptions.behavior === 'smooth' ? 300 : 0
+    );
   };
 
   return { scrollToTop };

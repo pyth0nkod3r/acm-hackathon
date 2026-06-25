@@ -22,16 +22,16 @@ if (typeof AbortSignal !== 'undefined') {
   const MockAbortSignal = function (this: any, ...args: any[]) {
     return Reflect.construct(OriginalAbortSignal, args, MockAbortSignal);
   } as any;
-  
+
   Object.setPrototypeOf(MockAbortSignal, OriginalAbortSignal);
   MockAbortSignal.prototype = OriginalAbortSignal.prototype;
-  
+
   MockAbortSignal.timeout = vi.fn().mockImplementation((timeout: number) => {
     const controller = new AbortController();
     setTimeout(() => controller.abort(), timeout);
     return controller.signal;
   });
-  
+
   Object.defineProperty(global, 'AbortSignal', {
     value: MockAbortSignal,
     writable: true,

@@ -446,10 +446,10 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
         6.1 Seed Fund, Not Personal Reward
       </h5>
       <p className="mb-3 text-sm">
-        The $5,000 Grand Prize allocated to the winning team is provided as
-        seed capital to support the growth and development of the
-        project/platform presented at the Hackathon. It must not be divided
-        among team members as personal reward.
+        The $5,000 Grand Prize allocated to the winning team is provided as seed
+        capital to support the growth and development of the project/platform
+        presented at the Hackathon. It must not be divided among team members as
+        personal reward.
       </p>
 
       <h5 className="font-bold text-sm text-gray-800 mt-4 mb-2">

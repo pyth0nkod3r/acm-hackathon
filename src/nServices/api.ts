@@ -8,7 +8,9 @@ import type { ApiResponse } from './apiType';
 
 const USERNAME = import.meta.env.VITE_API_USERNAME || 'admin';
 const PASSWORD = import.meta.env.VITE_API_PASSWORD || 'secret';
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.africacreativemarketglobal.com';
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://api.africacreativemarketglobal.com';
 const TIMEOUT = 10000; // 10 seconds timeout
 
 // Create public axios instance

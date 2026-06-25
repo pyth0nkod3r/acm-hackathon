@@ -10,8 +10,6 @@ import { APIService } from '../api';
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-
-
 // Mock API configuration
 vi.mock('../../config/api', () => ({
   apiConfig: {
@@ -159,9 +157,7 @@ describe('APIService', () => {
     });
 
     it('handles timeout errors', async () => {
-      mockFetch.mockRejectedValue(
-        new DOMException('Timeout', 'TimeoutError')
-      );
+      mockFetch.mockRejectedValue(new DOMException('Timeout', 'TimeoutError'));
 
       const resultPromise = apiService.testGet('/timeout');
       await vi.runAllTimersAsync();

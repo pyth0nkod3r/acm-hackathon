@@ -28,7 +28,10 @@ export {
   useColorScheme,
 } from './useAccessibility';
 export { useScrollToTop, useSimpleScrollToTop } from './useScrollToTop';
-export { useAdvancedScrollToTop, useScrollToSection } from './useAdvancedScrollToTop';
+export {
+  useAdvancedScrollToTop,
+  useScrollToSection,
+} from './useAdvancedScrollToTop';
 
 export type {
   UsePageTransitionOptions,

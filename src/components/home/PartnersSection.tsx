@@ -4,7 +4,15 @@ import { ArrowRight } from 'lucide-react';
 import { Container } from '../layout';
 import { ScrollAnimation } from '../animations';
 import { Button, OptimizedImage } from '../ui';
-import { acmLogo, asfLogo, awsLogo, CcHUBLogo, ministryLogo, nacLogo, nationalSportLogo } from '@/assets/img/partners';
+import {
+  acmLogo,
+  asfLogo,
+  awsLogo,
+  CcHUBLogo,
+  ministryLogo,
+  nacLogo,
+  nationalSportLogo,
+} from '@/assets/img/partners';
 import { cn } from '@/lib/utils';
 
 export const PartnersSection = () => {
@@ -108,10 +116,12 @@ export const PartnersSection = () => {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
                 >
-                  <div className={cn(
-                    "aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300",
-                    partner.darkBg ? "bg-gray-950 p-4" : "bg-gray-50/50 p-2"
-                  )}>
+                  <div
+                    className={cn(
+                      'aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300',
+                      partner.darkBg ? 'bg-gray-950 p-4' : 'bg-gray-50/50 p-2'
+                    )}
+                  >
                     <OptimizedImage
                       src={partner.logo}
                       alt={`${partner.name} logo`}
@@ -150,10 +160,12 @@ export const PartnersSection = () => {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group h-full flex flex-col"
                 >
-                  <div className={cn(
-                    "aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300",
-                    partner.darkBg ? "bg-gray-950 p-4" : "bg-gray-50/50 p-2"
-                  )}>
+                  <div
+                    className={cn(
+                      'aspect-square flex items-center justify-center mb-4 flex-shrink-0 w-full rounded-lg transition-colors duration-300',
+                      partner.darkBg ? 'bg-gray-950 p-4' : 'bg-gray-50/50 p-2'
+                    )}
+                  >
                     <OptimizedImage
                       src={partner.logo}
                       alt={`${partner.name} logo`}

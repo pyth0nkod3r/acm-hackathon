@@ -12,8 +12,7 @@ import type { ContactFormData, RegistrationFormData } from '../lib/validations';
 import type { APIResponse, FormSubmissionResponse } from '../types/api';
 
 // Environment configuration
-const useMockAPI =
-  import.meta.env.VITE_USE_MOCK_API === 'true';
+const useMockAPI = import.meta.env.VITE_USE_MOCK_API === 'true';
 
 /**
  * Form submission service interface

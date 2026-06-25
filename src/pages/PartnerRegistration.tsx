@@ -47,7 +47,7 @@ const PartnerRegistration = () => {
       ...prev,
       [name]: value,
     }));
-    
+
     // Clear field error when user starts typing
     if (fieldErrors[name]) {
       setFieldErrors(prev => ({ ...prev, [name]: '' }));
@@ -88,50 +88,61 @@ const PartnerRegistration = () => {
             errors[field] = message as string;
           });
           setFieldErrors(errors);
-          
+
           setSubmitResult({
             success: false,
             message: 'Please fix the errors below and try again.',
           });
-          
+
           // Scroll to first error
           setTimeout(() => {
             const firstErrorElement = document.querySelector('.border-red-500');
             if (firstErrorElement) {
-              firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              firstErrorElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              });
             }
           }, 100);
-          
+
           return;
-        } else if (response.status === 500 && resJson.details?.includes('Duplicate entry')) {
+        } else if (
+          response.status === 500 &&
+          resJson.details?.includes('Duplicate entry')
+        ) {
           // Handle duplicate email error
           const emailMatch = resJson.details.match(/'([^']+)'/);
           const duplicateEmail = emailMatch ? emailMatch[1] : 'this email';
-          
+
           setFieldErrors({
-            emailAddress: `The email address ${duplicateEmail} is already registered. Please use a different email address.`
+            emailAddress: `The email address ${duplicateEmail} is already registered. Please use a different email address.`,
           });
-          
+
           setSubmitResult({
             success: false,
-            message: 'This email address is already registered. Please use a different email address.',
+            message:
+              'This email address is already registered. Please use a different email address.',
           });
-          
+
           // Focus on email field
           setTimeout(() => {
             const emailField = document.getElementById('emailAddress');
             if (emailField) {
               emailField.focus();
-              emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              emailField.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              });
             }
           }, 100);
-          
+
           return;
         } else if (response.status === 500) {
           // Generic server error
           setSubmitResult({
             success: false,
-            message: 'A server error occurred. Please try again in a few minutes. If the problem persists, please contact support.',
+            message:
+              'A server error occurred. Please try again in a few minutes. If the problem persists, please contact support.',
           });
           return;
         } else {
@@ -178,12 +189,13 @@ const PartnerRegistration = () => {
       setTimeout(() => setSubmitResult({}), 8000);
     } catch (err) {
       console.error('Network or unexpected error:', err);
-      
+
       // Handle network errors
       if (err instanceof TypeError && err.message.includes('fetch')) {
         setSubmitResult({
           success: false,
-          message: 'Network error. Please check your internet connection and try again.',
+          message:
+            'Network error. Please check your internet connection and try again.',
         });
       } else {
         setSubmitResult({
@@ -194,7 +206,7 @@ const PartnerRegistration = () => {
 
       // Clear the error message after 8 seconds
       setTimeout(() => setSubmitResult({}), 8000);
-     } finally {
+    } finally {
       setIsSubmitting(false);
     }
   };

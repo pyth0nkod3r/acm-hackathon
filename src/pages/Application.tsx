@@ -18,7 +18,8 @@ const Application = () => {
 
   useEffect(() => {
     // Get pre-selected challenges from URL parameters (support both params for backward compatibility)
-    const rawParam = searchParams.get('challenges') || searchParams.get('problems');
+    const rawParam =
+      searchParams.get('challenges') || searchParams.get('problems');
     if (rawParam) {
       const items = rawParam.split(',').filter(Boolean);
       // Map 2026 problems to form challenge areas
@@ -44,7 +45,9 @@ const Application = () => {
   }, [searchParams]);
 
   // Transform old form data to new email format
-  const transformToEmailFormat = (data: RegistrationFormData): HackathonForm => {
+  const transformToEmailFormat = (
+    data: RegistrationFormData
+  ): HackathonForm => {
     return {
       teamName: data.teamName,
       teamSize: data.teamSize.toString(),
@@ -162,7 +165,8 @@ const Application = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl mb-6 font-semibold text-center bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
             >
-              "Connected Play: Hacking Africa’s Future Through Low-Bandwidth Esports Infrastructure"
+              "Connected Play: Hacking Africa’s Future Through Low-Bandwidth
+              Esports Infrastructure"
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -187,8 +191,8 @@ const Application = () => {
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: $5,000 USD + AWS Tech Support + Mentorship + Investment
-                    Opportunities
+                    Prize: $5,000 USD + AWS Tech Support + Mentorship +
+                    Investment Opportunities
                   </p>
                 </div>
 
@@ -277,7 +281,9 @@ const Application = () => {
                   <li>• Technical or creative background preferred</li>
                   <li>• Team size: 3-5 members</li>
                   <li>• Commitment to full event participation</li>
-                  <li>• Interest in low-bandwidth gaming & esports infrastructure</li>
+                  <li>
+                    • Interest in low-bandwidth gaming & esports infrastructure
+                  </li>
                 </ul>
               </div>
 

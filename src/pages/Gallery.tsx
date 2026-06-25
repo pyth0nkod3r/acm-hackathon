@@ -6,7 +6,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Filter,
   Grid3X3,
   List,
   Camera,
@@ -35,7 +34,7 @@ interface GalleryImage {
 interface Category {
   id: string;
   name: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   count: number;
 }
 

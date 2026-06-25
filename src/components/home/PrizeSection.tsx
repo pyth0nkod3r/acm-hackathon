@@ -26,22 +26,26 @@ export const PrizeSection = () => {
   const postHackathonSupport = [
     {
       title: '3-Month Mentorship',
-      description: 'Ongoing guidance from industry experts in gaming, connectivity, and esports',
+      description:
+        'Ongoing guidance from industry experts in gaming, connectivity, and esports',
       icon: '🧠',
     },
     {
       title: 'Investor Introductions',
-      description: 'Connect with potential investors and partners in the gaming ecosystem',
+      description:
+        'Connect with potential investors and partners in the gaming ecosystem',
       icon: '💼',
     },
     {
       title: 'Official Ministry Presentation',
-      description: 'Present your solution to the Ministry of Youth, Sport and Arts, Zambia',
+      description:
+        'Present your solution to the Ministry of Youth, Sport and Arts, Zambia',
       icon: '🏛️',
     },
     {
       title: 'AWS Tech Support',
-      description: 'Technical support for scaling connectivity/infrastructure solutions',
+      description:
+        'Technical support for scaling connectivity/infrastructure solutions',
       icon: '☁️',
     },
     {
@@ -88,7 +92,8 @@ export const PrizeSection = () => {
                 {grandPrize.amount}
               </div>
               <p className="text-gray-600">
-                Plus 3-Month Mentorship, Investor Introductions, and an Official Presentation to the Ministry of Youth, Sport and Arts
+                Plus 3-Month Mentorship, Investor Introductions, and an Official
+                Presentation to the Ministry of Youth, Sport and Arts
               </p>
             </motion.div>
           </ScrollAnimation>

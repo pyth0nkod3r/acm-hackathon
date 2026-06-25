@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useResponsive } from '../../hooks/useResponsive';
 import { cn } from '../../lib/utils';
 
@@ -38,19 +37,15 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   tabletSrc,
   desktopSrc,
   sizes,
-  priority = false,
   loading = 'eager',
   onLoad,
   onError,
   aspectRatio = 'auto',
   objectFit = 'cover',
-  placeholder = 'empty',
-  blurDataURL,
   width,
   height,
 }) => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   // Helper function to normalize image source
@@ -112,7 +107,6 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   };
 
   const handleLoad = () => {
-    setIsLoaded(true);
     onLoad?.();
   };
 
@@ -168,10 +162,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
           onError={handleError}
           width={width}
           height={height}
-          className={cn(
-            'w-full h-full',
-            objectFitClasses[objectFit]
-          )}
+          className={cn('w-full h-full', objectFitClasses[objectFit])}
         />
       </picture>
     </div>

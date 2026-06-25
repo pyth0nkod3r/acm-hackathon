@@ -11,7 +11,6 @@ import {
   Target,
   Lightbulb,
   Code,
-  Presentation,
   Heart,
   ChevronLeft,
   ChevronRight,
@@ -46,7 +45,7 @@ interface Highlight {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   stats: string;
   color: string;
 }

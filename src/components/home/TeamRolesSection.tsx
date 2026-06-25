@@ -7,32 +7,62 @@ export const TeamRolesSection = () => {
     {
       role: 'Software Developer/Engineer',
       emoji: '👨‍💻',
-      description: 'Build the technical foundation, low-bandwidth APIs, and secure real-time protocols.',
-      skills: ['Low-bandwidth APIs', 'Offline storage', 'Performance optimization', 'Real-time protocols'],
+      description:
+        'Build the technical foundation, low-bandwidth APIs, and secure real-time protocols.',
+      skills: [
+        'Low-bandwidth APIs',
+        'Offline storage',
+        'Performance optimization',
+        'Real-time protocols',
+      ],
     },
     {
       role: 'UI/UX Designer',
       emoji: '🎨',
-      description: 'Create intuitive, lightweight, and data-saving user experiences optimized for gamers.',
-      skills: ['Responsive interfaces', 'Data-saving patterns', 'Gaming dashboard layout', 'User research'],
+      description:
+        'Create intuitive, lightweight, and data-saving user experiences optimized for gamers.',
+      skills: [
+        'Responsive interfaces',
+        'Data-saving patterns',
+        'Gaming dashboard layout',
+        'User research',
+      ],
     },
     {
       role: 'Gaming/Esports Strategist',
       emoji: '🎮',
-      description: 'Design tournament structures, game mechanics, monetization paths, and player engagement loops.',
-      skills: ['Tournament formats', 'Esports ecosystem dev', 'Gaming monetization', 'Player engagement'],
+      description:
+        'Design tournament structures, game mechanics, monetization paths, and player engagement loops.',
+      skills: [
+        'Tournament formats',
+        'Esports ecosystem dev',
+        'Gaming monetization',
+        'Player engagement',
+      ],
     },
     {
       role: 'Business & Product Strategist',
       emoji: '📈',
-      description: 'Determine product market-readiness, entry tactics, partnership options, and scaling models.',
-      skills: ['Business modeling', 'Market entry strategies', 'Partnership development', 'Scaling models'],
+      description:
+        'Determine product market-readiness, entry tactics, partnership options, and scaling models.',
+      skills: [
+        'Business modeling',
+        'Market entry strategies',
+        'Partnership development',
+        'Scaling models',
+      ],
     },
     {
       role: 'AI/Data/Infrastructure Specialist',
       emoji: '🖥️',
-      description: 'Design matchmaking systems, manage network latency issues, and perform data analytics.',
-      skills: ['Predictive analytics', 'Network latency modeling', 'Matchmaking algorithms', 'Infrastructure optimization'],
+      description:
+        'Design matchmaking systems, manage network latency issues, and perform data analytics.',
+      skills: [
+        'Predictive analytics',
+        'Network latency modeling',
+        'Matchmaking algorithms',
+        'Infrastructure optimization',
+      ],
     },
   ];
 
@@ -45,7 +75,9 @@ export const TeamRolesSection = () => {
               Who is Participating?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Gathering <strong>75+ young African innovators</strong> (age range 20–35) across 5 core roles to collaborate and build high-impact solutions.
+              Gathering <strong>75+ young African innovators</strong> (age range
+              20–35) across 5 core roles to collaborate and build high-impact
+              solutions.
             </p>
           </div>
         </ScrollAnimation>

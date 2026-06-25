@@ -57,7 +57,7 @@ const ScrollToTopButton = ({
 
   const handleClick = () => {
     onClick?.();
-    
+
     window.scrollTo({
       top: 0,
       left: 0,

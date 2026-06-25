@@ -13,7 +13,12 @@ export const AboutSection = () => {
               </span>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  A 6-day innovation challenge dedicated to solving Africa's connectivity and esports infrastructure challenges. This exciting event brings together developers, designers, gaming strategists, business minds and industry leaders to create market-ready solutions that can evolve into sustainable startups.
+                  A 4-day innovation challenge dedicated to solving Africa's
+                  connectivity and esports infrastructure challenges. This
+                  exciting event brings together developers, designers, gaming
+                  strategists, business minds and industry leaders to create
+                  market-ready solutions that can evolve into sustainable
+                  startups.
                 </p>
               </div>
             </div>
@@ -25,7 +30,11 @@ export const AboutSection = () => {
               {[
                 { stat: '4 Days', label: 'of innovation', icon: '📅' },
                 { stat: '$5,000', label: 'Prize', icon: '🏆' },
-                { stat: 'Top Partners', label: 'ACM, AWS, Ministry of Youth, Sport & Arts, CIBSZ', icon: '🤝' },
+                {
+                  stat: 'Top Partners',
+                  label: 'ACM, AWS, Ministry of Youth, Sport & Arts, CIBSZ',
+                  icon: '🤝',
+                },
                 { stat: 'Tech + Gamers', label: 'united', icon: '💡' },
               ].map((item, index) => (
                 <div
@@ -84,7 +93,9 @@ export const AboutSection = () => {
                   Our Vision
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Catalyze Africa-led innovation for inclusive, low-bandwidth gaming and esports infrastructure that connects players, creators, and communities across the continent and beyond.
+                  Catalyze Africa-led innovation for inclusive, low-bandwidth
+                  gaming and esports infrastructure that connects players,
+                  creators, and communities across the continent and beyond.
                 </p>
                 <div className="bg-gradient-to-r from-[#a8b82a]/20 to-[#4a5f8a]/20 p-6 rounded-xl">
                   <h4 className="font-semibold text-gray-900 mb-2">
