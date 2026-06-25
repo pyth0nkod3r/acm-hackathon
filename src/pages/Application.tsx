@@ -191,7 +191,7 @@ const Application = () => {
 
                 <div className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-xl p-4 border border-yellow-400/30">
                   <p className="text-2xl font-bold text-white-400 mb-2">
-                    Prize: $5,000 USD + AWS Tech Support + Mentorship +
+                    Prize: $5,000 USD + Cloud & Tech Support + Mentorship +
                     Investment Opportunities
                   </p>
                 </div>
@@ -205,9 +205,6 @@ const Application = () => {
                   </span>
                   <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
                     CIBSZ
-                  </span>
-                  <span className="px-3 py-1 bg-white/10 rounded-full border border-white/20">
-                    AWS
                   </span>
                 </div>
               </div>

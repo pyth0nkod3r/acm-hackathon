@@ -36,7 +36,7 @@ const FAQ = () => {
     {
       question: 'What resources are offered?',
       answer:
-        'Participants will have access to mentors and industry experts, high-speed WiFi and tech support powered by AWS. Breakfast and lunch will also be provided daily.',
+        'Participants will have access to mentors and industry experts, high-speed WiFi and technical support. Breakfast and lunch will also be provided daily.',
     },
     {
       question: 'How can I get involved?',

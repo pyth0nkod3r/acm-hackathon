@@ -75,10 +75,9 @@ const Terms = () => {
                 These Terms and Conditions ("Terms") govern participation in the
                 ACM Hackathon 2026 ("Hackathon"), as organized by the Africa
                 Creative Market (ACM) Hackathon team in collaboration with the
-                Ministry of Youth, Sport & Arts (Zambia), CIBSZ and Amazon Web
-                Services (AWS). By submitting an application to participate in
-                the Hackathon (the "Application"), you ("Participant") agree to
-                abide by these Terms in full.
+                Ministry of Youth, Sport & Arts (Zambia) and CIBSZ. By submitting
+                an application to participate in the Hackathon (the "Application"),
+                you ("Participant") agree to abide by these Terms in full.
               </p>
               <p className="mb-6">
                 The Hackathon will take place from June 29 – July 2, 2026, with

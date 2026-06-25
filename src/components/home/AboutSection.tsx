@@ -32,7 +32,7 @@ export const AboutSection = () => {
                 { stat: '$5,000', label: 'Prize', icon: '🏆' },
                 {
                   stat: 'Top Partners',
-                  label: 'ACM, AWS, Ministry of Youth, Sport & Arts, CIBSZ',
+                  label: 'ACM, Ministry of Youth, Sport & Arts, CIBSZ',
                   icon: '🤝',
                 },
                 { stat: 'Tech + Gamers', label: 'united', icon: '💡' },

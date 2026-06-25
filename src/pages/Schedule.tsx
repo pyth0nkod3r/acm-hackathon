@@ -54,8 +54,8 @@ const Schedule = () => {
           },
           {
             timeSlot: '9:20 AM - 9:30 AM',
-            session: 'Keynote Speech - AWS Representative',
-            details: 'Keynote address from Amazon Web Services representative',
+            session: 'Keynote Speech - ACM Representative',
+            details: 'Keynote address from Africa Creative Market representative',
           },
           {
             timeSlot: '9:30 AM - 9:40 AM',

@@ -19,7 +19,7 @@ export const PrizeSection = () => {
     'Investor Introductions & Funding Connections',
     'Official Presentation to the Ministry of Youth, Sport and Arts',
     'ACM Platform Exposure & Marketing Support',
-    'AWS Tech Support',
+    'Cloud Hosting & Infrastructure Support',
     'Legal & IP Guidance for Startups',
   ];
 
@@ -43,9 +43,9 @@ export const PrizeSection = () => {
       icon: '🏛️',
     },
     {
-      title: 'AWS Tech Support',
+      title: 'Cloud & Infrastructure Support',
       description:
-        'Technical support for scaling connectivity/infrastructure solutions',
+        'Technical support and infrastructure resources for scaling connectivity solutions',
       icon: '☁️',
     },
     {

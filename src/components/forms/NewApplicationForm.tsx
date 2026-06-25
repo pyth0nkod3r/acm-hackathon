@@ -353,10 +353,9 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({
       <p className="mb-3 text-sm">
         These Terms and Conditions ("Terms") govern participation in the ACM
         Hackathon 2026 ("Hackathon"), as organized by the Africa Creative Market
-        (ACM) Hackathon team in collaboration with Ascend Studios Foundation and
-        Amazon Web Services (AWS). By submitting an application to participate
-        in the Hackathon (the "Application"), you ("Participant") agree to abide
-        by these Terms in full.
+        (ACM) Hackathon team in collaboration with Ascend Studios Foundation.
+        By submitting an application to participate in the Hackathon (the
+        "Application"), you ("Participant") agree to abide by these Terms in full.
       </p>
       <p className="mb-4 text-sm">
         The Hackathon will take place from June 29 – July 2, 2026, with the
